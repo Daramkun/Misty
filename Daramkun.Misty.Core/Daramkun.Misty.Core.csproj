@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{43BE1669-E2AF-4C50-8209-C1F6298D12CA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Daramkun.Misty</RootNamespace>
+    <AssemblyName>Daramkun.Misty.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile158</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <Folder Include="Contents\Encoders\Packages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audios\IAudioBuffer.cs" />
+    <Compile Include="Audios\IAudioDevice.cs" />
+    <Compile Include="Common\Checksums\Adler32.cs" />
+    <Compile Include="Common\Checksums\CRC32.cs" />
+    <Compile Include="Common\Checksums\IChecksum.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csogg\Buffer.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csogg\Packet.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csogg\Page.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csogg\StreamState.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csogg\SyncState.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\AllocChain.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Block.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\CodeBook.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Comment.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\csorbisException.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Drft.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\DspState.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\EncodeAuxNearestMatch.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\EncodeAuxThreshMatch.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Floor0.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Floor1.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\FuncFloor.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\FuncMapping.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\FuncResidue.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\FuncTime.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Info.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\InfoMode.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Lookup.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Lpc.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Lsp.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Mapping0.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Mdct.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\PsyInfo.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\PsyLook.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Residue0.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Residue1.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Residue2.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\StaticCodeBook.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\Time0.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\csvorbis\VorbisFile.cs" />
+    <Compile Include="Common\ExternLib\CsVorbis\OggDecodeStream.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkCopyBehaviour.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkHelper.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkLoadBehaviour.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkPredicate.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkPredicateEquiv.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkPredicateId.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkPredicateId2.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunkRaw.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunksList.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\ChunksListForWrite.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunk.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkBKGD.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkCHRM.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkGAMA.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkHIST.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkICCP.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkIDAT.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkIEND.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkIHDR.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkITXT.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkMultiple.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkOFFS.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkPHYS.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkPLTE.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkSBIT.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkSingle.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkSkipped.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkSPLT.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkSRGB.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkSTER.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkTEXT.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkTextVar.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkTIME.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkTRNS.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkUNKNOWN.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngChunkZTXT.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Chunks\PngMetadata.cs" />
+    <Compile Include="Common\ExternLib\PngCs\FilterType.cs" />
+    <Compile Include="Common\ExternLib\PngCs\FilterWriteStrategy.cs" />
+    <Compile Include="Common\ExternLib\PngCs\ImageInfo.cs" />
+    <Compile Include="Common\ExternLib\PngCs\ImageLine.cs" />
+    <Compile Include="Common\ExternLib\PngCs\ImageLineHelper.cs" />
+    <Compile Include="Common\ExternLib\PngCs\ImageLines.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngCsUtils.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngDeinterlacer.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngHelperInternal.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngIDatChunkInputStream.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngIDatChunkOutputStream.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngjBadCrcException.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngjException.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngjExceptionInternal.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngjInputException.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngjOutputException.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngjUnsupportedException.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngReader.cs" />
+    <Compile Include="Common\ExternLib\PngCs\PngWriter.cs" />
+    <Compile Include="Common\ExternLib\PngCs\ProgressiveOutputStream.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\Adler32.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\AZlibInputStream.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\AZlibOutputStream.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\CRC32.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\DeflateCompressLevel.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\EDeflateCompressStrategy.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\ZlibInputStreamMs.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\ZlibOutputStreamMs.cs" />
+    <Compile Include="Common\ExternLib\PngCs\Zlib\ZlibStreamFactory.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\BakedChar.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\BakedCharCollection.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\BakedQuad.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\ContourPoint.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\FakePtr.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\FontBitmap.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\GlyphVertex.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\GlyphVertexType.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\stb_truetype.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\TrueTypeFont.Codepoints.cs" />
+    <Compile Include="Common\ExternLib\TrueTypeSharp\TrueTypeFont.cs" />
+    <Compile Include="Common\FileFormatAttribute.cs" />
+    <Compile Include="Common\Json\IJsonArray.cs" />
+    <Compile Include="Common\Json\IJsonEntry.cs" />
+    <Compile Include="Common\Json\JsonArray.cs" />
+    <Compile Include="Common\Json\JsonEntry.cs" />
+    <Compile Include="Common\Json\JsonItemAttribute.cs" />
+    <Compile Include="Common\Json\JsonParser.cs" />
+    <Compile Include="Common\Json\JsonProvider.cs" />
+    <Compile Include="Common\SpinLock.cs" />
+    <Compile Include="Common\StandardDispose.cs" />
+    <Compile Include="Common\Timer.cs" />
+    <Compile Include="Common\Utilities.cs" />
+    <Compile Include="Contents\AudioInfo.cs" />
+    <Compile Include="Contents\Decoders\Audios\OggVorbisDecoder.cs" />
+    <Compile Include="Contents\Decoders\Audios\WaveDecoder.cs" />
+    <Compile Include="Contents\Decoders\IDecoder.cs" />
+    <Compile Include="Contents\Decoders\Images\BitmapDecoder.cs" />
+    <Compile Include="Contents\Decoders\Images\PngDecoder.cs" />
+    <Compile Include="Contents\Decoders\Packages\WalnutPackageDecoder.cs" />
+    <Compile Include="Contents\Encoders\Audios\WaveEncoder.cs" />
+    <Compile Include="Contents\Encoders\IEncoder.cs" />
+    <Compile Include="Contents\Encoders\Images\PngEncoder.cs" />
+    <Compile Include="Contents\FileSystems\FileSystemManager.cs" />
+    <Compile Include="Contents\FileSystems\ManifestFileSystem.cs" />
+    <Compile Include="Contents\FileSystems\ZipFileSystem.cs" />
+    <Compile Include="Contents\IContentLoader.cs" />
+    <Compile Include="Contents\IFileSystem.cs" />
+    <Compile Include="Contents\ImageInfo.cs" />
+    <Compile Include="Contents\Loaders\AudioContentLoader.cs" />
+    <Compile Include="Contents\Loaders\EffectContentLoader.cs" />
+    <Compile Include="Contents\Loaders\JsonContentLoader.cs" />
+    <Compile Include="Contents\Loaders\LsfFontContentLoader.cs" />
+    <Compile Include="Contents\Loaders\StringTableContentLoader.cs" />
+    <Compile Include="Contents\Loaders\Texture2DContentLoader.cs" />
+    <Compile Include="Contents\Loaders\TrueTypeFontContentLoader.cs" />
+    <Compile Include="Contents\Loaders\WalnutPackageContentLoader.cs" />
+    <Compile Include="Contents\Loaders\ZipContentLoader.cs" />
+    <Compile Include="Contents\PackageInfo.cs" />
+    <Compile Include="Contents\Tables\ITable.cs" />
+    <Compile Include="Contents\Tables\ResourceTable.cs" />
+    <Compile Include="Contents\Tables\StringTable.cs" />
+    <Compile Include="Contents\Tables\VariableTable.cs" />
+    <Compile Include="Core.cs" />
+    <Compile Include="Graphics\IEffect.cs" />
+    <Compile Include="Graphics\IIndexBuffer.cs" />
+    <Compile Include="Graphics\IShader.cs" />
+    <Compile Include="Graphics\IVertexBuffer.cs" />
+    <Compile Include="Graphics\IVertexDeclaration.cs" />
+    <Compile Include="Graphics\BlendOperation.cs" />
+    <Compile Include="Graphics\Color.cs" />
+    <Compile Include="Graphics\IGraphicsDevice.cs" />
+    <Compile Include="Graphics\IRenderBuffer.cs" />
+    <Compile Include="Graphics\ITexture2D.cs" />
+    <Compile Include="Graphics\ScreenResolution.cs" />
+    <Compile Include="Graphics\Spirit\Font.cs" />
+    <Compile Include="Graphics\Spirit\Fonts\LsfFont.cs" />
+    <Compile Include="Graphics\Spirit\Fonts\TrueTypeFont.cs" />
+    <Compile Include="Graphics\Spirit\Sprite.cs" />
+    <Compile Include="Graphics\Spirit\SpriteEffect.cs" />
+    <Compile Include="Graphics\StencilOperation.cs" />
+    <Compile Include="Graphics\Viewport.cs" />
+    <Compile Include="Inputs\Devices\BaseAccelerometer.cs" />
+    <Compile Include="Inputs\Devices\BaseGamePad.cs" />
+    <Compile Include="Inputs\Devices\BaseKeyboard.cs" />
+    <Compile Include="Inputs\Devices\BaseMouse.cs" />
+    <Compile Include="Inputs\Devices\BaseTouchPanel.cs" />
+    <Compile Include="Inputs\GamePadButton.cs" />
+    <Compile Include="Inputs\InputCollection.cs" />
+    <Compile Include="Inputs\Key.cs" />
+    <Compile Include="Inputs\MouseButton.cs" />
+    <Compile Include="Inputs\PointerMode.cs" />
+    <Compile Include="Inputs\States\AccelerometerState.cs" />
+    <Compile Include="Inputs\States\GamePadState.cs" />
+    <Compile Include="Inputs\States\KeyboardState.cs" />
+    <Compile Include="Inputs\States\MouseState.cs" />
+    <Compile Include="Inputs\States\TouchState.cs" />
+    <Compile Include="Inputs\TouchPointer.cs" />
+    <Compile Include="IO\Compression\Algorithms\Deflate.cs" />
+    <Compile Include="IO\Compression\Algorithms\Inflate.cs" />
+    <Compile Include="IO\Compression\Algorithms\ZlibCodec.cs" />
+    <Compile Include="IO\Compression\DeflateStream.cs" />
+    <Compile Include="IO\Compression\Enums.cs" />
+    <Compile Include="IO\Compression\Utilities\InfTree.cs" />
+    <Compile Include="IO\Compression\Utilities\Iso8859Dash1Encoding.cs" />
+    <Compile Include="IO\Compression\Utilities\Tree.cs" />
+    <Compile Include="IO\Compression\Utilities\Zlib.cs" />
+    <Compile Include="IO\Compression\Utilities\ZlibContants.cs" />
+    <Compile Include="IO\Compression\ZlibBaseStream.cs" />
+    <Compile Include="IO\SubStream.cs" />
+    <Compile Include="Log\ILogWriter.cs" />
+    <Compile Include="Log\Logger.cs" />
+    <Compile Include="Log\Writers\DebugLogWriter.cs" />
+    <Compile Include="Log\Writers\StreamLogWriter.cs" />
+    <Compile Include="Mathematics\Geometries\Rectangle.cs" />
+    <Compile Include="Mathematics\Matrix2x2.cs" />
+    <Compile Include="Mathematics\Matrix3x3.cs" />
+    <Compile Include="Mathematics\Matrix4x4.cs" />
+    <Compile Include="Mathematics\Quaternion.cs" />
+    <Compile Include="Mathematics\Transforms\CommonTransform.cs" />
+    <Compile Include="Mathematics\Transforms\ITransform.cs" />
+    <Compile Include="Mathematics\Transforms\LookAt.cs" />
+    <Compile Include="Mathematics\Transforms\OrthographicOffCenterProjection.cs" />
+    <Compile Include="Mathematics\Transforms\PerspectiveFieldOfViewProjection.cs" />
+    <Compile Include="Mathematics\Transforms\PerspectiveOffCenterProjection.cs" />
+    <Compile Include="Mathematics\Transforms\World2.cs" />
+    <Compile Include="Mathematics\Transforms\World3.cs" />
+    <Compile Include="Mathematics\Vector2.cs" />
+    <Compile Include="Mathematics\Vector3.cs" />
+    <Compile Include="Mathematics\Vector4.cs" />
+    <Compile Include="Nodes\Spirit\FontNode.cs" />
+    <Compile Include="Nodes\FpsCalculator.cs" />
+    <Compile Include="Nodes\InputHelper.cs" />
+    <Compile Include="Nodes\Node.cs" />
+    <Compile Include="Inputs\IInputDevice.cs" />
+    <Compile Include="Nodes\Scenes\ISceneTransitor.cs" />
+    <Compile Include="Nodes\Scenes\SceneContainer.cs" />
+    <Compile Include="Nodes\Scenes\Transitors\DirectTransitor.cs" />
+    <Compile Include="Nodes\Spirit\SpriteNode.cs" />
+    <Compile Include="Nodes\States\IState.cs" />
+    <Compile Include="Nodes\States\StateMachine.cs" />
+    <Compile Include="Nodes\TimerScheduler.cs" />
+    <Compile Include="Platforms\ILauncher.cs" />
+    <Compile Include="Platforms\IWindow.cs" />
+    <Compile Include="Platforms\PlatformInformation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\ExternLib\CsVorbis\LICENSE.txt" />
+    <Content Include="Common\ExternLib\PngCs\LICENSE.txt" />
+    <EmbeddedResource Include="Resources\Spirit\SpriteEffect.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
