@@ -22,11 +22,12 @@ namespace Daramkun.Misty.Platform.Contents.Decoders.Images
 			to = new ImageInfo ( bitmap.Width, bitmap.Height, bitmap.GetFrameCount ( new FrameDimension ( bitmap.FrameDimensionsList [ 0 ] ) ),
 				stream, bitmap, ( ImageInfo imageInfo, object raws, int f, Daramkun.Misty.Graphics.Color? colorKey ) =>
 			{
-				BitmapData bitmapData = new BitmapData ();
 				bitmap.SelectActiveFrame ( new FrameDimension ( bitmap.FrameDimensionsList [ 0 ] ), f );
-				bitmap.LockBits ( new Rectangle ( 0, 0, bitmap.Width, bitmap.Height ), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb, bitmapData );
+				BitmapData bitmapData = bitmap.LockBits ( new Rectangle ( 0, 0, bitmap.Width, bitmap.Height ), ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb );
 				byte [] temp = new byte [ bitmap.Width * bitmap.Height * 4 ];
 				Marshal.Copy ( bitmapData.Scan0, temp, 0, bitmap.Width * bitmap.Height * 4 );
+				bitmap.UnlockBits ( bitmapData );
+				bitmap.Dispose ();
 				Daramkun.Misty.Graphics.Color [] colours = new Daramkun.Misty.Graphics.Color [ bitmap.Width * bitmap.Height ];
 				for ( int i = 0, index = 0; i < temp.Length; i += 4, ++index )
 				{

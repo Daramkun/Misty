@@ -166,7 +166,10 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				throw new NotImplementedException ();
+				int op = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.BlendOperation );
+				int sb = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.SourceBlend );
+				int db = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.DestinationBlend );
+				return new BlendOperation ( DeconvertBlendOp ( op ), DeconvertBlendParam ( sb ), DeconvertBlendParam ( db ) );
 			}
 			set
 			{
@@ -180,11 +183,23 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				throw new NotImplementedException ();
+				return new StencilOperation (
+					DeconvertStencilFunc ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc ) ),
+					d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef ),
+					d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask ),
+					DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilZFail ) ),
+					DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFail ) ),
+					DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilPass ) )
+				);
 			}
 			set
 			{
-				throw new NotImplementedException ();
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc, ConvertStencilFunc ( value.Function ) );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef, value.Reference );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask, value.Mask );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilZFail, ConvertStencilOp ( value.ZFail ) );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilFail, ConvertStencilOp ( value.Fail ) );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilPass, ConvertStencilOp ( value.Pass ) );
 			}
 		}
 
@@ -266,10 +281,10 @@ namespace Daramkun.Misty.Graphics
 			currentRenderBuffer = null;
 		}
 
-		public void Clear ( ClearBuffer clearBuffer, Color color )
+		public void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 )
 		{
 			if ( d3dDevice == null ) return;
-			d3dDevice.Clear ( ChangeClearBuffer ( clearBuffer ), ChangeColor ( color ), 1, 0 );
+			d3dDevice.Clear ( ChangeClearBuffer ( clearBuffer ), ChangeColor ( color ), depth, stencil );
 		}
 
 		public void SwapBuffer ()
@@ -309,8 +324,9 @@ namespace Daramkun.Misty.Graphics
 			return new RenderBuffer ( this, width, height );
 		}
 
-		public ITexture2D CreateTexture2D ( int width, int height ) { return new Texture2D ( this, width, height ); }
-		public ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null ) { return new Texture2D ( this, imageInfo, colorKey ); }
+		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 ) { return new Texture2D ( this, width, height, mipmapLevel ); }
+		public ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
+		{ return new Texture2D ( this, imageInfo, colorKey, mipmapLevel ); }
 
 		public IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements ) { return new VertexDeclaration ( this, elements ); }
 

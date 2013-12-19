@@ -93,7 +93,7 @@ namespace Daramkun.Misty.Graphics
 		void BeginScene ( IRenderBuffer renderBuffer = null );
 		void EndScene ();
 
-		void Clear ( ClearBuffer clearBuffer, Color color );
+		void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 );
 		void SwapBuffer ();
 
 		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount );
@@ -102,8 +102,8 @@ namespace Daramkun.Misty.Graphics
 		void ResizeBackBuffer ( int width, int height );
 
 		IRenderBuffer CreateRenderBuffer ( int width, int height );
-		ITexture2D CreateTexture2D ( int width, int height );
-		ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null );
+		ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 );
+		ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 );
 		IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements );
 		IVertexBuffer CreateVertexBuffer ( Type vertexType, int length );
 		IVertexBuffer CreateVertexBuffer<T> ( T [] vertices ) where T : struct;

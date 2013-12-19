@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using Daramkun.Misty.Common;
+using Daramkun.Misty.Contents;
 using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Transforms;
 using Daramkun.Misty.Platforms;
@@ -285,6 +286,7 @@ namespace Daramkun.Misty.Graphics
 			{
 				GL.BindFramebuffer ( FramebufferTarget.Framebuffer, ( renderBuffer as RenderBuffer ).frameBuffer );
 				GL.BindFramebuffer ( FramebufferTarget.DrawFramebuffer, ( renderBuffer as RenderBuffer ).frameBuffer );
+				GL.BindFramebuffer ( FramebufferTarget.ReadFramebuffer, ( renderBuffer as RenderBuffer ).frameBuffer );
 			}
 		}
 
@@ -292,13 +294,14 @@ namespace Daramkun.Misty.Graphics
 		{
 			GL.BindFramebuffer ( FramebufferTarget.Framebuffer, 0 );
 			GL.BindFramebuffer ( FramebufferTarget.DrawFramebuffer, 0 );
+			GL.BindFramebuffer ( FramebufferTarget.ReadFramebuffer, 0 );
 		}
 
-		public void Clear ( ClearBuffer clearBuffer, Color color )
+		public void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 )
 		{
 			GL.ClearColor ( color.RedScalar, color.GreenScalar, color.BlueScalar, color.AlphaScalar );
-			GL.ClearDepth ( 0 );
-			GL.ClearStencil ( 0 );
+			GL.ClearDepth ( depth );
+			GL.ClearStencil ( stencil );
 			GL.Clear ( MistyValueToOriginal ( clearBuffer ) );
 		}
 
@@ -331,8 +334,9 @@ namespace Daramkun.Misty.Graphics
 
 		public IRenderBuffer CreateRenderBuffer ( int width, int height ) { return new RenderBuffer ( this, width, height ); }
 
-		public ITexture2D CreateTexture2D ( int width, int height ) { return new Texture2D ( this, width, height ); }
-		public ITexture2D CreateTexture2D ( Contents.ImageInfo imageInfo, Color? colorKey = null ) { return new Texture2D ( this, imageInfo, colorKey ); }
+		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 ) { return new Texture2D ( this, width, height, mipmapLevel ); }
+		public ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
+		{ return new Texture2D ( this, imageInfo, colorKey, mipmapLevel ); }
 
 		public IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements ) { return new VertexDeclaration ( this, elements ); }
 

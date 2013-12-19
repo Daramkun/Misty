@@ -53,6 +53,101 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		private BlendParameter DeconvertBlendParam ( int blendParameter )
+		{
+			switch ( ( SharpDX.Direct3D9.Blend ) blendParameter )
+			{
+				case SharpDX.Direct3D9.Blend.Zero: return BlendParameter.Zero;
+				case SharpDX.Direct3D9.Blend.One: return BlendParameter.One;
+				case SharpDX.Direct3D9.Blend.SourceColor: return BlendParameter.SourceColor;
+				case SharpDX.Direct3D9.Blend.SourceAlpha: return BlendParameter.SourceAlpha;
+				case SharpDX.Direct3D9.Blend.DestinationColor: return BlendParameter.DestinationColor;
+				case SharpDX.Direct3D9.Blend.DestinationAlpha: return BlendParameter.DestinationAlpha;
+				case SharpDX.Direct3D9.Blend.InverseSourceColor: return BlendParameter.InvertSourceColor;
+				case SharpDX.Direct3D9.Blend.InverseSourceAlpha: return BlendParameter.InvertSourceAlpha;
+				case SharpDX.Direct3D9.Blend.InverseDestinationColor: return BlendParameter.InvertDestinationColor;
+				case SharpDX.Direct3D9.Blend.InverseDestinationAlpha: return BlendParameter.InvertDestinationAlpha;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private BlendOperator DeconvertBlendOp ( int op )
+		{
+			switch ( ( SharpDX.Direct3D9.BlendOperation ) op )
+			{
+				case SharpDX.Direct3D9.BlendOperation.Add: return BlendOperator.Add;
+				case SharpDX.Direct3D9.BlendOperation.Subtract: return BlendOperator.Subtract;
+				case SharpDX.Direct3D9.BlendOperation.ReverseSubtract: return BlendOperator.ReverseSubtract;
+				case SharpDX.Direct3D9.BlendOperation.Maximum: return BlendOperator.Maximum;
+				case SharpDX.Direct3D9.BlendOperation.Minimum: return BlendOperator.Minimum;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private StencilOperator DeconvertStencilOp ( int op )
+		{
+			switch ( ( SharpDX.Direct3D9.StencilOperation ) op )
+			{
+				case SharpDX.Direct3D9.StencilOperation.Zero: return StencilOperator.Zero;
+				case SharpDX.Direct3D9.StencilOperation.Replace: return StencilOperator.Replace;
+				case SharpDX.Direct3D9.StencilOperation.Keep: return StencilOperator.Keep;
+				case SharpDX.Direct3D9.StencilOperation.Invert: return StencilOperator.Invert;
+				case SharpDX.Direct3D9.StencilOperation.Increment: return StencilOperator.Increase;
+				case SharpDX.Direct3D9.StencilOperation.Decrement: return StencilOperator.Decrease;
+				case SharpDX.Direct3D9.StencilOperation.IncrementSaturate: return StencilOperator.IncreaseWrap;
+				case SharpDX.Direct3D9.StencilOperation.DecrementSaturate: return StencilOperator.DecreaseWrap;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private StencilFunction DeconvertStencilFunc ( int func )
+		{
+			switch ( ( SharpDX.Direct3D9.Compare ) func )
+			{
+				case SharpDX.Direct3D9.Compare.Always: return StencilFunction.Always;
+				case SharpDX.Direct3D9.Compare.Never: return StencilFunction.Never;
+				case SharpDX.Direct3D9.Compare.Equal: return StencilFunction.Equal;
+				case SharpDX.Direct3D9.Compare.NotEqual: return StencilFunction.NotEqual;
+				case SharpDX.Direct3D9.Compare.Greater: return StencilFunction.Greater;
+				case SharpDX.Direct3D9.Compare.GreaterEqual: return StencilFunction.GreaterEqual;
+				case SharpDX.Direct3D9.Compare.Less: return StencilFunction.Less;
+				case SharpDX.Direct3D9.Compare.LessEqual: return StencilFunction.LessEqual;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private int ConvertStencilOp ( StencilOperator op )
+		{
+			switch ( op )
+			{
+				case StencilOperator.Zero: return ( int ) SharpDX.Direct3D9.StencilOperation.Zero;
+				case StencilOperator.Keep: return ( int ) SharpDX.Direct3D9.StencilOperation.Keep;
+				case StencilOperator.Replace: return ( int ) SharpDX.Direct3D9.StencilOperation.Replace;
+				case StencilOperator.Invert: return ( int ) SharpDX.Direct3D9.StencilOperation.Invert;
+				case StencilOperator.Increase: return ( int ) SharpDX.Direct3D9.StencilOperation.Increment;
+				case StencilOperator.Decrease: return ( int ) SharpDX.Direct3D9.StencilOperation.Decrement;
+				case StencilOperator.IncreaseWrap: return ( int ) SharpDX.Direct3D9.StencilOperation.IncrementSaturate;
+				case StencilOperator.DecreaseWrap: return ( int ) SharpDX.Direct3D9.StencilOperation.DecrementSaturate;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private int ConvertStencilFunc ( StencilFunction func )
+		{
+			switch ( func )
+			{
+				case StencilFunction.Always: return ( int ) SharpDX.Direct3D9.Compare.Always;
+				case StencilFunction.Never: return ( int ) SharpDX.Direct3D9.Compare.Never;
+				case StencilFunction.Equal: return ( int ) SharpDX.Direct3D9.Compare.Equal;
+				case StencilFunction.NotEqual: return ( int ) SharpDX.Direct3D9.Compare.NotEqual;
+				case StencilFunction.Greater: return ( int ) SharpDX.Direct3D9.Compare.Greater;
+				case StencilFunction.GreaterEqual: return ( int ) SharpDX.Direct3D9.Compare.GreaterEqual;
+				case StencilFunction.Less: return ( int ) SharpDX.Direct3D9.Compare.Less;
+				case StencilFunction.LessEqual: return ( int ) SharpDX.Direct3D9.Compare.LessEqual;
+				default: throw new ArgumentException ();
+			}
+		}
+
 		private int ConvertBlendParam ( BlendParameter blendParameter )
 		{
 			switch ( blendParameter )
@@ -67,7 +162,6 @@ namespace Daramkun.Misty.Graphics
 				case BlendParameter.InvertSourceAlpha: return ( int ) SharpDX.Direct3D9.Blend.InverseSourceAlpha;
 				case BlendParameter.InvertDestinationColor: return ( int ) SharpDX.Direct3D9.Blend.InverseDestinationColor;
 				case BlendParameter.InvertDestinationAlpha: return ( int ) SharpDX.Direct3D9.Blend.InverseDestinationAlpha;
-
 				default: throw new ArgumentException ();
 			}
 		}
