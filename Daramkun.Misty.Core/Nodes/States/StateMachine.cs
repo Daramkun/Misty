@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Nodes.States
 {
@@ -14,12 +15,12 @@ namespace Daramkun.Misty.Nodes.States
 			currentState = nextState;
 		}
 
-		public override void Update ( TimeSpan gameTime )
+		public override void Update ( GameTime gameTime )
 		{
 			if ( currentState != null )
 				currentState.Execute ( this );
 		}
 
-		public override void Draw ( TimeSpan gameTime ) { }
+		public override void Draw ( GameTime gameTime ) { }
 	}
 }

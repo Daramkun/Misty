@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Common;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Mathematics;
@@ -24,7 +25,7 @@ namespace Daramkun.Misty.Nodes.Spirit
 			this.font = font;
 		}
 
-		public override void Draw ( TimeSpan gameTime )
+		public override void Draw ( GameTime gameTime )
 		{
 			Vector2 position = Position;
 			Vector2 measure = ( Alignment != 0 ) ? font.MeasureString ( Text ) : new Vector2 ();

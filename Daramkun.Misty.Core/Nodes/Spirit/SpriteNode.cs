@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Graphics.Spirit;
@@ -58,7 +59,7 @@ namespace Daramkun.Misty.Nodes.Spirit
 			: this ( Core.GraphicsDevice.CreateTexture2D ( imageInfo, colorKey ) )
 		{ }
 
-		public override void Draw ( TimeSpan gameTime )
+		public override void Draw ( GameTime gameTime )
 		{
 			tempWorld.Translate = World.Translate;
 			tempWorld.Scale = World.Scale;

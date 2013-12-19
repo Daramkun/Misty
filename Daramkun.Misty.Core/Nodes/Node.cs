@@ -109,7 +109,7 @@ namespace Daramkun.Misty.Nodes
 			children.Clear ();
 		}
 
-		public virtual void Update ( TimeSpan gameTime )
+		public virtual void Update ( GameTime gameTime )
 		{
 			if ( children.Count > 0 )
 			{
@@ -119,7 +119,7 @@ namespace Daramkun.Misty.Nodes
 			}
 		}
 
-		public virtual void Draw ( TimeSpan gameTime )
+		public virtual void Draw ( GameTime gameTime )
 		{
 			if ( children.Count > 0 )
 			{

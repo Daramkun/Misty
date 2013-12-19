@@ -47,6 +47,7 @@ namespace Daramkun.Misty.Platforms
 				if ( window.Focused && Activated != null ) Activated ( this, e );
 				else if ( !window.Focused && Deactivated != null ) Deactivated ( this, e );
 			};
+			window.Context.SwapInterval = 0;
 		}
 
 		protected override void Dispose ( bool isDisposing )

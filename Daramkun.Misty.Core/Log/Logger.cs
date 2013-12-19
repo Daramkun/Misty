@@ -73,8 +73,7 @@ namespace Daramkun.Misty.Log
 				builder.Append ( String.Format ( "[{0}]", new IntPtr ( Thread.CurrentThread.ManagedThreadId ) ) );
 			if ( HasFlag ( MessageFormat.DateTime ) )
 				builder.Append ( String.Format ( "[{0}]", DateTime.UtcNow.ToString ( CultureInfo.InvariantCulture.DateTimeFormat ) ) );
-			if ( HasFlag ( MessageFormat.Message ) )
-				builder.Append ( String.Format ( message, args ) );
+			builder.Append ( String.Format ( message, args ) );
 
 			string tempString = builder.ToString ();
 			foreach ( ILogWriter logWriter in LogWriters )

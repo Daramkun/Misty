@@ -72,7 +72,7 @@ namespace Daramkun.Misty.Nodes.Scenes
 			base.Outro ();
 		}
 
-		public override void Update ( TimeSpan gameTime )
+		public override void Update ( GameTime gameTime )
 		{
 			spinlock.Enter ();
 			Node currentNode = this.currentNode;
@@ -82,7 +82,7 @@ namespace Daramkun.Misty.Nodes.Scenes
 			base.Update ( gameTime );
 		}
 
-		public override void Draw ( TimeSpan gameTime )
+		public override void Draw ( GameTime gameTime )
 		{
 			if ( currentNode != null )
 				currentNode.Draw ( gameTime );

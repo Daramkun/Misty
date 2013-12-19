@@ -4,12 +4,14 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Daramkun.Misty;
+using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents;
 using Daramkun.Misty.Contents.Decoders.Images;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Graphics.Spirit.Fonts;
 using Daramkun.Misty.Log;
+using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Transforms;
 using Daramkun.Misty.Nodes;
 using Daramkun.Misty.Platforms;
@@ -22,11 +24,16 @@ namespace Test.Desktop
 		Sprite sprite;
 		Sprite sprite2;
 		Font font;
+		Font font2;
+
+		FpsCalculator calc;
 
 		public override void Intro ( params object [] args )
 		{
 			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
+
+			Add ( calc = new FpsCalculator () );
 
 			ImageInfo imageInfo;
 			new BitmapDecoder ().Decode ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.logo.bmp" ), out imageInfo );
@@ -37,18 +44,20 @@ namespace Test.Desktop
 			world = World2.Identity;
 			world.Translate = Core.GraphicsDevice.BackBuffer.Size / 2 - sprite.Texture.Size / 2;
 			font = new TrueTypeFont ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.GameFont.ttf" ), 64 );
+			font2 = new TrueTypeFont ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.GameFont.ttf" ), 24 );
 			base.Intro ( args );
 		}
 
 		public override void Outro ()
 		{
+			font2.Dispose ();
 			font.Dispose ();
 			sprite2.Dispose ();
 			sprite.Dispose ();
 			base.Outro ();
 		}
 
-		public override void Draw ( TimeSpan gameTime )
+		public override void Draw ( GameTime gameTime )
 		{
 			Core.GraphicsDevice.BeginScene ();
 			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Magenta, 1, 0 );
@@ -56,6 +65,10 @@ namespace Test.Desktop
 			sprite.Draw ( world );
 			//sprite2.Draw ( world );
 			font.DrawFont ( "Hello, Mr! 한글", Color.Black, new Daramkun.Misty.Mathematics.Vector2 ( 0.0001f, 0.0001f ) );
+			font2.DrawFont ( Core.GraphicsDevice.Information.BaseRenderer.ToString () + Core.GraphicsDevice.Information.RendererVersion.ToString (),
+				Color.Black, new Vector2 ( 0, 64 ) );
+			font2.DrawFont ( "Draw FPS: " + calc.DrawFPS.ToString (),
+				Color.Black, new Vector2 ( 0, 64 + 24 ) );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();

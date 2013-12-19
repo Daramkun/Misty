@@ -25,12 +25,12 @@ namespace Daramkun.Misty.Nodes
 			timers.Remove ( timer );
 		}
 
-		public override void Update ( TimeSpan gameTime )
+		public override void Update ( GameTime gameTime )
 		{
 			List<Timer> removeTimers = new List<Timer> ();
 			foreach ( KeyValuePair<Timer, Action<Timer>> pair in timers.ToArray () )
 			{
-				pair.Key.Update ( gameTime );
+				pair.Key.Update ( gameTime.ElapsedGameTime );
 				if ( pair.Key.Check )
 				{
 					pair.Key.Reset ();

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Nodes
 {
@@ -21,9 +22,9 @@ namespace Daramkun.Misty.Nodes
 			drawSum = new TimeSpan ();
 		}
 
-		public override void Update ( TimeSpan gameTime )
+		public override void Update ( GameTime gameTime )
 		{
-			updateSum += gameTime;
+			updateSum += gameTime.ElapsedGameTime;
 			++updateFrame;
 
 			if ( updateSum.TotalSeconds >= 1 )
@@ -36,9 +37,9 @@ namespace Daramkun.Misty.Nodes
 			base.Update ( gameTime );
 		}
 
-		public override void Draw ( TimeSpan gameTime )
+		public override void Draw ( GameTime gameTime )
 		{
-			drawSum += gameTime;
+			drawSum += gameTime.ElapsedGameTime;
 			++drawFrame;
 
 			if ( drawSum.TotalSeconds >= 1 )

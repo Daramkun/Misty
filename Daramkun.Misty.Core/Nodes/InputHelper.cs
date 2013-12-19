@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Common;
 using Daramkun.Misty.Inputs;
 using Daramkun.Misty.Inputs.States;
 
@@ -103,7 +104,7 @@ namespace Daramkun.Misty.Nodes
 			IsVisible = false;
 		}
 
-		public override void Update ( TimeSpan gameTime )
+		public override void Update ( GameTime gameTime )
 		{
 			if ( Core.Inputs.GetDevice<KeyboardState> ().IsConnected && IsKeyboardEnabled )
 			{

@@ -156,6 +156,7 @@
     <Compile Include="Common\ExternLib\TrueTypeSharp\TrueTypeFont.Codepoints.cs" />
     <Compile Include="Common\ExternLib\TrueTypeSharp\TrueTypeFont.cs" />
     <Compile Include="Common\FileFormatAttribute.cs" />
+    <Compile Include="Common\GameTime.cs" />
     <Compile Include="Common\Json\IJsonArray.cs" />
     <Compile Include="Common\Json\IJsonEntry.cs" />
     <Compile Include="Common\Json\JsonArray.cs" />
