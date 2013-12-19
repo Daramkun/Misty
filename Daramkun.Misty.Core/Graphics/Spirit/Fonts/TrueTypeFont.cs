@@ -52,14 +52,14 @@ namespace Daramkun.Misty.Graphics.Spirit.Fonts
 
 					if ( data == null ) { noneList.Add ( ch ); return null; }
 
-					int extendedHeight = Math.Abs ( yOffset ) * ( width/* + xOffset*/ );
-					Color [] buffer = new Color [ ( width/* + xOffset*/ ) * fontSizeOfPixel ];
+					int extendedHeight = Math.Abs ( yOffset ) * ( width );
+					Color [] buffer = new Color [ ( width ) * fontSizeOfPixel ];
 					for ( int x = 0; x < width; x++ )
 					{
 						for ( int y = 0; y < height; y++ )
 						{
 							int dataIndex = ( y * width ) + x;
-							int index = ( ( y + ( fontSizeOfPixel / 3 * 2 ) + yOffset ) * ( width/* + xOffset*/ ) ) + x;
+							int index = ( ( y + ( fontSizeOfPixel / 3 * 2 ) + yOffset ) * ( width ) ) + x;
 							if ( index >= buffer.Length || index < 0 ) continue;
 							buffer [ index ] = data [ dataIndex ] > 0 ? new Color ( 255, 255, 255, data [ dataIndex ] ) : new Color ( 0, 0, 0, 0 );
 						}

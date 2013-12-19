@@ -61,6 +61,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 				}
 				ITexture2D image = this [ ch ];
 				if ( image == null ) image = this [ '?' ];
+				if ( image == null ) image = this [ ' ' ];
 
 				if ( lines.Count == 0 || lines [ lines.Count - 1 ].X + image.Width > area.X )
 					if ( height + image.Height > area.Y ) return;

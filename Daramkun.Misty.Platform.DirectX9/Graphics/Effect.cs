@@ -122,6 +122,7 @@ namespace Daramkun.Misty.Graphics
 				device.SetSamplerState ( samplerIndex, SharpDX.Direct3D9.SamplerState.MaxAnisotropy, texture.AnisotropicLevel );
 
 				device.SetTexture ( samplerIndex, texture.Texture.Handle as SharpDX.Direct3D9.Texture );
+				device.SetTextureStageState ( samplerIndex, SharpDX.Direct3D9.TextureStage.TexCoordIndex, samplerIndex );
 			}
 		}
 

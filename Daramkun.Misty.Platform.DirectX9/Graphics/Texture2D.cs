@@ -24,21 +24,26 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				SharpDX.DataRectangle dr = texture.LockRectangle ( 0, new SharpDX.Rectangle ( 0, 0, Width, Height ), SharpDX.Direct3D9.LockFlags.None );
-				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, Width * Height * 4, true, false );
+				SharpDX.DataRectangle dr = texture.LockRectangle ( 0, SharpDX.Direct3D9.LockFlags.None );
+				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, ( dr.Pitch / 4 ) * Height * 4, true, false );
 				Color [] colours = new Color [ stream.Length / 4 ];
-				for ( int i = 0; i < colours.Length; ++i )
-					colours [ i ] = new Color ( stream.Read<SharpDX.Color> ().ToBgra (), true );
+				for ( int y = 0; y < Height; ++y )
+					for ( int x = 0; x < Width; ++x )
+					{
+						stream.Position = ( y * ( dr.Pitch / 4 ) + x ) * 4;
+						colours [ y * Width + x ] = new Color ( stream.Read<SharpDX.Color> ().ToBgra (), true );
+					}
 				texture.UnlockRectangle ( 0 );
 				return colours;
 			}
 			set
 			{
-				SharpDX.DataRectangle dr = texture.LockRectangle ( 0, new SharpDX.Rectangle ( 0, 0, Width, Height ), SharpDX.Direct3D9.LockFlags.None );
-				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, Width * Height * 4, false, true );
+				SharpDX.DataRectangle dr = texture.LockRectangle ( 0, SharpDX.Direct3D9.LockFlags.None );
+				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, ( dr.Pitch / 4 ) * Height * 4, false, true );
 				SharpDX.Color [] colours = new SharpDX.Color [ stream.Length / 4 ];
-				for ( int i = 0; i < value.Length; ++i )
-					colours [ i ] = new SharpDX.Color ( value [ i ].ARGBValue );
+				for ( int y = 0; y < Height; ++y )
+					for ( int x = 0; x < Width; ++x )
+						colours [ y * ( dr.Pitch / 4 ) + x ] = new SharpDX.Color ( value [ y * Width + x ].ARGBValue );
 				stream.WriteRange<SharpDX.Color> ( colours );
 				texture.UnlockRectangle ( 0 );
 			}
@@ -50,6 +55,7 @@ namespace Daramkun.Misty.Graphics
 			if ( height == 0 ) height = 1;
 			texture = new SharpDX.Direct3D9.Texture ( graphicsDevice.Handle as SharpDX.Direct3D9.Device, width, height,
 				mipmapLevel, SharpDX.Direct3D9.Usage.AutoGenerateMipMap, SharpDX.Direct3D9.Format.A8R8G8B8, SharpDX.Direct3D9.Pool.Managed );
+			texture.FilterTexture ( 0, SharpDX.Direct3D9.Filter.Point );
 			Size = new Vector2 ( width, height );
 		}
 

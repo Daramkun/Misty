@@ -68,6 +68,8 @@ namespace Daramkun.Misty.Graphics
 
 		private void MakeTexture ( int width, int height )
 		{
+			if ( width == 0 ) width = 1;
+			if ( height == 0 ) height = 1;
 			Size = new Vector2 ( width, height );
 			texture = GL.GenTexture ();
 			GL.BindTexture ( TextureTarget.Texture2D, texture );

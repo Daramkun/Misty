@@ -84,19 +84,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 				effect = baseSpriteEffect;
 			}
 
-			Texture = texture;
 			Effect = effect;
 
-			int width = 1, height = 1;
-			if ( texture != null ) { width = texture.Width; height = texture.Height; }
-
-			vertexBuffer = Core.GraphicsDevice.CreateVertexBuffer<SpriteVertex> ( new SpriteVertex []
-			{
-				new SpriteVertex ( new Vector2 ( 0, 0 ), Color.White, new Vector2 ( 0, 0 ) ),
-				new SpriteVertex ( new Vector2 ( width, 0 ), Color.White, new Vector2 ( 1, 0 ) ),
-				new SpriteVertex ( new Vector2 ( 0, height ), Color.White, new Vector2 ( 0, 1 ) ),
-				new SpriteVertex ( new Vector2 ( width, height ), Color.White, new Vector2 ( 1, 1 ) ),
-			} );
 			if ( indexBuffer == null )
 			{
 				indexBuffer = Core.GraphicsDevice.CreateIndexBuffer ( new int [] { 0, 1, 2, 1, 3, 2 } );
@@ -108,9 +97,10 @@ namespace Daramkun.Misty.Graphics.Spirit
 			}
 			indexReference++;
 
-			clippingArea = new Rectangle ( 0, 0, width, height );
+			vertexBuffer = Core.GraphicsDevice.CreateVertexBuffer ( typeof ( SpriteVertex ), 4 );
+			Reset ( texture );
 
-			TextureFilter = TextureFilter.Linear;
+			TextureFilter = TextureFilter.Nearest;
 		}
 
 		public void Dispose ()
@@ -145,7 +135,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public void Draw ( World2 transform )
 		{
 			Effect.Begin ();
-			Effect.SetTextures ( new TextureArgument () { Texture = Texture, Uniform = "texture0", Filter = TextureFilter, AnisotropicLevel = AnisotropicLevel } );
+			Effect.SetTextures ( new TextureArgument () { Texture = Texture, Uniform = "texture0",
+				Filter = TextureFilter, AnisotropicLevel = AnisotropicLevel, Addressing = TextureAddressing.Clamp } );
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", new OrthographicOffCenterProjection (
 				0, Core.GraphicsDevice.BackBuffer.Width, Core.GraphicsDevice.BackBuffer.Height, 0,
 				0.001f, 1000.0f
@@ -163,14 +154,19 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public void Reset ( ITexture2D texture )
 		{
 			Texture = texture;
+
+			int width = 1, height = 1;
+			if ( texture != null ) { width = texture.Width; height = texture.Height; }
+
+			float plusUnit = 0.000001f;
 			vertexBuffer.SetBufferDatas<SpriteVertex> ( new SpriteVertex []
 			{
-				new SpriteVertex ( new Vector2 ( 0, 0 ), Color.White, new Vector2 ( 0, 0 ) ),
-				new SpriteVertex ( new Vector2 ( Texture.Width, 0 ), Color.White, new Vector2 ( 1, 0 ) ),
-				new SpriteVertex ( new Vector2 ( 0, Texture.Height ), Color.White, new Vector2 ( 0, 1 ) ),
-				new SpriteVertex ( new Vector2 ( Texture.Width, Texture.Height ), Color.White, new Vector2 ( 1, 1 ) ),
+				new SpriteVertex ( new Vector2 ( plusUnit, plusUnit ), Color.White, new Vector2 ( 0.0001f, 0.0001f ) ),
+				new SpriteVertex ( new Vector2 ( width + plusUnit, plusUnit ), Color.White, new Vector2 ( 1f, 0.0001f ) ),
+				new SpriteVertex ( new Vector2 ( plusUnit, height + plusUnit ), Color.White, new Vector2 ( 0.0001f, 1 ) ),
+				new SpriteVertex ( new Vector2 ( width + plusUnit, height + plusUnit ), Color.White, new Vector2 ( 1f, 1f ) ),
 			} );
-			clippingArea = new Rectangle ( new Vector2 (), Texture.Size );
+			clippingArea = new Rectangle ( new Vector2 (), new Vector2 ( width, height ) );
 		}
 	}
 }
