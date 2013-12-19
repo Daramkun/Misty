@@ -17,6 +17,7 @@ namespace Test.Desktop
 {
 	class TestNode : Node
 	{
+		World2 world;
 		Sprite sprite;
 
 		public override void Intro ( params object [] args )
@@ -24,6 +25,8 @@ namespace Test.Desktop
 			ImageInfo imageInfo;
 			new BitmapDecoder ().Decode ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.logo.bmp" ), out imageInfo );
 			sprite = new Sprite ( Core.GraphicsDevice.CreateTexture2D ( imageInfo ) );
+			world = World2.Identity;
+			world.Translate = Core.GraphicsDevice.BackBuffer.Size / 2 - sprite.Texture.Size / 2;
 			base.Intro ( args );
 		}
 
@@ -36,9 +39,9 @@ namespace Test.Desktop
 		public override void Draw ( TimeSpan gameTime )
 		{
 			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Magenta );
+			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
-			sprite.Draw ( World2.Identity );
+			sprite.Draw ( world );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();

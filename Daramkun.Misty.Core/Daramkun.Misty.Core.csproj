@@ -282,8 +282,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common\ExternLib\CsVorbis\LICENSE.txt" />
-    <Content Include="Common\ExternLib\PngCs\LICENSE.txt" />
     <EmbeddedResource Include="Resources\Spirit\SpriteEffect.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
