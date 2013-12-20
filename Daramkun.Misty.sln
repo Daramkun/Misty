@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Core", "Daramkun.Misty.Core\Daramkun.Misty.Core.csproj", "{43BE1669-E2AF-4C50-8209-C1F6298D12CA}"
-EndProject
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core Framework", "Core Framework", "{E5C51CD3-0669-42E8-9FED-17296B399CA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Core", "Daramkun.Misty.Core\Daramkun.Misty.Core.csproj", "{43BE1669-E2AF-4C50-8209-C1F6298D12CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Platform Abstraction Framework", "Platform Abstraction Framework", "{97977EF7-4D97-47FA-AE5F-AF427DFC29E5}"
 EndProject
@@ -13,13 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Platform.Ope
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Platform.Desktop", "Daramkun.Misty.Platform.Desktop\Daramkun.Misty.Platform.Desktop.csproj", "{911DF746-075B-40A5-B8CA-F37FCE21C9BB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3C8A3FB6-AE4F-4C4D-9EBA-CEA12F00A64D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Desktop", "Test.Desktop\Test.Desktop.csproj", "{7E019A0D-2125-4491-B02A-4A7427C3647B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Platform.DirectX9", "Daramkun.Misty.Platform.DirectX9\Daramkun.Misty.Platform.DirectX9.csproj", "{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Platform.DirectX11", "Daramkun.Misty.Platform.DirectX11\Daramkun.Misty.Platform.DirectX11.csproj", "{26A28563-415B-4BE4-B494-696AA0487FE5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3C8A3FB6-AE4F-4C4D-9EBA-CEA12F00A64D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Desktop", "Test.Desktop\Test.Desktop.csproj", "{7E019A0D-2125-4491-B02A-4A7427C3647B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,33 +25,30 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Release|Any CPU.Build.0 = Release|Any CPU
-		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{26A28563-415B-4BE4-B494-696AA0487FE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{26A28563-415B-4BE4-B494-696AA0487FE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26A28563-415B-4BE4-B494-696AA0487FE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26A28563-415B-4BE4-B494-696AA0487FE5}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
+		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43BE1669-E2AF-4C50-8209-C1F6298D12CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{911DF746-075B-40A5-B8CA-F37FCE21C9BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{43BE1669-E2AF-4C50-8209-C1F6298D12CA} = {E5C51CD3-0669-42E8-9FED-17296B399CA1}
@@ -62,5 +57,11 @@ Global
 		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5} = {97977EF7-4D97-47FA-AE5F-AF427DFC29E5}
 		{26A28563-415B-4BE4-B494-696AA0487FE5} = {97977EF7-4D97-47FA-AE5F-AF427DFC29E5}
 		{7E019A0D-2125-4491-B02A-4A7427C3647B} = {3C8A3FB6-AE4F-4C4D-9EBA-CEA12F00A64D}
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Test.Desktop\Test.Desktop.csproj
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
