@@ -176,7 +176,7 @@
     <Compile Include="Contents\Decoders\IDecoder.cs" />
     <Compile Include="Contents\Decoders\Images\BitmapDecoder.cs" />
     <Compile Include="Contents\Decoders\Images\PngDecoder.cs" />
-    <Compile Include="Contents\Decoders\Packages\WalnutPackageDecoder.cs" />
+    <Compile Include="Contents\Decoders\Packs\WalnutPackageDecoder.cs" />
     <Compile Include="Contents\Encoders\Audios\WaveEncoder.cs" />
     <Compile Include="Contents\Encoders\IEncoder.cs" />
     <Compile Include="Contents\Encoders\Images\PngEncoder.cs" />
