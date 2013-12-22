@@ -60,15 +60,15 @@ namespace Test.Desktop
 		public override void Draw ( GameTime gameTime )
 		{
 			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Magenta, 1, 0 );
+			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black, 1, 0 );
 
 			sprite.Draw ( world );
 			//sprite2.Draw ( world );
-			font.DrawFont ( "Hello, Mr! 한글", Color.Black, new Daramkun.Misty.Mathematics.Vector2 ( 0.0001f, 0.0001f ) );
+			font.DrawFont ( "English 한글 漢字 にほんご Märchen", Color.Black, new Daramkun.Misty.Mathematics.Vector2 ( 0.0001f, 0.0001f ) );
 			font2.DrawFont ( Core.GraphicsDevice.Information.BaseRenderer.ToString () + Core.GraphicsDevice.Information.RendererVersion.ToString (),
-				Color.Black, new Vector2 ( 0, 64 ) );
+				Color.White, new Vector2 ( 0, 64 ) );
 			font2.DrawFont ( "Draw FPS: " + calc.DrawFPS.ToString (),
-				Color.Black, new Vector2 ( 0, 64 + 24 ) );
+				Color.White, new Vector2 ( 0, 64 + 24 ) );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
