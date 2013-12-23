@@ -255,7 +255,6 @@ namespace Daramkun.Misty.Graphics
 		public void ResizeBackBuffer ( int width, int height )
 		{
 			dxgiSwapChain.ResizeBuffers ( 1, width, height, SharpDX.DXGI.Format.R8G8B8A8_UNorm, SharpDX.DXGI.SwapChainFlags.None );
-			
 		}
 
 		public IRenderBuffer CreateRenderBuffer ( int width, int height )

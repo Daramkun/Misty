@@ -71,6 +71,9 @@ namespace Daramkun.Misty
 			mainNode.Intro ();
 			while ( Window.IsAlive )
 			{
+				if ( AudioDevice != null )
+					AudioDevice.Update ();
+
 				if ( elapsedUpdateTimeStep >= FixedUpdateTimeStep || FixedUpdateTimeStep.TotalMilliseconds == 0 )
 				{
 					updateGameTime.Update ();

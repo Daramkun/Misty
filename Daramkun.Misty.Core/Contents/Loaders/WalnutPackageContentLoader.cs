@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Daramkun.Misty.Contents.Decoders.Packages;
+using Daramkun.Misty.Contents.Decoders.Packs;
 
 namespace Daramkun.Misty.Contents.Loaders
 {

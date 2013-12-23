@@ -24,27 +24,58 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 =====
 =====
 
-Vorbis# (csOgg + csVorbis + OggVorbisStream)
+NVorbis (0.8 - 2013/12/06)
 =====
-https://github.com/mono/csvorbis
+http://nvorbis.codeplex.com
 
-This is Vorbis# version 0.1.
+Microsoft Public License (Ms-PL)
 
-Vorbis# is a C# OggVorbis decoder written purely in C#.  It is 
-based off of the Java version (Jorbis v0.0.12).
+This license governs use of the accompanying software. If you use the software,
+ you accept this license. If you do not accept the license, do not use the software.
 
-This code has been tested extensively with the mono JIT.  The
- MS will work as well, but you're on your own to use it to play
- sound in realtime (i.e., write your own audio backend).  Pnet
-is untested completely.  Don't even try this with Rotor, unless
- you have a lot of time on your hands.
+1. Definitions
+The terms "reproduce," "reproduction," "derivative works," and "distribution" have 
+the same meaning here as under U.S. copyright law.
 
-<crichton@gimp.org>
+A "contribution" is the original software, or any additions or changes to the software.
+A "contributor" is any person that distributes its contribution under this license.
+
+"Licensed patents" are a contributor's patent claims that read directly on its contribution.
+
+2. Grant of Rights
+(A) Copyright Grant- Subject to the terms of this license, including the license 
+conditions and limitations in section 3, each contributor grants you a non-exclusive, 
+worldwide, royalty-free copyright license to reproduce its contribution, prepare 
+derivative works of its contribution, and distribute its contribution or any derivative 
+works that you create.
+(B) Patent Grant- Subject to the terms of this license, including the license conditions 
+and limitations in section 3, each contributor grants you a non-exclusive, worldwide, 
+royalty-free license under its licensed patents to make, have made, use, sell, offer for 
+sale, import, and/or otherwise dispose of its contribution in the software or derivative 
+works of the contribution in the software.
+
+3. Conditions and Limitations
+(A) No Trademark License- This license does not grant you rights to use any contributors'
+ name, logo, or trademarks.
+(B) If you bring a patent claim against any contributor over patents that you claim are 
+infringed by the software, your patent license from such contributor to the software ends 
+automatically.
+(C) If you distribute any portion of the software, you must retain all copyright, patent, 
+trademark, and attribution notices that are present in the software.
+(D) If you distribute any portion of the software in source code form, you may do so only 
+under this license by including a complete copy of this license with your distribution. 
+If you distribute any portion of the software in compiled or object code form, you may only
+ do so under a license that complies with this license.
+(E) The software is licensed "as-is." You bear the risk of using it. The contributors give 
+no express warranties, guarantees or conditions. You may have additional consumer rights 
+under your local laws which this license cannot change. To the extent permitted under your 
+local laws, the contributors exclude the implied warranties of merchantability, fitness for 
+a particular purpose and non-infringement.
 
 =====
 =====
 
-PngCs
+PngCs (1.1.4 - 2012/12/16)
 =====
 http://code.google.com/p/pngcs/
 
@@ -57,7 +88,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 =====
 =====
 
-Zlib.Portable
+Zlib.Portable (1.9.2)
 =====
 https://github.com/AdvancedREI/Zlib.Portable
 
@@ -82,8 +113,10 @@ governing permissions and limitations under the License.
 =====
 =====
 
-XUnzip
+XUnzip# (1.0 for C#)
 =====
+
+XUnzip is from:
 http://www.kippler.com/xunzip/
 
 Copyright (C) 2004-2009 kippler@gmail.com, http://www.kippler.com 
@@ -108,7 +141,7 @@ Permission is granted to anyone to use this software for any
 =====
 =====
 
-TrueTypeSharp
+TrueTypeSharp (PCL version, Original by 2012/05/14)
 =====
 https://github.com/gered/TrueTypeSharp
 
@@ -137,7 +170,7 @@ OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 =====
 =====
 
-OpenTK
+OpenTK (1.1)
 =====
 http://www.opentk.com/
 
@@ -228,7 +261,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 =====
 =====
 
-SharpDX
+SharpDX (2.5)
 =====
 http://www.sharpdx.org
 

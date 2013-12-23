@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Graphics\GraphicsDevice.cs" />
     <Compile Include="Graphics\GraphicsDevice.Utilities.cs" />
+    <Compile Include="Graphics\Texture2D.cs" />
     <Compile Include="Platforms\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
