@@ -262,14 +262,10 @@ namespace Daramkun.Misty.Graphics
 			throw new NotImplementedException ();
 		}
 
-		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 )
-		{
-			throw new NotImplementedException ();
-		}
-
+		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 ) { return new Texture2D ( this, width, height, mipmapLevel ); }
 		public ITexture2D CreateTexture2D ( Contents.ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
 		{
-			throw new NotImplementedException ();
+			return new Texture2D ( this, imageInfo, colorKey, mipmapLevel );
 		}
 
 		public IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements )
@@ -277,24 +273,20 @@ namespace Daramkun.Misty.Graphics
 			throw new NotImplementedException ();
 		}
 
-		public IVertexBuffer CreateVertexBuffer ( Type vertexType, int length )
-		{
-			throw new NotImplementedException ();
-		}
-
+		public IVertexBuffer CreateVertexBuffer ( Type vertexType, int length ) { return new VertexBuffer ( this, vertexType, length ); }
 		public IVertexBuffer CreateVertexBuffer<T> ( T [] vertices ) where T : struct
 		{
-			throw new NotImplementedException ();
+			VertexBuffer b = new VertexBuffer ( this, typeof ( T ), vertices.Length );
+			b.SetBufferDatas<T> ( vertices );
+			return b;
 		}
 
-		public IIndexBuffer CreateIndexBuffer ( Type indexType, int length, bool is16bit = false )
-		{
-			throw new NotImplementedException ();
-		}
-
+		public IIndexBuffer CreateIndexBuffer ( Type indexType, int length, bool is16bit = false ) { return new IndexBuffer ( this, indexType, length, is16bit ); }
 		public IIndexBuffer CreateIndexBuffer<T> ( T [] indices, bool is16bit = false ) where T : struct
 		{
-			throw new NotImplementedException ();
+			IndexBuffer b = new IndexBuffer ( this, typeof ( T ), indices.Length, is16bit );
+			b.SetBufferDatas<T> ( indices );
+			return b;
 		}
 
 		public IShader CreateShader ( ShaderType shaderType, string shader )
