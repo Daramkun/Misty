@@ -370,5 +370,7 @@ namespace Daramkun.Misty.Graphics
 			return CreateEffect ( doc );
 		}
 		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
+
+		public event EventHandler DeviceLost;
 	}
 }

@@ -9,7 +9,7 @@ namespace Daramkun.Misty.Graphics
 {
 	class VertexDeclaration : StandardDispose, IVertexDeclaration
 	{
-
+		SharpDX.Direct3D11.InputLayout layout;
 
 		public object Handle { get { throw new NotImplementedException (); } }
 		public int Length { get { throw new NotImplementedException (); } }

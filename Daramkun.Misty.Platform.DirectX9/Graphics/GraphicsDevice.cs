@@ -290,7 +290,11 @@ namespace Daramkun.Misty.Graphics
 		public void SwapBuffer ()
 		{
 			if ( d3dDevice == null ) return;
-			d3dDevice.Present ();
+			try
+			{
+				d3dDevice.Present ();
+			}
+			catch { d3dDevice.Reset ( d3dpp ); if ( DeviceLost != null )DeviceLost ( this, EventArgs.Empty ); }
 		}
 
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
@@ -360,5 +364,7 @@ namespace Daramkun.Misty.Graphics
 			return CreateEffect ( doc );
 		}
 		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
+
+		public event EventHandler DeviceLost;
 	}
 }

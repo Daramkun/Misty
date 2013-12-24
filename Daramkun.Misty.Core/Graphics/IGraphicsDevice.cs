@@ -112,5 +112,7 @@ namespace Daramkun.Misty.Graphics
 		IShader CreateShader ( ShaderType shaderType, string shader );
 		IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null );
 		IEffect CreateEffect ( Stream stream );
+
+		event EventHandler DeviceLost;
 	}
 }

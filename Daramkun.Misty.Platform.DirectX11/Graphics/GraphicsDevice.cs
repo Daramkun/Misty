@@ -303,5 +303,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			throw new NotImplementedException ();
 		}
+
+		public event EventHandler DeviceLost;
 	}
 }
