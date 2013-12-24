@@ -33,4 +33,17 @@ namespace Daramkun.Misty.Graphics
 		object Handle { get; }
 		int Length { get; }
 	}
+
+	[AttributeUsage ( AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = false, Inherited = true )]
+	public class VertexElementationAttribute : Attribute
+	{
+		public ElementType ElementType { get; private set; }
+		public int UsageIndex { get; private set; }
+
+		public VertexElementationAttribute ( ElementType elementType, int usageIndex = 0 )
+		{
+			ElementType = elementType;
+			UsageIndex = usageIndex;
+		}
+	}
 }

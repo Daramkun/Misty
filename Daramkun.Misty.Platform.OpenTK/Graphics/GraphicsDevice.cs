@@ -371,6 +371,7 @@ namespace Daramkun.Misty.Graphics
 		}
 		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
 
+#pragma warning disable
 		public event EventHandler DeviceLost;
 	}
 }

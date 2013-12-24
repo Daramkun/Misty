@@ -304,6 +304,7 @@ namespace Daramkun.Misty.Graphics
 			throw new NotImplementedException ();
 		}
 
+#pragma warning disable
 		public event EventHandler DeviceLost;
 	}
 }

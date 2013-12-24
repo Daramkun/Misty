@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Common;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Geometries;
@@ -13,8 +14,11 @@ namespace Daramkun.Misty.Graphics.Spirit
 	{
 		private struct SpriteVertex
 		{
+			[VertexElementation ( Graphics.ElementType.Position )]
 			public Vector2 Position;
+			[VertexElementation ( Graphics.ElementType.Diffuse )]
 			public Color Diffuse;
+			[VertexElementation ( Graphics.ElementType.TextureCoord )]
 			public Vector2 TexCoord;
 
 			public SpriteVertex ( Vector2 pos, Color dif, Vector2 tex )
@@ -89,11 +93,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			if ( indexBuffer == null )
 			{
 				indexBuffer = Core.GraphicsDevice.CreateIndexBuffer ( new int [] { 0, 1, 2, 1, 3, 2 } );
-				vertexDeclaration = Core.GraphicsDevice.CreateVertexDeclaration (
-					new VertexElement ( ElementType.Position, 0, ElementSize.Float2 ),
-					new VertexElement ( ElementType.Diffuse, 0, ElementSize.Float4 ),
-					new VertexElement ( ElementType.TextureCoord, 0, ElementSize.Float2 )
-				);
+				vertexDeclaration = Core.GraphicsDevice.CreateVertexDeclaration ( Utilities.CreateVertexElementArray<SpriteVertex> () );
 			}
 			indexReference++;
 
