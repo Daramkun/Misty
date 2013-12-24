@@ -24,7 +24,7 @@ namespace Daramkun.Misty.Contents.Encoders.Audios
 
 			BinaryWriter writer = new BinaryWriter ( stream );
 			writer.Write ( Encoding.UTF8.GetBytes ( "RIFF" ) );
-			writer.Write ( totalLength );
+			writer.Write ( totalLength + 36 );
 			writer.Write ( Encoding.UTF8.GetBytes ( "WAVE" ) );
 			
 			writer.Write ( Encoding.UTF8.GetBytes ( "fmt" ) );
@@ -38,6 +38,7 @@ namespace Daramkun.Misty.Contents.Encoders.Audios
 			writer.Write ( ( short ) data.BitsPerSample * 8 );
 
 			writer.Write ( Encoding.UTF8.GetBytes ( "data" ) );
+			writer.Write ( totalLength );
 			foreach ( byte [] temp in buffer )
 				writer.Write ( temp );
 
