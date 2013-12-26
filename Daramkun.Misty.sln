@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3C8A3FB6-A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Desktop", "Test.Desktop\Test.Desktop.csproj", "{7E019A0D-2125-4491-B02A-4A7427C3647B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Porting Framework", "Porting Framework", "{6AA5DE02-8282-4540-82C8-F1C87ABF4742}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Physics.Parseer", "Daramkun.Misty.Physics.Parseer\Daramkun.Misty.Physics.Parseer.csproj", "{FB306D80-8054-4967-9158-FA5E7549CEE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +83,14 @@ Global
 		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Release|ARM.ActiveCfg = Release|Any CPU
 		{7E019A0D-2125-4491-B02A-4A7427C3647B}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -90,6 +102,7 @@ Global
 		{ED437759-72E7-47D0-AE51-32EB7ACDDCD5} = {97977EF7-4D97-47FA-AE5F-AF427DFC29E5}
 		{26A28563-415B-4BE4-B494-696AA0487FE5} = {97977EF7-4D97-47FA-AE5F-AF427DFC29E5}
 		{7E019A0D-2125-4491-B02A-4A7427C3647B} = {3C8A3FB6-AE4F-4C4D-9EBA-CEA12F00A64D}
+		{FB306D80-8054-4967-9158-FA5E7549CEE8} = {6AA5DE02-8282-4540-82C8-F1C87ABF4742}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Test.Desktop\Test.Desktop.csproj

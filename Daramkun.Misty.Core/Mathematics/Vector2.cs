@@ -123,5 +123,13 @@ namespace Daramkun.Misty.Mathematics
 				}
 			}
 		}
+
+		public static Vector2 Transform ( Vector2 position, Matrix4x4 matrix )
+		{
+			return new Vector2 (
+				( position.X * matrix.M11 ) + ( position.Y * matrix.M21 ) + matrix.M41,
+				( position.X * matrix.M12 ) + ( position.Y * matrix.M22 ) + matrix.M42
+			);
+		}
 	}
 }
