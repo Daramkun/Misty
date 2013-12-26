@@ -20,7 +20,7 @@ namespace Daramkun.Misty.Audios
 		public AudioDevice ( IWindow window )
 		{
 			dSound = new SharpDX.DirectSound.DirectSound ();
-			dSound.SetCooperativeLevel ( ( window.Handle as Form ).Handle, SharpDX.DirectSound.CooperativeLevel.Priority );
+			dSound.SetCooperativeLevel ( ( window.Handle as Form ).Handle, SharpDX.DirectSound.CooperativeLevel.Normal );
 
 			soundBuffer = new SharpDX.DirectSound.PrimarySoundBuffer ( dSound, new SharpDX.DirectSound.SoundBufferDescription ()
 			{
