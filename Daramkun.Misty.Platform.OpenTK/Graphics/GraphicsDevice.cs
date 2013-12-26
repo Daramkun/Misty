@@ -201,14 +201,27 @@ namespace Daramkun.Misty.Graphics
 
 		public bool IsFullscreen
 		{
-			get { throw new NotImplementedException (); }
-			set { throw new NotImplementedException (); }
+			get { return window.WindowState == OpenTK.WindowState.Fullscreen; }
+			set
+			{
+				window.WindowState = value ? OpenTK.WindowState.Fullscreen : OpenTK.WindowState.Normal;
+				if ( !value ) OpenTK.DisplayDevice.Default.RestoreResolution ();
+				else window.ClientSize = new System.Drawing.Size ( OpenTK.DisplayDevice.Default.Width, OpenTK.DisplayDevice.Default.Height );
+			}
 		}
 
 		public ScreenResolution FullscreenResolution
 		{
-			get { throw new NotImplementedException (); }
-			set { throw new NotImplementedException (); }
+			get
+			{
+				OpenTK.DisplayDevice device = OpenTK.DisplayDevice.Default;
+				return new ScreenResolution ( new Vector2 ( device.Width, device.Height ), device.RefreshRate );
+			}
+			set
+			{
+				OpenTK.DisplayDevice.Default.ChangeResolution ( ( int ) value.ScreenSize.X, ( int ) value.ScreenSize.Y, 32, value.RefreshRate );
+				window.ClientSize = new System.Drawing.Size ( ( int ) value.ScreenSize.X, ( int ) value.ScreenSize.Y );
+			}
 		}
 
 		public BlendOperation BlendOperation

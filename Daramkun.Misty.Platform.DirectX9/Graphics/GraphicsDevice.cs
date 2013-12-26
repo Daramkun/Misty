@@ -19,7 +19,7 @@ namespace Daramkun.Misty.Graphics
 
 		public BaseRenderer BaseRenderer { get { return BaseRenderer.DirectX; } }
 		public Version RendererVersion { get { return new Version ( 9, 0 ); } }
-		public Version ShaderVersion { get { return new Version ( 2, 0 ); } }
+		public Version ShaderVersion { get { return new Version ( 3, 0 ); } }
 
 		public ScreenResolution [] AvailableScreenResolution
 		{

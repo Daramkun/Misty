@@ -18,6 +18,8 @@ namespace Daramkun.Misty.Graphics
 		SharpDX.Direct3D11.DepthStencilView depthStencil;
 		SharpDX.Direct3D11.Texture2D depthStencilBuffer;
 
+		internal Shader currentVertexShader;
+
 		public object Handle { get { return d3dDevice; } }
 
 		public IGraphicsDeviceInformation Information
@@ -244,11 +246,13 @@ namespace Daramkun.Misty.Graphics
 
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
+			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( this, currentVertexShader );
 			throw new NotImplementedException ();
 		}
 
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount )
 		{
+			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( this, currentVertexShader );
 			throw new NotImplementedException ();
 		}
 

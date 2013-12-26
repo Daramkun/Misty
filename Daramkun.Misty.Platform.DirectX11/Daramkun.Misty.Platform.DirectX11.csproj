@@ -58,12 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Graphics\Effect.cs" />
     <Compile Include="Graphics\GraphicsDevice.cs" />
     <Compile Include="Graphics\GraphicsDevice.Utilities.cs" />
     <Compile Include="Graphics\IndexBuffer.cs" />
+    <Compile Include="Graphics\RenderBuffer.cs" />
+    <Compile Include="Graphics\Shader.cs" />
     <Compile Include="Graphics\Texture2D.cs" />
     <Compile Include="Graphics\VertexBuffer.cs" />
     <Compile Include="Graphics\VertexDeclaration.cs" />
+    <Compile Include="Inputs\Devices\Keyboard.cs" />
+    <Compile Include="Inputs\Devices\Mouse.cs" />
     <Compile Include="Platforms\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,7 +77,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Audios\" />
-    <Folder Include="Inputs\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Daramkun.Misty.Core\Daramkun.Misty.Core.csproj">

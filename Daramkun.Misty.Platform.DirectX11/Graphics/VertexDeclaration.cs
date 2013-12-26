@@ -17,15 +17,26 @@ namespace Daramkun.Misty.Graphics
 		public object Handle { get { return layout; } }
 		public int Length { get { return e.Length; } }
 
+		internal void GenerateInputLayout ( IGraphicsDevice graphicsDevice, Shader vertexShader )
+		{
+			if ( layout != null ) return;
+			layout = new SharpDX.Direct3D11.InputLayout ( graphicsDevice.Handle as SharpDX.Direct3D11.Device,
+				( vertexShader.Handle as Shader ).bytecode, e );
+		}
+
 		public VertexDeclaration ( IGraphicsDevice graphicsDevice, VertexElement [] elements )
 		{
 			e = ConvertElements ( elements );
 			this.elements = elements;
-			layout = new SharpDX.Direct3D11.InputLayout ( graphicsDevice.Handle as SharpDX.Direct3D11.Device, null, e );
 		}
 
 		protected override void Dispose ( bool isDisposing )
 		{
+			if ( isDisposing )
+			{
+				if ( layout != null )
+					layout.Dispose ();
+			}
 			base.Dispose ( isDisposing );
 		}
 
