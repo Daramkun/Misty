@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core Framework", "Core Framework", "{E5C51CD3-0669-42E8-9FED-17296B399CA1}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.md = LICENSE.md
+		README.md = README.md
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Core", "Daramkun.Misty.Core\Daramkun.Misty.Core.csproj", "{43BE1669-E2AF-4C50-8209-C1F6298D12CA}"
 EndProject
@@ -23,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Desktop", "Test.Deskto
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Porting Framework", "Porting Framework", "{6AA5DE02-8282-4540-82C8-F1C87ABF4742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Physics.Parseer", "Daramkun.Misty.Physics.Parseer\Daramkun.Misty.Physics.Parseer.csproj", "{FB306D80-8054-4967-9158-FA5E7549CEE8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Physics.Farseer", "Daramkun.Misty.Physics.Farseer\Daramkun.Misty.Physics.Farseer.csproj", "{FB306D80-8054-4967-9158-FA5E7549CEE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
