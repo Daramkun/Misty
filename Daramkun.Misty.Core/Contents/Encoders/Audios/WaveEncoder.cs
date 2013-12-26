@@ -33,9 +33,9 @@ namespace Daramkun.Misty.Contents.Encoders.Audios
 			writer.Write ( ( short ) 0 );
 			writer.Write ( ( short ) data.AudioChannel );
 			writer.Write ( data.SampleRate );
-			writer.Write ( data.SampleRate * data.AudioChannel * data.BitsPerSample );
+			writer.Write ( data.SampleRate * data.AudioChannel * data.BitPerSamples );
 			writer.Write ( ( short ) 0 );
-			writer.Write ( ( short ) data.BitsPerSample * 8 );
+			writer.Write ( ( short ) data.BitPerSamples * 8 );
 
 			writer.Write ( Encoding.UTF8.GetBytes ( "data" ) );
 			writer.Write ( totalLength );

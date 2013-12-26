@@ -12,9 +12,10 @@ namespace Daramkun.Misty.Contents
 
 		public int AudioChannel { get; private set; }
 		public int SampleRate { get; private set; }
-		public int BitsPerSample { get; private set; }
+		public int BitPerSamples { get; private set; }
 		public TimeSpan Duration { get; private set; }
 		public Stream AudioStream { get; private set; }
+		public int ByteRate { get { return AudioChannel * SampleRate * BitPerSamples; } }
 
 		object RawSamples;
 		Func<AudioInfo, object, TimeSpan?, byte []> GetSampleFunc;
@@ -25,7 +26,7 @@ namespace Daramkun.Misty.Contents
 		{
 			AudioChannel = channel;
 			SampleRate = sampleRate;
-			BitsPerSample = bitPerSamples;
+			BitPerSamples = bitPerSamples;
 			Duration = duration;
 			AudioStream = audioStream;
 			RawSamples = rawSamples;

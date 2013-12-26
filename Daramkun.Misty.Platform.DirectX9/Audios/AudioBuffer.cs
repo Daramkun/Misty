@@ -43,12 +43,11 @@ namespace Daramkun.Misty.Audios
 			{
 				int playCursor, writeCursor;
 				soundBuffer.GetCurrentPosition ( out playCursor, out writeCursor );
-				return TimeSpan.FromSeconds ( playCursor / ( ( int ) audioInfo.AudioChannel * audioInfo.BitsPerSample * audioInfo.SampleRate ) );
+				return TimeSpan.FromSeconds ( playCursor / audioInfo.ByteRate );
 			}
 			set
 			{
-				soundBuffer.CurrentPosition = ( int ) ( value.TotalSeconds *
-					( ( int ) audioInfo.AudioChannel * audioInfo.BitsPerSample * audioInfo.SampleRate ) );
+				soundBuffer.CurrentPosition = ( int ) ( value.TotalSeconds * audioInfo.ByteRate );
 			}
 		}
 
@@ -62,9 +61,8 @@ namespace Daramkun.Misty.Audios
 				SharpDX.DirectSound.BufferFlags.ControlPositionNotify | SharpDX.DirectSound.BufferFlags.StickyFocus |
 				SharpDX.DirectSound.BufferFlags.Software | SharpDX.DirectSound.BufferFlags.GetCurrentPosition2 |
 				SharpDX.DirectSound.BufferFlags.ControlFrequency,
-				Format = new SharpDX.Multimedia.WaveFormat ( audioInfo.SampleRate, audioInfo.BitsPerSample * 8, ( int ) audioInfo.AudioChannel ),
-				BufferBytes = totalLength = ( int ) ( audioInfo.Duration.TotalSeconds *
-					( ( int ) audioInfo.AudioChannel * audioInfo.BitsPerSample * audioInfo.SampleRate ) ),
+				Format = new SharpDX.Multimedia.WaveFormat ( audioInfo.SampleRate, audioInfo.BitPerSamples * 8, audioInfo.AudioChannel ),
+				BufferBytes = totalLength = ( int ) ( audioInfo.Duration.TotalSeconds * audioInfo.ByteRate ),
 			};
 			soundBuffer = new SharpDX.DirectSound.SecondarySoundBuffer ( audioDevice.Handle as SharpDX.DirectSound.DirectSound,
 				bufferDesc );
@@ -123,7 +121,7 @@ namespace Daramkun.Misty.Audios
 		{
 			SharpDX.DataStream secondPart;
 			SharpDX.DataStream stream = soundBuffer.Lock ( offset, data.Length, SharpDX.DirectSound.LockFlags.EntireBuffer, out secondPart );
-			stream.WriteRange<byte> ( data );
+			stream.WriteRange<byte> ( data, 0, Math.Min ( data.Length, ( int ) stream.Length ) );
 			soundBuffer.Unlock ( stream, secondPart );
 			offset += data.Length;
 		}

@@ -22,8 +22,14 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 						if ( timeSpan != null )
 							reader.DecodedTime = timeSpan.Value;
 
-						float [] buffer = new float [ audioInfo.SampleRate ];
-						byte [] returnBuffer = new byte [ buffer.Length * 2 ];
+						if ( reader.DecodedTime >= reader.TotalTime )
+							return null;
+
+						if ( reader.StreamIndex - 1 >= reader.StreamCount )
+							return null;
+
+						float [] buffer = new float [ audioInfo.SampleRate / 2 ];
+						byte [] returnBuffer = new byte [ audioInfo.SampleRate ];
 						int count = reader.ReadSamples ( buffer, 0, buffer.Length );
 
 						CastBuffer ( buffer, returnBuffer, count );
