@@ -39,19 +39,20 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 		protected abstract ITexture2D this [ char ch ] { get; }
 
-		public void DrawFont ( string text, Color color, Vector2 position )
+		public void DrawFont ( string text, Color color, Vector2 position, int startIndex = 0, int length = -1 )
 		{
-			DrawFont ( text, color, position, MeasureString ( text ) );
+			DrawFont ( text, color, position, MeasureString ( text ), startIndex, length );
 		}
 
-		public void DrawFont ( string text, Color color, Vector2 position, Vector2 area )
+		public void DrawFont ( string text, Color color, Vector2 position, Vector2 area, int startIndex = 0, int length = -1 )
 		{
 			if ( text == null ) return;
+			if ( length == -1 ) length = text.Length;
 
 			List<Vector2> lines = new List<Vector2> ();
 			int i = 0;
 			float height = 0;
-			for ( i = 0; i < text.Length; i++ )
+			for ( i = startIndex; i < startIndex + length; i++ )
 			{
 				char ch = text [ i ];
 				if ( ch == '\n' )
@@ -82,14 +83,16 @@ namespace Daramkun.Misty.Graphics.Spirit
 			}
 		}
 
-		public Vector2 MeasureString ( string text )
+		public Vector2 MeasureString ( string text, int startIndex = 0, int length = -1 )
 		{
 			if ( text == null ) return new Vector2 ();
+			if ( length == -1 ) length = text.Length;
 
 			List<Vector2> lines = new List<Vector2> ();
 
-			foreach ( char ch in text )
+			for ( int i = startIndex; i < startIndex + length; ++i )
 			{
+				char ch = text [ i ];
 				if ( ch == '\n' )
 				{
 					lines.Add ( new Vector2 () );
@@ -116,14 +119,15 @@ namespace Daramkun.Misty.Graphics.Spirit
 			return measure;
 		}
 
-		public int MeasureString ( string text, Vector2 area )
+		public int MeasureString ( string text, Vector2 area, int startIndex = 0, int length = -1 )
 		{
 			if ( text == null ) return 0;
+			if ( length == -1 ) length = text.Length;
 
 			List<Vector2> lines = new List<Vector2> ();
 			int i = 0;
 			float height = 0;
-			for ( i = 0; i < text.Length; i++ )
+			for ( i = startIndex; i < startIndex + length; i++ )
 			{
 				char ch = text [ i ];
 				if ( ch == '\n' )

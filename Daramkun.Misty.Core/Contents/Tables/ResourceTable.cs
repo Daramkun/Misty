@@ -174,6 +174,21 @@ namespace Daramkun.Misty.Contents.Tables
 			loadedContent.Clear ();
 		}
 
+		public void Reset<T> ()
+		{
+			List<string> removed = new List<string> ();
+			foreach ( KeyValuePair<string, object> obj in loadedContent )
+				if ( obj.Value is T )
+				{
+					if ( obj.Value is IDisposable )
+						( obj.Value as IDisposable ).Dispose ();
+					removed.Add ( obj.Key );
+				}
+
+			foreach ( string s in removed )
+				loadedContent.Remove ( s );
+		}
+
 		public void Dispose ()
 		{
 			Reset ();

@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Daramkun's NEST")]
 [assembly: AssemblyProduct("Daramkun.Misty.Core")]
-[assembly: AssemblyCopyright("Copyright © 2013 Daramkun, Thanks to NVorbis, PngCs, TrueTypeSharp")]
+[assembly: AssemblyCopyright("Copyright © 2013 Daramkun, Thanks to NVorbis, PngCs, TrueTypeSharp, ZlibPortable")]
 [assembly: AssemblyTrademark("Misty Framework®")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("ko")]
