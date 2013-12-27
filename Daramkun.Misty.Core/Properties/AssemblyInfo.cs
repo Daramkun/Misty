@@ -7,12 +7,12 @@ using System.Runtime.InteropServices;
 // 어셈블리와 관련된 정보를 수정하려면
 // 이 특성 값을 변경하십시오.
 [assembly: AssemblyTitle("Daramkun.Misty.Core")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Misty Framework Core Library")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Daramkun's NEST")]
 [assembly: AssemblyProduct("Daramkun.Misty.Core")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © 2013 Daramkun, Thanks to NVorbis, PngCs, TrueTypeSharp")]
+[assembly: AssemblyTrademark("Misty Framework®")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("ko")]
 

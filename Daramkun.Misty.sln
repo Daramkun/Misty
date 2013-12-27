@@ -29,6 +29,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Porting Framework", "Portin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Physics.Farseer", "Daramkun.Misty.Physics.Farseer\Daramkun.Misty.Physics.Farseer.csproj", "{FB306D80-8054-4967-9158-FA5E7549CEE8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game Engine", "Game Engine", "{E982808B-A974-4C90-944D-A8CE0B508F97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Engine.Walnut", "Daramkun.Misty.Engine.Walnut\Daramkun.Misty.Engine.Walnut.csproj", "{6185E313-97B8-491E-AE1C-3CCC4ED4362D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +99,14 @@ Global
 		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Release|ARM.ActiveCfg = Release|Any CPU
 		{FB306D80-8054-4967-9158-FA5E7549CEE8}.Release|x86.ActiveCfg = Release|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Release|ARM.ActiveCfg = Release|Any CPU
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +119,7 @@ Global
 		{26A28563-415B-4BE4-B494-696AA0487FE5} = {97977EF7-4D97-47FA-AE5F-AF427DFC29E5}
 		{7E019A0D-2125-4491-B02A-4A7427C3647B} = {3C8A3FB6-AE4F-4C4D-9EBA-CEA12F00A64D}
 		{FB306D80-8054-4967-9158-FA5E7549CEE8} = {6AA5DE02-8282-4540-82C8-F1C87ABF4742}
+		{6185E313-97B8-491E-AE1C-3CCC4ED4362D} = {E982808B-A974-4C90-944D-A8CE0B508F97}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Test.Desktop\Test.Desktop.csproj

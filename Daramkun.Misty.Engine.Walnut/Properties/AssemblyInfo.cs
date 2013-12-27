@@ -6,13 +6,13 @@ using System.Runtime.InteropServices;
 // 어셈블리의 일반 정보는 다음 특성 집합을 통해 제어됩니다. 
 // 어셈블리와 관련된 정보를 수정하려면
 // 이 특성 값을 변경하십시오.
-[assembly: AssemblyTitle("Daramkun.Misty.Physics.Farseer")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Daramkun.Misty.Engine.Walnut")]
+[assembly: AssemblyDescription("Misty Framework Visual Novel Engine")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany ( "Farseer Physics Engine" )]
-[assembly: AssemblyProduct("Daramkun.Misty.Physics.Farseer")]
-[assembly: AssemblyCopyright ( "Copyright © 2013 Ian Qvist" )]
-[assembly: AssemblyTrademark ( "Misty Framework®" )]
+[assembly: AssemblyCompany("Daramkun's NEST")]
+[assembly: AssemblyProduct("Daramkun.Misty.Engine.Walnut")]
+[assembly: AssemblyCopyright("Copyright © 2013 Daramkun All Rights Reserved")]
+[assembly: AssemblyTrademark("Misty Framework®")]
 [assembly: AssemblyCulture("")]
 [assembly: NeutralResourcesLanguage("ko")]
 
@@ -26,5 +26,5 @@ using System.Runtime.InteropServices;
 // 모든 값을 지정하거나 아래와 같이 '*'를 사용하여 빌드 번호 및 수정 버전이 자동으로 
 // 지정되도록 할 수 있습니다.
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("3.5.0.0")]
-[assembly: AssemblyFileVersion("3.5.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

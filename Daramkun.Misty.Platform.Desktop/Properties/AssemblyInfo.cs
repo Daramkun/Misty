@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // 어셈블리와 관련된 정보를 수정하려면
 // 이 특성 값을 변경하십시오.
 [assembly: AssemblyTitle("Daramkun.Misty.Platform.Desktop")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Misty Framework Desktop Common Platform Abstraction Framework ")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Daramkun's NEST")]
 [assembly: AssemblyProduct("Daramkun.Misty.Platform.Desktop")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © 2013 Daramkun")]
+[assembly: AssemblyTrademark("Misty Framework®")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 

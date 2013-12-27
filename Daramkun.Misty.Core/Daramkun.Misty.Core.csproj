@@ -271,6 +271,7 @@
     <Compile Include="Platforms\IWindow.cs" />
     <Compile Include="Platforms\PlatformInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scripts\IScriptEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Spirit\SpriteEffect.xml" />
