@@ -36,7 +36,6 @@ namespace Daramkun.Misty.Graphics
 				GL.DeleteFramebuffers ( 1, ref depthBuffer );
 				GL.DeleteFramebuffers ( 1, ref frameBuffer );
 			}
-
 			base.Dispose ( isDisposing );
 		}
 	}

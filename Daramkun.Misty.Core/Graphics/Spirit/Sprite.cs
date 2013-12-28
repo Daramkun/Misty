@@ -34,6 +34,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 		static int indexReference;
 		static SpriteEffect baseSpriteEffect;
 
+		OrthographicOffCenterProjection projectionMatrix = new OrthographicOffCenterProjection ( 0, 800, 600, 0, 0.001f, 1000.0f );
+
 		IVertexBuffer vertexBuffer;
 		Rectangle clippingArea;
 		Color overlayColor;
@@ -137,10 +139,9 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Effect.Begin ();
 			Effect.SetTextures ( new TextureArgument () { Texture = Texture, Uniform = "texture0",
 				Filter = TextureFilter, AnisotropicLevel = AnisotropicLevel, Addressing = TextureAddressing.Clamp } );
-			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", new OrthographicOffCenterProjection (
-				0, Core.GraphicsDevice.CurrentRenderBuffer.Width, Core.GraphicsDevice.CurrentRenderBuffer.Height, 0,
-				0.001f, 1000.0f
-			).Matrix );
+
+			projectionMatrix.OffCenterSize = Core.GraphicsDevice.CurrentRenderBuffer.Size;
+			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", projectionMatrix.Matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", transform.Matrix );
 			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, 2 );
 			Effect.End ();

@@ -108,8 +108,6 @@ namespace Daramkun.Misty.Graphics
 
 		public void SetUniform<T> ( string name, T value ) where T : struct
 		{
-			int lastProgram;
-			GL.GetInteger ( GetPName.CurrentProgram, out lastProgram );
 			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			Type baseType = typeof ( T );
@@ -119,7 +117,6 @@ namespace Daramkun.Misty.Graphics
 			else if ( baseType == typeof ( Vector3 ) ) { Vector3 v = ( Vector3 ) ( object ) value; GL.Uniform3 ( uniform, v.X, v.Y, v.Z ); }
 			else if ( baseType == typeof ( Vector4 ) ) { Vector4 v = ( Vector4 ) ( object ) value; GL.Uniform4 ( uniform, v.X, v.Y, v.Z, v.W ); }
 			else if ( baseType == typeof ( Matrix4x4 ) ) { Matrix4x4 v = ( Matrix4x4 ) ( object ) value; GL.UniformMatrix4 ( uniform, 1, false, v.ToArray () ); }
-			GL.UseProgram ( lastProgram );
 		}
 
 		public void SetUniform ( string name, params int [] value )

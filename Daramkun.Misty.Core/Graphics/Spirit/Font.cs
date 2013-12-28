@@ -86,9 +86,12 @@ namespace Daramkun.Misty.Graphics.Spirit
 				IRenderBuffer renderBuffer = Core.GraphicsDevice.CreateRenderBuffer ( ( int ) area.X, ( int ) area.Y );
 				IRenderBuffer lastRenderBuffer = Core.GraphicsDevice.CurrentRenderBuffer;
 
-				Core.GraphicsDevice.EndScene ();
-				Core.GraphicsDevice.BeginScene ( renderBuffer );
-				Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Transparent );
+				if ( IsPrerenderMode )
+				{
+					Core.GraphicsDevice.EndScene ();
+					Core.GraphicsDevice.BeginScene ( renderBuffer );
+					Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Transparent );
+				}
 
 				for ( i = startIndex; i < startIndex + length; i++ )
 				{
@@ -120,11 +123,13 @@ namespace Daramkun.Misty.Graphics.Spirit
 					spriteEngine.Draw ( fontWorld );
 				}
 
-				Core.GraphicsDevice.EndScene ();
-				Core.GraphicsDevice.BeginScene ( lastRenderBuffer );
-				cachedRenderBuffer.Add ( text, renderBuffer );
-
-				DrawFont ( text, color, position, area, startIndex, length );
+				if ( IsPrerenderMode )
+				{
+					Core.GraphicsDevice.EndScene ();
+					Core.GraphicsDevice.BeginScene ( lastRenderBuffer );
+					cachedRenderBuffer.Add ( text, renderBuffer );
+					DrawFont ( text, color, position, area, startIndex, length );
+				}
 			}
 		}
 

@@ -24,7 +24,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				SharpDX.DataRectangle dr = texture.LockRectangle ( 0, SharpDX.Direct3D9.LockFlags.None );
+				SharpDX.DataRectangle dr = texture.LockRectangle ( 0, SharpDX.Direct3D9.LockFlags.ReadOnly );
 				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, ( dr.Pitch / 4 ) * Height * 4, true, false );
 				Color [] colours = new Color [ stream.Length / 4 ];
 				for ( int y = 0; y < Height; ++y )
