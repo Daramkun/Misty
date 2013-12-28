@@ -48,7 +48,9 @@ namespace Test.Desktop
 			world = World2.Identity;
 			world.Translate = Core.GraphicsDevice.BackBuffer.Size / 2 - sprite.Texture.Size / 2;
 			font = new TrueTypeFont ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.GameFont.ttf" ), 64 );
+			font.IsPrerenderMode = true;
 			font2 = new TrueTypeFont ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.GameFont.ttf" ), 24 );
+			font2.IsPrerenderMode = true;
 
 			AudioInfo audioInfo;
 			new OggVorbisDecoder ().Decode ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.test.ogg" ), out audioInfo );

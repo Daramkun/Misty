@@ -72,6 +72,7 @@ namespace Daramkun.Misty.Graphics
 		IGraphicsDeviceInformation Information { get; }
 
 		IRenderBuffer BackBuffer { get; }
+		IRenderBuffer CurrentRenderBuffer { get; }
 
 		CullingMode CullMode { get; set; }
 		FillMode FillMode { get; set; }

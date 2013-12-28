@@ -43,8 +43,8 @@ namespace Daramkun.Misty
 			Inputs = new InputCollection ();
 			CurrentCulture = CultureInfo.CurrentCulture;
 
-			FixedUpdateTimeStep = new TimeSpan ();
-			FixedDrawTimeStep = new TimeSpan ();
+			FixedUpdateTimeStep = TimeSpan.FromSeconds ( 1.0f / 60 );
+			FixedDrawTimeStep = TimeSpan.FromSeconds ( 1.0f / 60 );
 		}
 
 		public static void Dispose ()

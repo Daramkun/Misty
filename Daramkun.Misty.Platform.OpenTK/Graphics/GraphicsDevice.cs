@@ -144,6 +144,7 @@ namespace Daramkun.Misty.Graphics
 		public IGraphicsDeviceInformation Information { get { return deviceInfo; } }
 
 		public IRenderBuffer BackBuffer { get; private set; }
+		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
 		public CullingMode CullMode
 		{
@@ -151,13 +152,13 @@ namespace Daramkun.Misty.Graphics
 			{
 				bool cullFace;
 				GL.GetBoolean ( GetPName.CullFace, out cullFace );
-				if ( cullFace ) return CullingMode.None;
+				if ( !cullFace ) return CullingMode.None;
 				int frontFace;
 				GL.GetInteger ( GetPName.FrontFace, out frontFace );
 				switch ( ( FrontFaceDirection ) frontFace )
 				{
-					case FrontFaceDirection.Cw: return CullingMode.ClockWise;
-					case FrontFaceDirection.Ccw: return CullingMode.CounterClockWise;
+					case FrontFaceDirection.Ccw: return CullingMode.ClockWise;
+					case FrontFaceDirection.Cw: return CullingMode.CounterClockWise;
 					default: throw new ArgumentException ();
 				}
 			}
@@ -165,7 +166,7 @@ namespace Daramkun.Misty.Graphics
 			{
 				if ( value == CullingMode.None ) GL.Disable ( EnableCap.CullFace );
 				else GL.Enable ( EnableCap.CullFace );
-				GL.FrontFace ( ( value == CullingMode.ClockWise ) ? FrontFaceDirection.Cw : FrontFaceDirection.Ccw );
+				GL.FrontFace ( ( value == CullingMode.ClockWise ) ? FrontFaceDirection.Ccw : FrontFaceDirection.Cw );
 			}
 		}
 
@@ -282,6 +283,8 @@ namespace Daramkun.Misty.Graphics
 
 			deviceInfo = new GraphicsDeviceInformation ();
 			BackBuffer = new BackBuffer ( this.window );
+
+			CullMode = CullingMode.CounterClockWise;
 		}
 
 		protected override void Dispose ( bool isDisposing )
@@ -297,17 +300,24 @@ namespace Daramkun.Misty.Graphics
 		{
 			if ( renderBuffer != null && renderBuffer != BackBuffer )
 			{
+				GL.BindTexture ( TextureTarget.Texture2D, 0 );
+				GL.Enable ( EnableCap.Texture2D );
 				GL.BindFramebuffer ( FramebufferTarget.Framebuffer, ( renderBuffer as RenderBuffer ).frameBuffer );
-				GL.BindFramebuffer ( FramebufferTarget.DrawFramebuffer, ( renderBuffer as RenderBuffer ).frameBuffer );
-				GL.BindFramebuffer ( FramebufferTarget.ReadFramebuffer, ( renderBuffer as RenderBuffer ).frameBuffer );
+				GL.Viewport ( 0, 0, renderBuffer.Width, renderBuffer.Height );
+				CurrentRenderBuffer = renderBuffer;
+			}
+			else
+			{
+				CurrentRenderBuffer = BackBuffer;
+				GL.BindFramebuffer ( FramebufferTarget.Framebuffer, 0 );
+				GL.Viewport ( 0, 0, BackBuffer.Width, BackBuffer.Height );
 			}
 		}
 
 		public void EndScene ()
 		{
 			GL.BindFramebuffer ( FramebufferTarget.Framebuffer, 0 );
-			GL.BindFramebuffer ( FramebufferTarget.DrawFramebuffer, 0 );
-			GL.BindFramebuffer ( FramebufferTarget.ReadFramebuffer, 0 );
+			CurrentRenderBuffer = BackBuffer;
 		}
 
 		public void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 )

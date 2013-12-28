@@ -49,15 +49,19 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public Texture2D ( IGraphicsDevice graphicsDevice, int width, int height, int mipmapLevel = 1 )
+		protected Texture2D ( IGraphicsDevice graphicsDevice, int width, int height, SharpDX.Direct3D9.Usage usage, int mipmapLevel = 1 )
 		{
 			if ( width == 0 ) width = 1;
 			if ( height == 0 ) height = 1;
 			texture = new SharpDX.Direct3D9.Texture ( graphicsDevice.Handle as SharpDX.Direct3D9.Device, width, height,
-				mipmapLevel, SharpDX.Direct3D9.Usage.AutoGenerateMipMap, SharpDX.Direct3D9.Format.A8R8G8B8, SharpDX.Direct3D9.Pool.Managed );
+				mipmapLevel, usage, SharpDX.Direct3D9.Format.A8R8G8B8,
+				usage.HasFlag ( SharpDX.Direct3D9.Usage.RenderTarget ) ? SharpDX.Direct3D9.Pool.Default : SharpDX.Direct3D9.Pool.Managed );
 			texture.FilterTexture ( 0, SharpDX.Direct3D9.Filter.Point );
 			Size = new Vector2 ( width, height );
 		}
+
+		public Texture2D ( IGraphicsDevice graphicsDevice, int width, int height, int mipmapLevel = 1 )
+			: this ( graphicsDevice, width, height, SharpDX.Direct3D9.Usage.AutoGenerateMipMap, 1 ) { }
 
 		public Texture2D ( IGraphicsDevice graphicsDevice, ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
 			: this ( graphicsDevice, imageInfo.Width, imageInfo.Height )

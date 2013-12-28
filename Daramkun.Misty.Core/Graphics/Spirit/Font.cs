@@ -13,8 +13,12 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public string FontFamily { get; protected set; }
 		public float FontSize { get; protected set; }
 
+		public bool IsPrerenderMode { get; set; }
+
 		Sprite spriteEngine;
 		World2 fontWorld;
+
+		Dictionary<string, IRenderBuffer> cachedRenderBuffer;
 
 		public IEffect Effect { get { return spriteEngine.Effect; } set { spriteEngine.Effect = value; } }
 
@@ -22,12 +26,19 @@ namespace Daramkun.Misty.Graphics.Spirit
 		{
 			spriteEngine = new Sprite ( null );
 			fontWorld = new World2 ();
+
+			IsPrerenderMode = false;
+			cachedRenderBuffer = new Dictionary<string, IRenderBuffer> ();
 		}
 
 		protected override void Dispose ( bool isDisposing )
 		{
 			if ( isDisposing )
 			{
+				foreach ( IRenderBuffer buffer in cachedRenderBuffer.Values )
+					buffer.Dispose ();
+				cachedRenderBuffer = null;
+
 				if ( spriteEngine != null )
 				{
 					spriteEngine.Dispose ();
@@ -48,38 +59,72 @@ namespace Daramkun.Misty.Graphics.Spirit
 		{
 			if ( text == null ) return;
 			if ( length == -1 ) length = text.Length;
-
-			List<Vector2> lines = new List<Vector2> ();
-			int i = 0;
-			float height = 0;
-			for ( i = startIndex; i < startIndex + length; i++ )
+			
+			if ( IsPrerenderMode && startIndex != 0 || length != text.Length )
 			{
-				char ch = text [ i ];
-				if ( ch == '\n' )
-				{
-					lines.Add ( new Vector2 () );
-					continue;
-				}
-				ITexture2D image = this [ ch ];
-				if ( image == null ) image = this [ '?' ];
-				if ( image == null ) image = this [ ' ' ];
+				text = text.Substring ( startIndex, length );
+				startIndex = 0;
+				length = text.Length;
+			}
 
-				if ( lines.Count == 0 || lines [ lines.Count - 1 ].X + image.Width > area.X )
-					if ( height + image.Height > area.Y ) return;
-					else lines.Add ( new Vector2 () );
-
-				lines [ lines.Count - 1 ] += new Vector2 ( image.Width, 0 );
-				if ( lines [ lines.Count - 1 ].Y == 0 )
-				{
-					lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height );
-					height += image.Height;
-				}
-
+			if ( IsPrerenderMode && cachedRenderBuffer.ContainsKey ( text ) )
+			{
 				spriteEngine.OverlayColor = color;
-				spriteEngine.Reset ( image );
+				spriteEngine.Reset ( cachedRenderBuffer [ text ] );
 
-				fontWorld.Translate = position + new Vector2 ( lines [ lines.Count - 1 ].X - image.Width, height - image.Height );
+				fontWorld.Translate = position;
 				spriteEngine.Draw ( fontWorld );
+			}
+			else
+			{
+				Vector2 renderPos = ( IsPrerenderMode ) ? new Vector2 () : position;
+
+				List<Vector2> lines = new List<Vector2> ();
+				int i = 0;
+				float height = 0;
+
+				IRenderBuffer renderBuffer = Core.GraphicsDevice.CreateRenderBuffer ( ( int ) area.X, ( int ) area.Y );
+				IRenderBuffer lastRenderBuffer = Core.GraphicsDevice.CurrentRenderBuffer;
+
+				Core.GraphicsDevice.EndScene ();
+				Core.GraphicsDevice.BeginScene ( renderBuffer );
+				Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Transparent );
+
+				for ( i = startIndex; i < startIndex + length; i++ )
+				{
+					char ch = text [ i ];
+					if ( ch == '\n' )
+					{
+						lines.Add ( new Vector2 () );
+						continue;
+					}
+					ITexture2D image = this [ ch ];
+					if ( image == null ) image = this [ '?' ];
+					if ( image == null ) image = this [ ' ' ];
+
+					if ( lines.Count == 0 || lines [ lines.Count - 1 ].X + image.Width > area.X )
+						if ( height + image.Height > area.Y ) return;
+						else lines.Add ( new Vector2 () );
+
+					lines [ lines.Count - 1 ] += new Vector2 ( image.Width, 0 );
+					if ( lines [ lines.Count - 1 ].Y == 0 )
+					{
+						lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height );
+						height += image.Height;
+					}
+
+					spriteEngine.OverlayColor = color;
+					spriteEngine.Reset ( image );
+
+					fontWorld.Translate = renderPos + new Vector2 ( lines [ lines.Count - 1 ].X - image.Width, height - image.Height );
+					spriteEngine.Draw ( fontWorld );
+				}
+
+				Core.GraphicsDevice.EndScene ();
+				Core.GraphicsDevice.BeginScene ( lastRenderBuffer );
+				cachedRenderBuffer.Add ( text, renderBuffer );
+
+				DrawFont ( text, color, position, area, startIndex, length );
 			}
 		}
 

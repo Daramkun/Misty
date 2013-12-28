@@ -23,6 +23,9 @@ namespace Daramkun.Misty.Graphics
 			GL.FramebufferRenderbuffer ( FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, depthBuffer );
 			GL.FramebufferTexture2D ( FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, TextureTarget.Texture2D, ( int ) Handle, 0 );
 
+			if ( GL.CheckFramebufferStatus ( FramebufferTarget.Framebuffer ) != FramebufferErrorCode.FramebufferComplete )
+				throw new PlatformNotSupportedException ();
+
 			GL.BindFramebuffer ( FramebufferTarget.Framebuffer, 0 );
 		}
 

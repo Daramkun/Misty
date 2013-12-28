@@ -93,12 +93,11 @@ namespace Daramkun.Misty.Graphics
 		SharpDX.Direct3D9.Device d3dDevice;
 		internal SharpDX.Direct3D9.PresentParameters d3dpp;
 
-		private IRenderBuffer currentRenderBuffer;
-
 		public object Handle { get { return d3dDevice; } }
 
 		public IGraphicsDeviceInformation Information { get; private set; }
 		public IRenderBuffer BackBuffer { get; private set; }
+		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
 		public CullingMode CullMode
 		{
@@ -250,6 +249,8 @@ namespace Daramkun.Misty.Graphics
 			Information = new GraphicsDeviceInformation ( d3d );
 			BackBuffer = new BackBufferRenderBuffer ( this );
 
+			CullMode = CullingMode.CounterClockWise;
+
 			window.Resize += ( object sender, EventArgs e ) => { ResizeBackBuffer ( ( int ) window.ClientSize.X, ( int ) window.ClientSize.Y ); };
 		}
 
@@ -268,17 +269,21 @@ namespace Daramkun.Misty.Graphics
 		public void BeginScene ( IRenderBuffer renderBuffer = null )
 		{
 			if ( d3dDevice == null ) return;
-			currentRenderBuffer = renderBuffer;
-			if ( renderBuffer == null || renderBuffer == BackBuffer ) d3dDevice.BeginScene ();
-			else ( renderBuffer as RenderBuffer ).rts.BeginScene ( ( renderBuffer.Handle as SharpDX.Direct3D9.Texture ).GetSurfaceLevel ( 0 ), d3dDevice.Viewport );
+			CurrentRenderBuffer = renderBuffer;
+			if ( renderBuffer == null || renderBuffer == BackBuffer ) { CurrentRenderBuffer = BackBuffer; d3dDevice.BeginScene (); }
+			else
+			{
+				SharpDX.Direct3D9.Surface surface = ( renderBuffer.Handle as SharpDX.Direct3D9.Texture ).GetSurfaceLevel ( 0 );
+				( renderBuffer as RenderBuffer ).rts.BeginScene ( surface, new SharpDX.Viewport ( 0, 0, renderBuffer.Width, renderBuffer.Height ) );
+			}
 		}
 
 		public void EndScene ()
 		{
 			if ( d3dDevice == null ) return;
-			if ( currentRenderBuffer != null ) ( currentRenderBuffer as RenderBuffer ).rts.EndScene ( SharpDX.Direct3D9.Filter.Default );
+			if ( CurrentRenderBuffer != BackBuffer ) ( CurrentRenderBuffer as RenderBuffer ).rts.EndScene ( SharpDX.Direct3D9.Filter.Default );
 			else d3dDevice.EndScene ();
-			currentRenderBuffer = null;
+			CurrentRenderBuffer = BackBuffer;
 		}
 
 		public void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 )

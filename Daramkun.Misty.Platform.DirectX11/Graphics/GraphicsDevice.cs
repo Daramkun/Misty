@@ -31,6 +31,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			get { throw new NotImplementedException (); }
 		}
+		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
 		public CullingMode CullMode
 		{
