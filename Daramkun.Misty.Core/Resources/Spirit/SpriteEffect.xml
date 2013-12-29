@@ -13,7 +13,7 @@ out vec4 o_overlay;
 out vec2 o_texture;
 
 void main () {
-    vec4 pos = vec4(i_position, 1);
+    vec4 pos = getVertexPos(vec4(i_position, 1));
     pos = worldMatrix * pos;
     pos = projectionMatrix * pos;
 
@@ -50,7 +50,8 @@ varying vec4 o_overlay;
 varying vec2 o_texture;
 
 void main () {
-    vec4 pos = vec4(i_position, 1);
+    vec4 pos = getVertexPos(vec4(i_position, 1));
+    pos = getVertexPos(pos);
     pos = worldMatrix * pos;
     pos = projectionMatrix * pos;
 
@@ -87,14 +88,14 @@ varying vec4 o_overlay;
 varying vec2 o_texture;
 
 void main () {
-	vec4 pos = vec4(i_position, 1);
-	pos = worldMatrix * pos;
-	pos = projectionMatrix * pos;
+    vec4 pos = getVertexPos(vec4(i_position, 1));
+    pos = worldMatrix * pos;
+    pos = projectionMatrix * pos;
 
-	gl_Position = pos;
+    gl_Position = pos;
 
-	o_overlay = i_overlay;
-	o_texture = i_texture;
+    o_overlay = i_overlay;
+    o_texture = i_texture;
 }
     ]]>
   </shader>

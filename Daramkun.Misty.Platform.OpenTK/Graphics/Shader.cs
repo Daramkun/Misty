@@ -22,7 +22,16 @@ namespace Daramkun.Misty.Graphics
 
 			shaderId = GL.CreateShader ( MistyValueToOriginal ( shaderType ) );
 
-			if ( shaderType == Graphics.ShaderType.PixelShader )
+			if ( shaderType == ShaderType.VertexShader )
+			{
+				shaderCode = @"
+vec4 getVertexPos(vec4 pos) {
+	pos.z *= -1;
+	return pos;
+}
+" + shaderCode;
+			}
+			if ( shaderType == ShaderType.PixelShader )
 			{
 				shaderCode = @"
 vec2 getTexUV(vec2 texcoord) {
