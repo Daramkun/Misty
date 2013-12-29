@@ -248,13 +248,25 @@ namespace Daramkun.Misty.Graphics
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
 			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( this, currentVertexShader );
-			throw new NotImplementedException ();
+			d3dContext.InputAssembler.InputLayout = vertexDeclaration.Handle as SharpDX.Direct3D11.InputLayout;
+			d3dContext.InputAssembler.SetVertexBuffers ( 0, 
+				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.VertexTypeSize, 0 )
+			);
+			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
+			d3dContext.Draw ( primitiveCount * GetPrimitiveCount ( primitiveType ), startVertex );
 		}
 
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount )
 		{
 			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( this, currentVertexShader );
-			throw new NotImplementedException ();
+			d3dContext.InputAssembler.InputLayout = vertexDeclaration.Handle as SharpDX.Direct3D11.InputLayout;
+			d3dContext.InputAssembler.SetVertexBuffers ( 0,
+				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.VertexTypeSize, 0 )
+			);
+			d3dContext.InputAssembler.SetIndexBuffer ( indexBuffer.Handle as SharpDX.Direct3D11.Buffer,
+				indexBuffer.Is16bitIndex ? SharpDX.DXGI.Format.R16_SInt : SharpDX.DXGI.Format.R32_SInt, 0 );
+			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
+			d3dContext.DrawIndexed ( primitiveCount * GetPrimitiveCount ( primitiveType ), startIndex, 0 );
 		}
 
 		public void ResizeBackBuffer ( int width, int height )
