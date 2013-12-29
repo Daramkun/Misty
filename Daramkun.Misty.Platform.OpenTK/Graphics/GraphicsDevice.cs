@@ -339,13 +339,6 @@ namespace Daramkun.Misty.Graphics
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
-			{
-				int programId;
-				GL.GetInteger ( GetPName.CurrentProgram, out programId );
-				GL.UseProgram ( programId );
-				int uniform = GL.GetUniformLocation ( programId, "isFramebufferMode" );
-				GL.Uniform1 ( uniform, CurrentRenderBuffer != BackBuffer ? 1 : 0 );
-			}
 			GL.DrawArrays ( MistyValueToOriginal ( primitiveType ), startVertex, primitiveCount * GetCountFromPrimitiveType ( primitiveType ) );
 			EndVertexDeclaration ( vertexDeclaration );
 		}
@@ -354,13 +347,6 @@ namespace Daramkun.Misty.Graphics
 		{
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
-			{
-				int programId;
-				GL.GetInteger ( GetPName.CurrentProgram, out programId );
-				GL.UseProgram ( programId );
-				int uniform = GL.GetUniformLocation ( programId, "isFramebufferMode" );
-				GL.Uniform1 ( uniform, CurrentRenderBuffer != BackBuffer ? 1 : 0 );
-			}
 			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), primitiveCount * GetCountFromPrimitiveType ( primitiveType ),
 				indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedShort : DrawElementsType.UnsignedInt, startIndex );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );

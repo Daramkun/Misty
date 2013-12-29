@@ -25,11 +25,9 @@ namespace Daramkun.Misty.Graphics
 			if ( shaderType == Graphics.ShaderType.PixelShader )
 			{
 				shaderCode = @"
-uniform int isFramebufferMode;
-
 vec2 getTexUV(vec2 texcoord) {
 	vec2 st = texcoord.st;
-	if(isFramebufferMode) st.y = 1 - st.y;
+	st.y = 1 - st.y;
 	return st;
 }
 " + shaderCode;

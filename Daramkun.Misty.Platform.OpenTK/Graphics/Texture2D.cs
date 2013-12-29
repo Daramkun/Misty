@@ -29,13 +29,18 @@ namespace Daramkun.Misty.Graphics
 				GL.BindTexture ( TextureTarget.Texture2D, texture );
 				GL.GetTexImage ( TextureTarget.Texture2D, 0, PixelFormat.Bgra, PixelType.UnsignedByte, raws );
 				Color [] pixels = new Color [ Width * Height ];
-				for ( int i = 0, index = 0; i < pixels.Length; i += 4 )
+				for ( int y = 0; y < Height; ++y )
 				{
-					byte blue = raws [ i + 0 ];
-					byte green = raws [ i + 1 ];
-					byte red = raws [ i + 2 ];
-					byte alpha = raws [ i + 3 ];
-					pixels [ index++ ] = new Color ( red, green, blue, alpha );
+					for ( int x = 0; x < Width; ++x )
+					{
+						int index = x + ( ( Height - y - 1 ) * Width );
+						int dataIndex = ( x + ( y * Width ) ) * 4;
+						byte blue = raws [ dataIndex + 0 ];
+						byte green = raws [ dataIndex + 1 ];
+						byte red = raws [ dataIndex + 2 ];
+						byte alpha = raws [ dataIndex + 3 ];
+						pixels [ index ] = new Color ( red, green, blue, alpha );
+					}
 				}
 				return pixels;
 			}
@@ -50,14 +55,18 @@ namespace Daramkun.Misty.Graphics
 
 				byte [] colorData = new byte [ Width * Height * 4 ];
 
-				for ( int i = 0, index = 0; i < value.Length; i++ )
+				for ( int y = 0; y < Height; ++y )
 				{
-					colorData [ index++ ] = value [ i ].BlueValue;
-					colorData [ index++ ] = value [ i ].GreenValue;
-					colorData [ index++ ] = value [ i ].RedValue;
-					colorData [ index++ ] = value [ i ].AlphaValue;
+					for ( int x = 0; x < Width; ++x )
+					{
+						int index = x + ( ( Height - y - 1 ) * Width );
+						int dataIndex = ( x + ( y * Width ) ) * 4;
+						colorData [ dataIndex + 0 ] = value [ index ].BlueValue;
+						colorData [ dataIndex + 1 ] = value [ index ].GreenValue;
+						colorData [ dataIndex + 2 ] = value [ index ].RedValue;
+						colorData [ dataIndex + 3 ] = value [ index ].AlphaValue;
+					}
 				}
-
 				GL.TexImage2D<byte> ( TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8,
 					Width, Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra,
 					PixelType.UnsignedByte, colorData );
