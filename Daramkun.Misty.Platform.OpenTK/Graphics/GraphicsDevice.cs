@@ -165,8 +165,11 @@ namespace Daramkun.Misty.Graphics
 			set
 			{
 				if ( value == CullingMode.None ) GL.Disable ( EnableCap.CullFace );
-				else GL.Enable ( EnableCap.CullFace );
-				GL.FrontFace ( ( value == CullingMode.ClockWise ) ? FrontFaceDirection.Ccw : FrontFaceDirection.Cw );
+				else
+				{
+					GL.Enable ( EnableCap.CullFace );
+					GL.FrontFace ( ( value == CullingMode.ClockWise ) ? FrontFaceDirection.Ccw : FrontFaceDirection.Cw );
+				}
 			}
 		}
 
@@ -344,6 +347,13 @@ namespace Daramkun.Misty.Graphics
 		{
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
+			{
+				int programId;
+				GL.GetInteger ( GetPName.CurrentProgram, out programId );
+				GL.UseProgram ( programId );
+				int uniform = GL.GetUniformLocation ( programId, "isFramebufferMode" );
+				GL.Uniform1 ( uniform, CurrentRenderBuffer != BackBuffer ? 1 : 0 );
+			}
 			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), primitiveCount * GetCountFromPrimitiveType ( primitiveType ),
 				indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedShort : DrawElementsType.UnsignedInt, startIndex );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );

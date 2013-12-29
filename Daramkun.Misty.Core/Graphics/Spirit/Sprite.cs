@@ -139,7 +139,6 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Effect.Begin ();
 			Effect.SetTextures ( new TextureArgument () { Texture = Texture, Uniform = "texture0",
 				Filter = TextureFilter, AnisotropicLevel = AnisotropicLevel, Addressing = TextureAddressing.Clamp } );
-
 			projectionMatrix.OffCenterSize = Core.GraphicsDevice.CurrentRenderBuffer.Size;
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", projectionMatrix.Matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", transform.Matrix );

@@ -24,7 +24,6 @@ namespace Test.Desktop
 	{
 		World2 world;
 		Sprite sprite;
-		Sprite sprite2;
 		Font font;
 		Font font2;
 
@@ -34,6 +33,8 @@ namespace Test.Desktop
 
 		public override void Intro ( params object [] args )
 		{
+			Core.GraphicsDevice.CullMode = CullingMode.None;
+
 			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
@@ -43,8 +44,6 @@ namespace Test.Desktop
 			new BitmapDecoder ().Decode ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.logo.bmp" ), out imageInfo );
 			sprite = new Sprite ( Core.GraphicsDevice.CreateTexture2D ( imageInfo, null, 5 ) );
 			new PngDecoder ().Decode ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.test.png" ), out imageInfo );
-			sprite2 = new Sprite ( Core.GraphicsDevice.CreateTexture2D ( imageInfo, null, 5 ) );
-			sprite2.TextureFilter = TextureFilter.Linear;
 			world = World2.Identity;
 			world.Translate = Core.GraphicsDevice.BackBuffer.Size / 2 - sprite.Texture.Size / 2;
 			font = new TrueTypeFont ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.GameFont.ttf" ), 64 );
@@ -65,7 +64,6 @@ namespace Test.Desktop
 			testAudio.Dispose ();
 			font2.Dispose ();
 			font.Dispose ();
-			sprite2.Dispose ();
 			sprite.Dispose ();
 			base.Outro ();
 		}
@@ -76,7 +74,6 @@ namespace Test.Desktop
 			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black, 1, 0 );
 
 			sprite.Draw ( world );
-			//sprite2.Draw ( world );
 			font.DrawFont ( "English 한글 漢字 にほんご Märchen", Color.Black, new Daramkun.Misty.Mathematics.Vector2 ( 0.0001f, 0.0001f ) );
 			font2.DrawFont ( Core.GraphicsDevice.Information.BaseRenderer.ToString () + Core.GraphicsDevice.Information.RendererVersion.ToString (),
 				Color.White, new Vector2 ( 0, 64 ) );

@@ -2,7 +2,6 @@
 <shaders>
   <shader type="vertex" language="glsl" version="1.3">
     <![CDATA[
-#version 130
 layout(location = 0) in vec3 i_position;
 layout(location = 1) in vec4 i_overlay;
 layout(location = 2) in vec2 i_texture;
@@ -27,21 +26,19 @@ void main () {
   </shader>
   <shader type="pixel" language="glsl" version="1.3">
     <![CDATA[
-#version 130
 in vec4 o_overlay;
 in vec2 o_texture;
 
 uniform sampler2D texture0;
 
 void main () {
-    gl_FragColor = texture2D ( texture0, o_texture.st ) * o_overlay;
+    gl_FragColor = texture2D ( texture0, getTexUV(o_texture) ) * o_overlay;
 }
     ]]>
   </shader>
 
   <shader type="vertex" language="glsl" version="1.2">
     <![CDATA[
-#version 120
 attribute vec3 i_position;
 attribute vec4 i_overlay;
 attribute vec2 i_texture;
@@ -66,14 +63,13 @@ void main () {
   </shader>
   <shader type="pixel" language="glsl" version="1.2">
     <![CDATA[
-#version 120
 varying vec4 o_overlay;
 varying vec2 o_texture;
 
 uniform sampler2D texture0;
 
 void main () {
-    gl_FragColor = texture2D ( texture0, o_texture.st ) * o_overlay;
+    gl_FragColor = texture2D ( texture0, getTexUV(o_texture) ) * o_overlay;
 }
     ]]>
   </shader>
@@ -103,14 +99,16 @@ void main () {
     ]]>
   </shader>
   <shader type="pixel" language="glsles" version="1.2">
+    <![CDATA[
 varying vec4 o_overlay;
 varying vec2 o_texture;
 
 uniform sampler2D texture0;
 
 void main () {
-    gl_FragColor = texture2D ( texture0, o_texture.st ) * o_overlay;
+    gl_FragColor = texture2D ( texture0, getTexUV(o_texture) ) * o_overlay;
 }
+    ]]>
   </shader>
 
   <shader type="vertex" language="hlsl" version="2.0">

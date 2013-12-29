@@ -26,7 +26,7 @@ namespace Daramkun.Misty.Graphics
 			get
 			{
 				byte [] raws = new byte [ Width * Height * 4 ];
-				GL.BindTexture ( TextureTarget.Texture2D, 0 );
+				GL.BindTexture ( TextureTarget.Texture2D, texture );
 				GL.GetTexImage ( TextureTarget.Texture2D, 0, PixelFormat.Bgra, PixelType.UnsignedByte, raws );
 				Color [] pixels = new Color [ Width * Height ];
 				for ( int i = 0, index = 0; i < pixels.Length; i += 4 )

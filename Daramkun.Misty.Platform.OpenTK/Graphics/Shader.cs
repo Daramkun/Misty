@@ -22,6 +22,19 @@ namespace Daramkun.Misty.Graphics
 
 			shaderId = GL.CreateShader ( MistyValueToOriginal ( shaderType ) );
 
+			if ( shaderType == Graphics.ShaderType.PixelShader )
+			{
+				shaderCode = @"
+uniform int isFramebufferMode;
+
+vec2 getTexUV(vec2 texcoord) {
+	vec2 st = texcoord.st;
+	if(isFramebufferMode) st.y = 1 - st.y;
+	return st;
+}
+" + shaderCode;
+			}
+
 			GL.ShaderSource ( shaderId, shaderCode );
 			GL.CompileShader ( shaderId );
 
