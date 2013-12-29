@@ -85,47 +85,8 @@ namespace Daramkun.Misty.Graphics
 
 		public Color [] Buffer
 		{
-			get
-			{
-				byte [] raws = new byte [ Width * Height * 4 ];
-				GL.BindTexture ( TextureTarget.Texture2D, 0 );
-				GL.GetTexImage ( TextureTarget.Texture2D, 0, PixelFormat.Bgra, PixelType.UnsignedByte, raws );
-				Color [] pixels = new Color [ Width * Height ];
-				for ( int i = 0, index = 0; i < pixels.Length; i += 4 )
-				{
-					byte blue = raws [ i + 0 ];
-					byte green = raws [ i + 1 ];
-					byte red = raws [ i + 2 ];
-					byte alpha = raws [ i + 3 ];
-					pixels [ index++ ] = new Color ( red, green, blue, alpha );
-				}
-				return pixels;
-			}
-			set
-			{
-				GL.BindTexture ( TextureTarget.Texture2D, 0 );
-
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, ( int ) TextureMagFilter.Nearest );
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, ( int ) TextureMinFilter.Nearest );
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureWrapS, ( int ) TextureWrapMode.Repeat );
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureWrapT, ( int ) TextureWrapMode.Repeat );
-
-				byte [] colorData = new byte [ Width * Height * 4 ];
-
-				for ( int i = 0, index = 0; i < value.Length; i++ )
-				{
-					colorData [ index++ ] = value [ i ].BlueValue;
-					colorData [ index++ ] = value [ i ].GreenValue;
-					colorData [ index++ ] = value [ i ].RedValue;
-					colorData [ index++ ] = value [ i ].AlphaValue;
-				}
-
-				GL.TexImage2D<byte> ( TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8,
-					Width, Height, 0, OpenTK.Graphics.OpenGL.PixelFormat.Bgra,
-					PixelType.UnsignedByte, colorData );
-
-				GL.BindTexture ( TextureTarget.Texture2D, 0 );
-			}
+			get { throw new NotImplementedException (); }
+			set { throw new NotImplementedException (); }
 		}
 
 		public BackBuffer ( OpenTK.GameWindow window )
