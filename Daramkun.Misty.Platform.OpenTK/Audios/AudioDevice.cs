@@ -14,20 +14,17 @@ namespace Daramkun.Misty.Audios
 {
 	class AudioDevice : StandardDispose, IAudioDevice
 	{
-		//AudioContext audioContext;
 		IntPtr _device;
 		OpenTK.ContextHandle _context;
 
 		List<IAudioBuffer> audioList = new List<IAudioBuffer> ();
 
-		public object Handle { get { return /*audioContext*/_context; } }
+		public object Handle { get { return _context; } }
 
 		public AudioDevice ( IWindow window )
 		{
 			try
 			{
-				//audioContext = new AudioContext ();
-				//audioContext.MakeCurrent ();
 				_device = Alc.OpenDevice ( string.Empty );
 				int [] attribute = new int [ 0 ];
 				_context = Alc.CreateContext ( _device, attribute );
@@ -45,8 +42,6 @@ namespace Daramkun.Misty.Audios
 		{
 			if ( isDisposing )
 			{
-				//audioContext.Dispose ();
-				//audioContext = null;
 				Alc.DestroyContext ( _context );
 				Alc.CloseDevice ( _device );
 			}

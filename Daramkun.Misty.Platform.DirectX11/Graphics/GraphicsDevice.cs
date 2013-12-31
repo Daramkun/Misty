@@ -35,10 +35,7 @@ namespace Daramkun.Misty.Graphics
 
 		public CullingMode CullMode
 		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
+			get { return ConvertFromCullMode ( d3dContext.Rasterizer.State.Description.CullMode ); }
 			set
 			{
 				throw new NotImplementedException ();
@@ -47,10 +44,7 @@ namespace Daramkun.Misty.Graphics
 
 		public FillMode FillMode
 		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
+			get { return ConvertFromFillMode ( d3dContext.Rasterizer.State.Description.FillMode ); }
 			set
 			{
 				throw new NotImplementedException ();
@@ -59,10 +53,7 @@ namespace Daramkun.Misty.Graphics
 
 		public bool IsZWriteEnable
 		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
+			get { return d3dContext.Rasterizer.State.Description.IsDepthClipEnabled; }
 			set
 			{
 				throw new NotImplementedException ();

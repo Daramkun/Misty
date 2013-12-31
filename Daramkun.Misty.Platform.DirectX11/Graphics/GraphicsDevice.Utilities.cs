@@ -8,6 +8,27 @@ namespace Daramkun.Misty.Graphics
 {
 	public partial class GraphicsDevice
 	{
+		private CullingMode ConvertFromCullMode ( SharpDX.Direct3D11.CullMode cullMode )
+		{
+			switch ( cullMode )
+			{
+				case SharpDX.Direct3D11.CullMode.Back: return CullingMode.CounterClockWise;
+				case SharpDX.Direct3D11.CullMode.Front: return CullingMode.ClockWise;
+				case SharpDX.Direct3D11.CullMode.None: return CullingMode.None;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private Graphics.FillMode ConvertFromFillMode ( SharpDX.Direct3D11.FillMode fillMode )
+		{
+			switch ( fillMode )
+			{
+				case SharpDX.Direct3D11.FillMode.Solid: return Graphics.FillMode.Solid;
+				case SharpDX.Direct3D11.FillMode.Wireframe: return Graphics.FillMode.Wireframe;
+				default: throw new ArgumentException ();
+			}
+		}
+
 		private SharpDX.Color4 ConvertColor ( Color color )
 		{
 			return new SharpDX.Color4 ( color.RedScalar, color.GreenScalar, color.BlueScalar, color.AlphaScalar );
