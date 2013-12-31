@@ -26,7 +26,7 @@ namespace Daramkun.Misty.Graphics
 			{
 				shaderCode = @"
 vec4 getVertexPos(vec4 pos) {
-	pos.z *= -1;
+	pos.z *= -1.0;
 	return pos;
 }
 " + shaderCode;
@@ -36,7 +36,7 @@ vec4 getVertexPos(vec4 pos) {
 				shaderCode = @"
 vec2 getTexUV(vec2 texcoord) {
 	vec2 st = texcoord.st;
-	st.y = 1 - st.y;
+	st.y = 1.0 - st.y;
 	return st;
 }
 " + shaderCode;
