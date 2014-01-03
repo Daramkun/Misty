@@ -183,6 +183,7 @@
     <Compile Include="Contents\Loaders\TrueTypeFontContentLoader.cs" />
     <Compile Include="Contents\Loaders\WalnutPackageContentLoader.cs" />
     <Compile Include="Contents\Loaders\ZipContentLoader.cs" />
+    <Compile Include="Contents\ModelInfo.cs" />
     <Compile Include="Contents\PackageInfo.cs" />
     <Compile Include="Contents\Tables\ITable.cs" />
     <Compile Include="Contents\Tables\ResourceTable.cs" />
@@ -244,6 +245,7 @@
     <Compile Include="Mathematics\Matrix3x3.cs" />
     <Compile Include="Mathematics\Matrix4x4.cs" />
     <Compile Include="Mathematics\Quaternion.cs" />
+    <Compile Include="Mathematics\Transforms\Camera.cs" />
     <Compile Include="Mathematics\Transforms\CommonTransform.cs" />
     <Compile Include="Mathematics\Transforms\ITransform.cs" />
     <Compile Include="Mathematics\Transforms\LookAt.cs" />

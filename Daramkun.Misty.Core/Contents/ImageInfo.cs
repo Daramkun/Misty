@@ -9,8 +9,6 @@ namespace Daramkun.Misty.Contents
 {
 	public struct ImageInfo
 	{
-		public bool IsSettingCompleted { get; private set; }
-
 		public int Width { get; private set; }
 		public int Height { get; private set; }
 		public int FrameCount { get; private set; }
@@ -28,8 +26,6 @@ namespace Daramkun.Misty.Contents
 			RawPixels = rawPixels;
 			ImageStream = imageStream;
 			GetPixelsFunc = func;
-
-			IsSettingCompleted = true;
 		}
 
 		public Color [] GetPixels ( Color? colorKey = null, int frameCount = 0 )

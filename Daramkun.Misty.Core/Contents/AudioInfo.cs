@@ -8,8 +8,6 @@ namespace Daramkun.Misty.Contents
 {
 	public struct AudioInfo
 	{
-		public bool IsSettingCompleted { get; private set; }
-
 		public int AudioChannel { get; private set; }
 		public int SampleRate { get; private set; }
 		public int BitPerSamples { get; private set; }
@@ -31,8 +29,6 @@ namespace Daramkun.Misty.Contents
 			AudioStream = audioStream;
 			RawSamples = rawSamples;
 			GetSampleFunc = func;
-
-			IsSettingCompleted = true;
 		}
 
 		public byte [] GetSamples ( TimeSpan? timeSpan = null )
@@ -43,6 +39,14 @@ namespace Daramkun.Misty.Contents
 		public override string ToString ()
 		{
 			return string.Format ( "{{Duration: {0}, SampleRate: {1}}}", Duration, SampleRate );
+		}
+
+		public static float [] ConvertBytesToFloats ( byte [] data )
+		{
+			List<float> floats = new List<float> ();
+			for ( int i = 0; i < data.Length; i += 2 )
+				floats [ i / 2 ] = ( ( data [ i + 0 ] << 8 ) + data [ i + 1 ] ) / 32767f;
+			return floats.ToArray ();
 		}
 	}
 }

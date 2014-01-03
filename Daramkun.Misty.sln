@@ -33,6 +33,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Game Engine", "Game Engine"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Engine.Walnut", "Daramkun.Misty.Engine.Walnut\Daramkun.Misty.Engine.Walnut.csproj", "{6185E313-97B8-491E-AE1C-3CCC4ED4362D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Engine.Souly", "Daramkun.Misty.Engine.Souly\Daramkun.Misty.Engine.Souly.csproj", "{B9FA591A-577A-4253-898F-2A058227BE7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,14 @@ Global
 		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Release|ARM.ActiveCfg = Release|Any CPU
 		{6185E313-97B8-491E-AE1C-3CCC4ED4362D}.Release|x86.ActiveCfg = Release|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{B9FA591A-577A-4253-898F-2A058227BE7F}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +130,7 @@ Global
 		{7E019A0D-2125-4491-B02A-4A7427C3647B} = {3C8A3FB6-AE4F-4C4D-9EBA-CEA12F00A64D}
 		{FB306D80-8054-4967-9158-FA5E7549CEE8} = {6AA5DE02-8282-4540-82C8-F1C87ABF4742}
 		{6185E313-97B8-491E-AE1C-3CCC4ED4362D} = {E982808B-A974-4C90-944D-A8CE0B508F97}
+		{B9FA591A-577A-4253-898F-2A058227BE7F} = {E982808B-A974-4C90-944D-A8CE0B508F97}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Test.Desktop\Test.Desktop.csproj

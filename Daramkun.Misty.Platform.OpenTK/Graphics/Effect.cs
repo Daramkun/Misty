@@ -76,13 +76,13 @@ namespace Daramkun.Misty.Graphics
 					foreach ( string attr in from a in shader.Option.AttributeOrdering orderby a select a )
 						GL.BindAttribLocation ( programId, count++, attr );
 				}
-				GL.GetProgram ( programId, ProgramParameter.AttachedShaders, out effectState );
+				GL.GetProgram ( programId, GetProgramParameterName.AttachedShaders, out effectState );
 				if ( effectState == 0 )
 					throw new ArgumentException ();
 			}
 
 			GL.LinkProgram ( programId );
-			GL.GetProgram ( programId, ProgramParameter.LinkStatus, out effectState );
+			GL.GetProgram ( programId, GetProgramParameterName.LinkStatus, out effectState );
 			if ( effectState == 0 )
 				throw new ArgumentException ();
 		}

@@ -282,16 +282,16 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		private OpenTK.Graphics.OpenGL.BeginMode MistyValueToOriginal ( PrimitiveType type )
+		private OpenTK.Graphics.OpenGL.PrimitiveType MistyValueToOriginal ( PrimitiveType type )
 		{
 			switch ( type )
 			{
-				case PrimitiveType.PointList: return OpenTK.Graphics.OpenGL.BeginMode.Points;
-				case PrimitiveType.LineList: return OpenTK.Graphics.OpenGL.BeginMode.Lines;
-				case PrimitiveType.LineStrip: return OpenTK.Graphics.OpenGL.BeginMode.LineStrip;
-				case PrimitiveType.TriangleList: return OpenTK.Graphics.OpenGL.BeginMode.Triangles;
-				case PrimitiveType.TriangleStrip: return OpenTK.Graphics.OpenGL.BeginMode.TriangleStrip;
-				case PrimitiveType.TriangleFan: return OpenTK.Graphics.OpenGL.BeginMode.TriangleFan;
+				case PrimitiveType.PointList: return OpenTK.Graphics.OpenGL.PrimitiveType.Points;
+				case PrimitiveType.LineList: return OpenTK.Graphics.OpenGL.PrimitiveType.Lines;
+				case PrimitiveType.LineStrip: return OpenTK.Graphics.OpenGL.PrimitiveType.LineStrip;
+				case PrimitiveType.TriangleList: return OpenTK.Graphics.OpenGL.PrimitiveType.Triangles;
+				case PrimitiveType.TriangleStrip: return OpenTK.Graphics.OpenGL.PrimitiveType.TriangleStrip;
+				case PrimitiveType.TriangleFan: return OpenTK.Graphics.OpenGL.PrimitiveType.TriangleFan;
 				default: throw new ArgumentException ();
 			}
 		}

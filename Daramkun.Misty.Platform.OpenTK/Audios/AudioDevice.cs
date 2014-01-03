@@ -32,9 +32,9 @@ namespace Daramkun.Misty.Audios
 			}
 			catch ( Exception e )
 			{
-				throw new PlatformNotSupportedException ( string.Format (
+				throw new Exception ( string.Format (
 					"Audio device is not available or OpenAL library is not exist: {0}",
-					e ) );
+					e ), e );
 			}
 		}
 
