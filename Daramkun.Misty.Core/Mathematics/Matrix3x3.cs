@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Daramkun.Misty.Mathematics
 {
-	public struct Matrix3x3
+	public partial struct Matrix3x3
 	{
 		public float M11, M12, M13, M21, M22, M23, M31, M32, M33;
 
@@ -31,10 +31,14 @@ namespace Daramkun.Misty.Mathematics
 				column1.X, column1.Y, column1.Z,
 				column2.X, column2.Y, column2.Z,
 				column3.X, column3.Y, column3.Z
-			)
-		{
+			) { }
 
-		}
+		public Matrix3x3 ( ref Vector3 column1, ref Vector3 column2, ref Vector3 column3 )
+			: this (
+				column1.X, column1.Y, column1.Z,
+				column2.X, column2.Y, column2.Z,
+				column3.X, column3.Y, column3.Z
+			) { }
 
 		public Matrix3x3 ( float [] matrix3x3 )
 		{
@@ -43,86 +47,12 @@ namespace Daramkun.Misty.Mathematics
 			M31 = matrix3x3 [ 6 ]; M32 = matrix3x3 [ 7 ]; M33 = matrix3x3 [ 8 ];
 		}
 
-		public void Reset () { this = Identity; }
-
-		public static Matrix3x3 operator + ( Matrix3x3 v1, Matrix3x3 v2 )
+		public Vector2 Solve ( Vector2 vector )
 		{
-			v1.M11 += v2.M11; v1.M12 += v2.M12; v1.M13 += v2.M13;
-			v1.M21 += v2.M21; v1.M22 += v2.M22; v1.M23 += v2.M23;
-			v1.M31 += v2.M31; v1.M32 += v2.M32; v1.M33 += v2.M33;
-			return v1;
-		}
-
-		public static Matrix3x3 operator - ( Matrix3x3 v1, Matrix3x3 v2 )
-		{
-			v1.M11 -= v2.M11; v1.M12 -= v2.M12; v1.M13 -= v2.M13;
-			v1.M21 -= v2.M21; v1.M22 -= v2.M22; v1.M23 -= v2.M23;
-			v1.M31 -= v2.M31; v1.M32 -= v2.M32; v1.M33 -= v2.M33;
-			return v1;
-		}
-
-		public static Matrix3x3 operator * ( Matrix3x3 v1, Matrix3x3 v2 )
-		{
-			v1.M11 = ( v1.M11 * v2.M11 ) + ( v1.M12 * v2.M21 ) + ( v1.M13 * v2.M31 );
-			v1.M12 = ( v1.M11 * v2.M12 ) + ( v1.M12 * v2.M22 ) + ( v1.M13 * v2.M32 );
-			v1.M13 = ( v1.M11 * v2.M13 ) + ( v1.M12 * v2.M23 ) + ( v1.M13 * v2.M33 );
-			v1.M21 = ( v1.M21 * v2.M11 ) + ( v1.M22 * v2.M21 ) + ( v1.M23 * v2.M31 );
-			v1.M22 = ( v1.M21 * v2.M12 ) + ( v1.M22 * v2.M22 ) + ( v1.M23 * v2.M32 );
-			v1.M23 = ( v1.M21 * v2.M13 ) + ( v1.M22 * v2.M23 ) + ( v1.M23 * v2.M33 );
-			v1.M31 = ( v1.M31 * v2.M11 ) + ( v1.M32 * v2.M21 ) + ( v1.M33 * v2.M31 );
-			v1.M32 = ( v1.M31 * v2.M12 ) + ( v1.M32 * v2.M22 ) + ( v1.M33 * v2.M32 );
-			v1.M33 = ( v1.M31 * v2.M13 ) + ( v1.M32 * v2.M23 ) + ( v1.M33 * v2.M33 );
-			return v1;
-		}
-
-		public static Matrix3x3 operator * ( Matrix3x3 v1, float v2 )
-		{
-			v1.M11 *= v2; v1.M12 *= v2; v1.M13 *= v2;
-			v1.M21 *= v2; v1.M22 *= v2; v1.M23 *= v2;
-			v1.M31 *= v2; v1.M32 *= v2; v1.M33 *= v2;
-			return v1;
-		}
-
-		public static Matrix3x3 operator / ( Matrix3x3 v1, Matrix3x3 v2 )
-		{
-			v1.M11 /= v2.M11; v1.M12 /= v2.M12; v1.M13 /= v2.M13;
-			v1.M21 /= v2.M21; v1.M22 /= v2.M22; v1.M23 /= v2.M23;
-			v1.M31 /= v2.M31; v1.M32 /= v2.M32; v1.M33 /= v2.M33;
-			return v1;
-		}
-
-		public static Matrix3x3 operator / ( Matrix3x3 v1, float v2 )
-		{
-			v1.M11 /= v2; v1.M12 /= v2; v1.M13 /= v2;
-			v1.M21 /= v2; v1.M22 /= v2; v1.M23 /= v2;
-			v1.M31 /= v2; v1.M32 /= v2; v1.M33 /= v2;
-			return v1;
-		}
-
-		public static Matrix3x3 operator ! ( Matrix3x3 v1 )
-		{
-			float det = Vector3.Dot ( new Vector3 ( v1.M11, v1.M12, v1.M13 ), new Vector3 ( v1.M31, v1.M32, v1.M33 ) );
-			if ( det != 0 ) det = 1.0f / det;
-
-			float a11 = v1.M11, a12 = v1.M21, a13 = v1.M31;
-			float a22 = v1.M22, a23 = v1.M32;
-			float a33 = v1.M33;
-
-			Matrix3x3 matrix = new Matrix3x3 ();
-			matrix.M11 = det * ( a22 * a33 - a23 * a23 ); matrix.M12 = det * ( a13 * a23 - a12 * a33 ); matrix.M13 = det * ( a12 * a23 - a13 * a22 );
-			matrix.M21 = v1.M12; matrix.M22 = det * ( a11 * a33 - a13 * a13 ); matrix.M23 = det * ( a13 * a12 - a11 * a23 );
-			matrix.M31 = v1.M13; matrix.M32 = v1.M23; matrix.M33 = det * ( a11 * a22 - a12 * a12 );
-
-			return matrix;
-		}
-
-		public Matrix3x3 Transpose ()
-		{
-			Matrix3x3 mat = new Matrix3x3 ();
-			mat.M11 = M11; mat.M12 = M21; mat.M13 = M31;
-			mat.M21 = M12; mat.M22 = M22; mat.M23 = M32;
-			mat.M31 = M13; mat.M32 = M23; mat.M33 = M33;
-			return mat;
+			float a11 = M11, a12 = M21, a21 = M12, a22 = M22;
+			float det = a11 * a22 - a12 * a21;
+			if ( det != 0.0f ) det = 1.0f / det;
+			return new Vector2 ( det * ( a22 * vector.X - a12 * vector.Y ), det * ( a11 * vector.Y - a21 * vector.X ) );
 		}
 
 		public Vector3 Solve ( Vector3 vector )
@@ -137,41 +67,7 @@ namespace Daramkun.Misty.Mathematics
 			);
 		}
 
-		public Vector2 Solve ( Vector2 vector )
-		{
-			float a11 = M11, a12 = M21, a21 = M12, a22 = M22;
-			float det = a11 * a22 - a12 * a21;
-			if ( det != 0.0f ) det = 1.0f / det;
-			return new Vector2 ( det * ( a22 * vector.X - a12 * vector.Y ), det * ( a11 * vector.Y - a21 * vector.X ) );
-		}
-
-		public bool Equals ( Matrix3x3 other )
-		{
-			return ( ( M11 == other.M11 && M12 == other.M12 ) && ( M13 == other.M13 ) ) &&
-				( ( M21 == other.M21 && M22 == other.M22 ) && ( M23 == other.M23 ) ) &&
-				( ( M31 == other.M31 && M32 == other.M32 ) && ( M33 == other.M33 ) );
-		}
-
-		public static bool operator == ( Matrix3x3 v1, Matrix3x3 v2 )
-		{
-			return v1.Equals ( v2 );
-		}
-
-		public static bool operator != ( Matrix3x3 v1, Matrix3x3 v2 )
-		{
-			return !v1.Equals ( v2 );
-		}
-
-		public override bool Equals ( object obj )
-		{
-			if ( !( obj is Matrix3x3 ) ) return false;
-			return Equals ( ( Matrix3x3 ) obj );
-		}
-
-		public override int GetHashCode ()
-		{
-			return ToString ().GetHashCode ();
-		}
+		public override int GetHashCode () { return ToString ().GetHashCode (); }
 
 		public override string ToString ()
 		{
@@ -195,15 +91,9 @@ namespace Daramkun.Misty.Mathematics
 			{
 				switch ( index )
 				{
-					case 0: return M11;
-					case 1: return M12;
-					case 2: return M13;
-					case 3: return M21;
-					case 4: return M22;
-					case 5: return M23;
-					case 6: return M31;
-					case 7: return M32;
-					case 8: return M33;
+					case 0: return M11; case 1: return M12; case 2: return M13;
+					case 3: return M21; case 4: return M22; case 5: return M23;
+					case 6: return M31; case 7: return M32; case 8: return M33;
 					default: throw new IndexOutOfRangeException ();
 				}
 			}
@@ -211,15 +101,9 @@ namespace Daramkun.Misty.Mathematics
 			{
 				switch ( index )
 				{
-					case 0: M11 = value; break;
-					case 1: M12 = value; break;
-					case 2: M13 = value; break;
-					case 3: M21 = value; break;
-					case 4: M22 = value; break;
-					case 5: M23 = value; break;
-					case 6: M31 = value; break;
-					case 7: M32 = value; break;
-					case 8: M33 = value; break;
+					case 0: M11 = value; break; case 1: M12 = value; break; case 2: M13 = value; break;
+					case 3: M21 = value; break; case 4: M22 = value; break; case 5: M23 = value; break;
+					case 6: M31 = value; break; case 7: M32 = value; break; case 8: M33 = value; break;
 					default: throw new IndexOutOfRangeException ();
 				}
 			}

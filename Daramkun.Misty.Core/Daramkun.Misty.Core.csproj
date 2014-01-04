@@ -241,12 +241,34 @@
     <Compile Include="Log\Writers\DebugLogWriter.cs" />
     <Compile Include="Log\Writers\StreamLogWriter.cs" />
     <Compile Include="Mathematics\Geometries\Rectangle.cs" />
+    <Compile Include="Mathematics\Matrix2x2.Calculate.cs">
+      <DependentUpon>Matrix2x2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Matrix2x2.cs" />
+    <Compile Include="Mathematics\Matrix3x3.Calculate.cs">
+      <DependentUpon>Matrix3x3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Matrix3x3.cs" />
+    <Compile Include="Mathematics\Matrix4x4.Calculate.cs">
+      <DependentUpon>Matrix4x4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Matrix4x4.cs" />
+    <Compile Include="Mathematics\MistyMath.cs" />
+    <Compile Include="Mathematics\Quaternion.Calculate.cs">
+      <DependentUpon>Quaternion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Quaternion.cs" />
     <Compile Include="Mathematics\Transforms\Camera.cs" />
     <Compile Include="Mathematics\Transforms\CommonTransform.cs" />
+    <Compile Include="Mathematics\Transforms\CommonTransform.Projection.cs">
+      <DependentUpon>CommonTransform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mathematics\Transforms\CommonTransform.RST.cs">
+      <DependentUpon>CommonTransform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mathematics\Transforms\CommonTransform.View.cs">
+      <DependentUpon>CommonTransform.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Transforms\ITransform.cs" />
     <Compile Include="Mathematics\Transforms\LookAt.cs" />
     <Compile Include="Mathematics\Transforms\OrthographicOffCenterProjection.cs" />
@@ -254,9 +276,33 @@
     <Compile Include="Mathematics\Transforms\PerspectiveOffCenterProjection.cs" />
     <Compile Include="Mathematics\Transforms\World2.cs" />
     <Compile Include="Mathematics\Transforms\World3.cs" />
+    <Compile Include="Mathematics\Vector2.Calculate.cs">
+      <DependentUpon>Vector2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Vector2.cs" />
+    <Compile Include="Mathematics\Vector2.Transforms.cs">
+      <DependentUpon>Vector2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mathematics\Vector2.Utilities.cs">
+      <DependentUpon>Vector2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Vector3.cs" />
+    <Compile Include="Mathematics\Vector3.Transforms.cs">
+      <DependentUpon>Vector3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mathematics\Vector3.Utilities.cs">
+      <DependentUpon>Vector3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mathematics\Vector4.Calculate.cs">
+      <DependentUpon>Vector4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Vector4.cs" />
+    <Compile Include="Mathematics\Vector4.Transforms.cs">
+      <DependentUpon>Vector4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mathematics\Vector4.Utilities.cs">
+      <DependentUpon>Vector4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Nodes\Spirit\FontNode.cs" />
     <Compile Include="Nodes\FpsCalculator.cs" />
     <Compile Include="Nodes\InputHelper.cs" />
@@ -277,6 +323,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Spirit\SpriteEffect.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mathematics\Vector3.Calculate.cs">
+      <DependentUpon>Vector3.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
