@@ -20,7 +20,7 @@ namespace Daramkun.Misty.Graphics
 		Clamp,
 	}
 
-	public struct TextureArgument
+	public class TextureArgument
 	{
 		public string Uniform { get; set; }
 		public ITexture2D Texture { get; set; }
@@ -29,7 +29,6 @@ namespace Daramkun.Misty.Graphics
 		public int AnisotropicLevel { get; set; }
 
 		public TextureArgument ( string u, ITexture2D t, TextureFilter f, TextureAddressing a, int al )
-			: this ()
 		{
 			Uniform = u; Texture = t; Filter = f; Addressing = a; AnisotropicLevel = al;
 		}

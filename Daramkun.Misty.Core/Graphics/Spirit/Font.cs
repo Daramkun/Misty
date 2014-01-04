@@ -72,7 +72,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 				spriteEngine.OverlayColor = color;
 				spriteEngine.Reset ( cachedRenderBuffer [ text ] );
 				fontWorld.Translate = position;
-				spriteEngine.Draw ( fontWorld );
+				spriteEngine.Draw ( ref fontWorld );
 			}
 			else
 			{
@@ -120,7 +120,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 					else spriteEngine.OverlayColor = Color.White;
 					spriteEngine.Reset ( image );
 					fontWorld.Translate = renderPos + new Vector2 ( lines [ lines.Count - 1 ].X - image.Width, height - image.Height );
-					spriteEngine.Draw ( fontWorld );
+					spriteEngine.Draw ( ref fontWorld );
 				}
 
 				if ( IsPrerenderMode )

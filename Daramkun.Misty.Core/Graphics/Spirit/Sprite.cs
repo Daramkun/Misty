@@ -39,12 +39,13 @@ namespace Daramkun.Misty.Graphics.Spirit
 		IVertexBuffer vertexBuffer;
 		Rectangle clippingArea;
 		Color overlayColor;
+		TextureArgument textureArgument;
 
 		public IEffect Effect { get; set; }
-		public ITexture2D Texture { get; private set; }
+		public ITexture2D Texture { get { return textureArgument.Texture; } private set { textureArgument.Texture = value; } }
 
-		public TextureFilter TextureFilter { get; set; }
-		public int AnisotropicLevel { get; set; }
+		public TextureFilter TextureFilter { get { return textureArgument.Filter; } set { textureArgument.Filter = value; } }
+		public int AnisotropicLevel { get { return textureArgument.AnisotropicLevel; } set { textureArgument.AnisotropicLevel = value; } }
 
 		public Rectangle ClippingArea
 		{
@@ -100,9 +101,9 @@ namespace Daramkun.Misty.Graphics.Spirit
 			indexReference++;
 
 			vertexBuffer = Core.GraphicsDevice.CreateVertexBuffer ( typeof ( SpriteVertex ), 4 );
-			Reset ( texture );
 
-			TextureFilter = TextureFilter.Nearest;
+			textureArgument = new TextureArgument ( "texture0", texture, Graphics.TextureFilter.Nearest, TextureAddressing.Clamp, 0 );
+			Reset ( texture );
 		}
 
 		public void Dispose ()
@@ -134,12 +135,12 @@ namespace Daramkun.Misty.Graphics.Spirit
 			}
 		}
 
-		public void Draw ( World2 transform )
+		public void Draw ( World2 transform ) { Draw ( ref transform ); }
+		public void Draw ( ref World2 transform )
 		{
 			Matrix4x4 matrix;
 			Effect.Begin ();
-			Effect.SetTextures ( new TextureArgument () { Texture = Texture, Uniform = "texture0",
-				Filter = TextureFilter, AnisotropicLevel = AnisotropicLevel, Addressing = TextureAddressing.Clamp } );
+			Effect.SetTextures ( textureArgument );
 			projectionMatrix.OffCenterSize = Core.GraphicsDevice.CurrentRenderBuffer.Size;
 			projectionMatrix.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );

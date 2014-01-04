@@ -53,7 +53,6 @@ namespace Test.Desktop
 
 			AudioInfo audioInfo;
 			new OggVorbisDecoder ().Decode ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.test.ogg" ), out audioInfo );
-			//new Mp3Decoder ().Decode ( Assembly.GetEntryAssembly ().GetManifestResourceStream ( "Test.Desktop.test.ogg" ), out audioInfo );
 			testAudio = Core.AudioDevice.CreateAudioBuffer ( audioInfo );
 			testAudio.Play ();
 			base.Intro ( args );
@@ -92,6 +91,7 @@ namespace Test.Desktop
 		static void Main ()
 		{
 			Logger.AddDefaultLogWriter ();
+			Core.FixedDrawTimeStep = new TimeSpan ();
 			Core.Run ( new Launcher (), new TestNode () );
 		}
 	}
