@@ -17,6 +17,7 @@ namespace Daramkun.Misty.Graphics
 		void End ();
 
 		void SetUniform<T> ( string name, T value ) where T : struct;
+		void SetUniform<T> ( string name, ref T value ) where T : struct;
 		void SetUniform ( string name, params int [] value );
 		void SetUniform ( string name, params float [] value );
 

@@ -50,6 +50,12 @@ namespace Daramkun.Misty.Graphics
 			throw new NotImplementedException ();
 		}
 
+		public void SetUniform<T> ( string name, ref T value ) where T : struct
+		{
+
+			throw new NotImplementedException ();
+		}
+
 		public void SetUniform ( string name, params int [] value )
 		{
 			throw new NotImplementedException ();

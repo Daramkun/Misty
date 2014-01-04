@@ -11,31 +11,27 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		Vector3 cameraPos = Vector3.Zero, cameraTarget, cameraUpVector;
 		Vector3 move = Vector3.Zero;
 
-		public Vector3 Position { get; set; }
-		public bool IsFlyingMode { get; set; }
+		public Vector3 Position;
+		public bool IsFlyingMode;
 		public HandDirection HandDirection { get; set; }
 
-		public Matrix4x4 Matrix
+		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
+		public void GetMatrix ( out Matrix4x4 result )
 		{
-			get
-			{
-				Matrix4x4 t = CommonTransform.FromYawPitchRoll ( cameraYaw, ( IsFlyingMode ) ? cameraPitch : 0, 0 );
-				cameraPos += Vector3.Transform ( move, t );
-				t = CommonTransform.FromYawPitchRoll ( cameraYaw, cameraPitch, cameraRoll );
+			Matrix4x4 t; Vector3 t2;
+			CommonTransform.FromYawPitchRoll ( cameraYaw, ( IsFlyingMode ) ? cameraPitch : 0, 0, out t );
+			Vector3.Transform ( ref move, ref t, out t2 );
+			cameraPos += t2;
+			CommonTransform.FromYawPitchRoll ( cameraYaw, cameraPitch, cameraRoll, out t );
 
-				Vector3 targetVector = new Vector3 ( 0, 0, -1 ), upVector = new Vector3 ( 0, 1, 0 );
-				Vector3.Transform ( ref targetVector, ref t, out cameraTarget );
-				Vector3.Transform ( ref upVector, ref t, out cameraUpVector );
+			Vector3 targetVector = new Vector3 ( 0, 0, -1 ), upVector = new Vector3 ( 0, 1, 0 );
+			Vector3.Transform ( ref targetVector, ref t, out cameraTarget );
+			Vector3.Transform ( ref upVector, ref t, out cameraUpVector );
 
-				Func<Vector3, Vector3, Vector3, Matrix4x4> lookAt;
-
-				if ( HandDirection == HandDirection.RightHand ) lookAt = CommonTransform.LookAtRH;
-				else lookAt = CommonTransform.LookAtLH;
-				t = lookAt ( cameraPos, cameraTarget + cameraPos, cameraUpVector );
-				move = Vector3.Zero;
-
-				return t;
-			}
+			t2 = cameraTarget + cameraPos;
+			if ( HandDirection == HandDirection.RightHand ) CommonTransform.LookAtRH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
+			else CommonTransform.LookAtLH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
+			move = Vector3.Zero;
 		}
 
 		public void Strafe ( float u )

@@ -14,13 +14,11 @@ namespace Daramkun.Misty.Mathematics.Transforms
 	public interface ITransform
 	{
 		Matrix4x4 Matrix { get; }
+		void GetMatrix ( out Matrix4x4 result );
 	}
 
-	public interface IProjectionTransform : ITransform
+	public interface IHandDirectionTransform : ITransform
 	{
-		float Near { get; set; }
-		float Far { get; set; }
-
 		HandDirection HandDirection { get; set; }
 	}
 }

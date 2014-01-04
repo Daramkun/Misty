@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Daramkun.Misty.Mathematics.Transforms
 {
-	public class OrthographicOffCenterProjection : IProjectionTransform
+	public class OrthographicOffCenterProjection : IHandDirectionTransform
 	{
 		public float Near { get; set; }
 		public float Far { get; set; }
@@ -29,20 +29,13 @@ namespace Daramkun.Misty.Mathematics.Transforms
 			Far = far;
 		}
 
-		public Matrix4x4 Matrix
+		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
+		public void GetMatrix ( out Matrix4x4 result )
 		{
-			get
-			{
-				float left = OffCenterPosition.X, right = OffCenterPosition.X + OffCenterSize.X,
-					top = OffCenterPosition.Y, bottom = OffCenterPosition.Y + OffCenterSize.Y;
-
-				Func<float, float, float, float, float, float, Matrix4x4> orthoOffCenter;
-
-				if ( HandDirection == HandDirection.RightHand ) orthoOffCenter = CommonTransform.OrthographicOffCenterRH;
-				else orthoOffCenter = CommonTransform.OrthographicOffCenterLH;
-
-				return orthoOffCenter ( left, right, bottom, top, Near, Far );
-			}
+			float left = OffCenterPosition.X, right = OffCenterPosition.X + OffCenterSize.X,
+				top = OffCenterPosition.Y, bottom = OffCenterPosition.Y + OffCenterSize.Y;
+			if ( HandDirection == HandDirection.RightHand ) CommonTransform.OrthographicOffCenterRH ( left, right, bottom, top, Near, Far, out result );
+			else CommonTransform.OrthographicOffCenterLH ( left, right, bottom, top, Near, Far, out result );
 		}
 	}
 }

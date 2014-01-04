@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Daramkun.Misty.Mathematics.Transforms
 {
-	public class LookAt : ITransform
+	public class LookAt : IHandDirectionTransform
 	{
-		public Vector3 Position { get; set; }
-		public Vector3 Target { get; set; }
-		public Vector3 UpVector { get; set; }
+		public Vector3 Position;
+		public Vector3 Target;
+		public Vector3 UpVector;
 		public HandDirection HandDirection { get; set; }
 
 		public LookAt ( Vector3 position, Vector3 target, Vector3 upVector )
@@ -27,17 +27,11 @@ namespace Daramkun.Misty.Mathematics.Transforms
 			: this ( position, target, new Vector3 ( 0, 1, 0 ) )
 		{ }
 
-		public Matrix4x4 Matrix
+		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
+		public void GetMatrix ( out Matrix4x4 result )
 		{
-			get
-			{
-				Func<Vector3, Vector3, Vector3, Matrix4x4> lookAt;
-
-				if ( HandDirection == HandDirection.RightHand ) lookAt = CommonTransform.LookAtRH;
-				else lookAt = CommonTransform.LookAtLH;
-
-				return lookAt ( Position, Target, UpVector );
-			}
+			if ( HandDirection == HandDirection.RightHand ) CommonTransform.LookAtRH ( ref Position, ref Target, ref UpVector, out result );
+			else CommonTransform.LookAtLH ( ref Position, ref Target, ref UpVector, out result );
 		}
 	}
 }

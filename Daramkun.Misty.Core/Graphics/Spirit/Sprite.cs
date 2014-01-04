@@ -136,12 +136,15 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 		public void Draw ( World2 transform )
 		{
+			Matrix4x4 matrix;
 			Effect.Begin ();
 			Effect.SetTextures ( new TextureArgument () { Texture = Texture, Uniform = "texture0",
 				Filter = TextureFilter, AnisotropicLevel = AnisotropicLevel, Addressing = TextureAddressing.Clamp } );
 			projectionMatrix.OffCenterSize = Core.GraphicsDevice.CurrentRenderBuffer.Size;
-			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", projectionMatrix.Matrix );
-			Effect.SetUniform<Matrix4x4> ( "worldMatrix", transform.Matrix );
+			projectionMatrix.GetMatrix ( out matrix );
+			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
+			transform.GetMatrix ( out matrix );
+			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
 			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, 2 );
 			Effect.End ();
 		}

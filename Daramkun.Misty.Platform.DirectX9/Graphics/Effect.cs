@@ -87,6 +87,14 @@ namespace Daramkun.Misty.Graphics
 			constantTable.SetValue<T> ( device, handle, value );
 		}
 
+		public void SetUniform<T> ( string name, ref T value ) where T : struct
+		{
+			var device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
+			var constantTable = ( vertexShader.Handle as SharpDX.Direct3D9.VertexShader ).Function.ConstantTable;
+			var handle = constantTable.GetConstantByName ( null, name );
+			constantTable.SetValue<T> ( device, handle, value );
+		}
+
 		public void SetUniform ( string name, params int [] value )
 		{
 			var device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;

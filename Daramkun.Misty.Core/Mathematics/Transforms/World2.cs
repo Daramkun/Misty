@@ -45,24 +45,17 @@ namespace Daramkun.Misty.Mathematics.Transforms
 				v1.Scale / v2.Scale, v1.Rotation - v2.Rotation, v1.RotationCenter - v2.RotationCenter );
 		}
 
-		public Matrix4x4 Matrix
+		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
+		public void GetMatrix ( out Matrix4x4 result )
 		{
-			get
-			{
-				Matrix4x4 matrix = Matrix4x4.Identity;
-
-				matrix *= CommonTransform.Translate ( new Vector3 ( -RotationCenter, 0 ) );
-				matrix *= CommonTransform.RotationZ ( Rotation );
-				matrix *= CommonTransform.Translate ( new Vector3 ( RotationCenter, 0 ) );
-
-				matrix *= CommonTransform.Translate ( new Vector3 ( -ScaleCenter, 0 ) );
-				matrix *= CommonTransform.Scale ( new Vector3 ( Scale, 1 ) );
-				matrix *= CommonTransform.Translate ( new Vector3 ( ScaleCenter, 0 ) );
-
-				matrix *= CommonTransform.Translate ( new Vector3 ( Translate, 0 ) );
-
-				return matrix;
-			}
+			result = Matrix4x4.Identity;
+			result *= CommonTransform.Translate ( new Vector3 ( -RotationCenter, 0 ) );
+			result *= CommonTransform.RotationZ ( Rotation );
+			result *= CommonTransform.Translate ( new Vector3 ( RotationCenter, 0 ) );
+			result *= CommonTransform.Translate ( new Vector3 ( -ScaleCenter, 0 ) );
+			result *= CommonTransform.Scale ( new Vector3 ( Scale, 1 ) );
+			result *= CommonTransform.Translate ( new Vector3 ( ScaleCenter, 0 ) );
+			result *= CommonTransform.Translate ( new Vector3 ( Translate, 0 ) );
 		}
 	}
 }

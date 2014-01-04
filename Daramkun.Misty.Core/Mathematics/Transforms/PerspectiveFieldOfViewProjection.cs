@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Daramkun.Misty.Mathematics.Transforms
 {
-	public class PerspectiveFieldOfViewProjection : IProjectionTransform
+	public class PerspectiveFieldOfViewProjection : IHandDirectionTransform
 	{
 		public float FieldOfView { get; set; }
 		public float AspectRatio { get; set; }
@@ -21,17 +21,11 @@ namespace Daramkun.Misty.Mathematics.Transforms
 			Far = far;
 		}
 
-		public Matrix4x4 Matrix
+		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
+		public void GetMatrix ( out Matrix4x4 result )
 		{
-			get
-			{
-				Func<float, float, float, float, Matrix4x4> perspFov;
-
-				if ( HandDirection == HandDirection.RightHand ) perspFov = CommonTransform.PerspectiveFieldOfViewRH;
-				else perspFov = CommonTransform.PerspectiveFieldOfViewLH;
-
-				return perspFov ( FieldOfView, AspectRatio, Near, Far );
-			}
+			if ( HandDirection == HandDirection.RightHand ) CommonTransform.PerspectiveFieldOfViewRH ( FieldOfView, AspectRatio, Near, Far, out result );
+			else CommonTransform.PerspectiveFieldOfViewLH ( FieldOfView, AspectRatio, Near, Far, out result );
 		}
 	}
 }

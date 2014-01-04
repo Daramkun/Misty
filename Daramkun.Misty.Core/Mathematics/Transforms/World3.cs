@@ -7,11 +7,11 @@ namespace Daramkun.Misty.Mathematics.Transforms
 {
 	public class World3 : ITransform
 	{
-		public Vector3 Translate { get; set; }
-		public Vector3 ScaleCenter { get; set; }
-		public Vector3 Scale { get; set; }
-		public Vector3 Rotation { get; set; }
-		public Vector3 RotationCenter { get; set; }
+		public Vector3 Translate;
+		public Vector3 ScaleCenter;
+		public Vector3 Scale;
+		public Vector3 Rotation;
+		public Vector3 RotationCenter;
 
 		public static World3 Identity
 		{
@@ -51,24 +51,17 @@ namespace Daramkun.Misty.Mathematics.Transforms
 				v1.Scale / v2.Scale, v1.Rotation - v2.Rotation, v1.RotationCenter - v2.RotationCenter );
 		}
 
-		public Matrix4x4 Matrix
+		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
+		public void GetMatrix ( out Matrix4x4 result )
 		{
-			get
-			{
-				Matrix4x4 matrix = Matrix4x4.Identity;
-
-				matrix *= CommonTransform.Translate ( -RotationCenter );
-				matrix *= CommonTransform.RotationXYZ ( Rotation );
-				matrix *= CommonTransform.Translate ( RotationCenter );
-
-				matrix *= CommonTransform.Translate ( -ScaleCenter );
-				matrix *= CommonTransform.Scale ( Scale );
-				matrix *= CommonTransform.Translate ( ScaleCenter );
-
-				matrix *= CommonTransform.Translate ( Translate );
-
-				return matrix;
-			}
+			result = Matrix4x4.Identity;
+			result *= CommonTransform.Translate ( -RotationCenter );
+			result *= CommonTransform.RotationXYZ ( Rotation );
+			result *= CommonTransform.Translate ( RotationCenter );
+			result *= CommonTransform.Translate ( -ScaleCenter );
+			result *= CommonTransform.Scale ( Scale );
+			result *= CommonTransform.Translate ( ScaleCenter );
+			result *= CommonTransform.Translate ( Translate );
 		}
 	}
 }

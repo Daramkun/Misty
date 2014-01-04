@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Daramkun.Misty.Mathematics.Transforms
 {
-	public class PerspectiveOffCenterProjection : IProjectionTransform
+	public class PerspectiveOffCenterProjection : IHandDirectionTransform
 	{
-		public Vector2 OffCenterPosition { get; set; }
-		public Vector2 OffCenterSize { get; set; }
-		public float Near { get; set; }
-		public float Far { get; set; }
+		public Vector2 OffCenterPosition;
+		public Vector2 OffCenterSize;
+		public float Near;
+		public float Far;
 		public HandDirection HandDirection { get; set; }
 
 		public PerspectiveOffCenterProjection ( int left, int top, int right, int bottom, float near = 0.0001f, float far = 10000.0f )
@@ -29,18 +29,13 @@ namespace Daramkun.Misty.Mathematics.Transforms
 			Far = far;
 		}
 
-		public Matrix4x4 Matrix
+		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
+		public void GetMatrix ( out Matrix4x4 result )
 		{
-			get
-			{
-				Func<float, float, float, float, float, float, Matrix4x4> perspOffCenter;
-
-				if ( HandDirection == HandDirection.RightHand ) perspOffCenter = CommonTransform.PerspectiveOffCenterRH;
-				else perspOffCenter = CommonTransform.PerspectiveOffCenterLH;
-
-				return perspOffCenter ( OffCenterPosition.X,
-					OffCenterPosition.X + OffCenterSize.X, OffCenterPosition.Y + OffCenterSize.Y, OffCenterPosition.Y, Near, Far );
-			}
+			if ( HandDirection == HandDirection.RightHand ) CommonTransform.PerspectiveOffCenterRH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X,
+				OffCenterPosition.Y + OffCenterSize.Y, OffCenterPosition.Y, Near, Far, out result );
+			else CommonTransform.PerspectiveOffCenterLH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X, OffCenterPosition.Y + OffCenterSize.Y,
+				OffCenterPosition.Y, Near, Far, out result );
 		}
 	}
 }

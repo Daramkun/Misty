@@ -48,6 +48,11 @@ namespace Daramkun.Misty.Graphics.Spirit
 			baseEffect.SetUniform<T> ( name, value );
 		}
 
+		public void SetUniform<T> ( string name, ref T value ) where T : struct
+		{
+			baseEffect.SetUniform<T> ( name, ref value );
+		}
+
 		public void SetUniform ( string name, params int [] value )
 		{
 			baseEffect.SetUniform ( name, value );

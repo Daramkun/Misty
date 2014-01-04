@@ -106,7 +106,8 @@ namespace Daramkun.Misty.Graphics
 		public void Begin () { GL.UseProgram ( programId ); }
 		public void End () { GL.UseProgram ( 0 ); }
 
-		public void SetUniform<T> ( string name, T value ) where T : struct
+		public void SetUniform<T> ( string name, T value ) where T : struct { SetUniform<T> ( name, ref value ); }
+		public void SetUniform<T> ( string name, ref T value ) where T : struct
 		{
 			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
