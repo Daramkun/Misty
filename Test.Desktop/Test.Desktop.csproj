@@ -51,7 +51,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="GameFont.ttf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -61,7 +60,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="test.ogg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -79,12 +77,10 @@
       <Project>{ed437759-72e7-47d0-ae51-32eb7acddcd5}</Project>
       <Name>Daramkun.Misty.Platform.DirectX9</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="logo.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="test.png" />
+    <ProjectReference Include="..\Test.Game.PerformanceTester\Test.Game.PerformanceTester.csproj">
+      <Project>{8ac05a7a-71f1-4618-944b-107338839231}</Project>
+      <Name>Test.Game.PerformanceTester</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

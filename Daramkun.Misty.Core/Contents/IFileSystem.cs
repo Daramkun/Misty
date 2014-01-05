@@ -7,23 +7,6 @@ using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Contents
 {
-	public static class FileSystemManager
-	{
-		static Dictionary<string, Type> fileSystems = new Dictionary<string, Type> ();
-		
-		public static void AddFileSystemType ( string key, Type fileSystem )
-		{
-			if ( Utilities.IsSubtypeOf ( fileSystem, typeof ( IFileSystem ) ) )
-				fileSystems.Add ( key, fileSystem );
-			else throw new ArgumentException ();
-		}
-
-		public static IFileSystem CreateFileSystem ( string key, params object [] args )
-		{
-			return Activator.CreateInstance ( fileSystems [ key ], args ) as IFileSystem;
-		}
-	}
-
 	public interface IFileSystem
 	{
 		bool IsFileExist ( string filename );

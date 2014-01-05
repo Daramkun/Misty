@@ -258,7 +258,9 @@
       <DependentUpon>Quaternion.cs</DependentUpon>
     </Compile>
     <Compile Include="Mathematics\Quaternion.cs" />
-    <Compile Include="Mathematics\Quaternion.Utilities.cs" />
+    <Compile Include="Mathematics\Quaternion.Utilities.cs">
+      <DependentUpon>Quaternion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mathematics\Transforms\Camera.cs" />
     <Compile Include="Mathematics\Transforms\CommonTransform.cs" />
     <Compile Include="Mathematics\Transforms\CommonTransform.Projection.cs">
