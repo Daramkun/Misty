@@ -13,6 +13,7 @@ namespace Daramkun.Misty.Graphics
 		IGraphicsDevice graphicsDevice;
 		IShader vertexShader;
 		IShader pixelShader;
+		Dictionary<string, SharpDX.Direct3D9.EffectHandle> handleCache;
 
 		public object Handle { get { return new [] { vertexShader, pixelShader }; } }
 
@@ -61,6 +62,25 @@ namespace Daramkun.Misty.Graphics
 
 			vertexShader = VertexShader;
 			pixelShader = PixelShader;
+
+			handleCache = new Dictionary<string, SharpDX.Direct3D9.EffectHandle> ();
+		}
+
+		protected override void Dispose ( bool isDisposing )
+		{
+			if ( isDisposing )
+			{
+				foreach ( SharpDX.Direct3D9.EffectHandle handle in handleCache.Values )
+					handle.Dispose ();
+				handleCache = null;
+
+				foreach ( IShader shader in new IShader [] { VertexShader, PixelShader, GeometryShader } )
+				{
+					if ( shader == null ) continue;
+					shader.Dispose ();
+				}
+			}
+			base.Dispose ( isDisposing );
 		}
 
 		public void Begin ()
@@ -81,34 +101,34 @@ namespace Daramkun.Misty.Graphics
 
 		public void SetUniform<T> ( string name, T value ) where T : struct
 		{
-			var device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
-			var constantTable = ( vertexShader.Handle as SharpDX.Direct3D9.VertexShader ).Function.ConstantTable;
-			var handle = constantTable.GetConstantByName ( null, name );
-			constantTable.SetValue<T> ( device, handle, value );
+			SetUniform<T> ( name, ref value );
 		}
 
 		public void SetUniform<T> ( string name, ref T value ) where T : struct
 		{
 			var device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
 			var constantTable = ( vertexShader.Handle as SharpDX.Direct3D9.VertexShader ).Function.ConstantTable;
-			var handle = constantTable.GetConstantByName ( null, name );
+			var handle = ( handleCache.ContainsKey ( name ) ) ? handleCache [ name ] : constantTable.GetConstantByName ( null, name );
 			constantTable.SetValue<T> ( device, handle, value );
+			if ( !handleCache.ContainsKey ( name ) ) handleCache.Add ( name, handle );
 		}
 
 		public void SetUniform ( string name, params int [] value )
 		{
 			var device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
 			var constantTable = ( vertexShader.Handle as SharpDX.Direct3D9.VertexShader ).Function.ConstantTable;
-			var handle = constantTable.GetConstantByName ( null, name );
+			var handle = ( handleCache.ContainsKey ( name ) ) ? handleCache [ name ] : constantTable.GetConstantByName ( null, name );
 			constantTable.SetValue<int> ( device, handle, value );
+			if ( !handleCache.ContainsKey ( name ) ) handleCache.Add ( name, handle );
 		}
 
 		public void SetUniform ( string name, params float [] value )
 		{
 			var device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
 			var constantTable = ( vertexShader.Handle as SharpDX.Direct3D9.VertexShader ).Function.ConstantTable;
-			var handle = constantTable.GetConstantByName ( null, name );
+			var handle = ( handleCache.ContainsKey ( name ) ) ? handleCache [ name ] : constantTable.GetConstantByName ( null, name );
 			constantTable.SetValue<float> ( device, handle, value );
+			if ( !handleCache.ContainsKey ( name ) ) handleCache.Add ( name, handle );
 		}
 
 		public void SetTextures ( params TextureArgument [] args )
@@ -118,7 +138,7 @@ namespace Daramkun.Misty.Graphics
 
 			foreach ( TextureArgument texture in args )
 			{
-				var handle = constantTable.GetConstantByName ( null, texture.Uniform );
+				var handle = ( handleCache.ContainsKey ( texture.Uniform ) ) ? handleCache [ texture.Uniform ] : constantTable.GetConstantByName ( null, texture.Uniform );
 				var samplerIndex = constantTable.GetSamplerIndex ( handle );
 
 				device.SetSamplerState ( samplerIndex, SharpDX.Direct3D9.SamplerState.MinFilter, ChangeFilter ( texture.Filter ) );
@@ -131,6 +151,8 @@ namespace Daramkun.Misty.Graphics
 
 				device.SetTexture ( samplerIndex, texture.Texture.Handle as SharpDX.Direct3D9.Texture );
 				device.SetTextureStageState ( samplerIndex, SharpDX.Direct3D9.TextureStage.TexCoordIndex, samplerIndex );
+
+				if ( !handleCache.ContainsKey ( texture.Uniform ) ) handleCache.Add ( texture.Uniform, handle );
 			}
 		}
 

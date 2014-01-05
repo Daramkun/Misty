@@ -113,8 +113,7 @@ namespace Daramkun.Misty.Nodes
 		{
 			if ( children.Count > 0 )
 			{
-				var arrEnum = from a in childrenArray where a.IsEnabled select a;
-				foreach ( Node item in arrEnum )
+				foreach ( Node item in from a in childrenArray where a.IsEnabled select a )
 					item.Update ( gameTime );
 			}
 		}

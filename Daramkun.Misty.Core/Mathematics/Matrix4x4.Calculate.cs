@@ -130,6 +130,7 @@ namespace Daramkun.Misty.Mathematics
 			float detMatrix = ( float ) ( det1 * det12 - det2 * det11 + det3 * det10 + det4 * det9 - det5 * det8 + det6 * det7 );
 			float invDetMatrix = 1f / detMatrix;
 
+			result = new Matrix4x4 ();
 			result.M11 = ( v1.M22 * det12 - v1.M23 * det11 + v1.M24 * det10 ) * invDetMatrix;
 			result.M12 = ( -v1.M12 * det12 + v1.M13 * det11 - v1.M14 * det10 ) * invDetMatrix;
 			result.M13 = ( v1.M42 * det6 - v1.M43 * det5 + v1.M44 * det4 ) * invDetMatrix;

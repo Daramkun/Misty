@@ -78,6 +78,8 @@ namespace Test.Desktop
 				Color.White, new Vector2 ( 0, 64 ) );
 			font2.DrawFont ( "Draw FPS: " + calc.DrawFPS.ToString (),
 				Color.White, new Vector2 ( 0, 64 + 24 ) );
+			font2.DrawFont ( string.Format ( "Memory Usage: {0}MB", GC.GetTotalMemory ( false ) / 1024 / 1024 ),
+				Color.White, new Vector2 ( 0, 64 + 24 + 24 ) );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();

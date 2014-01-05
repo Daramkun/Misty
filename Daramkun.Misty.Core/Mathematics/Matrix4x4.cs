@@ -7,6 +7,8 @@ namespace Daramkun.Misty.Mathematics
 {
 	public partial struct Matrix4x4
 	{
+		static float [] cachedArray = new float [ 16 ];
+
 		public float
 			M11, M12, M13, M14,
 			M21, M22, M23, M24,
@@ -102,13 +104,9 @@ namespace Daramkun.Misty.Mathematics
 
 		public float [] ToArray ()
 		{
-			return new float []
-			{
-				M11, M12, M13, M14,
-				M21, M22, M23, M24,
-				M31, M32, M33, M34,
-				M41, M42, M43, M44
-			};
+			for ( int i = 0; i < 16; ++i )
+				cachedArray [ i ] = this [ i ];
+			return cachedArray;
 		}
 
 		public float this [ int index ]

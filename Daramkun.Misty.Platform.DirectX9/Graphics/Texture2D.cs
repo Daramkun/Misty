@@ -34,6 +34,7 @@ namespace Daramkun.Misty.Graphics
 						colours [ y * Width + x ] = new Color ( stream.Read<SharpDX.Color> ().ToBgra (), true );
 					}
 				texture.UnlockRectangle ( 0 );
+				stream.Dispose ();
 				return colours;
 			}
 			set
@@ -45,6 +46,7 @@ namespace Daramkun.Misty.Graphics
 					for ( int x = 0; x < Width; ++x )
 						colours [ y * ( dr.Pitch / 4 ) + x ] = new SharpDX.Color ( value [ y * Width + x ].ARGBValue );
 				stream.WriteRange<SharpDX.Color> ( colours );
+				stream.Dispose ();
 				texture.UnlockRectangle ( 0 );
 			}
 		}

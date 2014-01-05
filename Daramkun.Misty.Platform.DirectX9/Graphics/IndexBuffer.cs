@@ -42,6 +42,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			SharpDX.DataStream stream = indexBuffer.Lock ( 0, 0, SharpDX.Direct3D9.LockFlags.None );
 			T [] arr = stream.ReadRange<T> ( Length );
+			stream.Dispose ();
 			indexBuffer.Unlock ();
 			return arr;
 		}
@@ -50,6 +51,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			SharpDX.DataStream stream = indexBuffer.Lock ( 0, 0, SharpDX.Direct3D9.LockFlags.None );
 			stream.WriteRange<T> ( buffer );
+			stream.Dispose ();
 			indexBuffer.Unlock ();
 		}
 	}

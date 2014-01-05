@@ -11,10 +11,10 @@ namespace Daramkun.Misty.Nodes
 		TimeSpan updateSum, drawSum;
 		int updateFrame, drawFrame;
 
-		float updateFps, drawFps;
+		double updateFps, drawFps;
 
-		public float UpdateFPS { get { return updateFps; } }
-		public float DrawFPS { get { return drawFps; } }
+		public float UpdateFPS { get { return ( float ) updateFps; } }
+		public float DrawFPS { get { return ( float ) drawFps; } }
 
 		public FpsCalculator ()
 		{
@@ -29,7 +29,7 @@ namespace Daramkun.Misty.Nodes
 
 			if ( updateSum.TotalSeconds >= 1 )
 			{
-				updateFps = updateFrame + updateFrame * ( float ) ( updateSum.TotalSeconds - 1 );
+				updateFps = updateFrame + updateFrame * ( updateSum.TotalSeconds - 1 );
 				updateFrame = 0;
 				updateSum = new TimeSpan ();
 			}
@@ -44,7 +44,7 @@ namespace Daramkun.Misty.Nodes
 
 			if ( drawSum.TotalSeconds >= 1 )
 			{
-				drawFps = drawFrame + drawFrame * ( float ) ( drawSum.TotalSeconds - 1 );
+				drawFps = drawFrame + drawFrame * ( drawSum.TotalSeconds - 1 );
 				drawFrame = 0;
 				drawSum = new TimeSpan ();
 			}

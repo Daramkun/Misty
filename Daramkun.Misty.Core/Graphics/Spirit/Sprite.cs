@@ -36,6 +36,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 		OrthographicOffCenterProjection projectionMatrix = new OrthographicOffCenterProjection ( 0, 800, 600, 0, 0.001f, 1000.0f );
 
+		SpriteVertex [] vertices = new SpriteVertex [ 4 ];
 		IVertexBuffer vertexBuffer;
 		Rectangle clippingArea;
 		Color overlayColor;
@@ -53,7 +54,6 @@ namespace Daramkun.Misty.Graphics.Spirit
 			set
 			{
 				clippingArea = value;
-				SpriteVertex [] vertices = vertexBuffer.GetBufferDatas<SpriteVertex> ();
 				vertices [ 0 ].Position = new Vector2 ( 0, 0 );
 				vertices [ 1 ].Position = new Vector2 ( clippingArea.Size.X, 0 );
 				vertices [ 2 ].Position = new Vector2 ( 0, clippingArea.Size.Y );
@@ -72,7 +72,6 @@ namespace Daramkun.Misty.Graphics.Spirit
 			set
 			{
 				overlayColor = value;
-				SpriteVertex [] vertices = vertexBuffer.GetBufferDatas<SpriteVertex> ();
 				vertices [ 0 ].Diffuse = vertices [ 1 ].Diffuse = vertices [ 2 ].Diffuse = vertices [ 3 ].Diffuse = value;
 				vertexBuffer.SetBufferDatas<SpriteVertex> ( vertices );
 			}
@@ -159,17 +158,17 @@ namespace Daramkun.Misty.Graphics.Spirit
 		{
 			Texture = texture;
 
-			int width = 1, height = 1;
-			if ( texture != null ) { width = texture.Width; height = texture.Height; }
-
 			float plusUnit = 0.000001f;
-			vertexBuffer.SetBufferDatas<SpriteVertex> ( new SpriteVertex []
-			{
-				new SpriteVertex ( new Vector2 ( plusUnit, plusUnit ), Color.White, new Vector2 ( 0.0001f, 0.0001f ) ),
-				new SpriteVertex ( new Vector2 ( width + plusUnit, plusUnit ), Color.White, new Vector2 ( 1f, 0.0001f ) ),
-				new SpriteVertex ( new Vector2 ( plusUnit, height + plusUnit ), Color.White, new Vector2 ( 0.0001f, 1 ) ),
-				new SpriteVertex ( new Vector2 ( width + plusUnit, height + plusUnit ), Color.White, new Vector2 ( 1f, 1f ) ),
-			} );
+			float width = plusUnit, height = plusUnit;
+			if ( texture != null ) { width += texture.Width; height += texture.Height; }
+			else { width += 1; height += 1; }
+
+			vertices [ 0 ] = new SpriteVertex ( new Vector2 ( plusUnit, plusUnit ), Color.White, new Vector2 ( 0.0001f, 0.0001f ) );
+			vertices [ 1 ] = new SpriteVertex ( new Vector2 ( width, plusUnit ), Color.White, new Vector2 ( 1f, 0.0001f ) );
+			vertices [ 2 ] = new SpriteVertex ( new Vector2 ( plusUnit, height ), Color.White, new Vector2 ( 0.0001f, 1 ) );
+			vertices [ 3 ] = new SpriteVertex ( new Vector2 ( width, height ), Color.White, new Vector2 ( 1f, 1f ) );
+
+			vertexBuffer.SetBufferDatas<SpriteVertex> ( vertices );
 			clippingArea = new Rectangle ( new Vector2 (), new Vector2 ( width, height ) );
 		}
 	}
