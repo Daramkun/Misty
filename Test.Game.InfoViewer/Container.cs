@@ -16,6 +16,7 @@ using Daramkun.Misty.Nodes;
 
 namespace Test.Game.InfoViewer
 {
+	[MainNode]
 	public class Container : Node
 	{
 		ResourceTable contentManager;
@@ -112,5 +113,7 @@ Is Support Geometry Shader: {8}
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
+
+		public override string ToString () { return "Information Viewer"; }
 	}
 }

@@ -53,5 +53,7 @@ namespace Daramkun.Misty.Platforms
 		{
 
 		}
+
+		public override string ToString () { return "OpenGL/OpenAL Platform Abstraction Framework"; }
 	}
 }

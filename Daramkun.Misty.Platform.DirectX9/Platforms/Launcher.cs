@@ -48,5 +48,7 @@ namespace Daramkun.Misty.Platforms
 		{
 
 		}
+
+		public override string ToString () { return "DirectX9 Platform Abstraction Framework"; }
 	}
 }

@@ -14,6 +14,7 @@ using Daramkun.Misty.Nodes;
 
 namespace Test.Game.PerformanceTester
 {
+	[MainNode]
 	public class Container : Node
 	{
 		Node [] nodes;
@@ -115,5 +116,7 @@ namespace Test.Game.PerformanceTester
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
+
+		public override string ToString () { return "Performance Tester"; }
 	}
 }

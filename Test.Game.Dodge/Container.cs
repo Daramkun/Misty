@@ -18,6 +18,7 @@ using Daramkun.Misty.Nodes.Scenes;
 
 namespace Test.Game.Dodge
 {
+	[MainNode]
 	public class Container : Node
 	{
 		ResourceTable contentManager;
@@ -78,5 +79,7 @@ namespace Test.Game.Dodge
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
+
+		public override string ToString () { return "Dodge"; }
 	}
 }

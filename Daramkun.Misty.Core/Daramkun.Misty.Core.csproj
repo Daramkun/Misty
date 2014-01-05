@@ -306,6 +306,7 @@
     <Compile Include="Mathematics\Vector4.Utilities.cs">
       <DependentUpon>Vector4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Nodes\MainNodeAttribute.cs" />
     <Compile Include="Nodes\Spirit\FontNode.cs" />
     <Compile Include="Nodes\FpsCalculator.cs" />
     <Compile Include="Nodes\InputHelper.cs" />
