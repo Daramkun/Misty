@@ -26,10 +26,10 @@ namespace Daramkun.Misty.Graphics
 			get
 			{
 				List<ScreenResolution> sizes = new List<ScreenResolution> ();
-				int count = d3d.GetAdapterModeCount ( 0, SharpDX.Direct3D9.Format.A8R8G8B8 );
+				int count = d3d.GetAdapterModeCount ( 0, SharpDX.Direct3D9.Format.X8R8G8B8 );
 				for ( int i = 0; i < count; i++ )
 				{
-					SharpDX.Direct3D9.DisplayMode mode = d3d.EnumAdapterModes ( 0, SharpDX.Direct3D9.Format.A8R8G8B8, count );
+					SharpDX.Direct3D9.DisplayMode mode = d3d.EnumAdapterModes ( 0, SharpDX.Direct3D9.Format.X8R8G8B8, i );
 					sizes.Add ( new ScreenResolution ( new Vector2 ( mode.Width, mode.Height ), mode.RefreshRate ) );
 				}
 				return sizes.ToArray ();

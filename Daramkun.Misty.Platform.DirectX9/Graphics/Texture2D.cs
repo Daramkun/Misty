@@ -39,6 +39,7 @@ namespace Daramkun.Misty.Graphics
 			}
 			set
 			{
+				if ( value.Length == 0 ) return;
 				SharpDX.DataRectangle dr = texture.LockRectangle ( 0, SharpDX.Direct3D9.LockFlags.None );
 				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, ( dr.Pitch / 4 ) * Height * 4, false, true );
 				SharpDX.Color [] colours = new SharpDX.Color [ stream.Length / 4 ];

@@ -27,10 +27,10 @@ namespace Test.Desktop
 		{
 			Logger.AddDefaultLogWriter ();
 			Core.FixedDrawTimeStep = new TimeSpan ();
-			Core.Run (
-				new Launcher (),
-				new Test.Game.Dodge.Container ()
+			Core.Run ( new Launcher (),
+				//new Test.Game.Dodge.Container ()
 				//new Test.Game.PerformanceTester.Container ()
+				new Test.Game.InfoViewer.Container ()
 			);
 		}
 	}

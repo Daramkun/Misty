@@ -81,6 +81,10 @@
       <Project>{e7babf39-1557-4997-8bc1-832f954f7e01}</Project>
       <Name>Test.Game.Dodge</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Test.Game.InfoViewer\Test.Game.InfoViewer.csproj">
+      <Project>{7a894a23-37d5-4688-97e0-d7ebe096819c}</Project>
+      <Name>Test.Game.InfoViewer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.Game.PerformanceTester\Test.Game.PerformanceTester.csproj">
       <Project>{8ac05a7a-71f1-4618-944b-107338839231}</Project>
       <Name>Test.Game.PerformanceTester</Name>
