@@ -29,7 +29,8 @@ namespace Test.Desktop
 			Core.FixedDrawTimeStep = new TimeSpan ();
 			Core.Run (
 				new Launcher (),
-				new Test.Game.PerformanceTester.Container ()
+				new Test.Game.Dodge.Container ()
+				//new Test.Game.PerformanceTester.Container ()
 			);
 		}
 	}

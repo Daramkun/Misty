@@ -17,6 +17,8 @@ namespace Daramkun.Misty
 {
     public static class Core
     {
+		static bool isRunningMode;
+
 		public static ILauncher Launcher { get; private set; }
 		public static IWindow Window { get; private set; }
 		public static IGraphicsDevice GraphicsDevice { get; private set; }
@@ -69,7 +71,8 @@ namespace Daramkun.Misty
 			launcher.Initialize ( true );
 			Window.Show ();
 			mainNode.Intro ();
-			while ( Window.IsAlive )
+			isRunningMode = true;
+			while ( Window.IsAlive && isRunningMode )
 			{
 				if ( AudioDevice != null )
 					AudioDevice.Update ();
@@ -104,5 +107,7 @@ namespace Daramkun.Misty
 			mainNode.Outro ();
 			launcher.Dispose ();
 		}
+
+		public static void Exit () { isRunningMode = false; }
     }
 }

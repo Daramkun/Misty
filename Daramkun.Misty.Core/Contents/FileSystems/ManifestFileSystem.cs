@@ -34,7 +34,8 @@ namespace Daramkun.Misty.Contents.FileSystems
 
 		public Stream OpenFile ( string filename )
 		{
-			return assembly.GetManifestResourceStream ( string.Format ( "{0}.{1}", assemblyTitle, filename.Replace ( '\\', '.' ).Replace ( '/', '.' ) ) );
+			if ( files.Contains ( filename ) ) return assembly.GetManifestResourceStream ( filename );
+			else return assembly.GetManifestResourceStream ( string.Format ( "{0}.{1}", assemblyTitle, filename.Replace ( '\\', '.' ).Replace ( '/', '.' ) ) );
 		}
 
 		public string [] Files { get { return files; } }
