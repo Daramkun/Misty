@@ -13,7 +13,6 @@ namespace Daramkun.Misty.Mathematics
 		public static void Distance ( ref Vector2 v1, ref Vector2 v2, out float result ) { result = ( v2 - v1 ).Length; }
 		public static void DistanceSquared ( ref Vector2 v1, ref Vector2 v2, out float result ) { result = ( v2 - v1 ).LengthSquared; }
 
-		public static Vector2 Skew ( Vector2 v ) { Vector2 result; Skew ( ref v, out result ); return result; }
 		public static Vector2 Max ( Vector2 v1, Vector2 v2 ) { Vector2 result; Max ( ref v1, ref v2, out result ); return result; }
 		public static Vector2 Min ( Vector2 v1, Vector2 v2 ) { Vector2 result; Min ( ref v1, ref v2, out result ); return result; }
 		public static Vector2 Clamp ( Vector2 v1, Vector2 v2, Vector2 v3 ) { Vector2 result; Clamp ( ref v1, ref v2, ref v3, out result ); return result; }
@@ -55,7 +54,6 @@ namespace Daramkun.Misty.Mathematics
 			return result;
 		}
 
-		public static void Skew ( ref Vector2 v, out Vector2 result ) { result = new Vector2 ( -v.Y, v.X ); }
 		public static void Max ( ref Vector2 v1, ref Vector2 v2, out Vector2 result ) { result = new Vector2 ( Math.Max ( v1.X, v2.X ), Math.Max ( v1.Y, v2.Y ) ); }
 		public static void Min ( ref Vector2 v1, ref Vector2 v2, out Vector2 result ) { result = new Vector2 ( Math.Min ( v1.X, v2.X ), Math.Min ( v1.Y, v2.Y ) ); }
 		public static void Clamp ( ref Vector2 v1, ref Vector2 v2, ref Vector2 v3, out Vector2 result ) { result = Max ( v2, Min ( v1, v3 ) ); }
@@ -100,8 +98,5 @@ namespace Daramkun.Misty.Mathematics
 				MistyMath.SmoothStep ( value1.Y, value2.Y, amount )
 			);
 		}
-
-		public Vector2 Skew () { return Skew ( this ); }
-		public void Skew ( out Vector2 result ) { Vector2.Skew ( ref this, out result ); }
 	}
 }
