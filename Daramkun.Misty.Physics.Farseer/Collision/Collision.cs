@@ -901,7 +901,7 @@ namespace FarseerPhysics.Collision
             Vector2 v12 = poly1.Vertices[iv2];
 
             Vector2 localTangent = v12 - v11;
-            localTangent.Normalize();
+			localTangent = localTangent.Normalize ();
 
             Vector2 localNormal = new Vector2(localTangent.Y, -localTangent.X);
             Vector2 planePoint = 0.5f * (v11 + v12);
@@ -1011,8 +1011,7 @@ namespace FarseerPhysics.Collision
                 P = A;
                 d = Q - P;
                 float dd;
-                //Vector2.Dot(ref d, ref d, out dd);
-				dd = Vector2.Dot ( d, d );
+                Vector2.Dot(ref d, ref d, out dd);
                 if (dd > radius * radius)
                 {
                     return;
@@ -1053,8 +1052,7 @@ namespace FarseerPhysics.Collision
                 P = B;
                 d = Q - P;
                 float dd;
-                //Vector2.Dot(ref d, ref d, out dd);
-				dd = Vector2.Dot ( d, d );
+                Vector2.Dot(ref d, ref d, out dd);
                 if (dd > radius * radius)
                 {
                     return;
@@ -1091,12 +1089,12 @@ namespace FarseerPhysics.Collision
 
             // Region AB
             float den;
-			den = Vector2.Dot ( e, e );//Vector2.Dot(ref e, ref e, out den);
+            Vector2.Dot(ref e, ref e, out den);
             Debug.Assert(den > 0.0f);
             P = (1.0f / den) * (u * A + v * B);
             d = Q - P;
             float dd2;
-			dd2 = Vector2.Dot ( d, d );//Vector2.Dot(ref d, ref d, out dd2);
+            Vector2.Dot(ref d, ref d, out dd2);
             if (dd2 > radius * radius)
             {
                 return;
@@ -1107,7 +1105,7 @@ namespace FarseerPhysics.Collision
             {
                 n = new Vector2(-n.X, -n.Y);
             }
-            n.Normalize();
+            n = n.Normalize();
 
             cf.IndexA = 0;
             cf.TypeA = (byte)ContactFeatureType.Face;
@@ -1174,7 +1172,7 @@ namespace FarseerPhysics.Collision
                 bool hasVertex3 = edgeA.HasVertex3;
 
                 Vector2 edge1 = _v2 - _v1;
-                edge1.Normalize();
+                edge1 = edge1.Normalize();
                 _normal1 = new Vector2(edge1.Y, -edge1.X);
                 float offset1 = Vector2.Dot(_normal1, _centroidB - _v1);
                 float offset0 = 0.0f, offset2 = 0.0f;
@@ -1184,7 +1182,7 @@ namespace FarseerPhysics.Collision
                 if (hasVertex0)
                 {
                     Vector2 edge0 = _v1 - _v0;
-                    edge0.Normalize();
+                    edge0 = edge0.Normalize();
                     _normal0 = new Vector2(edge0.Y, -edge0.X);
                     convex1 = MathUtils.Cross(edge0, edge1) >= 0.0f;
                     offset0 = Vector2.Dot(_normal0, _centroidB - _v0);
@@ -1194,7 +1192,7 @@ namespace FarseerPhysics.Collision
                 if (hasVertex3)
                 {
                     Vector2 edge2 = _v3 - _v2;
-                    edge2.Normalize();
+                    edge2 = edge2.Normalize();
                     _normal2 = new Vector2(edge2.Y, -edge2.X);
                     convex2 = MathUtils.Cross(edge1, edge2) > 0.0f;
                     offset2 = Vector2.Dot(_normal2, _centroidB - _v2);

@@ -137,7 +137,8 @@ namespace FarseerPhysics.Factories
             return body;
         }
 
-        public static Body CreateRoundedRectangle(World world, float width, float height, float xRadius, float yRadius, int segments, float density, Vector2 position = new Vector2(), float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
+        public static Body CreateRoundedRectangle(World world, float width, float height, float xRadius, float yRadius, int segments, float density,
+			Vector2 position = new Vector2(), float rotation = 0, BodyType bodyType = BodyType.Static, object userData = null)
         {
             Vertices verts = PolygonTools.CreateRoundedRectangle(width, height, xRadius, yRadius, segments);
 

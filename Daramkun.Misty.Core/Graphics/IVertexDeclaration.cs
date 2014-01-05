@@ -11,6 +11,8 @@ namespace Daramkun.Misty.Graphics
 		Position,
 		Diffuse,
 		Normal,
+		Binormal,
+		Tangent,
 		TextureCoord,
 	}
 

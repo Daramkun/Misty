@@ -74,7 +74,7 @@ namespace FarseerPhysics.Common.Decomposition
             if (vertices.Count <= 3)
                 return new List<Vertices> { vertices };
 
-            List<Vertices> results = new List<Vertices>();
+            List<Vertices> results = null;
 
             switch (algorithm)
             {

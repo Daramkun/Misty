@@ -893,7 +893,7 @@ namespace FarseerPhysics.Common.TextureTools
                     if (edgeFound)
                     {
                         slope = polygon[nearestEdgeVertex2Index] - polygon[nearestEdgeVertex1Index];
-                        slope.Normalize();
+                        slope = slope.Normalize();
 
                         Vector2 tempVector = polygon[nearestEdgeVertex1Index];
                         distance = Vector2.Distance(tempVector, foundEdgeCoord);

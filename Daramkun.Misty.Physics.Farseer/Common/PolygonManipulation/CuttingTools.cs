@@ -112,10 +112,10 @@ namespace FarseerPhysics.Common.PolygonManipulation
                 {
                     offset = (newPolygon[n][newPolygon[n].Count - 1] - newPolygon[n][0]);
                 }
-                offset.Normalize();
+                offset = offset.Normalize();
 
                 if (!offset.IsValid())
-                    offset = new Vector2(1);
+                    offset = Vector2.One;
 
                 newPolygon[n][cutAdded[n]] += Settings.Epsilon * offset;
 
@@ -127,10 +127,10 @@ namespace FarseerPhysics.Common.PolygonManipulation
                 {
                     offset = (newPolygon[n][0] - newPolygon[n][newPolygon[n].Count - 1]);
                 }
-                offset.Normalize();
+                offset = offset.Normalize();
 
                 if (!offset.IsValid())
-                    offset = new Vector2(1);
+                    offset = Vector2.One;
 
                 newPolygon[n][cutAdded[n] + 1] += Settings.Epsilon * offset;
             }

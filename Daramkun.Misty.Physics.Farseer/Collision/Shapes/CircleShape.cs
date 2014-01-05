@@ -120,7 +120,7 @@ namespace FarseerPhysics.Collision.Shapes
 
                 //TODO: Check results here
                 output.Normal = s + a * r;
-                output.Normal.Normalize();
+                output.Normal = output.Normal.Normalize();
                 return true;
             }
 

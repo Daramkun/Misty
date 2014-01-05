@@ -74,9 +74,8 @@ namespace FarseerPhysics.Common.PolygonManipulation
       Vector2 lbSubject = subject.GetAABB().LowerBound;
       Vector2 lbClip = clip.GetAABB().LowerBound;
       Vector2 translate;
-      //Vector2.Min(ref lbSubject, ref lbClip, out translate);
-	  translate = Vector2.Min ( lbSubject, lbClip );
-      translate = new Vector2(1) - translate;
+      Vector2.Min(ref lbSubject, ref lbClip, out translate);
+      translate = Vector2.One - translate;
       if (translate != Vector2.Zero)
       {
         slicedSubject.Translate(ref translate);

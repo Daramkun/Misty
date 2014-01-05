@@ -42,7 +42,7 @@ namespace FarseerPhysics.Dynamics
 
         private const float LinTolSqr = Settings.LinearSleepTolerance * Settings.LinearSleepTolerance;
         private const float AngTolSqr = Settings.AngularSleepTolerance * Settings.AngularSleepTolerance;
-
+        
         public Body[] Bodies;
         public int BodyCount;
         public int ContactCount;

@@ -152,7 +152,7 @@ namespace FarseerPhysics.Collision.Shapes
             Vector2 v2 = _vertex2;
             Vector2 e = v2 - v1;
             Vector2 normal = new Vector2(e.Y, -e.X); //TODO: Could possibly cache the normal.
-            normal.Normalize();
+            normal = normal.Normalize();
 
             // q = p1 + t * d
             // dot(normal, q - v1) = 0

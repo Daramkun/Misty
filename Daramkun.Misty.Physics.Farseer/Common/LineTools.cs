@@ -16,8 +16,8 @@ namespace FarseerPhysics.Common
             if (start == end)
                 return Vector2.Distance(point, start);
 
-			Vector2 v = end - start;//Vector2.Subtract(end, start);
-			Vector2 w = point - start;//Vector2.Subtract(point, start);
+            Vector2 v = Vector2.Subtract(end, start);
+            Vector2 w = Vector2.Subtract(point, start);
 
             float c1 = Vector2.Dot(w, v);
             if (c1 <= 0) return Vector2.Distance(point, start);
@@ -26,7 +26,7 @@ namespace FarseerPhysics.Common
             if (c2 <= c1) return Vector2.Distance(point, end);
 
             float b = c1 / c2;
-			Vector2 pointOnLine = start + ( v * b );//Vector2.Add(start, Vector2.Multiply(v, b));
+            Vector2 pointOnLine = Vector2.Add(start, Vector2.Multiply(v, b));
             return Vector2.Distance(point, pointOnLine);
         }
 

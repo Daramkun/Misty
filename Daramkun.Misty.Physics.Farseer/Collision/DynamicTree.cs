@@ -343,7 +343,7 @@ namespace FarseerPhysics.Collision
             Vector2 p2 = input.Point2;
             Vector2 r = p2 - p1;
             Debug.Assert(r.LengthSquared > 0.0f);
-            r.Normalize();
+            r = r.Normalize();
 
             // v is perpendicular to the segment.
             Vector2 absV = MathUtils.Abs(new Vector2(-r.Y, r.X)); //FPE: Inlined the 'v' variable
@@ -357,8 +357,8 @@ namespace FarseerPhysics.Collision
             AABB segmentAABB = new AABB();
             {
                 Vector2 t = p1 + maxFraction * (p2 - p1);
-				segmentAABB.LowerBound = Vector2.Min ( p1, t );//Vector2.Min(ref p1, ref t, out segmentAABB.LowerBound);
-				segmentAABB.UpperBound = Vector2.Max ( p1, t );//Vector2.Max(ref p1, ref t, out segmentAABB.UpperBound);
+                Vector2.Min(ref p1, ref t, out segmentAABB.LowerBound);
+                Vector2.Max(ref p1, ref t, out segmentAABB.UpperBound);
             }
 
             _raycastStack.Clear();

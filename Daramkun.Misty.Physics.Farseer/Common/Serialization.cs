@@ -13,6 +13,31 @@ using Microsoft.Xna.Framework;
 
 namespace FarseerPhysics.Common
 {
+    /// <summary>
+    /// Serialize the world into an XML file
+    /// </summary>
+    public static class WorldSerializer
+    {
+        /// <summary>
+        /// Serialize the world to an XML file
+        /// </summary>
+        /// <param name="world"></param>
+        /// <param name="filename"></param>
+        public static void Serialize(World world, Stream stream)
+        {
+            WorldXmlSerializer.Serialize(world, stream);
+        }
+
+        /// <summary>
+        /// Deserialize the world from an XML file
+        /// </summary>
+        /// <param name="filename"></param>
+        public static World Deserialize(Stream stream)
+        {
+            return WorldXmlDeserializer.Deserialize(stream);
+        }
+    }
+
     internal static class WorldXmlSerializer
     {
         private static XmlWriter _writer;

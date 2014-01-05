@@ -46,6 +46,8 @@ namespace Daramkun.Misty.Graphics
 				case ElementType.Position: return SharpDX.Direct3D9.DeclarationUsage.Position;
 				case ElementType.Normal: return SharpDX.Direct3D9.DeclarationUsage.Normal;
 				case ElementType.Diffuse: return SharpDX.Direct3D9.DeclarationUsage.Color;
+				case ElementType.Binormal: return SharpDX.Direct3D9.DeclarationUsage.Binormal;
+				case ElementType.Tangent: return SharpDX.Direct3D9.DeclarationUsage.Tangent;
 				case ElementType.TextureCoord: return SharpDX.Direct3D9.DeclarationUsage.TextureCoordinate;
 				default: throw new ArgumentException ();
 			}

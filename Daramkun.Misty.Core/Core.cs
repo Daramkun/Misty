@@ -77,8 +77,7 @@ namespace Daramkun.Misty
 				if ( elapsedUpdateTimeStep >= FixedUpdateTimeStep || FixedUpdateTimeStep.TotalMilliseconds == 0 )
 				{
 					updateGameTime.Update ();
-					if ( mainNode != null )
-						mainNode.Update ( updateGameTime );
+					mainNode.Update ( updateGameTime );
 					elapsedUpdateTimeStep -= FixedUpdateTimeStep;
 				}
 				else
@@ -91,8 +90,7 @@ namespace Daramkun.Misty
 				if ( elapsedDrawTimeStep >= FixedDrawTimeStep || FixedDrawTimeStep.TotalMilliseconds == 0 )
 				{
 					drawGameTime.Update ();
-					if ( mainNode != null )
-						mainNode.Draw ( drawGameTime );
+					mainNode.Draw ( drawGameTime );
 					elapsedDrawTimeStep -= FixedDrawTimeStep;
 				}
 				else

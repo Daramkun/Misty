@@ -100,8 +100,8 @@ namespace FarseerPhysics.Common
         /// <param name="vector">The vector.</param>
         public void Translate(ref Vector2 vector)
         {
-			for ( int i = 0; i < ControlPoints.Count; i++ )
-				ControlPoints [ i ] = ControlPoints [ i ] + vector;//Vector2.Add(ControlPoints[i], vector);
+            for (int i = 0; i < ControlPoints.Count; i++)
+                ControlPoints[i] = Vector2.Add(ControlPoints[i], vector);
         }
 
         /// <summary>
@@ -110,8 +110,8 @@ namespace FarseerPhysics.Common
         /// <param name="value">The Value.</param>
         public void Scale(ref Vector2 value)
         {
-			for ( int i = 0; i < ControlPoints.Count; i++ )
-				ControlPoints [ i ] = ControlPoints [ i ] * value;//Vector2.Multiply(ControlPoints[i], value);
+            for (int i = 0; i < ControlPoints.Count; i++)
+                ControlPoints[i] = Vector2.Multiply(ControlPoints[i], value);
         }
 
         /// <summary>
@@ -121,8 +121,7 @@ namespace FarseerPhysics.Common
         public void Rotate(float value)
         {
             Matrix4x4 rotationMatrix;
-            //Matrix.CreateRotationZ(value, out rotationMatrix);
-			rotationMatrix = CommonTransform.RotationZ ( value );
+            CommonTransform.RotationZ(value, out rotationMatrix);
 
             for (int i = 0; i < ControlPoints.Count; i++)
                 ControlPoints[i] = Vector2.Transform(ControlPoints[i], rotationMatrix);
@@ -163,13 +162,6 @@ namespace FarseerPhysics.Common
             return verts;
         }
 
-		private Vector2 CatmullRom ( Vector2 value1, Vector2 value2, Vector2 value3, Vector2 value4, float amount )
-		{
-			return new Vector2 (
-				   MathHelper.CatmullRom ( value1.X, value2.X, value3.X, value4.X, amount ),
-				   MathHelper.CatmullRom ( value1.Y, value2.Y, value3.Y, value4.Y, amount ) );
-		}
-
         public Vector2 GetPosition(float time)
         {
             Vector2 temp;
@@ -202,7 +194,7 @@ namespace FarseerPhysics.Common
                 // relative time
                 float lt = (time - _deltaT * p) / _deltaT;
 
-                temp = /*Vector2.*/CatmullRom(ControlPoints[p0], ControlPoints[p1], ControlPoints[p2], ControlPoints[p3], lt);
+                temp = Vector2.CatmullRom(ControlPoints[p0], ControlPoints[p1], ControlPoints[p2], ControlPoints[p3], lt);
 
                 RemoveAt(ControlPoints.Count - 1);
             }
@@ -227,7 +219,7 @@ namespace FarseerPhysics.Common
                 // relative time
                 float lt = (time - _deltaT * p) / _deltaT;
 
-                temp = /*Vector2.*/CatmullRom(ControlPoints[p0], ControlPoints[p1], ControlPoints[p2], ControlPoints[p3], lt);
+                temp = Vector2.CatmullRom(ControlPoints[p0], ControlPoints[p1], ControlPoints[p2], ControlPoints[p3], lt);
             }
 
             return temp;
@@ -247,8 +239,7 @@ namespace FarseerPhysics.Common
 
             Vector2 output, temp;
 
-            //Vector2.Subtract(ref a, ref b, out temp);
-			temp = a - b;
+            Vector2.Subtract(ref a, ref b, out temp);
 
 #if (XBOX360 || WINDOWS_PHONE)
 output = new Vector2();
@@ -256,8 +247,7 @@ output = new Vector2();
             output.X = -temp.Y;
             output.Y = temp.X;
 
-            //Vector2.Normalize(ref output, out output);
-			output = output.Normalize ();
+            Vector2.Normalize(ref output, out output);
 
             return output;
         }

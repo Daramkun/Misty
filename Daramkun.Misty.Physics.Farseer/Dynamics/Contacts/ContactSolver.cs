@@ -93,8 +93,7 @@ namespace FarseerPhysics.Dynamics.Contacts
 
         public void Reset(TimeStep step, int count, Contact[] contacts, Position[] positions, Velocity[] velocities, bool? warmstarting = null)
         {
-			if ( warmstarting == null )
-				warmstarting = Settings.EnableWarmstarting;
+			if ( warmstarting == null ) warmstarting = Settings.EnableWarmstarting;
 
             _step = step;
             _count = count;
@@ -880,7 +879,7 @@ namespace FarseerPhysics.Dynamics.Contacts
                             if (Vector2.DistanceSquared(pointA, pointB) > Settings.Epsilon * Settings.Epsilon)
                             {
                                 normal = pointB - pointA;
-                                normal.Normalize();
+                                normal = normal.Normalize();
                             }
 
                             Vector2 cA = pointA + radiusA * normal;
@@ -938,7 +937,7 @@ namespace FarseerPhysics.Dynamics.Contacts
                             Vector2 pointA = MathUtils.Mul(ref xfA, pc.localPoint);
                             Vector2 pointB = MathUtils.Mul(ref xfB, pc.localPoints[0]);
                             normal = pointB - pointA;
-                            normal.Normalize();
+                            normal = normal.Normalize();
                             point = 0.5f * (pointA + pointB);
                             separation = Vector2.Dot(pointB - pointA, normal) - pc.radiusA - pc.radiusB;
                         }

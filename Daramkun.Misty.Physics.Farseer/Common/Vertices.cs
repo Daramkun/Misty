@@ -233,8 +233,8 @@ namespace FarseerPhysics.Common
         {
             Debug.Assert(!AttachedToBody, "Translating vertices that are used by a Body can result in unstable behavior. Use Body.Position instead.");
 
-			for ( int i = 0; i < Count; i++ )
-				this [ i ] = this [ i ] + value;//Vector2.Add(this[i], value);
+            for (int i = 0; i < Count; i++)
+                this[i] = Vector2.Add(this[i], value);
 
             if (Holes != null && Holes.Count > 0)
             {
@@ -263,7 +263,7 @@ namespace FarseerPhysics.Common
             Debug.Assert(!AttachedToBody, "Scaling vertices that are used by a Body can result in unstable behavior.");
 
             for (int i = 0; i < Count; i++)
-                this[i] = this[i] * value;
+                this[i] = Vector2.Multiply(this[i], value);
 
             if (Holes != null && Holes.Count > 0)
             {
@@ -558,12 +558,17 @@ namespace FarseerPhysics.Common
             {
                 for (int i = 0; i < Holes.Count; i++)
                 {
-                    Vector2[] temp = Holes[i].ToArray();
+					Vector2[] t = Holes[i].ToArray();
+                    Vector2[] temp = new Vector2[t.Length];
                     //Vector2.Transform(temp, ref transform, temp);
-					for ( int j = 0; j < temp.Length; ++j )
-						temp [ j ] = Vector2.Transform ( temp [ j ], transform );
+					for ( int j = 0; j < t.Length; ++j )
+					{
+						Vector2 tt = t [ j ];
+						Vector2.Transform ( ref tt, ref transform, out tt );
+						temp [ j ] = tt;
+					}
 
-                    Holes[i] = new Vertices(temp);
+					Holes [ i ] = new Vertices ( temp );
                 }
             }
         }

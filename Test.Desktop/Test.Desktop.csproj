@@ -75,9 +75,9 @@
       <Project>{911DF746-075B-40A5-B8CA-F37FCE21C9BB}</Project>
       <Name>Daramkun.Misty.Platform.Desktop</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Daramkun.Misty.Platform.DirectX9\Daramkun.Misty.Platform.DirectX9.csproj">
-      <Project>{ed437759-72e7-47d0-ae51-32eb7acddcd5}</Project>
-      <Name>Daramkun.Misty.Platform.DirectX9</Name>
+    <ProjectReference Include="..\Daramkun.Misty.Platform.OpenTK\Daramkun.Misty.Platform.OpenTK.csproj">
+      <Project>{b35d83a5-2e08-4fc8-8d7f-4d6264414e12}</Project>
+      <Name>Daramkun.Misty.Platform.OpenTK</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
