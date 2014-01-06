@@ -46,6 +46,8 @@ namespace Daramkun.Misty.Graphics
 			}
 			set
 			{
+				if ( value == null || value.Length == 0 ) return;
+
 				GL.BindTexture ( TextureTarget.Texture2D, texture );
 
 				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, ( int ) TextureMagFilter.Nearest );
