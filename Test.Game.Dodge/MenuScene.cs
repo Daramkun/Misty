@@ -29,8 +29,8 @@ namespace Test.Game.Dodge
 			contentManager.AddDefaultContentLoader ();
 			//Core.Launcher.InvokeInMainThread ( () =>
 			//{
-				titleFont = contentManager.Load<TrueTypeFont> ( "Resources/GameFont.ttf", 64 );
-				menuFont = contentManager.Load<TrueTypeFont> ( "Resources/GameFont.ttf", 24 );
+				titleFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 64 );
+				menuFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			//} );
 			base.Intro ( args );
 		}

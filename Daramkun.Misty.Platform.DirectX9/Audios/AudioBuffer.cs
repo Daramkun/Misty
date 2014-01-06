@@ -78,12 +78,12 @@ namespace Daramkun.Misty.Audios
 		public void Stop ()
 		{
 			soundBuffer.Stop ();
+			Position = new TimeSpan ();
 		}
 
 		public void Pause ()
 		{
 			soundBuffer.Stop ();
-			Position = new TimeSpan ();
 		}
 
 		public bool Update ()

@@ -40,7 +40,7 @@ namespace Test.Game.InfoViewer
 			contentManager.AddDefaultContentLoader ();
 			//Core.Launcher.InvokeInMainThread ( () =>
 			//{
-				font = contentManager.Load<TrueTypeFont> ( "Resources/GameFont.ttf", 24 );
+				font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			//} );
 			font.IsPrerenderMode = true;
 

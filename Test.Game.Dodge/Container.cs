@@ -46,7 +46,7 @@ namespace Test.Game.Dodge
 			contentManager.AddDefaultContentLoader ();
 			//Core.Launcher.InvokeInMainThread ( () =>
 			//{
-				fpsFont = contentManager.Load<TrueTypeFont> ( "Resources/GameFont.ttf", 20 );
+				fpsFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 20 );
 			//} );
 
 			Add ( calc = new FpsCalculator () );

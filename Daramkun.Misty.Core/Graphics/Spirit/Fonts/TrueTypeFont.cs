@@ -19,7 +19,8 @@ namespace Daramkun.Misty.Graphics.Spirit.Fonts
 		public TrueTypeFont ( Stream trueTypeFontStream, int fontSizeOfPixel )
 		{
 			trueType = new TrueTypeSharp.TrueTypeFont ( trueTypeFontStream );
-			fontSize = trueType.GetScaleForPixelHeight ( this.fontSizeOfPixel = fontSizeOfPixel );
+			this.fontSizeOfPixel = fontSizeOfPixel;
+			fontSize = trueType.GetScaleForPixelHeight ( fontSizeOfPixel - fontSizeOfPixel / 4 );
 		}
 
 		protected override void Dispose ( bool isDisposing )

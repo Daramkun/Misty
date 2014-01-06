@@ -45,8 +45,8 @@ namespace Test.Game.Dodge
 			Add ( new PlayerController () );
 			Add ( new BulletController () );
 
-			gameOverFont = Contents.Load<TrueTypeFont> ( "Resources/GameFont.ttf", 64 );
-			timeStampFont = Contents.Load<TrueTypeFont> ( "Resources/GameFont.ttf", 32 );
+			gameOverFont = Contents.Load<TrueTypeFont> ( "Resources/test.ttf", 64 );
+			timeStampFont = Contents.Load<TrueTypeFont> ( "Resources/test.ttf", 32 );
 			base.Intro ( args );
 		}
 
