@@ -11,7 +11,7 @@ using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents;
 using Daramkun.Misty.Contents.Decoders;
 
-namespace Daramkun.Misty.Platform.Contents.Decoders.Images
+namespace Daramkun.Misty.Contents.Decoders.Images
 {
 	[FileFormat ( "bmp", "dib", "gif", "jpeg", "jpg", "png", "tiff", "exif", "wmf", "emf" )]
 	public class GdiPlusImageDecoder : IDecoder<ImageInfo>

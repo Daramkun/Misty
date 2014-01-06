@@ -7,7 +7,7 @@
     <ProjectGuid>{911DF746-075B-40A5-B8CA-F37FCE21C9BB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Daramkun.Misty.Platform</RootNamespace>
+    <RootNamespace>Daramkun.Misty</RootNamespace>
     <AssemblyName>Daramkun.Misty.Platform.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contents\Decoders\Images\GdiPlusImageDecoder.cs" />
@@ -48,7 +49,9 @@
       <Name>Daramkun.Misty.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DefaultCover.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

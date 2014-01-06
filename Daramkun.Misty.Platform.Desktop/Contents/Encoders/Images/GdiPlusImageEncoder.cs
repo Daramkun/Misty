@@ -11,7 +11,7 @@ using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents;
 using Daramkun.Misty.Contents.Encoders;
 
-namespace Daramkun.Misty.Platform.Contents.Encoders.Images
+namespace Daramkun.Misty.Contents.Encoders.Images
 {
 	public enum GdiPlusImageEncodingType
 	{

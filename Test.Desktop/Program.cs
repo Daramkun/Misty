@@ -27,11 +27,26 @@ namespace Test.Desktop
 		{
 			Logger.AddDefaultLogWriter ();
 			Core.FixedDrawTimeStep = new TimeSpan ();
-			Core.Run ( new Launcher (),
+			/*Core.Run ( new Launcher (),
 				//new Test.Game.Dodge.Container ()
 				//new Test.Game.PerformanceTester.Container ()
 				new Test.Game.InfoViewer.Container ()
+			);*/
+			ChooseWindow chooseWindow = new ChooseWindow ( "Tester",
+				new Assembly []
+				{
+					Assembly.Load ( "Daramkun.Misty.Platform.OpenTK" ),
+					Assembly.Load ( "Daramkun.Misty.Platform.DirectX9" ),
+				},
+				new Assembly []
+				{
+					Assembly.Load ( "Test.Game.Dodge" ),
+					Assembly.Load ( "Test.Game.InfoViewer" ),
+					Assembly.Load ( "Test.Game.PerformanceTester" ),
+					Assembly.Load ( "Test.Game.PlayAudios" ),
+				}
 			);
+			chooseWindow.Run ();
 		}
 	}
 }
