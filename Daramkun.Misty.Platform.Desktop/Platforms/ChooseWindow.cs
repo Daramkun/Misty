@@ -22,16 +22,26 @@ namespace Daramkun.Misty.Platforms
 		int selectedPaf = 0;
 		int selectedNode = 0;
 
+		private class ChooseForm : Form
+		{
+			public ChooseForm ( string gameName, Icon icon )
+			{
+				Text = gameName;
+				ClientSize = new Size ( 400, 240 );
+				FormBorderStyle = FormBorderStyle.FixedDialog;
+				StartPosition = FormStartPosition.CenterScreen;
+				MaximizeBox = false;
+				MinimizeBox = true;
+				Icon = icon;
+			}
+		}
+
 		public ChooseWindow ( string gameName, Assembly [] pafs, Assembly [] mainNodes, Icon icon = null, Image coverImage = null )
 		{
-			window = new Form ();
-			window.Text = gameName;
-			window.ClientSize = new Size ( 400, 240 );
-			window.FormBorderStyle = FormBorderStyle.FixedDialog;
-			window.StartPosition = FormStartPosition.CenterScreen;
-			window.MaximizeBox = false;
-			window.MinimizeBox = true;
-			window.Icon = icon;
+			Application.EnableVisualStyles ();
+			Application.SetCompatibleTextRenderingDefault ( false );
+
+			window = new ChooseForm ( gameName, icon );
 			window.FormClosing += ( object sender, FormClosingEventArgs e ) =>
 			{
 				if ( isClickedOK ) return;
@@ -83,6 +93,9 @@ namespace Daramkun.Misty.Platforms
 				window.Close (); 
 			};
 			window.Controls.Add ( cancelButton );
+
+			window.AcceptButton = acceptButton;
+			window.CancelButton = cancelButton;
 		}
 
 		private void AnalyzePAFs ( Assembly [] pafs )
@@ -120,8 +133,6 @@ namespace Daramkun.Misty.Platforms
 
 		public void Run ()
 		{
-			Application.EnableVisualStyles ();
-
 			window.Show ();
 			while ( window.IsHandleCreated )
 			{

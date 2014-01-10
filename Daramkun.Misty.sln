@@ -176,9 +176,6 @@ Global
 		{6185E313-97B8-491E-AE1C-3CCC4ED4362D} = {E982808B-A974-4C90-944D-A8CE0B508F97}
 		{B9FA591A-577A-4253-898F-2A058227BE7F} = {E982808B-A974-4C90-944D-A8CE0B508F97}
 	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Test.Desktop\Test.Desktop.csproj
 	EndGlobalSection
