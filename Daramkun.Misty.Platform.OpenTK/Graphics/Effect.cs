@@ -117,33 +117,32 @@ namespace Daramkun.Misty.Graphics
 			else if ( baseType == typeof ( Vector2 ) ) { Vector2 v = ( Vector2 ) ( object ) value; GL.Uniform2 ( uniform, v.X, v.Y ); }
 			else if ( baseType == typeof ( Vector3 ) ) { Vector3 v = ( Vector3 ) ( object ) value; GL.Uniform3 ( uniform, v.X, v.Y, v.Z ); }
 			else if ( baseType == typeof ( Vector4 ) ) { Vector4 v = ( Vector4 ) ( object ) value; GL.Uniform4 ( uniform, v.X, v.Y, v.Z, v.W ); }
-			else if ( baseType == typeof ( Matrix4x4 ) ) { Matrix4x4 v = ( Matrix4x4 ) ( object ) value; GL.UniformMatrix4 ( uniform, 1, false, v.ToArray () ); }
+			else if ( baseType == typeof ( Matrix4x4 ) )
+			{
+				 Matrix4x4 v = ( Matrix4x4 ) ( object ) value;
+				 GL.UniformMatrix4 ( uniform, 1, false, v.ToArray () );
+			}
+			GL.UseProgram ( 0 );
 		}
 
 		public void SetUniform ( string name, params int [] value )
 		{
-			int lastProgram;
-			GL.GetInteger ( GetPName.CurrentProgram, out lastProgram );
 			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			GL.Uniform1 ( uniform, value.Length, value );
-			GL.UseProgram ( lastProgram );
+			GL.UseProgram ( 0 );
 		}
 
 		public void SetUniform ( string name, params float [] value )
 		{
-			int lastProgram;
-			GL.GetInteger ( GetPName.CurrentProgram, out lastProgram );
 			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			GL.Uniform1 ( uniform, value.Length, value );
-			GL.UseProgram ( lastProgram );
+			GL.UseProgram ( 0 );
 		}
 
 		public void SetTextures ( params TextureArgument [] args )
 		{
-			int lastProgram;
-			GL.GetInteger ( GetPName.CurrentProgram, out lastProgram );
 			GL.UseProgram ( programId );
 			for ( int i = 0; i < args.Length; i++ )
 			{
@@ -161,7 +160,7 @@ namespace Daramkun.Misty.Graphics
 				int uniform = GL.GetUniformLocation ( programId, args [ i ].Uniform );
 				GL.Uniform1 ( uniform, i );
 			}
-			GL.UseProgram ( lastProgram );
+			GL.UseProgram ( 0 );
 		}
 
 		private int GetAddressing ( TextureAddressing textureAddressing )
