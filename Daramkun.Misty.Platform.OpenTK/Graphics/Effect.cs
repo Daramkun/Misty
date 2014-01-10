@@ -122,7 +122,6 @@ namespace Daramkun.Misty.Graphics
 				 Matrix4x4 v = ( Matrix4x4 ) ( object ) value;
 				 GL.UniformMatrix4 ( uniform, 1, false, v.ToArray () );
 			}
-			GL.UseProgram ( 0 );
 		}
 
 		public void SetUniform ( string name, params int [] value )
@@ -130,7 +129,6 @@ namespace Daramkun.Misty.Graphics
 			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			GL.Uniform1 ( uniform, value.Length, value );
-			GL.UseProgram ( 0 );
 		}
 
 		public void SetUniform ( string name, params float [] value )
@@ -138,7 +136,6 @@ namespace Daramkun.Misty.Graphics
 			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			GL.Uniform1 ( uniform, value.Length, value );
-			GL.UseProgram ( 0 );
 		}
 
 		public void SetTextures ( params TextureArgument [] args )
@@ -160,7 +157,6 @@ namespace Daramkun.Misty.Graphics
 				int uniform = GL.GetUniformLocation ( programId, args [ i ].Uniform );
 				GL.Uniform1 ( uniform, i );
 			}
-			GL.UseProgram ( 0 );
 		}
 
 		private int GetAddressing ( TextureAddressing textureAddressing )
