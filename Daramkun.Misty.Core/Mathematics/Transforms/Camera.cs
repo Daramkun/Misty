@@ -13,7 +13,6 @@ namespace Daramkun.Misty.Mathematics.Transforms
 
 		public Vector3 Position;
 		public bool IsFlyingMode;
-		public HandDirection HandDirection { get; set; }
 
 		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
 		public void GetMatrix ( out Matrix4x4 result )
@@ -29,7 +28,7 @@ namespace Daramkun.Misty.Mathematics.Transforms
 			Vector3.Transform ( ref upVector, ref t, out cameraUpVector );
 
 			t2 = cameraTarget + cameraPos;
-			if ( HandDirection == HandDirection.RightHand ) CommonTransform.LookAtRH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
+			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.LookAtRH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
 			else CommonTransform.LookAtLH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
 			move = Vector3.Zero;
 		}

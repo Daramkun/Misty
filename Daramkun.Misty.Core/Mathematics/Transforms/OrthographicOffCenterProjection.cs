@@ -5,13 +5,12 @@ using System.Text;
 
 namespace Daramkun.Misty.Mathematics.Transforms
 {
-	public class OrthographicOffCenterProjection : IHandDirectionTransform
+	public class OrthographicOffCenterProjection : ITransform
 	{
 		public float Near { get; set; }
 		public float Far { get; set; }
 		public Vector2 OffCenterPosition { get; set; }
 		public Vector2 OffCenterSize { get; set; }
-		public HandDirection HandDirection { get; set; }
 
 		public OrthographicOffCenterProjection ( float width, float height, float near = 0.0001f, float far = 10000.0f )
 		{
@@ -34,7 +33,7 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		{
 			float left = OffCenterPosition.X, right = OffCenterPosition.X + OffCenterSize.X,
 				top = OffCenterPosition.Y, bottom = OffCenterPosition.Y + OffCenterSize.Y;
-			if ( HandDirection == HandDirection.RightHand ) CommonTransform.OrthographicOffCenterRH ( left, right, bottom, top, Near, Far, out result );
+			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.OrthographicOffCenterRH ( left, right, bottom, top, Near, Far, out result );
 			else CommonTransform.OrthographicOffCenterLH ( left, right, bottom, top, Near, Far, out result );
 		}
 	}

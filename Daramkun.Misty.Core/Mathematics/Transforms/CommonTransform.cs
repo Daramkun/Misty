@@ -7,6 +7,8 @@ namespace Daramkun.Misty.Mathematics.Transforms
 {
 	public static partial class CommonTransform
 	{
+		public static HandDirection HandDirection { get; set; }
+
 		public static Matrix4x4 FromAxisAngle ( float x, float y, float z, float angle ) { Matrix4x4 result; FromAxisAngle ( x, y, z, angle, out result ); return result; }
 		public static void FromAxisAngle ( float x, float y, float z, float angle, out Matrix4x4 result )
 		{

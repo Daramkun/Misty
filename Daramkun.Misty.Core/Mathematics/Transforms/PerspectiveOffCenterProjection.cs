@@ -5,13 +5,12 @@ using System.Text;
 
 namespace Daramkun.Misty.Mathematics.Transforms
 {
-	public class PerspectiveOffCenterProjection : IHandDirectionTransform
+	public class PerspectiveOffCenterProjection : ITransform
 	{
 		public Vector2 OffCenterPosition;
 		public Vector2 OffCenterSize;
 		public float Near;
 		public float Far;
-		public HandDirection HandDirection { get; set; }
 
 		public PerspectiveOffCenterProjection ( int left, int top, int right, int bottom, float near = 0.0001f, float far = 10000.0f )
 		{
@@ -32,7 +31,7 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
 		public void GetMatrix ( out Matrix4x4 result )
 		{
-			if ( HandDirection == HandDirection.RightHand ) CommonTransform.PerspectiveOffCenterRH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X,
+			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.PerspectiveOffCenterRH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X,
 				OffCenterPosition.Y + OffCenterSize.Y, OffCenterPosition.Y, Near, Far, out result );
 			else CommonTransform.PerspectiveOffCenterLH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X, OffCenterPosition.Y + OffCenterSize.Y,
 				OffCenterPosition.Y, Near, Far, out result );

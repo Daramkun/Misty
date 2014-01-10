@@ -9,6 +9,7 @@ using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Inputs.Devices;
 using Daramkun.Misty.Inputs.States;
 using Daramkun.Misty.Log;
+using Daramkun.Misty.Mathematics.Transforms;
 
 namespace Daramkun.Misty.Platforms
 {
@@ -42,10 +43,15 @@ namespace Daramkun.Misty.Platforms
 				Core.SetGraphicsDevice ( new GraphicsDevice ( Core.Window ) );
 			}
 			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); return false; }
+			
 			try { if ( audioIncluded ) Core.SetAudioDevice ( new AudioDevice ( Core.Window ) ); }
 			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); }
+			
 			Core.Inputs.Add<KeyboardState> ( new Keyboard ( Core.Window ) );
 			Core.Inputs.Add<MouseState> ( new Mouse ( Core.Window ) );
+
+			CommonTransform.HandDirection = HandDirection.RightHand;
+
 			return true;
 		}
 
