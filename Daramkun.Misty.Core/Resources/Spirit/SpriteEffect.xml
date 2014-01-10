@@ -51,7 +51,6 @@ varying vec2 o_texture;
 
 void main () {
     vec4 pos = getVertexPos(vec4(i_position, 1));
-    pos = getVertexPos(pos);
     pos = worldMatrix * pos;
     pos = projectionMatrix * pos;
 

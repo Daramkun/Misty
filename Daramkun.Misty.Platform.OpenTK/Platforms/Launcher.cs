@@ -36,8 +36,12 @@ namespace Daramkun.Misty.Platforms
 
 		public bool Initialize ( bool audioIncluded = true )
 		{
-			Core.SetWindow ( new Window () );
-			Core.SetGraphicsDevice ( new GraphicsDevice ( Core.Window ) );
+			try
+			{
+				Core.SetWindow ( new Window () );
+				Core.SetGraphicsDevice ( new GraphicsDevice ( Core.Window ) );
+			}
+			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); return false; }
 			try { if ( audioIncluded ) Core.SetAudioDevice ( new AudioDevice ( Core.Window ) ); }
 			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); }
 			Core.Inputs.Add<KeyboardState> ( new Keyboard ( Core.Window ) );
@@ -50,6 +54,6 @@ namespace Daramkun.Misty.Platforms
 
 		}
 
-		public override string ToString () { return "OpenGL/OpenAL Platform Abstraction Framework"; }
+		public override string ToString () { return "OpenGL/AL Platform Abstraction Framework"; }
 	}
 }

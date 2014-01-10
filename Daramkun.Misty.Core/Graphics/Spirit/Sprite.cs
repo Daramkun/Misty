@@ -7,11 +7,13 @@ using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Geometries;
 using Daramkun.Misty.Mathematics.Transforms;
+using System.Runtime.InteropServices;
 
 namespace Daramkun.Misty.Graphics.Spirit
 {
 	public sealed class Sprite
 	{
+		[StructLayout ( LayoutKind.Sequential )]
 		private struct SpriteVertex
 		{
 			[VertexElementation ( Graphics.ElementType.Position )]
