@@ -37,10 +37,10 @@ namespace Daramkun.Misty.Platforms
 		public Window ()
 		{
 			window = new OpenTK.GameWindow ( 800, 600,
-				new OpenTK.Graphics.GraphicsMode ( new OpenTK.Graphics.ColorFormat ( 32 ), 24, 8 ),
-				"Misty Framework", OpenTK.GameWindowFlags.Default, OpenTK.DisplayDevice.Default );
+				new OpenTK.Graphics.GraphicsMode ( new OpenTK.Graphics.ColorFormat ( 32 ), 16, 8 ) );
 			window.ClientSize = new System.Drawing.Size ( 800, 600 );
 			window.WindowBorder = OpenTK.WindowBorder.Fixed;
+			window.Load += (object sender, EventArgs e ) => { window.Title = "Misty Framework"; };
 			window.Resize += ( object sender, EventArgs e ) => { if ( Resize != null ) Resize ( this, e ); };
 			window.FocusedChanged += ( object sender, EventArgs e ) =>
 			{
@@ -48,6 +48,8 @@ namespace Daramkun.Misty.Platforms
 				else if ( !window.Focused && Deactivated != null ) Deactivated ( this, e );
 			};
 			window.Context.SwapInterval = 0;
+
+			window.Context.Update ( window.WindowInfo );
 		}
 
 		protected override void Dispose ( bool isDisposing )

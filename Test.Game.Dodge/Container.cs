@@ -15,6 +15,7 @@ using Daramkun.Misty.Graphics.Spirit.Fonts;
 using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Nodes;
 using Daramkun.Misty.Nodes.Scenes;
+using Daramkun.Misty.Log;
 
 namespace Test.Game.Dodge
 {

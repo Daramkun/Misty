@@ -249,13 +249,18 @@ namespace Daramkun.Misty.Graphics
 			BackBuffer = new BackBuffer ( this.window );
 
 			CullMode = CullingMode.CounterClockWise;
+
+			if ( deviceInfo.RendererVersion.Major < 2 )
+				throw new PlatformNotSupportedException ();
+
+			OpenTK.Graphics.GraphicsContext.ShareContexts = true;
 		}
 
 		protected override void Dispose ( bool isDisposing )
 		{
 			if ( isDisposing )
 			{
-
+				window = null;
 			}
 			base.Dispose ( isDisposing );
 		}

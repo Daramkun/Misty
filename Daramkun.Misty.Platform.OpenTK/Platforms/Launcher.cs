@@ -36,16 +36,12 @@ namespace Daramkun.Misty.Platforms
 
 		public bool Initialize ( bool audioIncluded = true )
 		{
-			try
-			{
-				Core.SetWindow ( new Window () );
-				Core.SetGraphicsDevice ( new GraphicsDevice ( Core.Window ) );
-				if ( audioIncluded ) Core.SetAudioDevice ( new AudioDevice ( Core.Window ) );
-
-				Core.Inputs.Add<KeyboardState> ( new Keyboard ( Core.Window ) );
-				Core.Inputs.Add<MouseState> ( new Mouse ( Core.Window ) );
-			}
-			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); return false; }
+			Core.SetWindow ( new Window () );
+			Core.SetGraphicsDevice ( new GraphicsDevice ( Core.Window ) );
+			try { if ( audioIncluded ) Core.SetAudioDevice ( new AudioDevice ( Core.Window ) ); }
+			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); }
+			Core.Inputs.Add<KeyboardState> ( new Keyboard ( Core.Window ) );
+			Core.Inputs.Add<MouseState> ( new Mouse ( Core.Window ) );
 			return true;
 		}
 

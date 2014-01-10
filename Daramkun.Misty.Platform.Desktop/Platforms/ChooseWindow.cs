@@ -27,6 +27,7 @@ namespace Daramkun.Misty.Platforms
 			public ChooseForm ( string gameName, Icon icon )
 			{
 				Text = gameName;
+				BackColor = Color.White;
 				ClientSize = new Size ( 400, 240 );
 				FormBorderStyle = FormBorderStyle.FixedDialog;
 				StartPosition = FormStartPosition.CenterScreen;
@@ -133,11 +134,7 @@ namespace Daramkun.Misty.Platforms
 
 		public void Run ()
 		{
-			window.Show ();
-			while ( window.IsHandleCreated )
-			{
-				Application.DoEvents ();
-			}
+			Application.Run ( window );
 
 			if ( isClickedOK )
 			{
