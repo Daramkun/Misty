@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<shaders>
+<shaders xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://daram.pe.kr/SxmlSchema.xsd">
   <shader type="vertex" language="glsl" version="1.3">
     <![CDATA[
 layout(location = 0) in vec3 i_position;

@@ -83,6 +83,10 @@
       <Project>{b35d83a5-2e08-4fc8-8d7f-4d6264414e12}</Project>
       <Name>Daramkun.Misty.Platform.OpenTK</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Test.Game.Cube\Test.Game.Cube.csproj">
+      <Project>{01b4bc01-7da6-442c-988e-135f5d366cfb}</Project>
+      <Name>Test.Game.Cube</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Test.Game.Dodge\Test.Game.Dodge.csproj">
       <Project>{e7babf39-1557-4997-8bc1-832f954f7e01}</Project>
       <Name>Test.Game.Dodge</Name>

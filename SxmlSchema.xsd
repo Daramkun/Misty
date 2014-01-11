@@ -2,7 +2,7 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="shaders">
     <xs:complexType>
-      <xs:all>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
         <xs:element name="shader">
           <xs:complexType>
             <xs:simpleContent>
@@ -52,7 +52,8 @@
             </xs:simpleContent>
           </xs:complexType>
         </xs:element>
-      </xs:all>
+      </xs:sequence>
+      
       <xs:attribute name="version" use="optional" default="1.0">
         <xs:simpleType>
           <xs:restriction base="xs:string">

@@ -40,6 +40,7 @@ namespace Test.Desktop
 				},
 				new Assembly []
 				{
+					Assembly.Load ( "Test.Game.Cube" ),
 					Assembly.Load ( "Test.Game.Dodge" ),
 					Assembly.Load ( "Test.Game.InfoViewer" ),
 					Assembly.Load ( "Test.Game.PerformanceTester" ),
