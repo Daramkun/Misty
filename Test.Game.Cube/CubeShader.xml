@@ -14,9 +14,10 @@ varying vec4 o_col;
 
 void main () {
     vec4 pos = getVertexPos(vec4(i_pos, 1));
-    gl_Position = projMatrix * pos;
-    gl_Position = viewMatrix * pos;
-    gl_Position = worldMatrix * pos;
+    pos = worldMatrix * pos;
+    pos = viewMatrix * pos;
+    pos = projMatrix * pos;
+    gl_Position = pos;
     o_col = i_col;
 }
     ]]>
@@ -51,9 +52,9 @@ struct PS_INPUT
 
 PS_INPUT vs_main(VS_INPUT v) {
     PS_INPUT p;
-    p.o_pos = mul(float4(v.i_pos, 1), projMatrix);
+    p.o_pos = mul(float4(v.i_pos, 1), worldMatrix);
     p.o_pos = mul(p.o_pos, viewMatrix);
-    p.o_pos = mul(p.o_pos, worldMatrix);
+    p.o_pos = mul(p.o_pos, projMatrix);
     p.o_col = v.i_col;
     return p;
 }

@@ -29,7 +29,7 @@ namespace Test.Game.Cube
 		[StructLayout ( LayoutKind.Sequential )]
 		private struct CubeIndex
 		{
-			public short I0, I1, I2;
+			public int I0, I1, I2;
 		}
 
 		IVertexBuffer cubeVertices;
@@ -39,6 +39,7 @@ namespace Test.Game.Cube
 
 		PerspectiveFieldOfViewProjection proj;
 		LookAt lookAt;
+		World3 world;
 
 		ResourceTable contentManager;
 
@@ -83,11 +84,12 @@ namespace Test.Game.Cube
 				// BOTTOM
 				new CubeIndex () { I0 = 4, I1 = 6, I2 = 5 },
 				new CubeIndex () { I0 = 6, I1 = 7, I2 = 5 },
-			}, true );
+			} );
 			vertexDeclarataion = Core.GraphicsDevice.CreateVertexDeclaration ( Utilities.CreateVertexElementArray<CubeVertex> () );
 
-			proj = new PerspectiveFieldOfViewProjection ( 4 / 3f );
-			lookAt = new LookAt ( new Vector3 ( 10, 10, 10 ), new Vector3 ( 0, 0, 0 ), new Vector3 ( 0, 1, 0 ) );
+			proj = new PerspectiveFieldOfViewProjection ();
+			lookAt = new LookAt ( new Vector3 ( 5, 5, 5 ), new Vector3 ( 0, 0, 0 ), new Vector3 ( 0, 1, 0 ) );
+			world = World3.Identity;
 
 			base.Intro ( args );
 		}
@@ -103,6 +105,9 @@ namespace Test.Game.Cube
 
 		public override void Update ( GameTime gameTime )
 		{
+			world.Rotation.X += ( gameTime.ElapsedGameTime.Milliseconds / 1000.0f );
+			world.Rotation.Y += ( gameTime.ElapsedGameTime.Milliseconds / 1000.0f );
+			world.Rotation.Z += ( gameTime.ElapsedGameTime.Milliseconds / 1000.0f );
 			base.Update ( gameTime );
 		}
 
@@ -114,7 +119,7 @@ namespace Test.Game.Cube
 			Matrix4x4 projMatrix, lookAtMatrix, worldMatrix;
 			proj.GetMatrix ( out projMatrix );
 			lookAt.GetMatrix ( out lookAtMatrix );
-			worldMatrix = Matrix4x4.Identity;
+			world.GetMatrix ( out worldMatrix );
 
 			cubeEffect.Begin ();
 			cubeEffect.SetUniform ( "projMatrix", ref projMatrix );

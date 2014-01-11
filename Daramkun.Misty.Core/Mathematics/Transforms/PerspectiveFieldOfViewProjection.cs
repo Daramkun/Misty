@@ -12,7 +12,7 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		public float Near { get; set; }
 		public float Far { get; set; }
 
-		public PerspectiveFieldOfViewProjection ( float fieldOfView, float aspectRatio = 3.141592f / 4, float near = 0.0001f, float far = 10000.0f )
+		public PerspectiveFieldOfViewProjection ( float fieldOfView = 3.141592f / 4, float aspectRatio = 4/ 3f, float near = 0.0001f, float far = 10000.0f )
 		{
 			FieldOfView = fieldOfView;
 			AspectRatio = aspectRatio;
