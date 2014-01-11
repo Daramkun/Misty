@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="shaders">
+    <xs:complexType>
+      <xs:all>
+        <xs:element name="shader">
+          <xs:complexType>
+            <xs:simpleContent>
+              <xs:extension base="xs:string">
+                <xs:attribute name="type" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <!-- Vertex Shader -->
+                      <xs:enumeration value="vertex" />
+                      <!-- Pixel Shader -->
+                      <xs:enumeration value="pixel" />
+                      <!-- Geometry Shader -->
+                      <xs:enumeration value="geometry" />
+                      <!-- Mixed Shader(Vertex and Pixel Shader(+α)) -->
+                      <xs:enumeration value="mixed" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="language" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <!-- HLSL for DirectX -->
+                      <xs:enumeration value="hlsl" />
+                      <!-- GLSL for OpenGL -->
+                      <xs:enumeration value="glsl" />
+                      <!-- GLSL for OpenGL ES -->
+                      <xs:enumeration value="glsles" />
+                      <!-- NVIDIA CgFX, type must 'mixed' -->
+                      <xs:enumeration value="cgfx" />
+                      <!-- MgFX(or FX) for XNA & MonoGame & DirectX, type must 'mixed' -->
+                      <xs:enumeration value="mgfx" />
+                      <!-- PSM Shader for Playstation Mobile, type must 'mixed' -->
+                      <xs:enumeration value="psm" />
+                      <!-- ShaderLab Shader for Unity3D, type must 'mixed' -->
+                      <xs:enumeration value="shaderlab" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="version" use="required">
+                  <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                      <xs:pattern value="[0-9](.[0-9]*)" />
+                    </xs:restriction>
+                  </xs:simpleType>
+                </xs:attribute>
+              </xs:extension>
+            </xs:simpleContent>
+          </xs:complexType>
+        </xs:element>
+      </xs:all>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
