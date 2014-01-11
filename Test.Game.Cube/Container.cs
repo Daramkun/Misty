@@ -46,11 +46,11 @@ namespace Test.Game.Cube
 		public override void Intro ( params object [] args )
 		{
 			Core.Window.Title = "Cube";
-			Core.GraphicsDevice.CullMode = CullingMode.None;
+			//Core.GraphicsDevice.CullMode = CullingMode.None;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
-			cubeEffect = contentManager.Load<IEffect> ( "CubeShader.xml" );
+			cubeEffect = contentManager.Load<IEffect> ( "CubeShader.xml", "i_pos", "i_col" );
 
 			cubeVertices = Core.GraphicsDevice.CreateVertexBuffer<CubeVertex>( new CubeVertex []
 			{
@@ -62,7 +62,7 @@ namespace Test.Game.Cube
 				new CubeVertex () { Position = new Vector3 ( -1, +1, -1 ), Diffuse = Color.Magenta },
 				new CubeVertex () { Position = new Vector3 ( -1, +1, +1 ), Diffuse = Color.Cyan },
 				new CubeVertex () { Position = new Vector3 ( +1, +1, -1 ), Diffuse = Color.Yellow },
-				new CubeVertex () { Position = new Vector3 ( +1, +1, +1 ), Diffuse = Color.Black },
+				new CubeVertex () { Position = new Vector3 ( +1, +1, +1 ), Diffuse = Color.White },
 			} );
 			cubeIndices = Core.GraphicsDevice.CreateIndexBuffer<CubeIndex> ( new CubeIndex []
 			{
@@ -82,8 +82,8 @@ namespace Test.Game.Cube
 				new CubeIndex () { I0 = 1, I1 = 0, I2 = 6 },
 				new CubeIndex () { I0 = 6, I1 = 0, I2 = 4 },
 				// BOTTOM
-				new CubeIndex () { I0 = 4, I1 = 6, I2 = 5 },
-				new CubeIndex () { I0 = 6, I1 = 7, I2 = 5 },
+				new CubeIndex () { I0 = 5, I1 = 6, I2 = 4 },
+				new CubeIndex () { I0 = 5, I1 = 7, I2 = 6 },
 			} );
 			vertexDeclarataion = Core.GraphicsDevice.CreateVertexDeclaration ( Utilities.CreateVertexElementArray<CubeVertex> () );
 

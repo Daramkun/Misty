@@ -18,15 +18,9 @@ namespace Daramkun.Misty.Graphics
 		GeometryShader = 1 << 2,
 	}
 
-	public class ShaderOption
-	{
-		public string [] AttributeOrdering { get; set; }
-	}
-
 	public interface IShader : IDisposable
 	{
 		ShaderType ShaderType { get; }
-		ShaderOption Option { get; set; }
 
 		object Handle { get; }
 	}

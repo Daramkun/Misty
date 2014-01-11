@@ -111,8 +111,8 @@ namespace Daramkun.Misty.Graphics
 		IIndexBuffer CreateIndexBuffer ( Type indexType, int length, bool is16bit = false );
 		IIndexBuffer CreateIndexBuffer<T> ( T [] indices, bool is16bit = false ) where T : struct;
 		IShader CreateShader ( ShaderType shaderType, string shader );
-		IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null );
-		IEffect CreateEffect ( Stream stream );
+		IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName );
+		IEffect CreateEffect ( Stream stream, params string [] attribName );
 
 		event EventHandler DeviceLost;
 	}

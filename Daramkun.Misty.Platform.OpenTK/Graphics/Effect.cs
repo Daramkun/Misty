@@ -19,12 +19,12 @@ namespace Daramkun.Misty.Graphics
 		public IShader PixelShader { get; private set; }
 		public IShader GeometryShader { get; private set; }
 
-		public Effect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader = null )
+		public Effect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName )
 		{
-			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader );
+			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader, attribName );
 		}
 
-		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc )
+		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc, params string [] attribName )
 		{
 			foreach ( XmlNode node in xmlDoc.ChildNodes [ 1 ].ChildNodes )
 			{
@@ -53,10 +53,10 @@ namespace Daramkun.Misty.Graphics
 				}
 			}
 
-			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader );
+			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader, attribName );
 		}
 
-		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader )
+		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader, params string [] attribName )
 		{
 			VertexShader = vertexShader;
 			PixelShader = pixelShader;
@@ -70,16 +70,14 @@ namespace Daramkun.Misty.Graphics
 			{
 				if ( shader == null ) continue;
 				GL.AttachShader ( programId, ( int ) shader.Handle );
-				if ( shader.Option != null )
-				{
-					int count = 0;
-					foreach ( string attr in from a in shader.Option.AttributeOrdering orderby a select a )
-						GL.BindAttribLocation ( programId, count++, attr );
-				}
 				GL.GetProgram ( programId, GetProgramParameterName.AttachedShaders, out effectState );
 				if ( effectState == 0 )
 					throw new ArgumentException ();
 			}
+
+			int count = 0;
+			foreach ( string attr in attribName )
+				GL.BindAttribLocation ( programId, count++, attr );
 
 			GL.LinkProgram ( programId );
 			GL.GetProgram ( programId, GetProgramParameterName.LinkStatus, out effectState );

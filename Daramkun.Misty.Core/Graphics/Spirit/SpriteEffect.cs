@@ -20,7 +20,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public SpriteEffect ()
 		{
 			baseEffect = Core.GraphicsDevice.CreateEffect (
-				Assembly.GetExecutingAssembly ().GetManifestResourceStream ( "Daramkun.Misty.Resources.Spirit.SpriteEffect.xml" )
+				Assembly.GetExecutingAssembly ().GetManifestResourceStream ( "Daramkun.Misty.Resources.Spirit.SpriteEffect.xml" ),
+				new string [] { "i_position", "i_overlay", "i_texture" }
 			);
 		}
 

@@ -12,8 +12,6 @@ namespace Daramkun.Misty.Graphics
 		internal SharpDX.D3DCompiler.ShaderBytecode bytecode;
 
 		public ShaderType ShaderType { get; private set; }
-		public ShaderOption Option { get; set; }
-
 		public object Handle { get; set; }
 
 		public Shader ( IGraphicsDevice graphicsDevice, ShaderType shaderType, string shader )

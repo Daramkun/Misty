@@ -11,13 +11,15 @@ namespace Daramkun.Misty.Contents.Loaders
 	{
 		public Type ContentType { get { return typeof ( IEffect ); } }
 
-		public IEnumerable<string> FileExtensions { get { yield return "lfx"; yield return "xml"; } }
+		public IEnumerable<string> FileExtensions { get { yield return "sxml"; yield return "lfx"; yield return "xml"; } }
 
 		public bool IsSelfStreamDispose { get { return false; } }
 
 		public object Load ( Stream stream, params object [] args )
 		{
-			return Core.GraphicsDevice.CreateEffect ( stream );
+			string [] args2 = new string [ args.Length ];
+			for ( int i = 0; i < args.Length; ++i ) args2 [ i ] = args [ i ] as string;
+			return Core.GraphicsDevice.CreateEffect ( stream, args2 );
 		}
 	}
 }

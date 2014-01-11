@@ -314,7 +314,7 @@ namespace Daramkun.Misty.Graphics
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
 			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), primitiveCount * GetCountFromPrimitiveType ( primitiveType ),
-				indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedShort : DrawElementsType.UnsignedInt, startIndex );
+				( !indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedInt : DrawElementsType.UnsignedShort ), startIndex );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
 			EndVertexDeclaration ( vertexDeclaration );
 		}
@@ -349,19 +349,19 @@ namespace Daramkun.Misty.Graphics
 		}
 
 		public IShader CreateShader ( ShaderType shaderType, string shader ) { return new Shader ( this, shaderType, shader ); }
-		
-		public IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null )
+
+		public IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName )
 		{
-			return new Effect ( this, vertexShader, pixelShader, geometryShader );
+			return new Effect ( this, vertexShader, pixelShader, geometryShader, attribName );
 		}
-		public IEffect CreateEffect ( Stream xmlStream )
+		public IEffect CreateEffect ( Stream xmlStream, params string [] attribName )
 		{
 			TextReader reader = new StreamReader ( xmlStream );
 			XmlDocument doc = new XmlDocument ();
 			doc.LoadXml ( reader.ReadToEnd () );
-			return CreateEffect ( doc );
+			return CreateEffect ( doc, attribName );
 		}
-		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
+		public IEffect CreateEffect ( XmlDocument xmlDoc, params string [] attribName ) { return new Effect ( this, xmlDoc, attribName ); }
 
 #pragma warning disable
 		public event EventHandler DeviceLost;

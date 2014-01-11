@@ -48,6 +48,7 @@
                     </xs:restriction>
                   </xs:simpleType>
                 </xs:attribute>
+                <xs:attribute name="option" use="optional" type="xs:string" />
               </xs:extension>
             </xs:simpleContent>
           </xs:complexType>

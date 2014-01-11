@@ -14,7 +14,6 @@ namespace Daramkun.Misty.Graphics
 
 		public object Handle { get { return shaderId; } }
 		public ShaderType ShaderType { get; private set; }
-		public ShaderOption Option { get; set; }
 
 		public Shader ( IGraphicsDevice graphicsDevice, ShaderType shaderType, string shaderCode )
 		{

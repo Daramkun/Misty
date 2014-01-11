@@ -21,12 +21,12 @@ namespace Daramkun.Misty.Graphics
 		public IShader PixelShader { get { return pixelShader; } }
 		public IShader GeometryShader { get { return null; } }
 
-		public Effect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader = null )
+		public Effect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName )
 		{
-			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader );
+			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader, attribName );
 		}
 
-		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc )
+		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc, params string [] attribName )
 		{
 			foreach ( XmlNode node in xmlDoc.ChildNodes [ 1 ].ChildNodes )
 			{
@@ -53,10 +53,10 @@ namespace Daramkun.Misty.Graphics
 				}
 			}
 
-			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader );
+			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader, attribName );
 		}
 
-		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader VertexShader, IShader PixelShader, IShader GeometryShader )
+		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader VertexShader, IShader PixelShader, IShader GeometryShader, params string [] attribName )
 		{
 			this.graphicsDevice = graphicsDevice;
 

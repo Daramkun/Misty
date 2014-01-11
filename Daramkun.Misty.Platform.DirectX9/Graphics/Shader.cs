@@ -10,7 +10,6 @@ namespace Daramkun.Misty.Graphics
 	class Shader : StandardDispose, IShader
 	{
 		public ShaderType ShaderType { get; private set; }
-		public ShaderOption Option { get; set; }
 		public object Handle { get; private set; }
 
 		public Shader ( IGraphicsDevice graphicsDevice, ShaderType shaderType, string shader )

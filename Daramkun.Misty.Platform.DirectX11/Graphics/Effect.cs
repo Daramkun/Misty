@@ -17,7 +17,7 @@ namespace Daramkun.Misty.Graphics
 		public IShader PixelShader { get; private set; }
 		public IShader GeometryShader { get; private set; }
 
-		public Effect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader = null )
+		public Effect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName )
 		{
 			this.graphicsDevice = graphicsDevice;
 

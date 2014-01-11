@@ -302,12 +302,12 @@ namespace Daramkun.Misty.Graphics
 			throw new NotImplementedException ();
 		}
 
-		public IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null )
+		public IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName )
 		{
 			throw new NotImplementedException ();
 		}
 
-		public IEffect CreateEffect ( System.IO.Stream stream )
+		public IEffect CreateEffect ( System.IO.Stream stream, params string [] attribName )
 		{
 			throw new NotImplementedException ();
 		}
