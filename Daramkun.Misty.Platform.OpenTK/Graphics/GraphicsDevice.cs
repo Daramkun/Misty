@@ -354,14 +354,14 @@ namespace Daramkun.Misty.Graphics
 		{
 			return new Effect ( this, vertexShader, pixelShader, geometryShader, attribName );
 		}
-		public IEffect CreateEffect ( Stream xmlStream, params string [] attribName )
+		public IEffect CreateEffect ( Stream xmlStream )
 		{
 			TextReader reader = new StreamReader ( xmlStream );
 			XmlDocument doc = new XmlDocument ();
 			doc.LoadXml ( reader.ReadToEnd () );
-			return CreateEffect ( doc, attribName );
+			return CreateEffect ( doc );
 		}
-		public IEffect CreateEffect ( XmlDocument xmlDoc, params string [] attribName ) { return new Effect ( this, xmlDoc, attribName ); }
+		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
 
 #pragma warning disable
 		public event EventHandler DeviceLost;

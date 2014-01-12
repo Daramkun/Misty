@@ -26,7 +26,7 @@ namespace Daramkun.Misty.Graphics
 			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader, attribName );
 		}
 
-		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc, params string [] attribName )
+		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc )
 		{
 			foreach ( XmlNode lang in xmlDoc.ChildNodes [ 1 ].ChildNodes )
 			{
@@ -57,7 +57,7 @@ namespace Daramkun.Misty.Graphics
 				}
 			}
 
-			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader, attribName );
+			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader );
 		}
 
 		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader VertexShader, IShader PixelShader, IShader GeometryShader, params string [] attribName )

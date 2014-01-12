@@ -307,7 +307,7 @@ namespace Daramkun.Misty.Graphics
 			throw new NotImplementedException ();
 		}
 
-		public IEffect CreateEffect ( System.IO.Stream stream, params string [] attribName )
+		public IEffect CreateEffect ( System.IO.Stream stream )
 		{
 			throw new NotImplementedException ();
 		}

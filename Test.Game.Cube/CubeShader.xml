@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <shaders xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://daram.pe.kr/SxmlSchema.xsd">
-  <language type="glsl" version="1.2">
+  <language type="glsl" version="1.2" option="i_pos,i_col">
     <shader type="vertex">
       <![CDATA[
 attribute vec3 i_pos;

@@ -24,8 +24,9 @@ namespace Daramkun.Misty.Graphics
 			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader, attribName );
 		}
 
-		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc, params string [] attribName )
+		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc )
 		{
+			string [] attribName = null;
 			foreach ( XmlNode lang in xmlDoc.ChildNodes [ 1 ].ChildNodes )
 			{
 				if ( lang.Name != "language" ) throw new ArgumentException ();
@@ -33,6 +34,8 @@ namespace Daramkun.Misty.Graphics
 				if ( ( lang.Attributes [ "version" ] != null && new Version ( lang.Attributes [ "version" ].Value ) <= Core.GraphicsDevice.Information.ShaderVersion )
 					|| lang.Attributes [ "version" ] == null )
 				{
+					if ( lang.Attributes [ "option" ] != null )
+						attribName = lang.Attributes [ "option" ].Value.Split ( ',' );
 					foreach ( XmlNode node in lang.ChildNodes )
 					{
 						if ( node.Name == "shader" )

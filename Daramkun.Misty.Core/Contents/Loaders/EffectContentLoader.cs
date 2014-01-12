@@ -17,9 +17,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public object Load ( Stream stream, params object [] args )
 		{
-			string [] args2 = new string [ args.Length ];
-			for ( int i = 0; i < args.Length; ++i ) args2 [ i ] = args [ i ] as string;
-			return Core.GraphicsDevice.CreateEffect ( stream, args2 );
+			return Core.GraphicsDevice.CreateEffect ( stream );
 		}
 	}
 }
