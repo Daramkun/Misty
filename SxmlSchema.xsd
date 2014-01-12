@@ -3,54 +3,54 @@
   <xs:element name="shaders">
     <xs:complexType>
       <xs:sequence minOccurs="1" maxOccurs="unbounded">
-        <xs:element name="shader">
+        <xs:element name="language">
           <xs:complexType>
-            <xs:simpleContent>
-              <xs:extension base="xs:string">
-                <xs:attribute name="type" use="required">
-                  <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                      <!-- Vertex Shader -->
-                      <xs:enumeration value="vertex" />
-                      <!-- Pixel Shader -->
-                      <xs:enumeration value="pixel" />
-                      <!-- Geometry Shader -->
-                      <xs:enumeration value="geometry" />
-                      <!-- Mixed Shader(Vertex and Pixel Shader(+α)) -->
-                      <xs:enumeration value="mixed" />
-                    </xs:restriction>
-                  </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="language" use="required">
-                  <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                      <!-- HLSL for DirectX -->
-                      <xs:enumeration value="hlsl" />
-                      <!-- GLSL for OpenGL -->
-                      <xs:enumeration value="glsl" />
-                      <!-- GLSL for OpenGL ES -->
-                      <xs:enumeration value="glsles" />
-                      <!-- NVIDIA CgFX, type must 'mixed' -->
-                      <xs:enumeration value="cgfx" />
-                      <!-- MgFX(or FX) for XNA & MonoGame & DirectX, type must 'mixed' -->
-                      <xs:enumeration value="mgfx" />
-                      <!-- PSM Shader for Playstation Mobile, type must 'mixed' -->
-                      <xs:enumeration value="psm" />
-                      <!-- ShaderLab Shader for Unity3D, type must 'mixed' -->
-                      <xs:enumeration value="shaderlab" />
-                    </xs:restriction>
-                  </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="version" use="required">
-                  <xs:simpleType>
-                    <xs:restriction base="xs:string">
-                      <xs:pattern value="[0-9](.[0-9])*" />
-                    </xs:restriction>
-                  </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="option" use="optional" type="xs:string" />
-              </xs:extension>
-            </xs:simpleContent>
+            <xs:sequence minOccurs="1" maxOccurs="unbounded">
+              <xs:element name="shader">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="type" use="required">
+                        <xs:simpleType>
+                          <xs:restriction base="xs:string">
+                            <xs:enumeration value="vertex" />
+                            <xs:enumeration value="pixel" />
+                            <xs:enumeration value="geometry" />
+                            <!-- Mixed Shader(Vertex and Pixel Shader(+α)) -->
+                            <xs:enumeration value="mixed" />
+                          </xs:restriction>
+                        </xs:simpleType>
+                      </xs:attribute>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute name="type" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:enumeration value="hlsl" />
+                  <xs:enumeration value="glsl" />
+                  <xs:enumeration value="glsles" />
+                  <!-- NVIDIA CgFX, type must 'mixed' -->
+                  <xs:enumeration value="cgfx" />
+                  <!-- MgFX(or FX) for XNA & MonoGame & DirectX, type must 'mixed' -->
+                  <xs:enumeration value="mgfx" />
+                  <!-- PSM Shader for Playstation Mobile, type must 'mixed' -->
+                  <xs:enumeration value="psm" />
+                  <!-- ShaderLab Shader for Unity3D, type must 'mixed' -->
+                  <xs:enumeration value="shaderlab" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="version" use="required">
+              <xs:simpleType>
+                <xs:restriction base="xs:string">
+                  <xs:pattern value="[0-9](.[0-9])*" />
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="option" use="optional" type="xs:string" />
           </xs:complexType>
         </xs:element>
       </xs:sequence>

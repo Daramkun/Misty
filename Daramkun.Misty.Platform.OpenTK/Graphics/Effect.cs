@@ -26,28 +26,32 @@ namespace Daramkun.Misty.Graphics
 
 		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc, params string [] attribName )
 		{
-			foreach ( XmlNode node in xmlDoc.ChildNodes [ 1 ].ChildNodes )
+			foreach ( XmlNode lang in xmlDoc.ChildNodes [ 1 ].ChildNodes )
 			{
-				if ( node.Name == "shader" )
+				if ( lang.Name != "language" ) throw new ArgumentException ();
+				if ( lang.Attributes [ "type" ].Value != "glsl" ) continue;
+				if ( ( lang.Attributes [ "version" ] != null && new Version ( lang.Attributes [ "version" ].Value ) <= Core.GraphicsDevice.Information.ShaderVersion )
+					|| lang.Attributes [ "version" ] == null )
 				{
-					if ( node.Attributes [ "language" ].Value != "glsl" ) continue;
-					if ( ( node.Attributes [ "version" ] != null && new Version ( node.Attributes [ "version" ].Value ) <= Core.GraphicsDevice.Information.ShaderVersion )
-						|| node.Attributes [ "version" ] == null )
+					foreach ( XmlNode node in lang.ChildNodes )
 					{
-						switch ( node.Attributes [ "type" ].Value )
+						if ( node.Name == "shader" )
 						{
-							case "vertex":
-								if ( VertexShader != null ) break;
-								VertexShader = new Shader ( graphicsDevice, ShaderType.VertexShader, node.ChildNodes [ 0 ].Value );
-								break;
-							case "pixel":
-								if ( PixelShader != null ) break;
-								PixelShader = new Shader ( graphicsDevice, ShaderType.PixelShader, node.ChildNodes [ 0 ].Value );
-								break;
-							case "geometry":
-								if ( GeometryShader != null ) break;
-								GeometryShader = new Shader ( graphicsDevice, ShaderType.GeometryShader, node.ChildNodes [ 0 ].Value );
-								break;
+							switch ( node.Attributes [ "type" ].Value )
+							{
+								case "vertex":
+									if ( VertexShader != null ) break;
+									VertexShader = new Shader ( graphicsDevice, ShaderType.VertexShader, node.ChildNodes [ 0 ].Value );
+									break;
+								case "pixel":
+									if ( PixelShader != null ) break;
+									PixelShader = new Shader ( graphicsDevice, ShaderType.PixelShader, node.ChildNodes [ 0 ].Value );
+									break;
+								case "geometry":
+									if ( GeometryShader != null ) break;
+									GeometryShader = new Shader ( graphicsDevice, ShaderType.GeometryShader, node.ChildNodes [ 0 ].Value );
+									break;
+							}
 						}
 					}
 				}

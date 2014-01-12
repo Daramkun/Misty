@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <shaders xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://daram.pe.kr/SxmlSchema.xsd">
-  <shader type="vertex" language="glsl" version="1.2">
-    <![CDATA[
+  <language type="glsl" version="1.2">
+    <shader type="vertex">
+      <![CDATA[
 attribute vec3 i_pos;
 attribute vec4 i_col;
 
@@ -22,19 +23,21 @@ void main () {
     o_col = i_col;
 }
     ]]>
-  </shader>
-  <shader type="pixel" language="glsl" version="1.2">
-    <![CDATA[
+    </shader>
+    <shader type="pixel">
+      <![CDATA[
 varying vec4 o_col;
 
 void main () {
     gl_FragColor = o_col;
 }    
     ]]>
-  </shader>
-  
-  <shader type="vertex" language="hlsl" version="2.0">
-    <![CDATA[
+    </shader>
+  </language>
+
+  <language type="hlsl" version="2.0">
+    <shader type="vertex">
+      <![CDATA[
 float4x4 projMatrix;
 float4x4 viewMatrix;
 float4x4 worldMatrix;
@@ -60,9 +63,9 @@ PS_INPUT vs_main(VS_INPUT v) {
     return p;
 }
     ]]>
-  </shader>
-  <shader type="pixel" language="hlsl" version="2.0">
-    <![CDATA[
+    </shader>
+    <shader type="pixel">
+      <![CDATA[
 struct PS_INPUT
 {
     float4 o_pos : POSITION;
@@ -73,5 +76,6 @@ float4 ps_main(PS_INPUT p) : COLOR {
    return p.o_col;
 }
     ]]>
-  </shader>
+    </shader>
+  </language>
 </shaders>
