@@ -88,7 +88,7 @@ namespace Daramkun.Misty.Graphics
 			GL.BindTexture ( TextureTarget.Texture2D, 0 );
 		}
 
-		private void GenerateMipmap ( int width, int height, int mipmapLevel )
+		private void GenerateMipmap ( int mipmapLevel )
 		{
 			GL.BindTexture ( TextureTarget.Texture2D, texture );
 			GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, mipmapLevel );
@@ -99,14 +99,14 @@ namespace Daramkun.Misty.Graphics
 		public Texture2D ( IGraphicsDevice graphicsDevice, int width, int height, int mipmapLevel = 1 )
 		{
 			MakeTexture ( width, height );
-			GenerateMipmap ( width, height, mipmapLevel );
+			GenerateMipmap ( mipmapLevel );
 		}
 
 		public Texture2D ( IGraphicsDevice graphicsDevice, ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
 		{
 			MakeTexture ( imageInfo.Width, imageInfo.Height );
 			Buffer = imageInfo.GetPixels ( colorKey );
-			GenerateMipmap ( imageInfo.Width, imageInfo.Height, mipmapLevel );
+			GenerateMipmap ( mipmapLevel );
 		}
 
 		protected override void Dispose ( bool isDisposing )

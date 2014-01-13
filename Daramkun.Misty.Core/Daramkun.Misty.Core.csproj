@@ -190,9 +190,13 @@
     <Compile Include="Contents\Tables\StringTable.cs" />
     <Compile Include="Contents\Tables\VariableTable.cs" />
     <Compile Include="Core.cs" />
+    <Compile Include="Graphics\Animi\SkyBox.cs" />
     <Compile Include="Graphics\IEffect.cs" />
     <Compile Include="Graphics\IIndexBuffer.cs" />
     <Compile Include="Graphics\IShader.cs" />
+    <Compile Include="Graphics\ITexture.cs" />
+    <Compile Include="Graphics\ITexture1D.cs" />
+    <Compile Include="Graphics\ITexture3D.cs" />
     <Compile Include="Graphics\IVertexBuffer.cs" />
     <Compile Include="Graphics\IVertexDeclaration.cs" />
     <Compile Include="Graphics\BlendOperation.cs" />
@@ -207,6 +211,7 @@
     <Compile Include="Graphics\Spirit\Sprite.cs" />
     <Compile Include="Graphics\Spirit\SpriteEffect.cs" />
     <Compile Include="Graphics\StencilOperation.cs" />
+    <Compile Include="Graphics\TextureArgument.cs" />
     <Compile Include="Graphics\Viewport.cs" />
     <Compile Include="Inputs\Devices\BaseAccelerometer.cs" />
     <Compile Include="Inputs\Devices\BaseGamePad.cs" />

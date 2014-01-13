@@ -148,16 +148,22 @@ namespace Daramkun.Misty.Graphics
 			GL.UseProgram ( programId );
 			for ( int i = 0; i < args.Length; i++ )
 			{
+				if ( args [ i ] == null ) continue;
+
 				GL.ActiveTexture ( TextureUnit.Texture0 + i );
-				GL.BindTexture ( TextureTarget.Texture2D, ( int ) args [ i ].Texture.Handle );
 
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, GetFilter ( args [ i ].Filter ) );
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, GetFilter ( args [ i ].Filter ) );
+				TextureTarget target = ( args [ i ].Texture is ITexture2D ) ? TextureTarget.Texture2D :
+					( ( args [ i ].Texture is ITexture1D ) ? TextureTarget.Texture1D : ( args [ i ].Texture is ITexture3D ) ? TextureTarget.Texture3D : 0 );
 
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureWrapS, GetAddressing ( args [ i ].Addressing ) );
-				GL.TexParameter ( TextureTarget.Texture2D, TextureParameterName.TextureWrapT, GetAddressing ( args [ i ].Addressing ) );
+				GL.BindTexture ( target, ( int ) args [ i ].Texture.Handle );
 
-				GL.TexParameter ( TextureTarget.Texture2D, ( TextureParameterName ) ExtTextureFilterAnisotropic.TextureMaxAnisotropyExt, args [ i ].AnisotropicLevel );
+				GL.TexParameter ( target, TextureParameterName.TextureMinFilter, GetFilter ( args [ i ].Filter ) );
+				GL.TexParameter ( target, TextureParameterName.TextureMagFilter, GetFilter ( args [ i ].Filter ) );
+
+				GL.TexParameter ( target, TextureParameterName.TextureWrapS, GetAddressing ( args [ i ].Addressing ) );
+				GL.TexParameter ( target, TextureParameterName.TextureWrapT, GetAddressing ( args [ i ].Addressing ) );
+
+				GL.TexParameter ( target, ( TextureParameterName ) ExtTextureFilterAnisotropic.TextureMaxAnisotropyExt, args [ i ].AnisotropicLevel );
 
 				int uniform = GL.GetUniformLocation ( programId, args [ i ].Uniform );
 				GL.Uniform1 ( uniform, i );

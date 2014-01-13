@@ -6,10 +6,11 @@ using Daramkun.Misty.Mathematics;
 
 namespace Daramkun.Misty.Graphics
 {
-	public interface ITexture2D : ITexture
+	public interface ITexture3D : ITexture
 	{
 		int Width { get; }
 		int Height { get; }
-		Vector2 Size { get; }
+		int Depth { get; }
+		Vector3 Size { get; }
 	}
 }
