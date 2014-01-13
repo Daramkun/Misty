@@ -307,6 +307,7 @@
       <DependentUpon>Vector4.cs</DependentUpon>
     </Compile>
     <Compile Include="Nodes\MainNodeAttribute.cs" />
+    <Compile Include="Nodes\Scenes\Transitors\FadeTransitor.cs" />
     <Compile Include="Nodes\Spirit\FontNode.cs" />
     <Compile Include="Nodes\FpsCalculator.cs" />
     <Compile Include="Nodes\InputHelper.cs" />
@@ -326,7 +327,9 @@
     <Compile Include="Scripts\IScriptEngine.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Spirit\SpriteEffect.xml" />
+    <EmbeddedResource Include="Resources\Spirit\SpriteEffect.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mathematics\Vector3.Calculate.cs">

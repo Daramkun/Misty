@@ -89,7 +89,7 @@ namespace Daramkun.Misty.Nodes.Scenes
 
 			if ( TransitionState != TransitionState.None )
 			{
-				TransitionState = SceneTransitor.Transitioning ( TransitionState, sceneList.Peek () );
+				TransitionState = SceneTransitor.Transitioning ( TransitionState, sceneList.Peek (), gameTime );
 				if ( TransitionState == Scenes.TransitionState.PretransitionEnd )
 				{
 					switch ( ContainMethod )

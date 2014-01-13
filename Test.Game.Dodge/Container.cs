@@ -16,6 +16,7 @@ using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Nodes;
 using Daramkun.Misty.Nodes.Scenes;
 using Daramkun.Misty.Log;
+using Daramkun.Misty.Nodes.Scenes.Transitors;
 
 namespace Test.Game.Dodge
 {
@@ -42,6 +43,7 @@ namespace Test.Game.Dodge
 			Add ( InputHelper.CreateInstance () );
 			InputHelper.IsKeyboardEnabled = true;
 			Add ( SceneContainer = new SceneContainer ( new MenuScene () ) );
+			SceneContainer.SceneTransitor = new FadeTransitor ();
 			
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();

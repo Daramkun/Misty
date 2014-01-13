@@ -28,7 +28,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 		{
 			if ( isDisposing )
 			{
-				
+				baseEffect.Dispose ();
 			}
 			base.Dispose ( isDisposing );
 		}
