@@ -34,16 +34,16 @@ namespace Daramkun.Misty.Graphics
 			GL.BindBuffer ( BufferTarget.ArrayBuffer, 0 );
 		}
 
-		private int GetCountFromPrimitiveType ( PrimitiveType primitiveType )
+		private int GetCountFromPrimitiveType ( PrimitiveType primitiveType, int primitiveCount )
 		{
 			switch ( primitiveType )
 			{
-				case PrimitiveType.PointList: return 1;
-				case PrimitiveType.LineList:
-				case PrimitiveType.LineStrip: return 2;
-				case PrimitiveType.TriangleList:
-				case PrimitiveType.TriangleStrip:
-				case PrimitiveType.TriangleFan: return 3;
+				case PrimitiveType.PointList: return primitiveCount;
+				case PrimitiveType.LineList: return primitiveCount * 2;
+				case PrimitiveType.LineStrip: return primitiveCount + 1;
+				case PrimitiveType.TriangleList: return primitiveCount * 3;
+				case PrimitiveType.TriangleStrip: return primitiveCount + 2;
+				case PrimitiveType.TriangleFan: return primitiveCount + 2;
 				default: return 0;
 			}
 		}

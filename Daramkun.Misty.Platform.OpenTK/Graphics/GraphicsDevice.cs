@@ -17,20 +17,20 @@ namespace Daramkun.Misty.Graphics
 {
 	class GraphicsDeviceInformation : IGraphicsDeviceInformation
 	{
-		Version? rendererVersion, shaderVersion;
+		Version rendererVersion, shaderVersion;
 
 		public BaseRenderer BaseRenderer { get { return Graphics.BaseRenderer.OpenGL; } }
 		public Version RendererVersion
 		{
 			get
 			{
-				if ( rendererVersion != null ) return rendererVersion.Value;
+				if ( rendererVersion != null ) return rendererVersion;
 				string versionString = GL.GetString ( StringName.Version );
 				int index = versionString.IndexOf ( ' ' );
 				if ( index <= -1 ) index = versionString.IndexOf ( '-' );
 				if ( index <= -1 ) index = versionString.Length;
 				string [] v = versionString.Substring ( 0, index ).Trim ().Split ( '.' );
-				return ( rendererVersion = new Version ( int.Parse ( v [ 0 ] ), int.Parse ( v [ 1 ] ) ) ).Value;
+				return rendererVersion = new Version ( int.Parse ( v [ 0 ] ), int.Parse ( v [ 1 ] ) );
 			}
 		}
 		public ScreenResolution [] AvailableScreenResolution
@@ -59,18 +59,18 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				if ( shaderVersion != null ) return shaderVersion.Value;
-				if ( RendererVersion == new Version ( 4, 4 ) ) return ( shaderVersion = new Version ( 4, 4 ) ).Value;
-				else if ( RendererVersion == new Version ( 4, 3 ) ) return ( shaderVersion = new Version ( 4, 3 ) ).Value;
-				else if ( RendererVersion == new Version ( 4, 2 ) ) return ( shaderVersion = new Version ( 4, 2 ) ).Value;
-				else if ( RendererVersion == new Version ( 4, 1 ) ) return ( shaderVersion = new Version ( 4, 1 ) ).Value;
-				else if ( RendererVersion == new Version ( 4, 0 ) ) return ( shaderVersion = new Version ( 4, 0 ) ).Value;
-				else if ( RendererVersion == new Version ( 3, 3 ) ) return ( shaderVersion = new Version ( 3, 3 ) ).Value;
-				else if ( RendererVersion == new Version ( 3, 2 ) ) return ( shaderVersion = new Version ( 1, 5 ) ).Value;
-				else if ( RendererVersion == new Version ( 3, 1 ) ) return ( shaderVersion = new Version ( 1, 4 ) ).Value;
-				else if ( RendererVersion == new Version ( 3, 0 ) ) return ( shaderVersion = new Version ( 1, 3 ) ).Value;
-				else if ( RendererVersion == new Version ( 2, 1 ) ) return ( shaderVersion = new Version ( 1, 2 ) ).Value;
-				else if ( RendererVersion == new Version ( 2, 0 ) ) return ( shaderVersion = new Version ( 1, 1 ) ).Value;
+				if ( shaderVersion != null ) return shaderVersion;
+				if ( RendererVersion == new Version ( 4, 4 ) ) return ( shaderVersion = new Version ( 4, 4 ) );
+				else if ( RendererVersion == new Version ( 4, 3 ) ) return ( shaderVersion = new Version ( 4, 3 ) );
+				else if ( RendererVersion == new Version ( 4, 2 ) ) return ( shaderVersion = new Version ( 4, 2 ) );
+				else if ( RendererVersion == new Version ( 4, 1 ) ) return ( shaderVersion = new Version ( 4, 1 ) );
+				else if ( RendererVersion == new Version ( 4, 0 ) ) return ( shaderVersion = new Version ( 4, 0 ) );
+				else if ( RendererVersion == new Version ( 3, 3 ) ) return ( shaderVersion = new Version ( 3, 3 ) );
+				else if ( RendererVersion == new Version ( 3, 2 ) ) return ( shaderVersion = new Version ( 1, 5 ) );
+				else if ( RendererVersion == new Version ( 3, 1 ) ) return ( shaderVersion = new Version ( 1, 4 ) );
+				else if ( RendererVersion == new Version ( 3, 0 ) ) return ( shaderVersion = new Version ( 1, 3 ) );
+				else if ( RendererVersion == new Version ( 2, 1 ) ) return ( shaderVersion = new Version ( 1, 2 ) );
+				else if ( RendererVersion == new Version ( 2, 0 ) ) return ( shaderVersion = new Version ( 1, 1 ) );
 				else throw new PlatformNotSupportedException ();
 			}
 		}
@@ -309,7 +309,7 @@ namespace Daramkun.Misty.Graphics
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
-			GL.DrawArrays ( MistyValueToOriginal ( primitiveType ), startVertex, primitiveCount * GetCountFromPrimitiveType ( primitiveType ) );
+			GL.DrawArrays ( MistyValueToOriginal ( primitiveType ), startVertex, primitiveCount * GetCountFromPrimitiveType ( primitiveType, primitiveCount ) );
 			EndVertexDeclaration ( vertexDeclaration );
 		}
 
@@ -317,7 +317,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
-			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), primitiveCount * GetCountFromPrimitiveType ( primitiveType ),
+			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), GetCountFromPrimitiveType ( primitiveType, primitiveCount ),
 				( !indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedInt : DrawElementsType.UnsignedShort ), startIndex );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
 			EndVertexDeclaration ( vertexDeclaration );
