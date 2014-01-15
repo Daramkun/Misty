@@ -9,6 +9,7 @@ using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Contents.Loaders;
 using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics;
+using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Inputs;
 using Daramkun.Misty.Nodes;
 
@@ -26,7 +27,8 @@ namespace Test.Game.PerformanceTester
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.CullMode = CullingMode.None;
+			Core.GraphicsDevice.BlendState = true;
+			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
 			Add ( InputHelper.CreateInstance () );
 			Add ( calc = new FpsCalculator () );
@@ -97,6 +99,8 @@ namespace Test.Game.PerformanceTester
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.G ) ) Remove ( 4, 100 );
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.H ) ) Remove ( 5, 100 );
 
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.Z ) ) Sprite.IsStripDrawingMode = !Sprite.IsStripDrawingMode;
+
 			base.Update ( gameTime );
 		}
 
@@ -110,8 +114,8 @@ namespace Test.Game.PerformanceTester
 			int childrenCount = 0;
 			for ( int i = 0; i < 6; ++i )
 				childrenCount += nodes [ i ].ChildrenCount;
-			Core.Window.Title = string.Format ( "Update FPS: {0}, Draw FPS: {1}, Children count: {2}",
-				calc.UpdateFPS, calc.DrawFPS, childrenCount );
+			Core.Window.Title = string.Format ( "Update FPS: {0}, Draw FPS: {1}, Children count: {2}, Is Strip Drawing Mode: {3}",
+				calc.UpdateFPS, calc.DrawFPS, childrenCount, Sprite.IsStripDrawingMode );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();

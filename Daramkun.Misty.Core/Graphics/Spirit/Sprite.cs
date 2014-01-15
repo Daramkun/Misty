@@ -36,6 +36,10 @@ namespace Daramkun.Misty.Graphics.Spirit
 		static int indexReference;
 		static SpriteEffect baseSpriteEffect;
 
+		public static bool IsStripDrawingMode { get; set; }
+
+		static Sprite () { IsStripDrawingMode = true; }
+
 		OrthographicOffCenterProjection projectionMatrix = new OrthographicOffCenterProjection ( 0, 800, 600, 0, 0.001f, 1000.0f );
 
 		SpriteVertex [] vertices = new SpriteVertex [ 4 ];
@@ -147,7 +151,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
-			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, 2 );
+			if(IsStripDrawingMode) Core.GraphicsDevice.Draw ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration, 0, 2 );
+			else Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, 2 );
 			Effect.End ();
 		}
 

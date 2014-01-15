@@ -50,6 +50,7 @@ namespace Daramkun.Misty.Nodes.Spirit
 		public SpriteNode ( ITexture2D texture )
 		{
 			sprite = new Sprite ( texture );
+			OverlayColor = Color.White;
 			World = World2.Identity;
 			tempWorld = World2.Identity;
 			Alignment = SpriteAlignment.LeftTop;
@@ -77,7 +78,7 @@ namespace Daramkun.Misty.Nodes.Spirit
 			else if ( ( Alignment & SpriteAlignment.Bottom ) != 0 )
 				tempWorld.Translate += new Vector2 ( 0, -sprite.ClippingArea.Size.Y * tempWorld.Scale.Y );
 
-			sprite.Draw ( tempWorld );
+			sprite.Draw ( ref tempWorld );
 
 			base.Draw ( gameTime );
 		}

@@ -39,7 +39,6 @@ namespace Daramkun.Misty.Nodes.Scenes.Transitors
 				fadeSprite.OverlayColor = new Color ( FadeColor, fadeAlpha / 255 );
 				fadeSprite.Draw ( ref fadeSpriteWorld );
 			}
-			Logger.Write ( LogLevel.Level1, "{0}, {1}", currentState, fadeAlpha );
 
 			switch ( currentState )
 			{
