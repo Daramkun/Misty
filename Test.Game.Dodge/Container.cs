@@ -47,10 +47,7 @@ namespace Test.Game.Dodge
 			
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
-			//Core.Launcher.InvokeInMainThread ( () =>
-			//{
-				fpsFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 20 );
-			//} );
+			fpsFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 20 );
 
 			Add ( calc = new FpsCalculator () );
 

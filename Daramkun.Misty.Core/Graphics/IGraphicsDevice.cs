@@ -103,8 +103,12 @@ namespace Daramkun.Misty.Graphics
 		void ResizeBackBuffer ( int width, int height );
 
 		IRenderBuffer CreateRenderBuffer ( int width, int height );
+		ITexture1D CreateTexture1D ( int width, int mipmapLevel = 1 );
+		ITexture1D CreateTexture1D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 );
 		ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 );
 		ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 );
+		ITexture3D CreateTexture3D ( int width, int height, int depth, int mipmapLevel = 1 );
+		ITexture3D CreateTexture3D ( ImageInfo [] imageInfo, Color? colorKey = null, int mipmapLevel = 1 );
 		IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements );
 		IVertexBuffer CreateVertexBuffer ( Type vertexType, int length );
 		IVertexBuffer CreateVertexBuffer<T> ( T [] vertices ) where T : struct;

@@ -17,17 +17,20 @@ namespace Daramkun.Misty.Graphics
 {
 	class GraphicsDeviceInformation : IGraphicsDeviceInformation
 	{
+		Version? rendererVersion, shaderVersion;
+
 		public BaseRenderer BaseRenderer { get { return Graphics.BaseRenderer.OpenGL; } }
 		public Version RendererVersion
 		{
 			get
 			{
+				if ( rendererVersion != null ) return rendererVersion.Value;
 				string versionString = GL.GetString ( StringName.Version );
 				int index = versionString.IndexOf ( ' ' );
 				if ( index <= -1 ) index = versionString.IndexOf ( '-' );
 				if ( index <= -1 ) index = versionString.Length;
 				string [] v = versionString.Substring ( 0, index ).Trim ().Split ( '.' );
-				return new Version ( int.Parse ( v [ 0 ] ), int.Parse ( v [ 1 ] ) );
+				return ( rendererVersion = new Version ( int.Parse ( v [ 0 ] ), int.Parse ( v [ 1 ] ) ) ).Value;
 			}
 		}
 		public ScreenResolution [] AvailableScreenResolution
@@ -49,24 +52,25 @@ namespace Daramkun.Misty.Graphics
 				return level;
 			}
 		}
-		public bool IsSupportTexture1D { get { return false; } }
-		public bool IsSupportTexture3D { get { return false; } }
+		public bool IsSupportTexture1D { get { return true; } }
+		public bool IsSupportTexture3D { get { return true; } }
 		public bool IsSupportGeometryShader { get { return RendererVersion >= new Version ( 3, 2 ); } }
 		public Version ShaderVersion
 		{
 			get
 			{
-				if ( RendererVersion == new Version ( 2, 0 ) ) return new Version ( 1, 1 );
-				else if ( RendererVersion == new Version ( 2, 1 ) ) return new Version ( 1, 2 );
-				else if ( RendererVersion == new Version ( 3, 0 ) ) return new Version ( 1, 3 );
-				else if ( RendererVersion == new Version ( 3, 1 ) ) return new Version ( 1, 4 );
-				else if ( RendererVersion == new Version ( 3, 2 ) ) return new Version ( 1, 5 );
-				else if ( RendererVersion == new Version ( 3, 3 ) ) return new Version ( 3, 3 );
-				else if ( RendererVersion == new Version ( 4, 0 ) ) return new Version ( 4, 0 );
-				else if ( RendererVersion == new Version ( 4, 1 ) ) return new Version ( 4, 1 );
-				else if ( RendererVersion == new Version ( 4, 2 ) ) return new Version ( 4, 2 );
-				else if ( RendererVersion == new Version ( 4, 3 ) ) return new Version ( 4, 3 );
-				else if ( RendererVersion == new Version ( 4, 4 ) ) return new Version ( 4, 4 );
+				if ( shaderVersion != null ) return shaderVersion.Value;
+				if ( RendererVersion == new Version ( 4, 4 ) ) return ( shaderVersion = new Version ( 4, 4 ) ).Value;
+				else if ( RendererVersion == new Version ( 4, 3 ) ) return ( shaderVersion = new Version ( 4, 3 ) ).Value;
+				else if ( RendererVersion == new Version ( 4, 2 ) ) return ( shaderVersion = new Version ( 4, 2 ) ).Value;
+				else if ( RendererVersion == new Version ( 4, 1 ) ) return ( shaderVersion = new Version ( 4, 1 ) ).Value;
+				else if ( RendererVersion == new Version ( 4, 0 ) ) return ( shaderVersion = new Version ( 4, 0 ) ).Value;
+				else if ( RendererVersion == new Version ( 3, 3 ) ) return ( shaderVersion = new Version ( 3, 3 ) ).Value;
+				else if ( RendererVersion == new Version ( 3, 2 ) ) return ( shaderVersion = new Version ( 1, 5 ) ).Value;
+				else if ( RendererVersion == new Version ( 3, 1 ) ) return ( shaderVersion = new Version ( 1, 4 ) ).Value;
+				else if ( RendererVersion == new Version ( 3, 0 ) ) return ( shaderVersion = new Version ( 1, 3 ) ).Value;
+				else if ( RendererVersion == new Version ( 2, 1 ) ) return ( shaderVersion = new Version ( 1, 2 ) ).Value;
+				else if ( RendererVersion == new Version ( 2, 0 ) ) return ( shaderVersion = new Version ( 1, 1 ) ).Value;
 				else throw new PlatformNotSupportedException ();
 			}
 		}
@@ -326,9 +330,15 @@ namespace Daramkun.Misty.Graphics
 
 		public IRenderBuffer CreateRenderBuffer ( int width, int height ) { return new RenderBuffer ( this, width, height ); }
 
+		public ITexture1D CreateTexture1D ( int width, int mipmapLevel = 1 ) { return new Texture1D ( this, width, mipmapLevel ); }
+		public ITexture1D CreateTexture1D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
+		{ return new Texture1D ( this, imageInfo, colorKey, mipmapLevel ); }
 		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 ) { return new Texture2D ( this, width, height, mipmapLevel ); }
 		public ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
 		{ return new Texture2D ( this, imageInfo, colorKey, mipmapLevel ); }
+		public ITexture3D CreateTexture3D ( int width, int height, int depth, int mipmapLevel = 1 ) { return new Texture3D ( this, width, height, depth, mipmapLevel ); }
+		public ITexture3D CreateTexture3D ( ImageInfo [] imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
+		{ return new Texture3D ( this, imageInfo, colorKey, mipmapLevel ); }
 
 		public IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements ) { return new VertexDeclaration ( this, elements ); }
 

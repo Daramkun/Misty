@@ -26,18 +26,18 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				byte [] raws = new byte [ Width * Height * 4 ];
+				byte [] raws = new byte [ Width * Height * Depth * 4 ];
 				GL.BindTexture ( TextureTarget.Texture2D, texture );
 				GL.GetTexImage ( TextureTarget.Texture2D, 0, PixelFormat.Bgra, PixelType.UnsignedByte, raws );
-				Color [] pixels = new Color [ Width * Height ];
+				Color [] pixels = new Color [ Width * Height * Depth ];
 				for ( int z = 0; z < Depth; ++z )
 				{
 					for ( int y = 0; y < Height; ++y )
 					{
 						for ( int x = 0; x < Width; ++x )
 						{
-							int index = x + ( ( Height - y - 1 ) * Width );
-							int dataIndex = ( x + ( y * Width ) ) * 4;
+							int index = x + ( ( Height - y - 1 ) * Width ) + ( z * Width * Height );
+							int dataIndex = ( x + ( y * Width ) + ( z * Width * Height ) ) * 4;
 							byte blue = raws [ dataIndex + 0 ];
 							byte green = raws [ dataIndex + 1 ];
 							byte red = raws [ dataIndex + 2 ];
@@ -59,18 +59,21 @@ namespace Daramkun.Misty.Graphics
 				GL.TexParameter ( TextureTarget.Texture3D, TextureParameterName.TextureWrapS, ( int ) TextureWrapMode.Repeat );
 				GL.TexParameter ( TextureTarget.Texture3D, TextureParameterName.TextureWrapT, ( int ) TextureWrapMode.Repeat );
 
-				byte [] colorData = new byte [ Width * Height * 4 ];
+				byte [] colorData = new byte [ Width * Height * Depth * 4 ];
 
-				for ( int y = 0; y < Height; ++y )
+				for ( int z = 0; z < Depth; ++z )
 				{
-					for ( int x = 0; x < Width; ++x )
+					for ( int y = 0; y < Height; ++y )
 					{
-						int index = x + ( ( Height - y - 1 ) * Width );
-						int dataIndex = ( x + ( y * Width ) ) * 4;
-						colorData [ dataIndex + 0 ] = value [ index ].BlueValue;
-						colorData [ dataIndex + 1 ] = value [ index ].GreenValue;
-						colorData [ dataIndex + 2 ] = value [ index ].RedValue;
-						colorData [ dataIndex + 3 ] = value [ index ].AlphaValue;
+						for ( int x = 0; x < Width; ++x )
+						{
+							int index = x + ( ( Height - y - 1 ) * Width ) + ( z * Width * Height );
+							int dataIndex = ( x + ( y * Width ) + ( z * Width * Height ) ) * 4;
+							colorData [ dataIndex + 0 ] = value [ index ].BlueValue;
+							colorData [ dataIndex + 1 ] = value [ index ].GreenValue;
+							colorData [ dataIndex + 2 ] = value [ index ].RedValue;
+							colorData [ dataIndex + 3 ] = value [ index ].AlphaValue;
+						}
 					}
 				}
 				GL.TexImage2D<byte> ( TextureTarget.Texture3D, 0, PixelInternalFormat.Rgba8,
@@ -109,7 +112,15 @@ namespace Daramkun.Misty.Graphics
 		public Texture3D ( IGraphicsDevice graphicsDevice, ImageInfo [] imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
 		{
 			MakeTexture ( imageInfo [ 0 ].Width, imageInfo [ 0 ].Height, imageInfo.Length );
-			
+			Color [] colours = new Color [ imageInfo [ 0 ].Width * imageInfo [ 0 ].Height * imageInfo.Length ];
+			int index = 0;
+			foreach ( ImageInfo i in imageInfo )
+			{
+				Color [] decoded = i.GetPixels ( colorKey );
+				decoded.CopyTo ( colours, index );
+				index += decoded.Length;
+			}
+			Buffer = colours;
 			GenerateMipmap ( mipmapLevel );
 		}
 
