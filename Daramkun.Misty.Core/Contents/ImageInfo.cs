@@ -7,7 +7,7 @@ using Daramkun.Misty.Graphics;
 
 namespace Daramkun.Misty.Contents
 {
-	public struct ImageInfo
+	public class ImageInfo
 	{
 		public int Width { get; private set; }
 		public int Height { get; private set; }
@@ -19,7 +19,6 @@ namespace Daramkun.Misty.Contents
 
 		public ImageInfo ( int width, int height, int frameCount, Stream imageStream,
 			object rawPixels, Func<ImageInfo, object, int, Color?, Color []> func )
-			: this ()
 		{
 			Width = width; Height = height;
 			FrameCount = frameCount;

@@ -19,7 +19,7 @@ namespace Daramkun.Misty.Contents.Decoders.Images
 			BITMAPFILEHEADER fileHeader;
 			BITMAPINFOHEADER infoHeader;
 
-			to = new ImageInfo ();
+			to = null;
 			if ( !LoadBitmapFileHeader ( reader, out fileHeader ) )
 				return false;
 

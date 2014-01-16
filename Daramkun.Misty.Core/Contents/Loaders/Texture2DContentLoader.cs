@@ -41,7 +41,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		public object Load ( Stream stream, params object [] args )
 		{
 			bool isLoadComplete = false;
-			ImageInfo imageInfo = new ImageInfo ();
+			ImageInfo imageInfo = null;
 			foreach ( IDecoder<ImageInfo> decoder in Decoders )
 			{
 				stream.Position = 0;

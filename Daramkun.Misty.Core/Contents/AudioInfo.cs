@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Daramkun.Misty.Contents
 {
-	public struct AudioInfo
+	public class AudioInfo
 	{
 		public int AudioChannel { get; private set; }
 		public int SampleRate { get; private set; }
@@ -20,7 +20,6 @@ namespace Daramkun.Misty.Contents
 
 		public AudioInfo ( int channel, int sampleRate, int bitPerSamples, TimeSpan duration, Stream audioStream,
 			object rawSamples, Func<AudioInfo, object, TimeSpan?, byte []> func )
-			: this ()
 		{
 			AudioChannel = channel;
 			SampleRate = sampleRate;

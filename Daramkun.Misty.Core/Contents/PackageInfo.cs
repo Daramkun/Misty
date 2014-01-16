@@ -9,7 +9,7 @@ using Daramkun.Misty.Contents.Tables;
 
 namespace Daramkun.Misty.Contents
 {
-	public struct PackageInfo
+	public class PackageInfo
 	{
 		public bool IsSettingCompleted { get; private set; }
 
@@ -31,9 +31,10 @@ namespace Daramkun.Misty.Contents
 		public StringTable StringTable { get; private set; }
 		public ResourceTable ResourceTable { get; private set; }
 
+		public PackageInfo () { }
+
 		public PackageInfo ( string packageName, string author, string copyright, string description, Version version, DateTime releaseDate,
-			bool isSubPackage, Guid [] mainPackageIds, StringTable stringTable, ResourceTable resourceTable, ImageInfo? imageInfo = null, Guid? packageId = null )
-			: this ()
+			bool isSubPackage, Guid [] mainPackageIds, StringTable stringTable, ResourceTable resourceTable, ImageInfo imageInfo = null, Guid? packageId = null )
 		{
 			PackageName = packageName;
 
@@ -46,7 +47,7 @@ namespace Daramkun.Misty.Contents
 			ReleaseDate = releaseDate;
 
 			if ( imageInfo != null )
-				PackageCover = imageInfo.Value;
+				PackageCover = imageInfo;
 
 			IsSubPackage = isSubPackage;
 			MainPackageIDs = mainPackageIds;

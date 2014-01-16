@@ -23,11 +23,11 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 		{
 			BinaryReader br = new BinaryReader ( stream );
 			int chunkSize;
-			if ( !ReadRIFFHeader ( br, out chunkSize ) ) { to = new AudioInfo (); return false; }
+			if ( !ReadRIFFHeader ( br, out chunkSize ) ) { to = null; return false; }
 			int channel, sampleRate, bitPerSamples, byteRate, dataSize;
 			SampleInfo s;
-			if ( !ReadfmtHeader ( br, out channel, out sampleRate, out bitPerSamples, out byteRate ) ) { to = new AudioInfo (); return false; }
-			if ( !ReadWaveChunk ( br, out s, out dataSize ) ) { to = new AudioInfo (); return false; }
+			if ( !ReadfmtHeader ( br, out channel, out sampleRate, out bitPerSamples, out byteRate ) ) { to = null; return false; }
+			if ( !ReadWaveChunk ( br, out s, out dataSize ) ) { to = null; return false; }
 
 			s.ByteRate = byteRate;
 

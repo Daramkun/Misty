@@ -12,81 +12,6 @@ using Daramkun.Misty.Platforms;
 
 namespace Daramkun.Misty.Graphics
 {
-	class GraphicsDeviceInformation : IGraphicsDeviceInformation
-	{
-		SharpDX.Direct3D9.Direct3D d3d;
-		SharpDX.Direct3D9.Capabilities d3dCaps;
-
-		public BaseRenderer BaseRenderer { get { return BaseRenderer.DirectX; } }
-		public Version RendererVersion { get { return new Version ( 9, 0 ); } }
-		public Version ShaderVersion { get { return new Version ( 3, 0 ); } }
-
-		public ScreenResolution [] AvailableScreenResolution
-		{
-			get
-			{
-				List<ScreenResolution> sizes = new List<ScreenResolution> ();
-				int count = d3d.GetAdapterModeCount ( 0, SharpDX.Direct3D9.Format.X8R8G8B8 );
-				for ( int i = 0; i < count; i++ )
-				{
-					SharpDX.Direct3D9.DisplayMode mode = d3d.EnumAdapterModes ( 0, SharpDX.Direct3D9.Format.X8R8G8B8, i );
-					sizes.Add ( new ScreenResolution ( new Vector2 ( mode.Width, mode.Height ), mode.RefreshRate ) );
-				}
-				return sizes.ToArray ();
-			}
-		}
-
-		public int MaximumAnisotropicLevel { get { return d3dCaps.MaxAnisotropy; } }
-
-		public bool IsSupportTexture1D { get { return false; } }
-		public bool IsSupportTexture3D { get { return false; } }
-		public bool IsSupportGeometryShader { get { return false; } }
-
-		public GraphicsDeviceInformation ( SharpDX.Direct3D9.Direct3D d3d )
-		{
-			this.d3d = d3d;
-			d3dCaps = d3d.GetDeviceCaps ( 0, SharpDX.Direct3D9.DeviceType.Hardware );
-		}
-	}
-
-	class BackBufferRenderBuffer : IRenderBuffer
-	{
-		GraphicsDevice graphicsDevice;
-
-		public int Width { get { return graphicsDevice.d3dpp.BackBufferWidth; } }
-		public int Height { get { return graphicsDevice.d3dpp.BackBufferHeight; } }
-		public Vector2 Size { get { return new Vector2 ( Width, Height ); } }
-		public object Handle { get { return ( graphicsDevice.Handle as SharpDX.Direct3D9.Device ).GetBackBuffer ( 0, 0 ); } }
-		public Color [] Buffer
-		{
-			get
-			{
-				SharpDX.Direct3D9.Surface texture = Handle as SharpDX.Direct3D9.Surface;
-				SharpDX.DataRectangle dr = texture.LockRectangle ( new SharpDX.Rectangle ( 0, 0, Width, Height ), SharpDX.Direct3D9.LockFlags.None );
-				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, Width * Height * 4, true, false );
-				Color [] colours = new Color [ stream.Length / 4 ];
-				for ( int i = 0; i < colours.Length; ++i )
-					colours [ i ] = new Color ( stream.Read<SharpDX.Color> ().ToBgra (), true );
-				texture.UnlockRectangle ();
-				return colours;
-			}
-			set
-			{
-				SharpDX.Direct3D9.Surface texture = Handle as SharpDX.Direct3D9.Surface;
-				SharpDX.DataRectangle dr = texture.LockRectangle ( new SharpDX.Rectangle ( 0, 0, Width, Height ), SharpDX.Direct3D9.LockFlags.None );
-				SharpDX.DataStream stream = new SharpDX.DataStream ( dr.DataPointer, Width * Height * 4, false, true );
-				SharpDX.Color [] colours = new SharpDX.Color [ stream.Length / 4 ];
-				for ( int i = 0; i < value.Length; ++i )
-					colours [ i ] = new SharpDX.Color ( value [ i ].ARGBValue );
-				stream.WriteRange<SharpDX.Color> ( colours );
-				texture.UnlockRectangle ();
-			}
-		}
-
-		public BackBufferRenderBuffer ( GraphicsDevice graphicsDevice ) { this.graphicsDevice = graphicsDevice; }
-		public void Dispose () { }
-	}
-
 	public partial class GraphicsDevice : StandardDispose, IGraphicsDevice
 	{
 		SharpDX.Direct3D9.Direct3D d3d;
@@ -247,7 +172,7 @@ namespace Daramkun.Misty.Graphics
 			}
 
 			Information = new GraphicsDeviceInformation ( d3d );
-			BackBuffer = new BackBufferRenderBuffer ( this );
+			BackBuffer = new BackBuffer ( this );
 
 			CullMode = CullingMode.CounterClockWise;
 

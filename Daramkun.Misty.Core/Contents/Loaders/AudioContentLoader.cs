@@ -42,7 +42,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		public object Load ( Stream stream, params object [] args )
 		{
 			bool isLoadComplete = false;
-			AudioInfo audioInfo = new AudioInfo ();
+			AudioInfo audioInfo = null;
 			foreach ( IDecoder<AudioInfo> decoder in Decoders )
 			{
 				try

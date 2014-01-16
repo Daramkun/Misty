@@ -44,7 +44,7 @@ namespace Daramkun.Misty.Contents.Decoders.Images
 						return colors;
 					} );
 			}
-			catch { to = new ImageInfo (); return false; }
+			catch { to = null; return false; }
 
 			return true;
 		}

@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}</ProjectGuid>
+    <ProjectGuid>{8510937A-7977-4AD6-9138-FB162BD3B5F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Daramkun.Misty</RootNamespace>
-    <AssemblyName>Daramkun.Misty.Platform.DirectX9</AssemblyName>
+    <AssemblyName>Daramkun.Misty.Platform.Windows.XInput</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,54 +34,26 @@
     <Reference Include="SharpDX">
       <HintPath>..\packages\SharpDX.2.5.0\lib\net40\SharpDX.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX.Direct3D9">
-      <HintPath>..\packages\SharpDX.Direct3D9.2.5.0\lib\net40\SharpDX.Direct3D9.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.DirectInput">
-      <HintPath>..\packages\SharpDX.DirectInput.2.5.0\lib\net40\SharpDX.DirectInput.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpDX.DirectSound">
-      <HintPath>..\packages\SharpDX.DirectSound.2.5.0\lib\net40\SharpDX.DirectSound.dll</HintPath>
+    <Reference Include="SharpDX.XInput">
+      <HintPath>..\packages\SharpDX.XInput.2.5.0\lib\net40\SharpDX.XInput.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audios\AudioBuffer.cs" />
-    <Compile Include="Audios\AudioDevice.cs" />
-    <Compile Include="Graphics\BackBuffer.cs" />
-    <Compile Include="Graphics\Effect.cs" />
-    <Compile Include="Graphics\GraphicsDevice.cs" />
-    <Compile Include="Graphics\GraphicsDeviceInformation.cs" />
-    <Compile Include="Graphics\IndexBuffer.cs" />
-    <Compile Include="Graphics\RenderBuffer.cs" />
-    <Compile Include="Graphics\Shader.cs" />
-    <Compile Include="Graphics\Texture2D.cs" />
-    <Compile Include="Graphics\VertexBuffer.cs" />
-    <Compile Include="Graphics\VertexDeclaration.cs" />
-    <Compile Include="Inputs\Devices\GamePad.cs" />
-    <Compile Include="Inputs\Devices\Keyboard.cs" />
-    <Compile Include="Inputs\Devices\Mouse.cs" />
-    <Compile Include="Platforms\Launcher.cs" />
-    <Compile Include="Platforms\Window.cs" />
+    <Compile Include="Inputs\Devices\XInputGamePad.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Daramkun.Misty.Core\Daramkun.Misty.Core.csproj">
-      <Project>{43BE1669-E2AF-4C50-8209-C1F6298D12CA}</Project>
+      <Project>{43be1669-e2af-4c50-8209-c1f6298d12ca}</Project>
       <Name>Daramkun.Misty.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Graphics\GraphicsDevice.Utilities.cs">
-      <DependentUpon>GraphicsDevice.cs</DependentUpon>
-    </Compile>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

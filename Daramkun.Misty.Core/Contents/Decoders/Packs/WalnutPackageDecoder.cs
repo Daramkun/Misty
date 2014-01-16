@@ -36,7 +36,7 @@ namespace Daramkun.Misty.Contents.Decoders.Packs
 			DateTime releaseDate = new DateTime ( reader.ReadInt16 (), reader.ReadByte (), reader.ReadByte () );
 
 			int imageSize = reader.ReadInt32 ();
-			ImageInfo packageCover = new ImageInfo ();
+			ImageInfo packageCover = null;
 			if ( imageSize > 0 )
 			{
 				new PngDecoder ().Decode ( new MemoryStream ( reader.ReadBytes ( imageSize ) ), out packageCover );
@@ -77,7 +77,7 @@ namespace Daramkun.Misty.Contents.Decoders.Packs
 
 			to = new PackageInfo ( packageName, author, copyright, description, version,
 				releaseDate, isSubPackage, mainGuid.ToArray (), stringTable, resourceTable,
-				( imageSize == 0 ) ? null : ( ImageInfo? ) packageCover, packageID );
+				( imageSize == 0 ) ? null : packageCover, packageID );
 
 			return true;
 		}

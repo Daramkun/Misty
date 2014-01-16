@@ -42,7 +42,7 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 				} );
 				return true;
 			}
-			catch { to = new AudioInfo (); return false; }
+			catch { to = null; return false; }
 		}
 
 		private void CastBuffer ( float [] inBuffer, byte [] outBuffer, int count )
