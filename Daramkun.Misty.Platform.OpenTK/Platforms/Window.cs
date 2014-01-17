@@ -37,7 +37,7 @@ namespace Daramkun.Misty.Platforms
 		public Window ()
 		{
 			window = new OpenTK.GameWindow ( 800, 600,
-				new OpenTK.Graphics.GraphicsMode ( new OpenTK.Graphics.ColorFormat ( 32 ), 16, 8 ) );
+				new OpenTK.Graphics.GraphicsMode ( new OpenTK.Graphics.ColorFormat ( 32 ), 16, 8 ), "Misty Framework" );
 			window.ClientSize = new System.Drawing.Size ( 800, 600 );
 			window.WindowBorder = OpenTK.WindowBorder.Fixed;
 			window.Load += (object sender, EventArgs e ) => { window.Title = "Misty Framework"; };
