@@ -24,6 +24,7 @@ namespace Daramkun.Misty.Graphics
 		BaseRenderer BaseRenderer { get; }
 		Version RendererVersion { get; }
 		Version ShaderVersion { get; }
+		string DeviceVendor { get; }
 
 		ScreenResolution [] AvailableScreenResolution { get; }
 		int MaximumAnisotropicLevel { get; }

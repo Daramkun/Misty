@@ -46,8 +46,7 @@ namespace Test.Game.Cube
 		public override void Intro ( params object [] args )
 		{
 			Core.Window.Title = "Cube";
-			//Core.GraphicsDevice.CullMode = CullingMode.None;
-
+			
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
 			cubeEffect = contentManager.Load<IEffect> ( "CubeShader.xml", "i_pos", "i_col" );

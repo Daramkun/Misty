@@ -30,6 +30,8 @@ namespace Daramkun.Misty.Nodes
 		public bool IsEnabled { get; set; }
 		public bool IsVisible { get; set; }
 
+		public virtual bool IsTailEndNode { get { return false; } }
+
 		public T Instantiate<T> ( params object [] args ) where T : Node
 		{
 			T instantiate = Activator.CreateInstance ( typeof ( T ), args ) as T;

@@ -67,5 +67,6 @@ namespace Daramkun.Misty.Graphics
 				else throw new PlatformNotSupportedException ();
 			}
 		}
+		public string DeviceVendor { get { return GL.GetString ( StringName.Vendor ); } }
 	}
 }

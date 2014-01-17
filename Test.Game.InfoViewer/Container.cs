@@ -38,10 +38,7 @@ namespace Test.Game.InfoViewer
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
-			//Core.Launcher.InvokeInMainThread ( () =>
-			//{
-				font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
-			//} );
+			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			font.IsPrerenderMode = true;
 
 			Add ( InputHelper.CreateInstance () );
@@ -55,11 +52,12 @@ User Name: {3}
 Base Renderer: {4}
 Renderer Version: {5}
 Shader Version: {6}
-Maximum Anisotropic Level: {7}
-Is Support Geometry Shader: {8}
+Device Vendor: {7}
+Maximum Anisotropic Level: {8}
+Is Support Geometry Shader: {9}
 
 ==Available Resolutions ==
-{9}",
+{10}",
 				Core.Launcher.PlatformInformation.PlatformType,
 				Core.Launcher.PlatformInformation.PlatformVersion,
 				Core.Launcher.PlatformInformation.MachineUniqueIdentifier,
@@ -68,6 +66,7 @@ Is Support Geometry Shader: {8}
 				Core.GraphicsDevice.Information.BaseRenderer,
 				Core.GraphicsDevice.Information.RendererVersion,
 				Core.GraphicsDevice.Information.ShaderVersion,
+				Core.GraphicsDevice.Information.DeviceVendor,
 				Core.GraphicsDevice.Information.MaximumAnisotropicLevel,
 				Core.GraphicsDevice.Information.IsSupportGeometryShader,
 

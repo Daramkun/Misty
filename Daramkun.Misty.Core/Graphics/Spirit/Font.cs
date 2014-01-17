@@ -89,7 +89,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 				{
 					Core.GraphicsDevice.EndScene ();
 					Core.GraphicsDevice.BeginScene ( renderBuffer );
-					Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Transparent );
+					Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, new Color ( 1.0f, 1, 1, 0 ) );
 				}
 
 				for ( i = startIndex; i < startIndex + length; i++ )

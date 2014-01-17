@@ -36,6 +36,22 @@ namespace Daramkun.Misty.Graphics
 		public bool IsSupportTexture1D { get { return false; } }
 		public bool IsSupportTexture3D { get { return false; } }
 		public bool IsSupportGeometryShader { get { return false; } }
+		public string DeviceVendor
+		{
+			get
+			{
+				switch ( d3d.GetAdapterIdentifier ( 0 ).VendorId )
+				{
+					case 0x1002: return "ATI Technologies Inc.";
+					case 0x10DE: return "NVIDIA";
+					case 0x8086: return "Intel";
+					case 0x15AD: return "VMWare Inc.";
+					case 0x80EE: return "Oracle Corporation";
+					case 0x1AB8: return "Parallels";
+					default: return string.Format ( "Unknown({0:x4})", d3d.GetAdapterIdentifier ( 0 ).VendorId );
+				}
+			}
+		}
 
 		public GraphicsDeviceInformation ( SharpDX.Direct3D9.Direct3D d3d )
 		{
