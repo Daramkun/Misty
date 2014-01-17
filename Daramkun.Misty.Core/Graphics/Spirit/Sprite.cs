@@ -146,7 +146,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Matrix4x4 matrix;
 			Effect.Begin ();
 			Effect.SetTextures ( textureArgument );
-			projectionMatrix.OffCenterSize = Core.GraphicsDevice.CurrentRenderBuffer.Size;
+			projectionMatrix.OffCenterSize = ( Core.GraphicsDevice.CurrentRenderBuffer != null ) ? Core.GraphicsDevice.CurrentRenderBuffer.Size :
+				Core.GraphicsDevice.BackBuffer.Size;
 			projectionMatrix.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );

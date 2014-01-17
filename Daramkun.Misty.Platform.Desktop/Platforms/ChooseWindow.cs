@@ -122,7 +122,8 @@ namespace Daramkun.Misty.Platforms
 				{
 					if ( Utilities.IsSubtypeOf ( type, typeof ( Node ) ) )
 					{
-						if ( type.GetCustomAttribute ( typeof ( MainNodeAttribute ) ) != null )
+						object [] attrs = type.GetCustomAttributes ( typeof ( MainNodeAttribute ), false );
+						if ( attrs != null && attrs.Length > 0 )
 						{
 							nodes.Add ( Activator.CreateInstance ( type ) as Node );
 						}

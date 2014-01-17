@@ -53,6 +53,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -95,6 +96,10 @@
     <ProjectReference Include="..\Test.Game.InfoViewer\Test.Game.InfoViewer.csproj">
       <Project>{7a894a23-37d5-4688-97e0-d7ebe096819c}</Project>
       <Name>Test.Game.InfoViewer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.Game.Particle2D\Test.Game.Particle2D.csproj">
+      <Project>{b8fcbaaa-723d-49cb-ad7c-8c9c0e9bf3e8}</Project>
+      <Name>Test.Game.Particle2D</Name>
     </ProjectReference>
     <ProjectReference Include="..\Test.Game.PerformanceTester\Test.Game.PerformanceTester.csproj">
       <Project>{8ac05a7a-71f1-4618-944b-107338839231}</Project>

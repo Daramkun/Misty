@@ -17,6 +17,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public Vector2 EmitterLocation { get; set; }
 		public TimeSpan GeneratePeriod { get; set; }
 		public int GenerateCountInOneTime { get; set; }
+		public TimeSpan BaseTTL { get; set; }
 
 		public ParticleEngine2D ( Vector2 position, int generateCountInOneTime, TimeSpan? generatePeriod = null, params ITexture2D [] textures )
 		{
@@ -25,6 +26,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			this.textures = textures.Clone () as ITexture2D [];
 			GeneratePeriod = generatePeriod == null ? TimeSpan.FromMilliseconds ( 20 ) : generatePeriod.Value;
 			GenerateCountInOneTime = generateCountInOneTime;
+			BaseTTL = TimeSpan.FromMilliseconds ( 200 );
 		}
 
 		protected virtual Particle2D GenerateParticle ()
@@ -41,7 +43,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			);
 			float size = ( float ) random.NextDouble ();
 			return new Particle2D ( particleTexture, EmitterLocation, particleVelocity, particleAngle, particleAngularVelocity,
-				color, size, TimeSpan.FromMilliseconds ( 200 + random.Next ( 400 ) ) );
+				color, size, TimeSpan.FromMilliseconds ( BaseTTL.TotalMilliseconds + random.Next ( 400 ) ) );
 		}
 
 		public override void Update ( GameTime gameTime )
