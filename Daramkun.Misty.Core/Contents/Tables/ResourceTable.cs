@@ -28,9 +28,10 @@ namespace Daramkun.Misty.Contents.Tables
 			FileSystem = null;
 		}
 
-		public ResourceTable ( IFileSystem fileSystem )
+		public ResourceTable ( IFileSystem fileSystem, bool addDefaultLoaders = true )
 		{
 			FileSystem = fileSystem;
+			if ( addDefaultLoaders ) AddDefaultContentLoader ();
 		}
 
 		public void AddContentLoader ( IContentLoader contentLoader )

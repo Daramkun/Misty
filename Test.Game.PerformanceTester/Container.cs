@@ -34,7 +34,6 @@ namespace Test.Game.PerformanceTester
 			Add ( calc = new FpsCalculator () );
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
-			contentManager.AddDefaultContentLoader ();
 			Texture2DContentLoader.AddDefaultDecoders ();
 
 			textures = new ITexture2D [ 6 ];

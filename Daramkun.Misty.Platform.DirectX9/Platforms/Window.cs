@@ -32,6 +32,7 @@ namespace Daramkun.Misty.Platforms
 		public Window ()
 		{
 			window = new Form ();
+			window.BackColor = Color.White;
 			window.StartPosition = FormStartPosition.CenterScreen;
 			window.ClientSize = new Size ( 800, 600 );
 			window.MaximizeBox = false;

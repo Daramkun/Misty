@@ -22,7 +22,6 @@ namespace Test.Game.Particle2D
 		public override void Intro ( params object [] args )
 		{
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
-			contentManager.AddDefaultContentLoader ();
 
 			Add ( new ParticleEngine2D ( new Vector2 (), 20, null,
 				contentManager.Load<ITexture2D> ( "Resources/circle.png" ),

@@ -48,7 +48,6 @@ namespace Test.Game.Cube
 			Core.Window.Title = "Cube";
 			
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
-			contentManager.AddDefaultContentLoader ();
 			cubeEffect = contentManager.Load<IEffect> ( "CubeShader.xml", "i_pos", "i_col" );
 
 			cubeVertices = Core.GraphicsDevice.CreateVertexBuffer<CubeVertex>( new CubeVertex []

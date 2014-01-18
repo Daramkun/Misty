@@ -22,6 +22,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public Color OverlayColor { get { return sprite.OverlayColor; } set { sprite.OverlayColor = value; } }
 		public float Size { get; set; }
 		public TimeSpan TTL { get; set; }
+		public bool IsAlive { get { return Parent != null; } }
 
 		TimeSpan totalTimeSpan;
 
@@ -42,9 +43,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			totalTimeSpan += gameTime.ElapsedGameTime;
 
 			if ( totalTimeSpan >= TTL )
-			{
 				Parent.Remove ( this );
-			}
 
 			Position += Velocity;
 			Angle += AngularVelocity;

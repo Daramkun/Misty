@@ -37,7 +37,6 @@ namespace Test.Game.InfoViewer
 			Core.Window.Title = "Information Viewer";
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
-			contentManager.AddDefaultContentLoader ();
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			font.IsPrerenderMode = true;
 

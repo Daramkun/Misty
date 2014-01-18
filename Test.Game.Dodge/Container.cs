@@ -46,7 +46,6 @@ namespace Test.Game.Dodge
 			SceneContainer.SceneTransitor = new FadeTransitor ();
 			
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
-			contentManager.AddDefaultContentLoader ();
 			fpsFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 20 );
 
 			Add ( calc = new FpsCalculator () );

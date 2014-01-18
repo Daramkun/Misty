@@ -31,7 +31,6 @@ namespace Test.Game.PlayAudios
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
-			contentManager.AddDefaultContentLoader ();
 			Texture2DContentLoader.AddDefaultDecoders ();
 			AudioContentLoader.AddDefaultDecoders ();
 
