@@ -17,6 +17,7 @@ using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Transforms;
 using Daramkun.Misty.Nodes;
 using Daramkun.Misty.Platforms;
+using Daramkun.Misty.Platforms.GameLoopers;
 
 namespace Test.Desktop
 {
@@ -26,6 +27,7 @@ namespace Test.Desktop
 		static void Main ()
 		{
 			Logger.AddDefaultLogWriter ();
+			Core.FixedUpdateTimeStep = new TimeSpan ();
 			Core.FixedDrawTimeStep = new TimeSpan ();
 			ChooseWindow chooseWindow = new ChooseWindow ( "Tester",
 				new Assembly []
@@ -41,9 +43,16 @@ namespace Test.Desktop
 					Assembly.Load ( "Test.Game.Particle2D" ),
 					Assembly.Load ( "Test.Game.PerformanceTester" ),
 					Assembly.Load ( "Test.Game.PlayAudios" ),
+				},
+				null,
+				null,
+				new Assembly []
+				{
+					Assembly.Load ( "Daramkun.Misty.Core" ),
+					Assembly.Load ( "Daramkun.Misty.Platform.Desktop" )
 				}
 			);
-			chooseWindow.Run ();
+			chooseWindow.Run ( true );
 		}
 	}
 }

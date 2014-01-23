@@ -51,8 +51,12 @@ namespace Daramkun.Misty.Audios
 
 		public IAudioBuffer CreateAudioBuffer ( Contents.AudioInfo audioInfo )
 		{
-			IAudioBuffer buffer = new AudioBuffer ( this, audioInfo );
-			audioList.Add ( buffer );
+			IAudioBuffer buffer = null;
+			Core.Dispatch ( () =>
+			{
+				new AudioBuffer ( this, audioInfo );
+				audioList.Add ( buffer );
+			} );
 			return buffer;
 		}
 	}

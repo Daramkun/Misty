@@ -17,9 +17,11 @@ namespace Daramkun.Misty.Platforms
 
 		ILauncher [] pafs;
 		Node [] mainNodes;
+		IGameLooper [] gameLoopers;
 
 		bool isClickedOK = false;
 		int selectedPaf = 0;
+		int selectedLooper = 0;
 		int selectedNode = 0;
 
 		private class ChooseForm : Form
@@ -28,7 +30,7 @@ namespace Daramkun.Misty.Platforms
 			{
 				Text = gameName;
 				BackColor = Color.White;
-				ClientSize = new Size ( 400, 240 );
+				ClientSize = new Size ( 400, 260 );
 				FormBorderStyle = FormBorderStyle.FixedDialog;
 				StartPosition = FormStartPosition.CenterScreen;
 				MaximizeBox = false;
@@ -37,7 +39,7 @@ namespace Daramkun.Misty.Platforms
 			}
 		}
 
-		public ChooseWindow ( string gameName, Assembly [] pafs, Assembly [] mainNodes, Icon icon = null, Image coverImage = null )
+		public ChooseWindow ( string gameName, Assembly [] pafs, Assembly [] mainNodes, Icon icon = null, Image coverImage = null, Assembly [] gameLoopers = null )
 		{
 			Application.EnableVisualStyles ();
 			Application.SetCompatibleTextRenderingDefault ( false );
@@ -56,6 +58,9 @@ namespace Daramkun.Misty.Platforms
 			window.Controls.Add ( cover );
 
 			AnalyzePAFs ( pafs );
+			if ( gameLoopers == null )
+				gameLoopers = new Assembly [] { Assembly.Load ( "Daramkun.Misty.Core" ) };
+			AnalyzeGameLoopers ( gameLoopers );
 			AnalyzeMainNodes ( mainNodes );
 
 			Label pafLabel = new Label () { Text = "&PAF:", Bounds = new Rectangle ( 10, 120, 60, 24 ) };
@@ -66,15 +71,23 @@ namespace Daramkun.Misty.Platforms
 			pafComboBox.SelectedIndex = 0;
 			window.Controls.Add ( pafComboBox );
 
-			Label nodeLabel = new Label () { Text = "&Game:", Bounds = new Rectangle ( 10, 160, 60, 24 ) };
+			Label glLabel = new Label () { Text = "&Looper:", Bounds = new Rectangle ( 10, 160, 60, 24 ) };
+			window.Controls.Add ( glLabel );
+
+			ComboBox glComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 156, 310, 24 ) };
+			foreach ( IGameLooper gl in this.gameLoopers ) glComboBox.Items.Add ( gl.ToString () );
+			glComboBox.SelectedIndex = 0;
+			window.Controls.Add ( glComboBox );
+
+			Label nodeLabel = new Label () { Text = "&Game:", Bounds = new Rectangle ( 10, 200, 60, 24 ) };
 			window.Controls.Add ( nodeLabel );
 
-			ComboBox nodeComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 156, 310, 24 ) };
+			ComboBox nodeComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 196, 310, 24 ) };
 			foreach ( Node node in this.mainNodes ) nodeComboBox.Items.Add ( node.ToString () );
 			nodeComboBox.SelectedIndex = 0;
 			window.Controls.Add ( nodeComboBox );
 
-			Button acceptButton = new Button () { Text = "&Run", Bounds = new Rectangle ( 120, 196, 80, 24 ) };
+			Button acceptButton = new Button () { Text = "&Run", Bounds = new Rectangle ( 120, 226, 80, 24 ) };
 			acceptButton.Click += ( object sender, EventArgs e ) =>
 			{
 				if ( pafComboBox.SelectedIndex < 0 ) { MessageBox.Show ( "Please select a Platform Abstraction Framework." ); return; }
@@ -82,12 +95,13 @@ namespace Daramkun.Misty.Platforms
 
 				isClickedOK = true;
 				selectedPaf = pafComboBox.SelectedIndex;
+				selectedLooper = glComboBox.SelectedIndex;
 				selectedNode = nodeComboBox.SelectedIndex;
 				window.Close ();
 			};
 			window.Controls.Add ( acceptButton );
 
-			Button cancelButton = new Button () { Text = "E&xit", Bounds = new Rectangle ( 210, 196, 80, 24 ) };
+			Button cancelButton = new Button () { Text = "E&xit", Bounds = new Rectangle ( 210, 226, 80, 24 ) };
 			cancelButton.Click += ( object sender, EventArgs e ) =>
 			{
 				isClickedOK = false;
@@ -113,6 +127,20 @@ namespace Daramkun.Misty.Platforms
 			this.pafs = launchers.ToArray ();
 		}
 
+		private void AnalyzeGameLoopers ( Assembly [] gameLoopers )
+		{
+			List<IGameLooper> loopers = new List<IGameLooper> ();
+			foreach ( Assembly asm in gameLoopers )
+			{
+				foreach ( Type type in asm.GetTypes () )
+				{
+					if ( Utilities.IsSubtypeOf ( type, typeof ( IGameLooper ) ) && !type.IsInterface )
+						loopers.Add ( Activator.CreateInstance ( type ) as IGameLooper );
+				}
+			}
+			this.gameLoopers = loopers.ToArray ();
+		}
+
 		private void AnalyzeMainNodes ( Assembly [] mainNodes )
 		{
 			List<Node> nodes = new List<Node> ();
@@ -133,13 +161,13 @@ namespace Daramkun.Misty.Platforms
 			this.mainNodes = nodes.ToArray ();
 		}
 
-		public void Run ()
+		public void Run ( bool isInitializeAudio = true )
 		{
 			Application.Run ( window );
 
 			if ( isClickedOK )
 			{
-				Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ] );
+				Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ] );
 			}
 		}
 	}

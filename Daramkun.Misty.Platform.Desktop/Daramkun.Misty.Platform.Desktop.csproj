@@ -42,6 +42,7 @@
     <Compile Include="Contents\Encoders\Images\GdiPlusImageEncoder.cs" />
     <Compile Include="Log\Writers\ConsoleLogWriter.cs" />
     <Compile Include="Platforms\ChooseWindow.cs" />
+    <Compile Include="Platforms\GameLoopers\ParallelGameLooper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

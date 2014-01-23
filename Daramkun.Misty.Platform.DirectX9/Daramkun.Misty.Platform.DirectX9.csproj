@@ -58,6 +58,9 @@
     <Compile Include="Audios\AudioDevice.cs" />
     <Compile Include="Graphics\BackBuffer.cs" />
     <Compile Include="Graphics\Effect.cs" />
+    <Compile Include="Graphics\GraphicsDevice.Create.cs">
+      <DependentUpon>GraphicsDevice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graphics\GraphicsDevice.cs" />
     <Compile Include="Graphics\GraphicsDeviceInformation.cs" />
     <Compile Include="Graphics\IndexBuffer.cs" />

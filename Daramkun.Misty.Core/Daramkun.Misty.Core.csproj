@@ -326,7 +326,9 @@
     <Compile Include="Nodes\States\IState.cs" />
     <Compile Include="Nodes\States\StateMachine.cs" />
     <Compile Include="Nodes\TimerScheduler.cs" />
+    <Compile Include="Platforms\GameLoopers\PlainGameLooper.cs" />
     <Compile Include="Platforms\ILauncher.cs" />
+    <Compile Include="Platforms\IGameLooper.cs" />
     <Compile Include="Platforms\IWindow.cs" />
     <Compile Include="Platforms\PlatformInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

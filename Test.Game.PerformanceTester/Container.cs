@@ -62,14 +62,14 @@ namespace Test.Game.PerformanceTester
 		private void Add ( int mode, int count )
 		{
 			nodes [ mode ].IsManuallyChildrenCacheMode = true;
-			//Core.Launcher.InvokeInMainThread ( () =>
-			//{
+			Core.Dispatch ( () =>
+			{
 				for ( int i = 0; i < count; ++i )
 				{
 					nodes [ mode ].Add ( new PerformanceSpriteNode ( textures [ mode ] ) );
 				}
 				nodes [ mode ].RefreshChildrenCache ();
-			//}, false );
+			}, false );
 		}
 
 		private void Remove ( int mode, int count )
@@ -113,8 +113,8 @@ namespace Test.Game.PerformanceTester
 			int childrenCount = 0;
 			for ( int i = 0; i < 6; ++i )
 				childrenCount += nodes [ i ].ChildrenCount;
-			Core.Window.Title = string.Format ( "Update FPS: {0}, Draw FPS: {1}, Children count: {2}, Is Strip Drawing Mode: {3}",
-				calc.UpdateFPS, calc.DrawFPS, childrenCount, Sprite.IsStripDrawingMode );
+			Core.Window.Title = string.Format ( "Update FPS: {0}, Draw FPS: {1}, Children count: {2}, Strip Mode: {3}, Game Looper: {4}",
+				calc.UpdateFPS, calc.DrawFPS, childrenCount, Sprite.IsStripDrawingMode, Core.GameLooper.ToString () );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
