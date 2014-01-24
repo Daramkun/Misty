@@ -78,7 +78,7 @@ namespace Daramkun.Misty.Nodes.Spirit
 			else if ( ( Alignment & SpriteAlignment.Bottom ) != 0 )
 				tempWorld.Translate += new Vector2 ( 0, -sprite.ClippingArea.Size.Y * tempWorld.Scale.Y );
 
-			sprite.Draw ( ref tempWorld );
+			sprite.Draw ( tempWorld );
 
 			base.Draw ( gameTime );
 		}

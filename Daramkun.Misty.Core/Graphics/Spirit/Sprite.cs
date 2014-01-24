@@ -140,8 +140,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			}
 		}
 
-		public void Draw ( World2 transform ) { Draw ( ref transform ); }
-		public void Draw ( ref World2 transform )
+		public void Draw ( World2 transform )
 		{
 			Matrix4x4 matrix;
 			Effect.Begin ();

@@ -7,11 +7,11 @@ namespace Daramkun.Misty.Mathematics.Transforms
 {
 	public class World2 : ITransform
 	{
-		public Vector2 Translate { get; set; }
-		public Vector2 ScaleCenter { get; set; }
-		public Vector2 Scale { get; set; }
-		public float Rotation { get; set; }
-		public Vector2 RotationCenter { get; set; }
+		public Vector2 Translate;
+		public Vector2 ScaleCenter;
+		public Vector2 Scale;
+		public float Rotation;
+		public Vector2 RotationCenter;
 
 		public static World2 Identity
 		{

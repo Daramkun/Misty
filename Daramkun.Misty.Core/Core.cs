@@ -23,6 +23,8 @@ namespace Daramkun.Misty
 		static SpinLock invokeSpinLock = new SpinLock ();
 		static List<Action> invokedMethod = new List<Action> ();
 
+		static int fixedUpdateTimeStep, fixedDrawTimeStep;
+
 		public static ILauncher Launcher { get; private set; }
 		public static IWindow Window { get; private set; }
 		public static IGraphicsDevice GraphicsDevice { get; private set; }
@@ -36,8 +38,16 @@ namespace Daramkun.Misty
 
 		public static CultureInfo CurrentCulture { get; set; }
 
-		public static TimeSpan FixedUpdateTimeStep { get; set; }
-		public static TimeSpan FixedDrawTimeStep { get; set; }
+		public static TimeSpan FixedUpdateTimeStep
+		{
+			get { return TimeSpan.FromMilliseconds ( fixedUpdateTimeStep ); }
+			set { fixedUpdateTimeStep = ( int ) value.TotalMilliseconds; }
+		}
+		public static TimeSpan FixedDrawTimeStep
+		{
+			get { return TimeSpan.FromMilliseconds ( fixedDrawTimeStep ); }
+			set { fixedDrawTimeStep = ( int ) value.TotalMilliseconds; }
+		}
 
 		public static IGameLooper GameLooper { get; private set; }
 
@@ -72,10 +82,8 @@ namespace Daramkun.Misty
 			else
 				GameLooper = gameLooper;
 
-			TimeSpan elapsedUpdateTimeStep = new TimeSpan (),
-				elapsedDrawTimeStep = new TimeSpan ();
-			TimeSpan lastUpdateTimeStep = TimeSpan.FromMilliseconds ( Environment.TickCount ),
-				lastDrawTimeStep = TimeSpan.FromMilliseconds ( Environment.TickCount );
+			int elapsedUpdateTimeStep = 0, elapsedDrawTimeStep = 0;
+			int lastUpdateTimeStep = Environment.TickCount, lastDrawTimeStep = Environment.TickCount;
 
 			GameTime updateGameTime = new GameTime (), drawGameTime = new GameTime ();
 
@@ -91,15 +99,15 @@ namespace Daramkun.Misty
 					if ( AudioDevice != null )
 						AudioDevice.Update ();
 
-					if ( elapsedUpdateTimeStep >= FixedUpdateTimeStep || FixedUpdateTimeStep.TotalMilliseconds == 0 )
+					if ( elapsedUpdateTimeStep >= fixedUpdateTimeStep )
 					{
 						updateGameTime.Update ();
 						mainNode.Update ( updateGameTime );
-						elapsedUpdateTimeStep -= FixedUpdateTimeStep;
+						elapsedUpdateTimeStep -= fixedUpdateTimeStep;
 					}
 					else
 					{
-						TimeSpan temp = TimeSpan.FromMilliseconds ( Environment.TickCount );
+						int temp = Environment.TickCount;
 						elapsedUpdateTimeStep += ( temp - lastUpdateTimeStep );
 						lastUpdateTimeStep = temp;
 					}
@@ -117,15 +125,15 @@ namespace Daramkun.Misty
 						}
 					}
 
-					if ( elapsedDrawTimeStep >= FixedDrawTimeStep || FixedDrawTimeStep.TotalMilliseconds == 0 )
+					if ( elapsedDrawTimeStep >= fixedDrawTimeStep )
 					{
 						drawGameTime.Update ();
 						mainNode.Draw ( drawGameTime );
-						elapsedDrawTimeStep -= FixedDrawTimeStep;
+						elapsedDrawTimeStep -= fixedDrawTimeStep;
 					}
 					else
 					{
-						TimeSpan temp = TimeSpan.FromMilliseconds ( Environment.TickCount );
+						int temp = Environment.TickCount;
 						elapsedDrawTimeStep += ( temp - lastDrawTimeStep );
 						lastDrawTimeStep = temp;
 					}

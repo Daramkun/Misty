@@ -51,7 +51,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 		public override void Draw ( GameTime gameTime )
 		{
-			sprite.Draw ( ref world );
+			sprite.Draw ( world );
 		}
 	}
 }

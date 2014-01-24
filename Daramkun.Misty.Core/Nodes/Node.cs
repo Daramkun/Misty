@@ -9,9 +9,6 @@ namespace Daramkun.Misty.Nodes
 {
 	public class Node
 	{
-		object forLock = new object ();
-		uint zOrder;
-
 		SpinLock spinlock = new SpinLock ();
 		List<Node> children;
 		Node [] childrenArray;
@@ -21,35 +18,12 @@ namespace Daramkun.Misty.Nodes
 		public int ChildrenCount { get { return children.Count; } }
 		public bool IsManuallyChildrenCacheMode { get; set; }
 
-		public virtual uint ZOrder
-		{
-			get { return zOrder; }
-			set { zOrder = value; }
-		}
+		public virtual uint ZOrder { get; set; }
 
 		public bool IsEnabled { get; set; }
 		public bool IsVisible { get; set; }
 
 		public virtual bool IsTailEndNode { get { return false; } }
-
-		public T Instantiate<T> ( params object [] args ) where T : Node
-		{
-			T instantiate = Activator.CreateInstance ( typeof ( T ), args ) as T;
-			Add ( instantiate );
-			return instantiate;
-		}
-
-		public void StartCoroutine ( Func<IEnumerable> coroutine )
-		{
-			foreach ( IEnumerable e in coroutine () )
-				Core.Window.DoEvents ();
-		}
-
-		public void StartCoroutine ( Func<object, IEnumerable> coroutine, object argument )
-		{
-			foreach ( IEnumerable e in coroutine ( argument ) )
-				Core.Window.DoEvents ();
-		}
 
 		public Node Add ( Node node, params object [] args )
 		{
@@ -113,20 +87,14 @@ namespace Daramkun.Misty.Nodes
 
 		public virtual void Update ( GameTime gameTime )
 		{
-			if ( children.Count > 0 )
-			{
-				foreach ( Node item in from a in childrenArray where a.IsEnabled select a )
-					item.Update ( gameTime );
-			}
+			foreach ( Node node in from a in childrenArray where a.IsEnabled select a )
+				node.Update ( gameTime );
 		}
 
 		public virtual void Draw ( GameTime gameTime )
 		{
-			if ( children.Count > 0 )
-			{
-				foreach ( Node node in from a in childrenArray where a.IsVisible orderby a.ZOrder select a )
-					node.Draw ( gameTime );
-			}
+			foreach ( Node node in from a in childrenArray where a.IsVisible orderby a.ZOrder select a )
+				node.Draw ( gameTime );
 		}
 	}
 }
