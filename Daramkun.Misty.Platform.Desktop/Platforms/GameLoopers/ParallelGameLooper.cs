@@ -23,9 +23,13 @@ namespace Daramkun.Misty.Platforms.GameLoopers
 			} );
 			updateThread.Start ();
 
-			Process process = Process.GetCurrentProcess ();
-			foreach ( ProcessThread processThread in process.Threads )
-				processThread.ProcessorAffinity = process.ProcessorAffinity;
+			try
+			{
+				Process process = Process.GetCurrentProcess ();
+				foreach ( ProcessThread processThread in process.Threads )
+					processThread.ProcessorAffinity = process.ProcessorAffinity;
+			}
+			catch { }
 
 			while ( Core.Window.IsAlive && isRunningMode )
 			{
