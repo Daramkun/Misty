@@ -20,6 +20,11 @@ namespace Daramkun.Misty.Common
 			this.lastTimeSpan = new TimeSpan ();
 		}
 
+		public void Update ( GameTime gameTime )
+		{
+			Update ( gameTime.ElapsedGameTime );
+		}
+
 		public void Update ( TimeSpan gameTime )
 		{
 			lastTimeSpan += gameTime;

@@ -13,6 +13,7 @@ namespace Daramkun.Misty.Nodes
 		public TimerScheduler ()
 		{
 			timers = new Dictionary<Timer, Action<Timer>> ();
+			IsVisible = false;
 		}
 
 		public void AddTimer ( Timer timer, Action<Timer> action )
