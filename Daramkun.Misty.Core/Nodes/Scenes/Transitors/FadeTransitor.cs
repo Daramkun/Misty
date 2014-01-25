@@ -43,12 +43,12 @@ namespace Daramkun.Misty.Nodes.Scenes.Transitors
 			switch ( currentState )
 			{
 				case TransitionState.Begin:
-					fadeAlpha += gameTime.ElapsedGameTime.Milliseconds / 1000.0f * FadeUnit;
+					fadeAlpha += ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f * FadeUnit;
 					if ( fadeAlpha >= 255 ) { fadeAlpha = 255; return TransitionState.PretransitionEnd; }
 					return TransitionState.Begin;
 				case TransitionState.Posttransition:
 				case TransitionState.PretransitionEnd:
-					fadeAlpha -= gameTime.ElapsedGameTime.Milliseconds / 1000.0f * FadeUnit;
+					fadeAlpha -= ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f * FadeUnit;
 					if ( fadeAlpha <= 0 ) { fadeAlpha = 0; return TransitionState.End; }
 					return TransitionState.Posttransition;
 				default:

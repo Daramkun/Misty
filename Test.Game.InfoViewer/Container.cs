@@ -92,10 +92,10 @@ Is Support Geometry Shader: {9}
 		public override void Update ( GameTime gameTime )
 		{
 			if ( InputHelper.CurrentKeyboardState.IsKeyDown ( Key.Down ) )
-				offset -= gameTime.ElapsedGameTime.Milliseconds * 0.1f;
+				offset -= ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.1f;
 			if ( InputHelper.CurrentKeyboardState.IsKeyDown ( Key.Up ) )
 			{
-				offset += gameTime.ElapsedGameTime.Milliseconds * 0.1f;
+				offset += ( float ) gameTime.ElapsedGameTime.TotalMilliseconds * 0.1f;
 				if ( offset >= 0 ) offset = 0;
 			}
 

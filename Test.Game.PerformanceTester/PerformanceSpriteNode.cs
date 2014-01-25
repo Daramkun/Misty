@@ -25,7 +25,7 @@ namespace Test.Game.PerformanceTester
 
 		public override void Update ( GameTime gameTime )
 		{
-			World.Rotation += rotateUnit * gameTime.ElapsedGameTime.Milliseconds / 1000.0f;
+			World.Rotation += rotateUnit * ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f;
 			base.Update ( gameTime );
 		}
 	}

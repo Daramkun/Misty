@@ -32,13 +32,13 @@ namespace Test.Game.Dodge.Controllers
 		{
 			Vector2 pos = ( this [ 0 ] as SpriteNode ).World.Translate;
 			if ( InputHelper.CurrentKeyboardState.IsKeyDown ( Key.Up ) )
-				pos += new Vector2 ( 0, -1 ) * ( gameTime.ElapsedGameTime.Milliseconds / 5.0f );
+				pos += new Vector2 ( 0, -1 ) * ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 5.0f );
 			if ( InputHelper.CurrentKeyboardState.IsKeyDown ( Key.Down ) )
-				pos += new Vector2 ( 0, 1 ) * ( gameTime.ElapsedGameTime.Milliseconds / 5.0f );
+				pos += new Vector2 ( 0, 1 ) * ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 5.0f );
 			if ( InputHelper.CurrentKeyboardState.IsKeyDown ( Key.Left ) )
-				pos += new Vector2 ( -1, 0 ) * ( gameTime.ElapsedGameTime.Milliseconds / 5.0f );
+				pos += new Vector2 ( -1, 0 ) * ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 5.0f );
 			if ( InputHelper.CurrentKeyboardState.IsKeyDown ( Key.Right ) )
-				pos += new Vector2 ( 1, 0 ) * ( gameTime.ElapsedGameTime.Milliseconds / 5.0f );
+				pos += new Vector2 ( 1, 0 ) * ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 5.0f );
 			( this [ 0 ] as SpriteNode ).World.Translate = ( this [ 1 ] as SpriteNode ).World.Translate = pos;
 			base.Update ( gameTime );
 		}

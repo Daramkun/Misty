@@ -59,7 +59,7 @@ namespace Test.Game.Dodge
 		public override void Update ( GameTime gameTime )
 		{
 			World.Translate += new Vector2 ( ( float ) Math.Cos ( angle ), ( float ) Math.Sin ( angle ) ) *
-				( gameTime.ElapsedGameTime.Milliseconds / 10.0f );
+				( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 10.0f );
 
 			if ( World.Translate.X < 0 || World.Translate.X > 800 )
 				InitializeBullet ();
