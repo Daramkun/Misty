@@ -151,8 +151,13 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
+			bool isZWriteMode = Core.GraphicsDevice.IsZWriteEnable, isStencilEnable = Core.GraphicsDevice.StencilState;
+			Core.GraphicsDevice.IsZWriteEnable = false;
+			Core.GraphicsDevice.StencilState = false;
 			if(IsStripDrawingMode) Core.GraphicsDevice.Draw ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration, 0, 2 );
 			else Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, 2 );
+			Core.GraphicsDevice.IsZWriteEnable = isZWriteMode;
+			Core.GraphicsDevice.StencilState = isStencilEnable;
 			Effect.End ();
 		}
 
