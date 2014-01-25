@@ -82,11 +82,13 @@ namespace Daramkun.Misty.Graphics.Spirit
 				int i = 0;
 				float height = 0;
 
-				IRenderBuffer renderBuffer = Core.GraphicsDevice.CreateRenderBuffer ( ( int ) area.X, ( int ) area.Y );
-				IRenderBuffer lastRenderBuffer = Core.GraphicsDevice.CurrentRenderBuffer;
+				IRenderBuffer renderBuffer = null, lastRenderBuffer = null;
 
 				if ( IsPrerenderMode )
 				{
+					renderBuffer = Core.GraphicsDevice.CreateRenderBuffer ( ( int ) area.X, ( int ) area.Y );
+					lastRenderBuffer = Core.GraphicsDevice.CurrentRenderBuffer;
+
 					Core.GraphicsDevice.EndScene ();
 					Core.GraphicsDevice.BeginScene ( renderBuffer );
 					Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, new Color ( 1.0f, 1, 1, 0 ) );
