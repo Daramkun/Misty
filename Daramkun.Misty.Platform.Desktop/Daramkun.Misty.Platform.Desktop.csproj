@@ -38,6 +38,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\HighResolutionGameTime.cs" />
     <Compile Include="Contents\Decoders\Images\GdiPlusImageDecoder.cs" />
     <Compile Include="Contents\Encoders\Images\GdiPlusImageEncoder.cs" />
     <Compile Include="Log\Writers\ConsoleLogWriter.cs" />

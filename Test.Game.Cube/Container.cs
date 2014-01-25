@@ -103,9 +103,9 @@ namespace Test.Game.Cube
 
 		public override void Update ( GameTime gameTime )
 		{
-			world.Rotation.X += ( gameTime.ElapsedGameTime.Milliseconds / 1000.0f );
-			world.Rotation.Y += ( gameTime.ElapsedGameTime.Milliseconds / 1000.0f );
-			world.Rotation.Z += ( gameTime.ElapsedGameTime.Milliseconds / 1000.0f );
+			world.Rotation.X += ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f );
+			world.Rotation.Y += ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f );
+			world.Rotation.Z += ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f );
 			base.Update ( gameTime );
 		}
 

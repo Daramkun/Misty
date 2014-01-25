@@ -72,7 +72,7 @@ namespace Daramkun.Misty
 			if ( Window != null ) Window.Dispose ();
 		}
 
-		public static void Run ( ILauncher launcher, Node mainNode, bool isInitializeAudio = true, IGameLooper gameLooper = null )
+		public static void Run ( ILauncher launcher, Node mainNode, bool isInitializeAudio = true, IGameLooper gameLooper = null, Type gameTimeType = null )
 		{
 			Launcher = launcher;
 			MainNode = mainNode;
@@ -85,7 +85,9 @@ namespace Daramkun.Misty
 			int elapsedUpdateTimeStep = 0, elapsedDrawTimeStep = 0;
 			int lastUpdateTimeStep = Environment.TickCount, lastDrawTimeStep = Environment.TickCount;
 
-			GameTime updateGameTime = new GameTime (), drawGameTime = new GameTime ();
+			GameTime updateGameTime, drawGameTime;
+			if ( gameTimeType == null ) { updateGameTime = new GameTime (); drawGameTime = new GameTime (); }
+			else { updateGameTime = Activator.CreateInstance ( gameTimeType ) as GameTime; drawGameTime = Activator.CreateInstance ( gameTimeType ) as GameTime; }
 
 			thisThread = Thread.CurrentThread;
 

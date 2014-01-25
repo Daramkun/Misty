@@ -23,7 +23,7 @@ namespace Test.Game.Particle2D
 		{
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 
-			Add ( new ParticleEngine2D ( new Vector2 (), 20, null,
+			Add ( new ParticleEngine2D ( new Vector2 (), 10, null,
 				contentManager.Load<ITexture2D> ( "Resources/circle.png" ),
 				contentManager.Load<ITexture2D> ( "Resources/diamond.png" ),
 				contentManager.Load<ITexture2D> ( "Resources/star.png" )

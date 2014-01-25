@@ -45,8 +45,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 			if ( totalTimeSpan >= TTL )
 				Parent.Remove ( this );
 
-			Position += Velocity;
-			Angle += AngularVelocity;
+			Position += ( Velocity * ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 10 ) );
+			Angle += AngularVelocity * ( ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 10 );
 		}
 
 		public override void Draw ( GameTime gameTime )

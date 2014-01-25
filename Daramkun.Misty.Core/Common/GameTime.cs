@@ -8,8 +8,8 @@ namespace Daramkun.Misty.Common
 	public class GameTime
 	{
 		int lastTickCount;
-		TimeSpan totalTimeSpan;
-		TimeSpan elapsedTimeSpan;
+		protected TimeSpan totalTimeSpan;
+		protected TimeSpan elapsedTimeSpan;
 
 		public TimeSpan TotalGameTime { get { return totalTimeSpan; } }
 		public TimeSpan ElapsedGameTime { get { return elapsedTimeSpan; } }
@@ -21,7 +21,7 @@ namespace Daramkun.Misty.Common
 			elapsedTimeSpan = new TimeSpan ();
 		}
 
-		internal void Update ()
+		protected internal virtual void Update ()
 		{
 			int nowTickCount = Environment.TickCount;
 			elapsedTimeSpan = TimeSpan.FromMilliseconds ( nowTickCount - lastTickCount );
@@ -29,7 +29,7 @@ namespace Daramkun.Misty.Common
 			lastTickCount = nowTickCount;
 		}
 
-		public void Reset ()
+		public virtual void Reset ()
 		{
 			elapsedTimeSpan = new TimeSpan ();
 		}

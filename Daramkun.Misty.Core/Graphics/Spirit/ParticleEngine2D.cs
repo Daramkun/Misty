@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Daramkun.Misty.Common;
+using Daramkun.Misty.Log;
 using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Nodes;
 
@@ -26,14 +27,14 @@ namespace Daramkun.Misty.Graphics.Spirit
 			this.textures = textures.Clone () as ITexture2D [];
 			GeneratePeriod = generatePeriod == null ? TimeSpan.FromMilliseconds ( 20 ) : generatePeriod.Value;
 			GenerateCountInOneTime = generateCountInOneTime;
-			BaseTTL = TimeSpan.FromMilliseconds ( 200 );
+			BaseTTL = TimeSpan.FromMilliseconds ( 100 );
 		}
 
 		protected virtual Particle2D GenerateParticle ()
 		{
 			ITexture2D particleTexture = textures [ random.Next () % textures.Length ];
 			Vector2 particleVelocity = new Vector2 ( 1f * ( float ) ( random.NextDouble () * 2 - 1 ),
-			1f * ( float ) ( random.NextDouble () * 2 - 1 ) );
+				1f * ( float ) ( random.NextDouble () * 2 - 1 ) );
 			float particleAngle = 0;
 			float particleAngularVelocity = 0.1f * ( float ) ( random.NextDouble () * 2 - 1 );
 			Color color = new Color (
@@ -43,16 +44,20 @@ namespace Daramkun.Misty.Graphics.Spirit
 			);
 			float size = ( float ) random.NextDouble ();
 			return new Particle2D ( particleTexture, EmitterLocation, particleVelocity, particleAngle, particleAngularVelocity,
-				color, size, TimeSpan.FromMilliseconds ( BaseTTL.TotalMilliseconds + random.Next ( 400 ) ) );
+				color, size, TimeSpan.FromMilliseconds ( BaseTTL.TotalMilliseconds + random.Next ( 200 ) ) );
 		}
 
-		public override void Update ( GameTime gameTime )
+		public override void Draw ( GameTime gameTime )
 		{
-			double times = ( gameTime.ElapsedGameTime - GeneratePeriod ).TotalMilliseconds / GeneratePeriod.TotalMilliseconds;
-			for ( int i = 0; i < ( int ) ( times * GenerateCountInOneTime ); ++i )
-				Add ( GenerateParticle () );
-			lastTimeSpan = gameTime.ElapsedGameTime;
-			base.Update ( gameTime );
+			double times = ( lastTimeSpan - GeneratePeriod ).TotalMilliseconds / GeneratePeriod.TotalMilliseconds;
+			if ( ( ( int ) times ) != 0 )
+			{
+				for ( int i = 0; i < ( int ) ( times * GenerateCountInOneTime ); ++i )
+					Add ( GenerateParticle () );
+				lastTimeSpan = gameTime.ElapsedGameTime;
+			}
+			else lastTimeSpan += gameTime.ElapsedGameTime;
+			base.Draw ( gameTime );
 		}
 	}
 }

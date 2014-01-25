@@ -167,7 +167,7 @@ namespace Daramkun.Misty.Platforms
 
 			if ( isClickedOK )
 			{
-				Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ] );
+				Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
 			}
 		}
 	}
