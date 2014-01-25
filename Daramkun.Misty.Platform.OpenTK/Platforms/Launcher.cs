@@ -10,6 +10,8 @@ using Daramkun.Misty.Inputs.Devices;
 using Daramkun.Misty.Inputs.States;
 using Daramkun.Misty.Log;
 using Daramkun.Misty.Mathematics.Transforms;
+using System.IO;
+using System.Reflection;
 
 namespace Daramkun.Misty.Platforms
 {
@@ -37,13 +39,24 @@ namespace Daramkun.Misty.Platforms
 
 		public bool Initialize ( bool audioIncluded = true )
 		{
+			if ( PlatformInformation.PlatformType != PlatformType.WindowsNT &&
+				!File.Exists ( "OpenTK.dll.config" ) )
+			{
+				string contents = null;
+				using ( StreamReader r = new StreamReader (
+					Assembly.Load ( "Daramkun.Misty.Platform.OpenTK" ).GetManifestResourceStream ( "Daramkun.Misty.Resources.OpenTK.OpenTK.dll.config" )
+				) )
+					contents = r.ReadToEnd ();
+				File.WriteAllText ( "OpenTK.dll.config", contents );
+			}
+
 			try
 			{
 				Core.SetWindow ( new Window () );
 				Core.SetGraphicsDevice ( new GraphicsDevice ( Core.Window ) );
 			}
 			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); return false; }
-			
+
 			try { if ( audioIncluded ) Core.SetAudioDevice ( new AudioDevice ( Core.Window ) ); }
 			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); }
 			
