@@ -19,17 +19,9 @@ namespace Daramkun.Misty.Graphics
 		public ITexture1D CreateTexture1D ( int width, int mipmapLevel = 1 ) { throw new NotImplementedException (); }
 		public ITexture1D CreateTexture1D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 ) { throw new NotImplementedException (); }
 		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 )
-		{
-			Texture2D texture = null;
-			Core.Dispatch ( () => { texture = new Texture2D ( this, width, height, mipmapLevel ); } );
-			return texture;
-		}
+		{ return new Texture2D ( this, width, height, mipmapLevel ); }
 		public ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
-		{
-			Texture2D texture = null;
-			Core.Dispatch ( () => { texture = new Texture2D ( this, imageInfo, colorKey, mipmapLevel ); } );
-			return texture;
-		}
+		{ return new Texture2D ( this, imageInfo, colorKey, mipmapLevel ); }
 		public ITexture3D CreateTexture3D ( int width, int height, int depth, int mipmapLevel = 1 ) { throw new NotImplementedException (); }
 		public ITexture3D CreateTexture3D ( ImageInfo [] imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
 		{ throw new NotImplementedException (); }

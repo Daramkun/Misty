@@ -19,12 +19,33 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		private SharpDX.Direct3D11.CullMode ConvertToCullMode ( CullingMode value )
+		{
+			switch ( value )
+			{
+				case CullingMode.None: return SharpDX.Direct3D11.CullMode.None;
+				case CullingMode.ClockWise: return SharpDX.Direct3D11.CullMode.Front;
+				case CullingMode.CounterClockWise: return SharpDX.Direct3D11.CullMode.Back;
+				default: throw new ArgumentException ();
+			}
+		}
+
 		private Graphics.FillMode ConvertFromFillMode ( SharpDX.Direct3D11.FillMode fillMode )
 		{
 			switch ( fillMode )
 			{
 				case SharpDX.Direct3D11.FillMode.Solid: return Graphics.FillMode.Solid;
 				case SharpDX.Direct3D11.FillMode.Wireframe: return Graphics.FillMode.Wireframe;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private SharpDX.Direct3D11.FillMode ConvertToFillMode ( Graphics.FillMode value )
+		{
+			switch ( value )
+			{
+				case Graphics.FillMode.Solid: return SharpDX.Direct3D11.FillMode.Solid;
+				case Graphics.FillMode.Wireframe: return SharpDX.Direct3D11.FillMode.Wireframe;
 				default: throw new ArgumentException ();
 			}
 		}
@@ -53,13 +74,16 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		private int GetPrimitiveCount ( PrimitiveType primitiveType )
+		private int GetPrimitiveCount ( PrimitiveType primitiveType, int primitiveCount )
 		{
 			switch ( primitiveType )
 			{
-				case PrimitiveType.PointList: return 1;
-				case PrimitiveType.LineList: case PrimitiveType.LineStrip: return 2;
-				case PrimitiveType.TriangleList: case PrimitiveType.TriangleStrip: return 3;
+				case PrimitiveType.PointList: return primitiveCount;
+				case PrimitiveType.LineList: return primitiveCount * 2;
+				case PrimitiveType.LineStrip: return primitiveCount + 1;
+				case PrimitiveType.TriangleList: return primitiveCount * 3;
+				case PrimitiveType.TriangleStrip: return primitiveCount + 2;
+				case PrimitiveType.TriangleFan: return primitiveCount + 2;
 				default: throw new ArgumentException ();
 			}
 		}

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Daramkun.Misty.Common;
+using Daramkun.Misty.Contents;
+using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Platforms;
 
 namespace Daramkun.Misty.Graphics
@@ -38,7 +42,10 @@ namespace Daramkun.Misty.Graphics
 			get { return ConvertFromCullMode ( d3dContext.Rasterizer.State.Description.CullMode ); }
 			set
 			{
-				throw new NotImplementedException ();
+				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
+				desc.CullMode = ConvertToCullMode ( value );
+				d3dContext.Rasterizer.State.Dispose ();
+				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
 			}
 		}
 
@@ -47,7 +54,10 @@ namespace Daramkun.Misty.Graphics
 			get { return ConvertFromFillMode ( d3dContext.Rasterizer.State.Description.FillMode ); }
 			set
 			{
-				throw new NotImplementedException ();
+				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
+				desc.FillMode = ConvertToFillMode ( value );
+				d3dContext.Rasterizer.State.Dispose ();
+				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
 			}
 		}
 
@@ -56,16 +66,16 @@ namespace Daramkun.Misty.Graphics
 			get { return d3dContext.Rasterizer.State.Description.IsDepthClipEnabled; }
 			set
 			{
-				throw new NotImplementedException ();
+				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
+				desc.IsDepthClipEnabled = value;
+				d3dContext.Rasterizer.State.Dispose ();
+				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
 			}
 		}
 
 		public bool BlendState
 		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
+			get { return d3dContext.OutputMerger.BlendState != null; }
 			set
 			{
 				throw new NotImplementedException ();
@@ -74,10 +84,7 @@ namespace Daramkun.Misty.Graphics
 
 		public bool StencilState
 		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
+			get { return d3dContext.OutputMerger.DepthStencilState.Description.IsStencilEnabled; }
 			set
 			{
 				throw new NotImplementedException ();
@@ -86,37 +93,34 @@ namespace Daramkun.Misty.Graphics
 
 		public bool IsMultisampleRendering
 		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
-			set
-			{
-				throw new NotImplementedException ();
-			}
+			get { throw new NotImplementedException (); }
+			set { throw new NotImplementedException (); }
 		}
 
 		public bool IsFullscreen
 		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
-			set
-			{
-				throw new NotImplementedException ();
-			}
+			get { return dxgiSwapChain.IsFullScreen; }
+			set { dxgiSwapChain.IsFullScreen = value; }
 		}
 
 		public ScreenResolution FullscreenResolution
 		{
 			get
 			{
-				throw new NotImplementedException ();
+				return new ScreenResolution (
+					new Vector2 ( dxgiSwapChain.Description.ModeDescription.Width, dxgiSwapChain.Description.ModeDescription.Height ),
+					dxgiSwapChain.Description.ModeDescription.RefreshRate.Numerator
+				);
 			}
 			set
 			{
-				throw new NotImplementedException ();
+				SharpDX.DXGI.ModeDescription mode = new SharpDX.DXGI.ModeDescription (
+						( int ) value.ScreenSize.X, ( int ) value.ScreenSize.Y, new SharpDX.DXGI.Rational ( ( int ) value.RefreshRate, 1 ),
+						SharpDX.DXGI.Format.R8G8B8A8_UNorm
+				);
+				dxgiSwapChain.ResizeTarget (
+					ref mode
+				);
 			}
 		}
 
@@ -128,6 +132,10 @@ namespace Daramkun.Misty.Graphics
 			}
 			set
 			{
+				d3dContext.OutputMerger.BlendState = new SharpDX.Direct3D11.BlendState ( d3dDevice, new SharpDX.Direct3D11.BlendStateDescription ()
+				{
+					
+				} );
 				throw new NotImplementedException ();
 			}
 		}
@@ -244,7 +252,7 @@ namespace Daramkun.Misty.Graphics
 				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.VertexTypeSize, 0 )
 			);
 			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
-			d3dContext.Draw ( primitiveCount * GetPrimitiveCount ( primitiveType ), startVertex );
+			d3dContext.Draw ( GetPrimitiveCount ( primitiveType, primitiveCount ), startVertex );
 		}
 
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount )
@@ -257,7 +265,7 @@ namespace Daramkun.Misty.Graphics
 			d3dContext.InputAssembler.SetIndexBuffer ( indexBuffer.Handle as SharpDX.Direct3D11.Buffer,
 				indexBuffer.Is16bitIndex ? SharpDX.DXGI.Format.R16_SInt : SharpDX.DXGI.Format.R32_SInt, 0 );
 			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
-			d3dContext.DrawIndexed ( primitiveCount * GetPrimitiveCount ( primitiveType ), startIndex, 0 );
+			d3dContext.DrawIndexed ( GetPrimitiveCount ( primitiveType, primitiveCount ), startIndex, 0 );
 		}
 
 		public void ResizeBackBuffer ( int width, int height )
@@ -267,56 +275,51 @@ namespace Daramkun.Misty.Graphics
 
 		public IRenderBuffer CreateRenderBuffer ( int width, int height )
 		{
-			throw new NotImplementedException ();
+			return new RenderBuffer ( this, width, height );
 		}
 
 		public ITexture1D CreateTexture1D ( int width, int mipmapLevel = 1 ) { throw new NotImplementedException (); }
-		public ITexture1D CreateTexture1D ( Contents.ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
-		{ throw new NotImplementedException (); }
-		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 ) { return new Texture2D ( this, width, height, mipmapLevel ); }
-		public ITexture2D CreateTexture2D ( Contents.ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
-		{
-			return new Texture2D ( this, imageInfo, colorKey, mipmapLevel );
-		}
+		public ITexture1D CreateTexture1D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 ) { throw new NotImplementedException (); }
+		public ITexture2D CreateTexture2D ( int width, int height, int mipmapLevel = 1 )
+		{ return new Texture2D ( this, width, height, mipmapLevel ); }
+		public ITexture2D CreateTexture2D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
+		{ return new Texture2D ( this, imageInfo, colorKey, mipmapLevel ); }
 		public ITexture3D CreateTexture3D ( int width, int height, int depth, int mipmapLevel = 1 ) { throw new NotImplementedException (); }
-		public ITexture3D CreateTexture3D ( Contents.ImageInfo [] imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
+		public ITexture3D CreateTexture3D ( ImageInfo [] imageInfo, Color? colorKey = null, int mipmapLevel = 1 )
 		{ throw new NotImplementedException (); }
 
-		public IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements )
-		{
-			throw new NotImplementedException ();
-		}
+		public IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements ) { return new VertexDeclaration ( this, elements ); }
 
 		public IVertexBuffer CreateVertexBuffer ( Type vertexType, int length ) { return new VertexBuffer ( this, vertexType, length ); }
 		public IVertexBuffer CreateVertexBuffer<T> ( T [] vertices ) where T : struct
 		{
-			VertexBuffer b = new VertexBuffer ( this, typeof ( T ), vertices.Length );
-			b.SetBufferDatas<T> ( vertices );
-			return b;
+			IVertexBuffer buffer = new VertexBuffer ( this, typeof ( T ), vertices.Length );
+			buffer.SetBufferDatas<T> ( vertices );
+			return buffer;
 		}
 
 		public IIndexBuffer CreateIndexBuffer ( Type indexType, int length, bool is16bit = false ) { return new IndexBuffer ( this, indexType, length, is16bit ); }
 		public IIndexBuffer CreateIndexBuffer<T> ( T [] indices, bool is16bit = false ) where T : struct
 		{
-			IndexBuffer b = new IndexBuffer ( this, typeof ( T ), indices.Length, is16bit );
-			b.SetBufferDatas<T> ( indices );
-			return b;
+			IIndexBuffer buffer = new IndexBuffer ( this, typeof ( T ), indices.Length, is16bit );
+			buffer.SetBufferDatas<T> ( indices );
+			return buffer;
 		}
 
-		public IShader CreateShader ( ShaderType shaderType, string shader )
-		{
-			throw new NotImplementedException ();
-		}
+		public IShader CreateShader ( ShaderType shaderType, string shader ) { return new Shader ( this, shaderType, shader ); }
 
 		public IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName )
 		{
-			throw new NotImplementedException ();
+			return new Effect ( this, vertexShader, pixelShader, geometryShader, attribName );
 		}
-
-		public IEffect CreateEffect ( System.IO.Stream stream )
+		public IEffect CreateEffect ( Stream xmlStream )
 		{
-			throw new NotImplementedException ();
+			TextReader reader = new StreamReader ( xmlStream );
+			XmlDocument doc = new XmlDocument ();
+			doc.LoadXml ( reader.ReadToEnd () );
+			return CreateEffect ( doc );
 		}
+		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
 
 #pragma warning disable
 		public event EventHandler DeviceLost;

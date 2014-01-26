@@ -70,8 +70,10 @@
     <Compile Include="Graphics\Texture2D.cs" />
     <Compile Include="Graphics\VertexBuffer.cs" />
     <Compile Include="Graphics\VertexDeclaration.cs" />
+    <Compile Include="Inputs\Devices\GamePad.cs" />
     <Compile Include="Inputs\Devices\Keyboard.cs" />
     <Compile Include="Inputs\Devices\Mouse.cs" />
+    <Compile Include="Platforms\Launcher.cs" />
     <Compile Include="Platforms\Window.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

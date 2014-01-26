@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Graphics
@@ -18,6 +19,47 @@ namespace Daramkun.Misty.Graphics
 		public IShader GeometryShader { get; private set; }
 
 		public Effect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName )
+		{
+			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader );
+		}
+
+		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc )
+		{
+			foreach ( XmlNode lang in xmlDoc.ChildNodes [ 1 ].ChildNodes )
+			{
+				if ( lang.Name != "language" ) throw new ArgumentException ();
+				if ( lang.Attributes [ "type" ].Value != "hlsl" ) continue;
+				if ( ( lang.Attributes [ "version" ] != null && new Version ( lang.Attributes [ "version" ].Value ) <= Core.GraphicsDevice.Information.ShaderVersion )
+					|| lang.Attributes [ "version" ] == null )
+				{
+					foreach ( XmlNode node in lang.ChildNodes )
+					{
+						if ( node.Name == "shader" )
+						{
+							switch ( node.Attributes [ "type" ].Value )
+							{
+								case "vertex":
+									if ( VertexShader != null ) break;
+									VertexShader = new Shader ( graphicsDevice, ShaderType.VertexShader, node.ChildNodes [ 0 ].Value );
+									break;
+								case "pixel":
+									if ( PixelShader != null ) break;
+									PixelShader = new Shader ( graphicsDevice, ShaderType.PixelShader, node.ChildNodes [ 0 ].Value );
+									break;
+								case "geometry":
+									if ( GeometryShader != null ) break;
+									GeometryShader = new Shader ( graphicsDevice, ShaderType.GeometryShader, node.ChildNodes [ 0 ].Value );
+									break;
+							}
+						}
+					}
+				}
+			}
+
+			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader );
+		}
+
+		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader vertexShader, IShader pixelShader, IShader geometryShader, params string [] attribName )
 		{
 			this.graphicsDevice = graphicsDevice;
 

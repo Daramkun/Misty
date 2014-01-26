@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -121,12 +122,15 @@ namespace Daramkun.Misty.Inputs.Devices
 				case Keys.Escape: return Key.Escape;
 				case Keys.Space: return Key.Space;
 
-				/*case Keys.ControlLeft: return Key.LeftControl;
-				case Keys.ControlRight: return Key.RightControl;
-				case Keys.AltLeft: return Key.LeftAlt;
-				case Keys.AltRight: return Key.RightAlt;
-				case Keys.ShiftLeft: return Key.LeftShift;
-				case Keys.ShiftRight: return Key.RightShift;*/
+				case Keys.ControlKey:
+					if ( GetKeyState ( Keys.LControlKey ) != 0 ) return Key.LeftControl;
+					else return Key.RightControl;
+				case Keys.Menu:
+					if ( GetKeyState ( Keys.LMenu ) != 0 ) return Key.LeftAlt;
+					else return Key.RightAlt;
+				case Keys.ShiftKey:
+					if ( GetKeyState ( Keys.LShiftKey ) != 0 ) return Key.LeftShift;
+					else return Key.RightShift;
 				case Keys.LWin: return Key.LeftWin;
 				case Keys.RWin: return Key.RightWin;
 
@@ -142,21 +146,24 @@ namespace Daramkun.Misty.Inputs.Devices
 				case Keys.PageUp: return Key.PageUp;
 				case Keys.PageDown: return Key.PageDown;
 
-				/*case Keys.BracketLeft: return Key.LeftBracket;
-				case Keys.BracketRight: return Key.RightBracket;
-				case Keys.BackSlash: return Key.BackSlash;
-				case Keys.Comma: return Key.Comma;
-				case Keys.Period: return Key.Period;
-				case Keys.Minus: return Key.Subtract;
-				case Keys.Plus: return Key.Equal;
-				case Keys.Semicolon: return Key.Semicolon;
-				case Keys.Slash: return Key.Slash;
-				case Keys.Tilde: return Key.Grave;
-				case Keys.Quote: return Key.Apostrophe;*/
+				case Keys.OemOpenBrackets: return Key.LeftBracket;
+				case Keys.OemCloseBrackets: return Key.RightBracket;
+				case Keys.Oem5: return Key.BackSlash;
+				case Keys.Oemcomma: return Key.Comma;
+				case Keys.OemPeriod: return Key.Period;
+				case Keys.OemMinus: return Key.Subtract;
+				case Keys.Oemplus: return Key.Equal;
+				case Keys.Oem1: return Key.Semicolon;
+				case Keys.OemQuestion: return Key.Slash;
+				case Keys.Oemtilde: return Key.Grave;
+				case Keys.Oem7: return Key.Apostrophe;
 			}
 
 			return Key.Unknown;
 		}
+
+		[DllImport ( "user32.dll" )]
+		private static extern short GetKeyState ( Keys key );
 		#endregion
 	}
 }

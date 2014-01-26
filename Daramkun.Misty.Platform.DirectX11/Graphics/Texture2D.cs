@@ -51,7 +51,7 @@ namespace Daramkun.Misty.Graphics
 
 		public object Handle { get { return texture; } }
 
-		public Texture2D ( IGraphicsDevice graphicsDevice, int width, int height, int mipmapLevel = 1 )
+		public Texture2D ( IGraphicsDevice graphicsDevice, int width, int height, int mipmapLevel = 1, bool isRenderBuffer = false )
 		{
 			if ( width == 0 ) width = 1;
 			if ( height == 0 ) height = 1;
@@ -64,7 +64,7 @@ namespace Daramkun.Misty.Graphics
 				MipLevels = mipmapLevel,
 				CpuAccessFlags = SharpDX.Direct3D11.CpuAccessFlags.Read | SharpDX.Direct3D11.CpuAccessFlags.Write,
 				Usage = SharpDX.Direct3D11.ResourceUsage.Default,
-				BindFlags = SharpDX.Direct3D11.BindFlags.ShaderResource,
+				BindFlags = SharpDX.Direct3D11.BindFlags.ShaderResource | ( isRenderBuffer ? ( SharpDX.Direct3D11.BindFlags.RenderTarget ) : 0 ),
 				ArraySize = 1,
 			} );
 		}
