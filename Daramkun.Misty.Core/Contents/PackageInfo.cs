@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Daramkun.Misty.Common.Json;
+using Daramkun.Blockar.Json;
 using Daramkun.Misty.Contents.Decoders.Images;
 using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Contents.Tables;
@@ -64,7 +64,7 @@ namespace Daramkun.Misty.Contents
 				throw new ArgumentException ();
 
 			PackageInfo packageInfo = new PackageInfo ();
-			JsonEntry entry = JsonParser.Parse ( fileSystem.OpenFile ( "packageInfo.json" ) );
+			JsonContainer entry = JsonParser.Parse ( fileSystem.OpenFile ( "packageInfo.json" ) );
 
 			packageInfo.PackageName = entry [ "title" ] as string;
 
@@ -79,8 +79,8 @@ namespace Daramkun.Misty.Contents
 			if ( packageInfo.IsSubPackage = ( bool ) entry [ "issubpack" ] )
 			{
 				List<Guid> mainGuid = new List<Guid> ();
-				JsonArray mainPackIds = entry [ "mainpacks" ] as JsonArray;
-				foreach ( object item in mainPackIds )
+				JsonContainer mainPackIds = entry [ "mainpacks" ] as JsonContainer;
+				foreach ( object item in mainPackIds.GetListEnumerable () )
 					mainGuid.Add ( new Guid ( item as string ) );
 
 				if ( !mainGuid.Contains ( Core.MainPackage.PackageID ) )

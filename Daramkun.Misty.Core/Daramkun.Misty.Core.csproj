@@ -147,13 +147,6 @@
     <Compile Include="Common\ExternLib\TrueTypeSharp\TrueTypeFont.cs" />
     <Compile Include="Common\FileFormatAttribute.cs" />
     <Compile Include="Common\GameTime.cs" />
-    <Compile Include="Common\Json\IJsonArray.cs" />
-    <Compile Include="Common\Json\IJsonEntry.cs" />
-    <Compile Include="Common\Json\JsonArray.cs" />
-    <Compile Include="Common\Json\JsonEntry.cs" />
-    <Compile Include="Common\Json\JsonItemAttribute.cs" />
-    <Compile Include="Common\Json\JsonParser.cs" />
-    <Compile Include="Common\Json\JsonProvider.cs" />
     <Compile Include="Common\SpinLock.cs" />
     <Compile Include="Common\StandardDispose.cs" />
     <Compile Include="Common\Timer.cs" />
@@ -343,6 +336,14 @@
     <Compile Include="Mathematics\Vector3.Calculate.cs">
       <DependentUpon>Vector3.cs</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Daramkun.Blockar">
+      <HintPath>..\packages\Daramkun.Blockar.1.0.0\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

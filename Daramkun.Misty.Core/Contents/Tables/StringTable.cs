@@ -4,13 +4,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Daramkun.Misty.Common.Json;
+using Daramkun.Blockar.Json;
 
 namespace Daramkun.Misty.Contents.Tables
 {
 	public sealed class StringTable : ITable
 	{
-		JsonEntry stringTable;
+		JsonContainer stringTable;
 
 		public bool IsCultureMode { get; set; }
 
@@ -21,7 +21,7 @@ namespace Daramkun.Misty.Contents.Tables
 				throw new ArgumentException ( "Table version is not 1.0 or lesser" );
 		}
 
-		public StringTable ( JsonEntry jsonEntry )
+		public StringTable ( JsonContainer jsonEntry )
 		{
 			stringTable = jsonEntry;
 			if ( stringTable [ "tableversion" ] as string != "1.0" )
@@ -36,7 +36,7 @@ namespace Daramkun.Misty.Contents.Tables
 				{
 					if ( stringTable.Contains ( Core.CurrentCulture.Name ) )
 					{
-						JsonEntry innerEntry = stringTable [ Core.CurrentCulture.Name ] as JsonEntry;
+						JsonContainer innerEntry = stringTable [ Core.CurrentCulture.Name ] as JsonContainer;
 						if ( innerEntry.Contains ( key ) ) return innerEntry [ key ] as string;
 					}
 				}
@@ -51,7 +51,7 @@ namespace Daramkun.Misty.Contents.Tables
 			{
 				if ( stringTable.Contains ( CultureInfo.CurrentCulture.Name ) )
 				{
-					bool result = ( stringTable [ Core.CurrentCulture.Name ] as JsonEntry ).Contains ( key );
+					bool result = ( stringTable [ Core.CurrentCulture.Name ] as JsonContainer ).Contains ( key );
 					if ( result ) return result;
 				}
 			}

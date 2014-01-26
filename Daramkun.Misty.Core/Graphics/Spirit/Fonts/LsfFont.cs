@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Daramkun.Misty.Common.Json;
+using Daramkun.Blockar.Json;
 using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Contents.Loaders;
 
@@ -31,7 +31,7 @@ namespace Daramkun.Misty.Graphics.Spirit.Fonts
 		{
 			fileSystem = new ZipFileSystem ( stream );
 			Stream file = fileSystem.OpenFile ( "info.json" );
-			JsonEntry entry = JsonParser.Parse ( file );
+			JsonContainer entry = JsonParser.Parse ( file );
 			FontFamily = entry [ "fontfamily" ] as string;
 			FontSize = ( int ) entry [ "fontsize" ];
 

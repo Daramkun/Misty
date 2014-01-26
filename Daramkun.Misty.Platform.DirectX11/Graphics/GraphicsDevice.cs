@@ -132,10 +132,6 @@ namespace Daramkun.Misty.Graphics
 			}
 			set
 			{
-				d3dContext.OutputMerger.BlendState = new SharpDX.Direct3D11.BlendState ( d3dDevice, new SharpDX.Direct3D11.BlendStateDescription ()
-				{
-					
-				} );
 				throw new NotImplementedException ();
 			}
 		}

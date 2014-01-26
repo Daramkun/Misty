@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Daramkun.Misty.Common.Json;
+using Daramkun.Blockar.Json;
 using Daramkun.Misty.IO.Compression;
 
 namespace Daramkun.Misty.Contents.Tables
@@ -141,7 +141,7 @@ namespace Daramkun.Misty.Contents.Tables
 						writer.Write ( ( byte ) dateTime.Second );
 						writer.Write ( ( short ) dateTime.Millisecond );
 					}
-					else if ( data.GetType () == typeof ( JsonEntry ) )
+					else if ( data.GetType () == typeof ( JsonContainer ) )
 					{
 						writer.Write ( ( byte ) VariableType.JsonEntry );
 						writer.Write ( ( string ) data.ToString () );

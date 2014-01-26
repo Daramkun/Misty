@@ -89,10 +89,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="Resources\OpenTK\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resources\OpenTK\OpenTK.dll.config" />
   </ItemGroup>
