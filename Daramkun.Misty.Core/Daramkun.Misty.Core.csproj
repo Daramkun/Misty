@@ -147,6 +147,9 @@
     <Compile Include="Common\ExternLib\TrueTypeSharp\TrueTypeFont.cs" />
     <Compile Include="Common\FileFormatAttribute.cs" />
     <Compile Include="Common\GameTime.cs" />
+    <Compile Include="Common\Randoms\MersenneTwisterRandom.cs" />
+    <Compile Include="Common\Randoms\PseudoRandom.cs" />
+    <Compile Include="Common\Randoms\Well512Random.cs" />
     <Compile Include="Common\SpinLock.cs" />
     <Compile Include="Common\StandardDispose.cs" />
     <Compile Include="Common\Timer.cs" />

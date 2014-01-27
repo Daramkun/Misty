@@ -4,12 +4,13 @@ using Daramkun.Misty.Common;
 using Daramkun.Misty.Nodes.Spirit;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Mathematics;
+using Daramkun.Misty.Common.Randoms;
 
 namespace Test.Game.Dodge
 {
 	public class Bullet : SpriteNode
 	{
-		static Random random = new Random ( Environment.TickCount );
+		static Random random = new Well512Random ( Environment.TickCount );
 
 		float angle;
 
