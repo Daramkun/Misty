@@ -49,7 +49,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 		TextureArgument textureArgument;
 
 		public IEffect Effect { get; set; }
-		public ITexture2D Texture { get { return textureArgument.Texture as ITexture2D; } private set { textureArgument.Texture = value; } }
+		public ITexture2D Texture { get { return textureArgument.Texture as ITexture2D; } set { textureArgument.Texture = value; } }
 
 		public TextureFilter TextureFilter { get { return textureArgument.Filter; } set { textureArgument.Filter = value; } }
 		public int AnisotropicLevel { get { return textureArgument.AnisotropicLevel; } set { textureArgument.AnisotropicLevel = value; } }
