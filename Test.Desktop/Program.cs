@@ -43,6 +43,7 @@ namespace Test.Desktop
 					Assembly.Load ( "Test.Game.Particle2D" ),
 					Assembly.Load ( "Test.Game.PerformanceTester" ),
 					Assembly.Load ( "Test.Game.PlayAudios" ),
+					Assembly.Load ( "Test.Game.Terrain" ),
 				},
 				null,
 				null,

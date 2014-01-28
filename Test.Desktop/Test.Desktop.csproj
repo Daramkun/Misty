@@ -109,6 +109,10 @@
       <Project>{b36566f6-9181-4031-87c6-737ee2d68bd1}</Project>
       <Name>Test.Game.PlayAudios</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Test.Game.Terrain\Test.Game.Terrain.csproj">
+      <Project>{6e426c1b-ed8f-4171-ae19-108acc4f7b43}</Project>
+      <Name>Test.Game.Terrain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
