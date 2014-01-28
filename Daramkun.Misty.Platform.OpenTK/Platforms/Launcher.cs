@@ -63,7 +63,7 @@ namespace Daramkun.Misty.Platforms
 			Core.Inputs.Add<KeyboardState> ( new Keyboard ( Core.Window ) );
 			Core.Inputs.Add<MouseState> ( new Mouse ( Core.Window ) );
 
-			CommonTransform.HandDirection = HandDirection.RightHand;
+			//CommonTransform.HandDirection = HandDirection.RightHand;
 
 			return true;
 		}

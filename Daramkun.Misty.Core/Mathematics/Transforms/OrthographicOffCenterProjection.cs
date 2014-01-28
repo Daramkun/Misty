@@ -33,8 +33,10 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		{
 			float left = OffCenterPosition.X, right = OffCenterPosition.X + OffCenterSize.X,
 				top = OffCenterPosition.Y, bottom = OffCenterPosition.Y + OffCenterSize.Y;
-			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.OrthographicOffCenterRH ( left, right, bottom, top, Near, Far, out result );
-			else CommonTransform.OrthographicOffCenterLH ( left, right, bottom, top, Near, Far, out result );
+			//if ( CommonTransform.HandDirection == HandDirection.RightHand )
+			//	CommonTransform.OrthographicOffCenterRH ( left, right, bottom, top, Near, Far, out result );
+			//else
+				CommonTransform.OrthographicOffCenterLH ( left, right, bottom, top, Near, Far, out result );
 		}
 	}
 }

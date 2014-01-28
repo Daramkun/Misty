@@ -168,7 +168,7 @@ namespace Daramkun.Misty.Graphics
 			deviceInfo = new GraphicsDeviceInformation ();
 			BackBuffer = new BackBuffer ( this.window );
 
-			CullMode = CullingMode.CounterClockWise;
+			CullMode = CullingMode.ClockWise;
 
 			if ( deviceInfo.RendererVersion.Major < 2 )
 				throw new PlatformNotSupportedException ();

@@ -29,8 +29,9 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
 		public void GetMatrix ( out Matrix4x4 result )
 		{
-			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.LookAtRH ( ref Position, ref Target, ref UpVector, out result );
-			else CommonTransform.LookAtLH ( ref Position, ref Target, ref UpVector, out result );
+			//if ( CommonTransform.HandDirection == HandDirection.RightHand )
+				CommonTransform.LookAtRH ( ref Position, ref Target, ref UpVector, out result );
+			//else CommonTransform.LookAtLH ( ref Position, ref Target, ref UpVector, out result );
 		}
 	}
 }

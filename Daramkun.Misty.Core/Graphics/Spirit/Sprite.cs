@@ -176,8 +176,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 			else { width += 1; height += 1; }
 
 			vertices [ 0 ] = new SpriteVertex ( new Vector2 ( plusUnit, plusUnit ), Color.White, new Vector2 ( 0.0001f, 0.0001f ) );
-			vertices [ 1 ] = new SpriteVertex ( new Vector2 ( width, plusUnit ), Color.White, new Vector2 ( 1f, 0.0001f ) );
-			vertices [ 2 ] = new SpriteVertex ( new Vector2 ( plusUnit, height ), Color.White, new Vector2 ( 0.0001f, 1 ) );
+			vertices [ 1 ] = new SpriteVertex ( new Vector2 ( plusUnit, height ), Color.White, new Vector2 ( 0.0001f, 1 ) );
+			vertices [ 2 ] = new SpriteVertex ( new Vector2 ( width, plusUnit ), Color.White, new Vector2 ( 1f, 0.0001f ) );
 			vertices [ 3 ] = new SpriteVertex ( new Vector2 ( width, height ), Color.White, new Vector2 ( 1f, 1f ) );
 
 			vertexBuffer.SetBufferDatas<SpriteVertex> ( vertices );

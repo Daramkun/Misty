@@ -28,8 +28,9 @@ namespace Daramkun.Misty.Mathematics.Transforms
 			Vector3.Transform ( ref upVector, ref t, out cameraUpVector );
 
 			t2 = cameraTarget + cameraPos;
-			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.LookAtRH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
-			else CommonTransform.LookAtLH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
+			//if ( CommonTransform.HandDirection == HandDirection.RightHand )
+				CommonTransform.LookAtRH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
+			//else CommonTransform.LookAtLH ( ref cameraPos, ref t2, ref cameraUpVector, out result );
 			move = Vector3.Zero;
 		}
 

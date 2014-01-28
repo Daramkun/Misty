@@ -23,8 +23,9 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
 		public void GetMatrix ( out Matrix4x4 result )
 		{
-			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.PerspectiveFieldOfViewRH ( FieldOfView, AspectRatio, Near, Far, out result );
-			else CommonTransform.PerspectiveFieldOfViewLH ( FieldOfView, AspectRatio, Near, Far, out result );
+			//if ( CommonTransform.HandDirection == HandDirection.RightHand )
+				CommonTransform.PerspectiveFieldOfViewRH ( FieldOfView, AspectRatio, Near, Far, out result );
+			//else CommonTransform.PerspectiveFieldOfViewLH ( FieldOfView, AspectRatio, Near, Far, out result );
 		}
 	}
 }

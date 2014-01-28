@@ -31,10 +31,11 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		public Matrix4x4 Matrix { get { Matrix4x4 result; GetMatrix ( out result ); return result; } }
 		public void GetMatrix ( out Matrix4x4 result )
 		{
-			if ( CommonTransform.HandDirection == HandDirection.RightHand ) CommonTransform.PerspectiveOffCenterRH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X,
-				OffCenterPosition.Y + OffCenterSize.Y, OffCenterPosition.Y, Near, Far, out result );
-			else CommonTransform.PerspectiveOffCenterLH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X, OffCenterPosition.Y + OffCenterSize.Y,
-				OffCenterPosition.Y, Near, Far, out result );
+			//if ( CommonTransform.HandDirection == HandDirection.RightHand )
+				CommonTransform.PerspectiveOffCenterRH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X,
+					OffCenterPosition.Y + OffCenterSize.Y, OffCenterPosition.Y, Near, Far, out result );
+			//else CommonTransform.PerspectiveOffCenterLH ( OffCenterPosition.X, OffCenterPosition.X + OffCenterSize.X, OffCenterPosition.Y + OffCenterSize.Y,
+			//	OffCenterPosition.Y, Near, Far, out result );
 		}
 	}
 }

@@ -7,6 +7,7 @@ namespace Daramkun.Misty.Mathematics.Transforms
 {
 	public static partial class CommonTransform
 	{
+		/*
 		public static Matrix4x4 LookAtLH ( Vector3 eye, Vector3 at, Vector3 up )
 		{
 			Matrix4x4 result;
@@ -27,7 +28,7 @@ namespace Daramkun.Misty.Mathematics.Transforms
 				-Vector3.Dot ( xaxis, eye ), -Vector3.Dot ( yaxis, eye ), -Vector3.Dot ( zaxis, eye ), 1
 			);
 		}
-
+		*/
 		public static Matrix4x4 LookAtRH ( Vector3 eye, Vector3 at, Vector3 up )
 		{
 			Matrix4x4 result;

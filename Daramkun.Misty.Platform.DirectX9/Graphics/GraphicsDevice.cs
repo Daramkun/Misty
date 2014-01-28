@@ -174,7 +174,7 @@ namespace Daramkun.Misty.Graphics
 			Information = new GraphicsDeviceInformation ( d3d );
 			BackBuffer = new BackBuffer ( this );
 
-			CullMode = CullingMode.CounterClockWise;
+			CullMode = CullingMode.ClockWise;
 
 			window.Resize += ( object sender, EventArgs e ) => { ResizeBackBuffer ( ( int ) window.ClientSize.X, ( int ) window.ClientSize.Y ); };
 		}
