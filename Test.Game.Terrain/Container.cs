@@ -9,6 +9,7 @@ using Daramkun.Misty.Contents;
 using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics;
+using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Transforms;
 using Daramkun.Misty.Nodes;
@@ -19,17 +20,21 @@ namespace Test.Game.Terrain
 	public class Container : Node
 	{
 		ResourceTable contentManager;
-		ITexture2D texture;
+		ITexture2D texture1, texture2;
 		IVertexBuffer vertexBuffer;
 		IVertexDeclaration vertexDeclaration;
 		IIndexBuffer indexBuffer;
 		IEffect effect;
+
+		Sprite sprite;
+		World2 spriteWorld;
 
 		int numOfIndices;
 		TextureArgument textureArgs;
 
 		PerspectiveFieldOfViewProjection proj;
 		LookAt look;
+		World3 world;
 
 		public override void Intro ( params object [] args )
 		{
@@ -38,35 +43,36 @@ namespace Test.Game.Terrain
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
 
-			ITexture2D grayscale = contentManager.Load<ITexture2D> ( "Resources/terrain_01.png" );
-			Color [] colours = grayscale.Buffer;
-			texture = contentManager.Load<ITexture2D> ( "Resources/terrain_02.png" );
+			texture1 = contentManager.Load<ITexture2D> ( "Resources/terrain_02.png" );
+			texture2 = contentManager.Load<ITexture2D> ( "Resources/terrain_01.png" );
+			Color [] colours = texture2.Buffer;
 			effect = contentManager.Load<IEffect> ( "Resources/TerrainShader.xml" );
 
-			textureArgs = new TextureArgument ( "texture0", texture, TextureFilter.Linear, TextureAddressing.Clamp, 0 );
+			textureArgs = new TextureArgument ( "texture0", texture1, TextureFilter.Anisotropic, TextureAddressing.Clamp,
+				Core.GraphicsDevice.Information.MaximumAnisotropicLevel );
 
-			vertexBuffer = Core.GraphicsDevice.CreateVertexBuffer ( typeof ( TerrainVertex ), grayscale.Width * grayscale.Height );
+			vertexBuffer = Core.GraphicsDevice.CreateVertexBuffer ( typeof ( TerrainVertex ), texture2.Width * texture2.Height );
 			vertexDeclaration = Core.GraphicsDevice.CreateVertexDeclaration ( Utilities.CreateVertexElementArray<TerrainVertex> () );
-			numOfIndices = ( grayscale.Width - 1 ) * ( grayscale.Height - 1 ) * 2;
+			numOfIndices = ( texture2.Width - 1 ) * ( texture2.Height - 1 ) * 2;
 			indexBuffer = Core.GraphicsDevice.CreateIndexBuffer ( typeof ( TerrainIndex ), numOfIndices );
 
-			TerrainVertex [] vertices = new TerrainVertex [ grayscale.Width * grayscale.Height ];
+			TerrainVertex [] vertices = new TerrainVertex [ texture2.Width * texture2.Height ];
 			int index = 0;
-			for ( int x = 0; x < grayscale.Height; x++ )
+			for ( int x = 0; x < texture2.Height; x++ )
 			{
-				for ( int z = 0; z < grayscale.Width; z++ )
+				for ( int z = 0; z < texture2.Width; z++ )
 				{
-					int location = x * grayscale.Width + z;
+					int location = x * texture2.Width + z;
 					vertices [ index ] = new TerrainVertex ()
 					{
 						Position = new Vector3 (
-							( x - grayscale.Height / 2 ) * 5.0f,
-							colours [ location ].RedValue * 5.0f / 2,
-							( z - grayscale.Width / 2 ) * 5.0f
+							( x - texture2.Height / 2 ) * 5.0f,
+							colours [ location ].RedValue * 5.0f / 3,
+							( z - texture2.Width / 2 ) * 5.0f
 						),
 						UV = new Vector2 (
-							z / ( float ) grayscale.Width,
-							x / ( float ) grayscale.Height
+							z / ( float ) texture2.Width,
+							x / ( float ) texture2.Height
 						)
 					};
 					++index;
@@ -76,17 +82,17 @@ namespace Test.Game.Terrain
 
 			TerrainIndex [] indices = new TerrainIndex [ numOfIndices ];
 			index = 0;
-			for ( int z = 0; z < grayscale.Height - 1; z++ )
+			for ( int z = 0; z < texture2.Height - 1; z++ )
 			{
-				for ( int x = 0; x < grayscale.Width - 1; x++ )
+				for ( int x = 0; x < texture2.Width - 1; x++ )
 				{
-					indices [ index ]._0 = z * grayscale.Width + x;
-					indices [ index ]._1 = z * grayscale.Width + ( x + 1 );
-					indices [ index ]._2 = ( z + 1 ) * grayscale.Width + x;
+					indices [ index ]._0 = z * texture2.Width + x;
+					indices [ index ]._1 = z * texture2.Width + ( x + 1 );
+					indices [ index ]._2 = ( z + 1 ) * texture2.Width + x;
 					++index;
-					indices [ index ]._0 = ( z + 1 ) * grayscale.Width + x;
-					indices [ index ]._1 = z * grayscale.Width + ( x + 1 );
-					indices [ index ]._2 = ( z + 1 ) * grayscale.Width + ( x + 1 );
+					indices [ index ]._0 = ( z + 1 ) * texture2.Width + x;
+					indices [ index ]._1 = z * texture2.Width + ( x + 1 );
+					indices [ index ]._2 = ( z + 1 ) * texture2.Width + ( x + 1 );
 					++index;
 				}
 			}
@@ -94,12 +100,19 @@ namespace Test.Game.Terrain
 
 			proj = new PerspectiveFieldOfViewProjection ( 3.141592f / 4, 4 / 3f, 1, 10000 );
 			look = new LookAt ( new Vector3 ( 1000, 2000, 1000 ), new Vector3 ( 0, 0, 0 ), new Vector3 ( 0, 1, 0 ) );
+			world = new World3 ();
+
+			sprite = new Sprite ( null );
+			spriteWorld = new World2 ();
+
+			Add ( new FpsCalculator () );
 
 			base.Intro ( args );
 		}
 
 		public override void Outro ()
 		{
+			sprite.Dispose ();
 			indexBuffer.Dispose ();
 			vertexBuffer.Dispose ();
 			contentManager.Dispose ();
@@ -108,6 +121,7 @@ namespace Test.Game.Terrain
 
 		public override void Update ( GameTime gameTime )
 		{
+			world.Rotation.Y += ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000;
 			base.Update ( gameTime );
 		}
 
@@ -119,12 +133,24 @@ namespace Test.Game.Terrain
 			base.Draw ( gameTime );
 
 			effect.Begin ();
-			effect.SetUniform<Matrix4x4> ( "worldMatrix", Matrix4x4.Identity );
+			effect.SetUniform<Matrix4x4> ( "worldMatrix", world.Matrix );
 			effect.SetUniform<Matrix4x4> ( "viewMatrix", look.Matrix );
 			effect.SetUniform<Matrix4x4> ( "projMatrix", proj.Matrix );
 			effect.SetTextures ( textureArgs );
 			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, numOfIndices );
 			effect.End ();
+
+			spriteWorld.Translate = new Vector2 ( 0, Core.GraphicsDevice.CurrentRenderBuffer.Height - texture1.Height );
+			sprite.Reset ( texture1 );
+			sprite.Draw ( spriteWorld );
+
+			spriteWorld.Translate = new Vector2 ( Core.GraphicsDevice.CurrentRenderBuffer.Width - texture2.Width,
+				Core.GraphicsDevice.CurrentRenderBuffer.Height - texture1.Height );
+			sprite.Reset ( texture2 );
+			sprite.Draw ( spriteWorld );
+
+			FpsCalculator calc = Children.First () as FpsCalculator;
+			Core.Window.Title = string.Format ( "Terrain {{ Update FPS: {0}, Draw FPS: {1} }}", calc.UpdateFPS, calc.DrawFPS );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
