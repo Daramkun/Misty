@@ -61,12 +61,12 @@ namespace Daramkun.Misty.Graphics.Spirit
 			{
 				clippingArea = value;
 				vertices [ 0 ].Position = new Vector2 ( 0, 0 );
-				vertices [ 1 ].Position = new Vector2 ( clippingArea.Size.X, 0 );
-				vertices [ 2 ].Position = new Vector2 ( 0, clippingArea.Size.Y );
+				vertices [ 1 ].Position = new Vector2 ( 0, clippingArea.Size.Y );
+				vertices [ 2 ].Position = new Vector2 ( clippingArea.Size.X, 0 );
 				vertices [ 3 ].Position = new Vector2 ( clippingArea.Size.X, clippingArea.Size.Y );
 				vertices [ 0 ].TexCoord = new Vector2 ( clippingArea.Position.X / Texture.Width, clippingArea.Position.Y / Texture.Height );
-				vertices [ 1 ].TexCoord = new Vector2 ( clippingArea.Size.X / Texture.Width, clippingArea.Position.Y / Texture.Height );
-				vertices [ 2 ].TexCoord = new Vector2 ( clippingArea.Position.X / Texture.Width, clippingArea.Size.Y / Texture.Height );
+				vertices [ 1 ].TexCoord = new Vector2 ( clippingArea.Position.X / Texture.Width, clippingArea.Size.Y / Texture.Height );
+				vertices [ 2 ].TexCoord = new Vector2 ( clippingArea.Size.X / Texture.Width, clippingArea.Position.Y / Texture.Height );
 				vertices [ 3 ].TexCoord = new Vector2 ( clippingArea.Size.X / Texture.Width, clippingArea.Size.Y / Texture.Height );
 				vertexBuffer.SetBufferDatas<SpriteVertex> ( vertices );
 			}
