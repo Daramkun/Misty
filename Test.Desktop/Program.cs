@@ -37,13 +37,7 @@ namespace Test.Desktop
 				},
 				new Assembly []
 				{
-					Assembly.Load ( "Test.Game.Cube" ),
-					Assembly.Load ( "Test.Game.Dodge" ),
-					Assembly.Load ( "Test.Game.InfoViewer" ),
-					Assembly.Load ( "Test.Game.Particle2D" ),
-					Assembly.Load ( "Test.Game.PerformanceTester" ),
-					Assembly.Load ( "Test.Game.PlayAudios" ),
-					Assembly.Load ( "Test.Game.Terrain" ),
+					Assembly.Load ( "Test.Game" )
 				},
 				null,
 				null,
