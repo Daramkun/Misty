@@ -40,7 +40,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Animate\Container.cs" />
+    <Compile Include="AnimateObject\Container.cs" />
     <Compile Include="Cube\Container.cs" />
     <Compile Include="Dodge\Bullet.cs" />
     <Compile Include="Dodge\Container.cs" />

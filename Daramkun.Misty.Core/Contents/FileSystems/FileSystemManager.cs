@@ -11,11 +11,14 @@ namespace Daramkun.Misty.Contents.FileSystems
 	{
 		static Dictionary<string, Type> fileSystems;
 
+		public const string ManifestFileSystem = "ManifestFileSystem";
+		public const string ZipFileSystem = "ZipFileSystem";
+
 		static FileSystemManager ()
 		{
 			fileSystems = new Dictionary<string, Type> ();
-			AddFileSystem ( "ManifestFileSystem", typeof ( ManifestFileSystem ) );
-			AddFileSystem ( "ZipFileSystem", typeof ( ZipFileSystem ) );
+			AddFileSystem ( ManifestFileSystem, typeof ( ManifestFileSystem ) );
+			AddFileSystem ( ZipFileSystem, typeof ( ZipFileSystem ) );
 		}
 
 		public static void AddFileSystem ( string key, Type fileSystemType )
@@ -27,7 +30,7 @@ namespace Daramkun.Misty.Contents.FileSystems
 
 		public static IFileSystem GetFileSystem ( string key, params object [] args )
 		{
-			if ( key == "ManifestFileSystem" && args.Length == 0 )
+			if ( key == ManifestFileSystem && args.Length == 0 )
 				args = new object [] { Assembly.GetCallingAssembly () };
 			return Activator.CreateInstance ( fileSystems [ key ], args ) as IFileSystem;
 		}
