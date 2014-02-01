@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Audios\IAudioBuffer.cs" />
     <Compile Include="Audios\IAudioDevice.cs" />
+    <Compile Include="Common\Animate.cs" />
     <Compile Include="Common\Checksums\Adler32.cs" />
     <Compile Include="Common\Checksums\CRC32.cs" />
     <Compile Include="Common\Checksums\IChecksum.cs" />
