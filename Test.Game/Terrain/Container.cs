@@ -46,7 +46,7 @@ namespace Test.Game.Terrain
 			texture1 = contentManager.Load<ITexture2D> ( "Resources/Terrain/terrain_02.png" );
 			texture2 = contentManager.Load<ITexture2D> ( "Resources/Terrain/terrain_01.png" );
 			Color [] colours = texture2.Buffer;
-			effect = contentManager.Load<IEffect> ( "Resources/TerrainShader.xml" );
+			effect = contentManager.Load<IEffect> ( "Resources/Terrain/TerrainShader.xml" );
 
 			textureArgs = new TextureArgument ( "texture0", texture1, TextureFilter.Anisotropic, TextureAddressing.Clamp,
 				Core.GraphicsDevice.Information.MaximumAnisotropicLevel );

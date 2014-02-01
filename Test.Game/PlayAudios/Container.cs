@@ -34,7 +34,7 @@ namespace Test.Game.PlayAudios
 			Texture2DContentLoader.AddDefaultDecoders ();
 			AudioContentLoader.AddDefaultDecoders ();
 
-			font = contentManager.Load<TrueTypeFont> ( "Resources/Audio/test.ttf", 24 );
+			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 
 			audio1 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio1.ogg" );
 			audio2 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio2.ogg" );
