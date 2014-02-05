@@ -38,6 +38,8 @@ namespace Daramkun.Misty
 
 		public static CultureInfo CurrentCulture { get; set; }
 
+		public static IFileSystem BaseFileSystem { get; set; }
+
 		public static TimeSpan FixedUpdateTimeStep
 		{
 			get { return TimeSpan.FromMilliseconds ( fixedUpdateTimeStep ); }

@@ -41,6 +41,7 @@
     <Compile Include="Common\HighResolutionGameTime.cs" />
     <Compile Include="Contents\Decoders\Images\GdiPlusImageDecoder.cs" />
     <Compile Include="Contents\Encoders\Images\GdiPlusImageEncoder.cs" />
+    <Compile Include="Contents\FileSystems\LocalFileSystem.cs" />
     <Compile Include="Log\Writers\ConsoleLogWriter.cs" />
     <Compile Include="Platforms\ChooseWindow.cs" />
     <Compile Include="Platforms\GameLoopers\ParallelGameLooper.cs" />

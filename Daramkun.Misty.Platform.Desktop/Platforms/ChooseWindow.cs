@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Daramkun.Misty.Common;
+using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Nodes;
 
 namespace Daramkun.Misty.Platforms
@@ -167,6 +168,7 @@ namespace Daramkun.Misty.Platforms
 
 			if ( isClickedOK )
 			{
+				Core.BaseFileSystem = new LocalFileSystem ();
 				Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
 			}
 		}
