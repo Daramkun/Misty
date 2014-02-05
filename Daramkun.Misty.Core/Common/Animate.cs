@@ -26,6 +26,7 @@ namespace Daramkun.Misty.Common
 		public void Update ( GameTime gameTime )
 		{
 			if ( !IsAnimating ) return;
+			if ( Position >= Duration ) { IsAnimating = false; return; }
 
 			Position += gameTime.ElapsedGameTime;
 			double totalAnimated = TotalAnimated;

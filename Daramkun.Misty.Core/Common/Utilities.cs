@@ -23,6 +23,14 @@ namespace Daramkun.Misty.Common
 			return false;
 		}
 
+		public static bool FloatEqual ( float a, float b )
+		{
+			if ( a == b ) return true;
+			if ( a >= b - 0.0001f && a <= b + 0.0001f ) return true;
+			if ( b >= a - 0.0001f && b <= a + 0.0001f ) return true;
+			return false;
+		}
+
 		public static VertexElement [] CreateVertexElementArray<T> () where T : struct
 		{
 			List<VertexElement> elements = new List<VertexElement> ();

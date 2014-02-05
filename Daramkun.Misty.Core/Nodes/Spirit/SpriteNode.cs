@@ -51,18 +51,22 @@ namespace Daramkun.Misty.Nodes.Spirit
 		public SpriteAlignment Alignment { get { return align; } set { align = value; CalculateMoveUnit (); } }
 
 		public SpriteNode ( ITexture2D texture )
+			: this ( new Sprite ( texture ) )
+		{ }
+
+		public SpriteNode ( ImageInfo imageInfo, Color? colorKey = null )
+			: this ( Core.GraphicsDevice.CreateTexture2D ( imageInfo, colorKey ) )
+		{ }
+
+		public SpriteNode ( Sprite sprite )
 		{
-			sprite = new Sprite ( texture );
+			this.sprite = sprite;
 			OverlayColor = Color.White;
 			World = World2.Identity;
 			tempWorld = World2.Identity;
 			Alignment = SpriteAlignment.LeftTop;
 			CalculateMoveUnit ();
 		}
-
-		public SpriteNode ( ImageInfo imageInfo, Color? colorKey = null )
-			: this ( Core.GraphicsDevice.CreateTexture2D ( imageInfo, colorKey ) )
-		{ }
 
 		public override void Draw ( GameTime gameTime )
 		{
