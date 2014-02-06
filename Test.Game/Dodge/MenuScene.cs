@@ -14,6 +14,7 @@ using Daramkun.Misty.Nodes.Scenes;
 using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics.Spirit.Fonts;
+using Daramkun.Misty.Mathematics.Transforms;
 
 namespace Test.Game.Dodge
 {
@@ -22,6 +23,8 @@ namespace Test.Game.Dodge
 		ResourceTable contentManager;
 		Font titleFont;
 		Font menuFont;
+		Sprite logo;
+		World2 logoWorld;
 
 		public override void Intro ( params object [] args )
 		{
@@ -32,6 +35,8 @@ namespace Test.Game.Dodge
 				titleFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 64 );
 				menuFont = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			//} );
+			logo = new Sprite ( contentManager.Load<ITexture2D> ( "Resources/Dodge/logo.png" ) );
+			logoWorld = new World2 ();
 			base.Intro ( args );
 		}
 
@@ -63,6 +68,9 @@ namespace Test.Game.Dodge
 
 			menuFont.DrawFont ( "A. START", Color.White, new Vector2 ( 24, 256 ) );
 			menuFont.DrawFont ( "B. EXIT", Color.White, new Vector2 ( 24, 304 ) );
+
+			logoWorld.Translate = Core.GraphicsDevice.CurrentRenderBuffer.Size / 2 - logo.Texture.Size / 2;
+			logo.Draw ( logoWorld );
 
 			base.Draw ( gameTime );
 		}

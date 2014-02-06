@@ -14,7 +14,7 @@ namespace Test.Game.Dodge.Controllers
 
 		public override void Intro ( params object [] args )
 		{
-			bulletImage = ( Parent as GameScene ).Contents.Load<ITexture2D> ( "Resources/Dodge/bullet.bmp",
+			bulletImage = ( Parent as GameScene ).Contents.Load<ITexture2D> ( "Resources/Dodge/bullet.png",
 				Color.Magenta);
 			for ( int i = 0; i < 128; i++ )
 				Add ( new Bullet ( bulletImage ) );

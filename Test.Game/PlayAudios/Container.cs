@@ -22,7 +22,7 @@ namespace Test.Game.PlayAudios
 	public class Container : Node
 	{
 		Font font;
-		IAudioBuffer audio1, audio2, audio3, audio4;
+		IAudioBuffer audio1, audio2, audio3;
 		ResourceTable contentManager;
 
 		public override void Intro ( params object [] args )
@@ -39,7 +39,6 @@ namespace Test.Game.PlayAudios
 			audio1 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio1.ogg" );
 			audio2 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio2.ogg" );
 			audio3 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio3.ogg" );
-			audio4 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio4.ogg" );
 
 			Add ( InputHelper.CreateInstance () );
 
@@ -60,8 +59,6 @@ namespace Test.Game.PlayAudios
 			{ if ( !audio2.IsPlaying ) audio2.Play (); else audio2.Pause (); }
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D3 ) )
 			{ if ( !audio3.IsPlaying ) audio3.Play (); else audio3.Pause (); }
-			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D4 ) )
-			{ if ( !audio4.IsPlaying ) audio4.Play (); else audio4.Pause (); }
 
 			base.Update ( gameTime );
 		}
@@ -77,8 +74,6 @@ namespace Test.Game.PlayAudios
 				Color.White, new Vector2 ( 0, 30 ) );
 			font.DrawFont ( string.Format ( "Audio3: {0}/{1}, Is Playing? {2}", audio3.Position, audio3.Duration, audio3.IsPlaying ),
 				Color.White, new Vector2 ( 0, 60 ) );
-			font.DrawFont ( string.Format ( "Audio4: {0}/{1}, Is Playing? {2}", audio4.Position, audio4.Duration, audio4.IsPlaying ),
-				Color.White, new Vector2 ( 0, 90 ) );
 
 			base.Draw ( gameTime );
 

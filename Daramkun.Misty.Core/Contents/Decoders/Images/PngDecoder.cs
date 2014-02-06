@@ -36,19 +36,21 @@ namespace Daramkun.Misty.Contents.Decoders.Images
 						int [] rgb = new int [ 3 ];
 						for ( int i = 0, index = 0; i < pixels.Length; i += reader.ImgInfo.BytesPixel, ++index )
 						{
+							Color color = new Color ();
 							if ( reader.ImgInfo.BytesPixel == 3 )
-								colors [ index ] = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ] );
+								color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ] );
 							else if ( reader.ImgInfo.BytesPixel == 1 )
 								if ( imgInfo.Greyscale )
-									colors [ index ] = new Color ( pixels [ i ], pixels [ i ], pixels [ i ], 255 );
-								else
+									color = new Color ( pixels [ i ], pixels [ i ], pixels [ i ], 255 );
+								else if ( imgInfo.Indexed )
 								{
 									PngChunkPLTE pallete = pngReader.GetChunksList ().GetById ( "PLTE" ) [ 0 ] as PngChunkPLTE;
 									pallete.GetEntryRgb ( pixels [ i ], rgb );
-									colors [ index ] = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, 1.0f );
+									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, 1.0f );
 								}
 							else
-								colors [ index ] = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ], pixels [ i + 3 ] );
+									color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ], pixels [ i + 3 ] );
+							colors [ index ] = ( color == colorKey ) ? Color.Transparent : color;
 						}
 						return colors;
 					} );

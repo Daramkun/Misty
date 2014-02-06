@@ -56,7 +56,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Terrain\Container.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Dodge\bullet.png" />
+    <EmbeddedResource Include="Resources\Dodge\daram.png" />
+    <EmbeddedResource Include="Resources\Dodge\logo.png" />
+    <EmbeddedResource Include="Resources\Dodge\target.png" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Terrain\terrain_01.png" />
   </ItemGroup>
@@ -74,9 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Audio\audio3.ogg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Audio\audio4.ogg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\test.ttf" />
@@ -107,18 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Particle2D\star.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Dodge\bullet.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Dodge\daram.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Dodge\logo.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Dodge\target.bmp" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Cube\CubeShader.xml" />
