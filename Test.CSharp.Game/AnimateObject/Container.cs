@@ -15,7 +15,7 @@ using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Transforms;
 using Daramkun.Misty.Nodes;
 
-namespace Test.Game.AnimateObject
+namespace Test.Game.CSharp.AnimateObject
 {
 	[MainNode]
 	public class Container : Node
@@ -36,7 +36,7 @@ namespace Test.Game.AnimateObject
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
 			Texture2DContentLoader.AddDefaultDecoders ();
-			sprite = new Sprite ( contentManager.Load<ITexture2D> ( "Resources/Dodge/daram.bmp", Color.Magenta ) );
+			sprite = new Sprite ( contentManager.Load<ITexture2D> ( "Resources/Dodge/daram.png", Color.Magenta ) );
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			
 			animate = new Animate ( TimeSpan.FromSeconds ( 4 ), 400 );

@@ -12,7 +12,7 @@ using Daramkun.Misty.Mathematics;
 using Daramkun.Misty.Mathematics.Transforms;
 using Daramkun.Misty.Nodes;
 
-namespace Test.Game.Cube
+namespace Test.Game.CSharp.Cube
 {
 	[MainNode]
     public class Container : Node

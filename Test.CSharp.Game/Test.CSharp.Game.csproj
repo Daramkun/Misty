@@ -8,8 +8,8 @@
     <ProjectGuid>{B9BDA2EA-2804-4532-ABC5-B1011CC09A22}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test.Game</RootNamespace>
-    <AssemblyName>Test.Game</AssemblyName>
+    <RootNamespace>Test.CSharp.Game</RootNamespace>
+    <AssemblyName>Test.CSharp.Game</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile136</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>

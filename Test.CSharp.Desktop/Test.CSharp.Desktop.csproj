@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Test.Desktop</RootNamespace>
-    <AssemblyName>Test.Desktop</AssemblyName>
+    <AssemblyName>Test.CSharp.Desktop</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProductVersion>12.0.0</ProductVersion>
@@ -85,9 +85,9 @@
       <Project>{b35d83a5-2e08-4fc8-8d7f-4d6264414e12}</Project>
       <Name>Daramkun.Misty.Platform.OpenTK</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Test.Game\Test.Game.csproj">
+    <ProjectReference Include="..\Test.CSharp.Game\Test.CSharp.Game.csproj">
       <Project>{b9bda2ea-2804-4532-abc5-b1011cc09a22}</Project>
-      <Name>Test.Game</Name>
+      <Name>Test.CSharp.Game</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

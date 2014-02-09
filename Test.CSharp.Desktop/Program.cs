@@ -29,7 +29,7 @@ namespace Test.Desktop
 			Logger.AddDefaultLogWriter ();
 			Core.FixedUpdateTimeStep = new TimeSpan ();
 			Core.FixedDrawTimeStep = new TimeSpan ();
-			ChooseWindow chooseWindow = new ChooseWindow ( "Tester",
+			ChooseWindow chooseWindow = new ChooseWindow ( "Tester via C#",
 				new Assembly []
 				{
 					Assembly.Load ( "Daramkun.Misty.Platform.OpenTK" ),
@@ -37,7 +37,7 @@ namespace Test.Desktop
 				},
 				new Assembly []
 				{
-					Assembly.Load ( "Test.Game" )
+					Assembly.Load ( "Test.CSharp.Game" )
 				},
 				null,
 				null,
