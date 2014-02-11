@@ -43,7 +43,7 @@ namespace Daramkun.Misty.Contents.Decoders.Images
 								{
 									PngChunkPLTE pallete = pngReader.GetChunksList ().GetById ( "PLTE" ) [ 0 ] as PngChunkPLTE;
 									pallete.GetEntryRgb ( pixels [ i ], rgb );
-									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, rgb [ 3 ] / 255.0f );
+									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, 1.0f );
 								}
 								else
 									color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ], pixels [ i + 3 ] );
@@ -54,7 +54,7 @@ namespace Daramkun.Misty.Contents.Decoders.Images
 								{
 									PngChunkPLTE pallete = pngReader.GetChunksList ().GetById ( "PLTE" ) [ 0 ] as PngChunkPLTE;
 									pallete.GetEntryRgb ( pixels [ i ], rgb );
-									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, rgb [ 3 ] / 255.0f );
+									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, 1.0f );
 								}
 								else
 									color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ] );
@@ -67,7 +67,7 @@ namespace Daramkun.Misty.Contents.Decoders.Images
 								{
 									PngChunkPLTE pallete = pngReader.GetChunksList ().GetById ( "PLTE" ) [ 0 ] as PngChunkPLTE;
 									pallete.GetEntryRgb ( pixels [ i ], rgb );
-									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, rgb [ 3 ] / 255.0f );
+									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, 1.0f );
 								}
 							}
 							colors [ index ] = ( color == colorKey ) ? Color.Transparent : color;
