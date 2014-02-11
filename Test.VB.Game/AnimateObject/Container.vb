@@ -11,73 +11,75 @@ Imports Daramkun.Misty.Contents.Loaders
 Imports Daramkun.Misty.Graphics.Spirit.Fonts
 Imports Daramkun.Misty.Inputs
 
-<MainNode>
-Public Class Container
-	Inherits Node
+Namespace Test.VB.Game.AnimateObject
+	<MainNode>
+	Public Class Container
+		Inherits Node
 
-	Dim contentManager As ResourceTable
+		Dim contentManager As ResourceTable
 
-	Dim sprite As Sprite
-	Dim font As Font
-	Dim world As World2
+		Dim sprite As Sprite
+		Dim font As Font
+		Dim world As World2
 
-	Dim animate As Animate
+		Dim animate As Animate
 
-	Public Overrides Sub Intro(ParamArray args() As Object)
-		Core.GraphicsDevice.BlendState = True
-		Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend
+		Public Overrides Sub Intro(ParamArray args() As Object)
+			Core.GraphicsDevice.BlendState = True
+			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend
 
-		contentManager = New ResourceTable(FileSystemManager.GetFileSystem("ManifestFileSystem"))
-		contentManager.AddDefaultContentLoader()
-		Texture2DContentLoader.AddDefaultDecoders()
-		sprite = New Sprite(contentManager.Load(Of ITexture2D)("Resources/Dodge/daram.png", Color.Magenta))
-		font = contentManager.Load(Of TrueTypeFont)("Resources/test.ttf", 24)
+			contentManager = New ResourceTable(FileSystemManager.GetFileSystem("ManifestFileSystem"))
+			contentManager.AddDefaultContentLoader()
+			Texture2DContentLoader.AddDefaultDecoders()
+			sprite = New Sprite(contentManager.Load(Of ITexture2D)("Resources/Dodge/daram.png", Color.Magenta))
+			font = contentManager.Load(Of TrueTypeFont)("Resources/test.ttf", 24)
 
-		animate = New Animate(TimeSpan.FromSeconds(4), 400)
-		Add(InputHelper.CreateInstance())
+			animate = New Animate(TimeSpan.FromSeconds(4), 400)
+			Add(InputHelper.CreateInstance())
 
-		world = New World2()
+			world = New World2()
 
-		MyBase.Intro(args)
-	End Sub
+			MyBase.Intro(args)
+		End Sub
 
-	Public Overrides Sub Outro()
-		sprite.Dispose()
-		contentManager.Dispose()
-		MyBase.Outro()
-	End Sub
+		Public Overrides Sub Outro()
+			sprite.Dispose()
+			contentManager.Dispose()
+			MyBase.Outro()
+		End Sub
 
-	Public Overrides Sub Update(gameTime As GameTime)
-		If (InputHelper.IsKeyboardKeyUpRightNow(Key.A)) Then
-			animate.Start()
-		End If
-		If (InputHelper.IsKeyboardKeyUpRightNow(Key.S)) Then
-			animate.Pause()
-		End If
-		If (InputHelper.IsKeyboardKeyUpRightNow(Key.D)) Then
-			animate.Stop()
-		End If
+		Public Overrides Sub Update(gameTime As GameTime)
+			If (InputHelper.IsKeyboardKeyUpRightNow(Key.A)) Then
+				animate.Start()
+			End If
+			If (InputHelper.IsKeyboardKeyUpRightNow(Key.S)) Then
+				animate.Pause()
+			End If
+			If (InputHelper.IsKeyboardKeyUpRightNow(Key.D)) Then
+				animate.Stop()
+			End If
 
-		animate.Update(gameTime)
+			animate.Update(gameTime)
 
-		MyBase.Update(gameTime)
-	End Sub
+			MyBase.Update(gameTime)
+		End Sub
 
-	Public Overrides Sub Draw(gameTime As GameTime)
-		Core.GraphicsDevice.BeginScene()
-		Core.GraphicsDevice.Clear(ClearBuffer.AllBuffer, Color.Black)
+		Public Overrides Sub Draw(gameTime As GameTime)
+			Core.GraphicsDevice.BeginScene()
+			Core.GraphicsDevice.Clear(ClearBuffer.AllBuffer, Color.Black)
 
-		font.DrawFont(String.Format("Animate state: {0}, Position: {1}/{2}, Animated: {3:0.000}/{4:0.000}", animate.IsAnimating,
-			animate.Position, animate.Duration, animate.Animated, animate.TotalAnimated), Color.White,
-			New Vector2(animate.Animated, 0))
+			font.DrawFont(String.Format("Animate state: {0}, Position: {1}/{2}, Animated: {3:0.000}/{4:0.000}", animate.IsAnimating,
+				animate.Position, animate.Duration, animate.Animated, animate.TotalAnimated), Color.White,
+				New Vector2(animate.Animated, 0))
 
-		world.Translate = New Vector2(animate.TotalAnimated, 100)
-		sprite.Draw(world)
+			world.Translate = New Vector2(animate.TotalAnimated, 100)
+			sprite.Draw(world)
 
-		MyBase.Draw(gameTime)
+			MyBase.Draw(gameTime)
 
-		Core.GraphicsDevice.EndScene()
-		Core.GraphicsDevice.SwapBuffer()
-	End Sub
+			Core.GraphicsDevice.EndScene()
+			Core.GraphicsDevice.SwapBuffer()
+		End Sub
 
-End Class
+	End Class
+End Namespace

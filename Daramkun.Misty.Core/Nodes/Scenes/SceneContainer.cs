@@ -31,8 +31,11 @@ namespace Daramkun.Misty.Nodes.Scenes
 			spinlock = new SpinLock ();
 
 			sceneList = new Stack<Node> ();
-			firstScene.Parent = this;
-			sceneList.Push ( currentNode = firstScene );
+			if ( firstScene != null )
+			{
+				firstScene.Parent = this;
+				sceneList.Push ( currentNode = firstScene );
+			}
 
 			ContainMethod = SceneContainMethod.Flat;
 			SceneTransitor = new DirectTransitor ();

@@ -37,19 +37,39 @@ namespace Daramkun.Misty.Contents.Decoders.Images
 						for ( int i = 0, index = 0; i < pixels.Length; i += reader.ImgInfo.BytesPixel, ++index )
 						{
 							Color color = new Color ();
-							if ( reader.ImgInfo.BytesPixel == 3 )
-								color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ] );
+							if ( reader.ImgInfo.BytesPixel == 4 )
+							{
+								if ( imgInfo.Indexed )
+								{
+									PngChunkPLTE pallete = pngReader.GetChunksList ().GetById ( "PLTE" ) [ 0 ] as PngChunkPLTE;
+									pallete.GetEntryRgb ( pixels [ i ], rgb );
+									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, rgb [ 3 ] / 255.0f );
+								}
+								else
+									color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ], pixels [ i + 3 ] );
+							}
+							else if ( reader.ImgInfo.BytesPixel == 3 )
+							{
+								if ( imgInfo.Indexed )
+								{
+									PngChunkPLTE pallete = pngReader.GetChunksList ().GetById ( "PLTE" ) [ 0 ] as PngChunkPLTE;
+									pallete.GetEntryRgb ( pixels [ i ], rgb );
+									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, rgb [ 3 ] / 255.0f );
+								}
+								else
+									color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ] );
+							}
 							else if ( reader.ImgInfo.BytesPixel == 1 )
+							{
 								if ( imgInfo.Greyscale )
 									color = new Color ( pixels [ i ], pixels [ i ], pixels [ i ], 255 );
 								else if ( imgInfo.Indexed )
 								{
 									PngChunkPLTE pallete = pngReader.GetChunksList ().GetById ( "PLTE" ) [ 0 ] as PngChunkPLTE;
 									pallete.GetEntryRgb ( pixels [ i ], rgb );
-									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, 1.0f );
+									color = new Color ( rgb [ 0 ] / 255.0f, rgb [ 1 ] / 255.0f, rgb [ 2 ] / 255.0f, rgb [ 3 ] / 255.0f );
 								}
-							else
-									color = new Color ( pixels [ i + 0 ], pixels [ i + 1 ], pixels [ i + 2 ], pixels [ i + 3 ] );
+							}
 							colors [ index ] = ( color == colorKey ) ? Color.Transparent : color;
 						}
 						return colors;
