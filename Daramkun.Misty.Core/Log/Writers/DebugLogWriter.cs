@@ -8,9 +8,7 @@ namespace Daramkun.Misty.Log.Writers
 {
 	public class DebugLogWriter : ILogWriter
 	{
-		public void WriteLog ( string message )
-		{
-			Debug.WriteLine ( message );
-		}
+		[Conditional ( "DEBUG" )]
+		public void WriteLog ( string message ) { Debug.WriteLine ( message ); }
 	}
 }

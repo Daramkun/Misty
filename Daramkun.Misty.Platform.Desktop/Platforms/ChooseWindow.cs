@@ -69,7 +69,10 @@ namespace Daramkun.Misty.Platforms
 
 			ComboBox pafComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 116, 310, 24 ) };
 			foreach ( ILauncher launcher in this.pafs ) pafComboBox.Items.Add ( launcher.ToString () );
-			pafComboBox.SelectedIndex = 0;
+			if ( pafComboBox.Items.Count >= 1 )
+				pafComboBox.SelectedIndex = 0;
+			if ( pafComboBox.Items.Count <= 1 )
+				pafComboBox.Enabled = false;
 			window.Controls.Add ( pafComboBox );
 
 			Label glLabel = new Label () { Text = "&Looper:", Bounds = new Rectangle ( 10, 160, 60, 24 ) };
@@ -77,7 +80,10 @@ namespace Daramkun.Misty.Platforms
 
 			ComboBox glComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 156, 310, 24 ) };
 			foreach ( IGameLooper gl in this.gameLoopers ) glComboBox.Items.Add ( gl.ToString () );
-			glComboBox.SelectedIndex = 0;
+			if ( glComboBox.Items.Count >= 1 )
+				glComboBox.SelectedIndex = 0;
+			if ( glComboBox.Items.Count <= 1 )
+				glComboBox.Enabled = false;
 			window.Controls.Add ( glComboBox );
 
 			Label nodeLabel = new Label () { Text = "&Game:", Bounds = new Rectangle ( 10, 200, 60, 24 ) };
@@ -85,7 +91,10 @@ namespace Daramkun.Misty.Platforms
 
 			ComboBox nodeComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 196, 310, 24 ) };
 			foreach ( Node node in this.mainNodes ) nodeComboBox.Items.Add ( node.ToString () );
-			nodeComboBox.SelectedIndex = 0;
+			if ( nodeComboBox.Items.Count >= 1 )
+				nodeComboBox.SelectedIndex = 0;
+			if ( nodeComboBox.Items.Count <= 1 )
+				nodeComboBox.Enabled = false;
 			window.Controls.Add ( nodeComboBox );
 
 			Button acceptButton = new Button () { Text = "&Run", Bounds = new Rectangle ( 120, 226, 80, 24 ) };

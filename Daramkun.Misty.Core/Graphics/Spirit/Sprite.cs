@@ -34,13 +34,12 @@ namespace Daramkun.Misty.Graphics.Spirit
 		static IVertexDeclaration vertexDeclaration;
 		static int indexReference;
 		static SpriteEffect baseSpriteEffect;
-
-		OrthographicOffCenterProjection projectionMatrix = new OrthographicOffCenterProjection ( 0, 800, 600, 0, 0.001f, 1000.0f );
+		static OrthographicOffCenterProjection projectionMatrix;
 
 		SpriteVertex [] vertices = new SpriteVertex [ 4 ];
 		IVertexBuffer vertexBuffer;
 		Rectangle clippingArea;
-		Color overlayColor;
+		Color overlayColor = Color.White;
 		TextureArgument textureArgument;
 
 		World2 innerWorld;
@@ -94,6 +93,11 @@ namespace Daramkun.Misty.Graphics.Spirit
 				effect = baseSpriteEffect;
 			}
 
+			if ( projectionMatrix == null )
+			{
+				projectionMatrix = new OrthographicOffCenterProjection ( 0, 800, 600, 0, 0.001f, 1000.0f );
+			}
+
 			Effect = effect;
 
 			if ( vertexDeclaration == null )
@@ -112,25 +116,20 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 		public void Dispose ()
 		{
-			if ( indexReference != 0 )
+			if ( vertexBuffer != null )
 			{
-				indexReference--;
-				if ( indexReference == 0 )
+				if ( --indexReference == 0 )
 				{
 					vertexDeclaration.Dispose ();
 					vertexDeclaration = null;
 
-					if ( Effect != null )
+					if ( baseSpriteEffect != null )
 					{
-						if ( Effect is SpriteEffect )
-							Effect.Dispose ();
-						Effect = null;
+						baseSpriteEffect.Dispose ();
+						baseSpriteEffect = null;
 					}
 				}
-			}
 
-			if ( vertexBuffer != null )
-			{
 				vertexBuffer.Dispose ();
 				vertexBuffer = null;
 			}
@@ -141,8 +140,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Matrix4x4 matrix;
 			Effect.Begin ();
 			Effect.SetTextures ( textureArgument );
-			projectionMatrix.OffCenterSize = ( Core.GraphicsDevice.CurrentRenderBuffer != null ) ? Core.GraphicsDevice.CurrentRenderBuffer.Size :
-				Core.GraphicsDevice.BackBuffer.Size;
+			projectionMatrix.OffCenterSize = Core.GraphicsDevice.CurrentRenderBuffer.Size;
 			projectionMatrix.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );

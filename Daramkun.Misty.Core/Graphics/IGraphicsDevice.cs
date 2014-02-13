@@ -124,5 +124,6 @@ namespace Daramkun.Misty.Graphics
 		IEffect CreateEffect ( Stream stream );
 
 		event EventHandler DeviceLost;
+		event EventHandler BackbufferResized;
 	}
 }

@@ -264,8 +264,11 @@ namespace Daramkun.Misty.Graphics
 			d3dpp.BackBufferWidth = width;
 			d3dpp.BackBufferHeight = height;
 			d3dDevice.Reset ( d3dpp );
+			if ( BackbufferResized != null )
+				BackbufferResized ( this, null );
 		}
 
 		public event EventHandler DeviceLost;
+		public event EventHandler BackbufferResized;
 	}
 }

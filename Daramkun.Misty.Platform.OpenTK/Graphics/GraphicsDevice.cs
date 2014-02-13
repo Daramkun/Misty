@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents;
@@ -259,6 +260,10 @@ namespace Daramkun.Misty.Graphics
 		public void ResizeBackBuffer ( int width, int height )
 		{
 			window.ClientSize = new System.Drawing.Size ( width, height );
+			window.X = Screen.PrimaryScreen.WorkingArea.Width / 2 - window.Width / 2;
+			window.Y = Screen.PrimaryScreen.WorkingArea.Height / 2 - window.Height / 2;
+			if ( BackbufferResized != null )
+				BackbufferResized ( this, null );
 		}
 
 		public IRenderBuffer CreateRenderBuffer ( int width, int height ) { return new RenderBuffer ( this, width, height ); }
@@ -308,5 +313,6 @@ namespace Daramkun.Misty.Graphics
 
 #pragma warning disable
 		public event EventHandler DeviceLost;
+		public event EventHandler BackbufferResized;
 	}
 }

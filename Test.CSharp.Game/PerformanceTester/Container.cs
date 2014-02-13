@@ -98,8 +98,6 @@ namespace Test.Game.PerformanceTester
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.G ) ) Remove ( 4, 100 );
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.H ) ) Remove ( 5, 100 );
 
-			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.Z ) ) Sprite.IsStripDrawingMode = !Sprite.IsStripDrawingMode;
-
 			base.Update ( gameTime );
 		}
 
@@ -113,8 +111,8 @@ namespace Test.Game.PerformanceTester
 			int childrenCount = 0;
 			for ( int i = 0; i < 6; ++i )
 				childrenCount += nodes [ i ].ChildrenCount;
-			Core.Window.Title = string.Format ( "Update FPS: {0}, Draw FPS: {1}, Children count: {2}, Strip Mode: {3}, Game Looper: {4}",
-				calc.UpdateFPS, calc.DrawFPS, childrenCount, Sprite.IsStripDrawingMode, Core.GameLooper.ToString () );
+			Core.Window.Title = string.Format ( "Update FPS: {0}, Draw FPS: {1}, Children count: {2}, Game Looper: {3}",
+				calc.UpdateFPS, calc.DrawFPS, childrenCount, Core.GameLooper.ToString () );
 
 			Core.GraphicsDevice.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
