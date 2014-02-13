@@ -229,7 +229,6 @@ namespace Daramkun.Misty.Graphics
 
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
-			if ( d3dDevice == null ) return;
 			d3dDevice.VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
 			d3dDevice.SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.VertexTypeSize );
 			d3dDevice.DrawPrimitives ( ConvertPrimitiveType ( primitiveType ), startVertex, primitiveCount );
@@ -238,12 +237,26 @@ namespace Daramkun.Misty.Graphics
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, 
 			int startIndex, int primitiveCount )
 		{
-			if ( d3dDevice == null ) return;
 			d3dDevice.VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
 			d3dDevice.SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.VertexTypeSize );
 			d3dDevice.Indices = indexBuffer.Handle as SharpDX.Direct3D9.IndexBuffer;
 			d3dDevice.DrawIndexedPrimitive ( ConvertPrimitiveType ( primitiveType ), 0, 0, vertexBuffer.Length,
 				startIndex, primitiveCount );
+		}
+
+		public void DrawUP<T> ( PrimitiveType primitiveType, T [] vertices, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount ) where T : struct
+		{
+			d3dDevice.VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
+			d3dDevice.DrawUserPrimitives<T> ( ConvertPrimitiveType ( primitiveType ), startVertex, primitiveCount, vertices );
+		}
+
+		public void DrawUP<T1, T2> ( PrimitiveType primitiveType, T1 [] vertices, IVertexDeclaration vertexDeclaration, T2 [] indices, int startIndex, int primitiveCount )
+			where T1 : struct
+			where T2 : struct
+		{
+			d3dDevice.VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
+			d3dDevice.DrawIndexedUserPrimitives<T2, T1> ( ConvertPrimitiveType ( primitiveType ), startIndex, 0, 0, vertices.Length, 
+				primitiveCount, indices, SharpDX.Direct3D9.Format.Index32, vertices );
 		}
 
 		public void ResizeBackBuffer ( int width, int height )

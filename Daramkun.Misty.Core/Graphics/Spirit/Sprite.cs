@@ -11,34 +11,29 @@ using System.Runtime.InteropServices;
 
 namespace Daramkun.Misty.Graphics.Spirit
 {
+	[StructLayout ( LayoutKind.Sequential )]
+	struct SpriteVertex
+	{
+		[VertexElementation ( Graphics.ElementType.Position )]
+		public Vector2 Position;
+		[VertexElementation ( Graphics.ElementType.Diffuse )]
+		public Color Diffuse;
+		[VertexElementation ( Graphics.ElementType.TextureCoord )]
+		public Vector2 TexCoord;
+
+		public SpriteVertex ( Vector2 pos, Color dif, Vector2 tex )
+		{
+			Position = pos;
+			Diffuse = dif;
+			TexCoord = tex;
+		}
+	}
+
 	public sealed class Sprite
 	{
-		[StructLayout ( LayoutKind.Sequential )]
-		private struct SpriteVertex
-		{
-			[VertexElementation ( Graphics.ElementType.Position )]
-			public Vector2 Position;
-			[VertexElementation ( Graphics.ElementType.Diffuse )]
-			public Color Diffuse;
-			[VertexElementation ( Graphics.ElementType.TextureCoord )]
-			public Vector2 TexCoord;
-
-			public SpriteVertex ( Vector2 pos, Color dif, Vector2 tex )
-			{
-				Position = pos;
-				Diffuse = dif;
-				TexCoord = tex;
-			}
-		}
-
-		static IIndexBuffer indexBuffer;
 		static IVertexDeclaration vertexDeclaration;
 		static int indexReference;
 		static SpriteEffect baseSpriteEffect;
-
-		public static bool IsStripDrawingMode { get; set; }
-
-		static Sprite () { IsStripDrawingMode = true; }
 
 		OrthographicOffCenterProjection projectionMatrix = new OrthographicOffCenterProjection ( 0, 800, 600, 0, 0.001f, 1000.0f );
 
@@ -48,10 +43,13 @@ namespace Daramkun.Misty.Graphics.Spirit
 		Color overlayColor;
 		TextureArgument textureArgument;
 
+		World2 innerWorld;
+
 		public IEffect Effect { get; set; }
 		public ITexture2D Texture { get { return textureArgument.Texture as ITexture2D; } set { textureArgument.Texture = value; } }
 
 		public TextureFilter TextureFilter { get { return textureArgument.Filter; } set { textureArgument.Filter = value; } }
+		public TextureAddressing TextureAddressing { get { return textureArgument.Addressing; } set { textureArgument.Addressing = value; } }
 		public int AnisotropicLevel { get { return textureArgument.AnisotropicLevel; } set { textureArgument.AnisotropicLevel = value; } }
 
 		public Rectangle ClippingArea
@@ -98,9 +96,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 			Effect = effect;
 
-			if ( indexBuffer == null )
+			if ( vertexDeclaration == null )
 			{
-				indexBuffer = Core.GraphicsDevice.CreateIndexBuffer ( new int [] { 0, 1, 2, 1, 3, 2 } );
 				vertexDeclaration = Core.GraphicsDevice.CreateVertexDeclaration ( Utilities.CreateVertexElementArray<SpriteVertex> () );
 			}
 			indexReference++;
@@ -109,6 +106,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 			textureArgument = new TextureArgument ( "texture0", texture, Graphics.TextureFilter.Nearest, TextureAddressing.Clamp, 0 );
 			Reset ( texture );
+
+			innerWorld = new World2();
 		}
 
 		public void Dispose ()
@@ -120,9 +119,6 @@ namespace Daramkun.Misty.Graphics.Spirit
 				{
 					vertexDeclaration.Dispose ();
 					vertexDeclaration = null;
-
-					indexBuffer.Dispose ();
-					indexBuffer = null;
 
 					if ( Effect != null )
 					{
@@ -154,11 +150,25 @@ namespace Daramkun.Misty.Graphics.Spirit
 			bool isZWriteMode = Core.GraphicsDevice.IsZWriteEnable, isStencilEnable = Core.GraphicsDevice.StencilState;
 			Core.GraphicsDevice.IsZWriteEnable = false;
 			Core.GraphicsDevice.StencilState = false;
-			if(IsStripDrawingMode) Core.GraphicsDevice.Draw ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration, 0, 2 );
-			else Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, 2 );
+			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration, 0, 2 );
 			Core.GraphicsDevice.IsZWriteEnable = isZWriteMode;
 			Core.GraphicsDevice.StencilState = isStencilEnable;
 			Effect.End ();
+		}
+
+		public void Draw ( ref Vector2 position, ref Vector2 scale, ref Vector2 scaleCenter, float rotation, ref Vector2 rotationCenter )
+		{
+			innerWorld.Translate = position;
+			innerWorld.Scale = scale;
+			innerWorld.ScaleCenter = scaleCenter;
+			innerWorld.Rotation = rotation;
+			innerWorld.RotationCenter = rotationCenter;
+			Draw ( innerWorld );
+		}
+
+		public void Draw ( Vector2 position, Vector2 scale, Vector2 scaleCenter, float rotation, Vector2 rotationCenter )
+		{
+			Draw ( ref position, ref scale, ref scaleCenter, rotation, ref rotationCenter );
 		}
 
 		public void Reset ()

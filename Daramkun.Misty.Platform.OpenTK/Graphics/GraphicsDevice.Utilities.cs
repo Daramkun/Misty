@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Daramkun.Misty.Common;
@@ -23,6 +24,22 @@ namespace Daramkun.Misty.Graphics
 					false, buffer.VertexTypeSize, offset );
 				++i;
 				offset += size;
+			}
+		}
+
+		private void BeginVertexDeclaration<T> ( T [] vertices, IVertexDeclaration decl ) where T : struct
+		{
+			int stride = Marshal.SizeOf ( typeof ( T ) );
+			GL.VertexPointer<T> ( vertices.Length, VertexPointerType.Float, stride, vertices );
+
+			int i = 0;
+			foreach ( VertexElement element in decl )
+			{
+				int size = ElementSizeToRealSize ( element.Size );
+				GL.EnableVertexAttribArray ( i );
+				GL.VertexAttribPointer ( i, size / 4, ElementSizeToRealType ( element.Size ),
+					false, stride, vertices );
+				++i;
 			}
 		}
 

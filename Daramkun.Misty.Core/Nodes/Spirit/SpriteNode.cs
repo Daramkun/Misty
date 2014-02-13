@@ -48,6 +48,8 @@ namespace Daramkun.Misty.Nodes.Spirit
 		public IEffect Effect { get { return sprite.Effect; } set { sprite.Effect = value; } }
 		public World2 World { get { return world; } set { world = value; CalculateMoveUnit (); } }
 		public ITexture2D Texture { get { return sprite.Texture; } set { sprite.Reset ( value ); CalculateMoveUnit (); } }
+		public TextureFilter TextureFilter { get { return sprite.TextureFilter; } set { sprite.TextureFilter = value; } }
+		public TextureAddressing TextureAddressing { get { return sprite.TextureAddressing; } set { sprite.TextureAddressing = value; } }
 		public SpriteAlignment Alignment { get { return align; } set { align = value; CalculateMoveUnit (); } }
 
 		public SpriteNode ( ITexture2D texture )

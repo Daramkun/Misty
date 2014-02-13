@@ -263,6 +263,17 @@ namespace Daramkun.Misty.Graphics
 			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
 			d3dContext.DrawIndexed ( GetPrimitiveCount ( primitiveType, primitiveCount ), startIndex, 0 );
 		}
+		public void DrawUP<T> ( PrimitiveType primitiveType, T [] vertices, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount ) where T : struct
+		{
+			throw new NotImplementedException ();
+		}
+
+		public void DrawUP<T1, T2> ( PrimitiveType primitiveType, T1 [] vertices, IVertexDeclaration vertexDeclaration, T2 [] indices, int startIndex, int primitiveCount )
+			where T1 : struct
+			where T2 : struct
+		{
+			throw new NotImplementedException ();
+		}
 
 		public void ResizeBackBuffer ( int width, int height )
 		{

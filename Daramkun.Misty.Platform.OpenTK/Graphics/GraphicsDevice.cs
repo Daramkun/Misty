@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -232,6 +233,25 @@ namespace Daramkun.Misty.Graphics
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
 			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), GetCountFromPrimitiveType ( primitiveType, primitiveCount ),
 				( !indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedInt : DrawElementsType.UnsignedShort ), startIndex );
+			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
+			EndVertexDeclaration ( vertexDeclaration );
+		}
+
+		public void DrawUP<T> ( PrimitiveType primitiveType, T [] vertices, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount ) where T : struct
+		{
+			BeginVertexDeclaration ( vertices, vertexDeclaration );
+			GL.DrawArrays ( MistyValueToOriginal ( primitiveType ), startVertex, primitiveCount * GetCountFromPrimitiveType ( primitiveType, primitiveCount ) );
+			EndVertexDeclaration ( vertexDeclaration );
+		}
+
+		public void DrawUP<T1, T2> ( PrimitiveType primitiveType, T1 [] vertices, IVertexDeclaration vertexDeclaration, T2 [] indices, int startIndex, int primitiveCount )
+			where T1 : struct
+			where T2 : struct
+		{
+			BeginVertexDeclaration ( vertices, vertexDeclaration );
+			GL.IndexPointer<T2> ( IndexPointerType.Int, Marshal.SizeOf ( typeof ( T2 ) ), indices );
+			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), GetCountFromPrimitiveType ( primitiveType, primitiveCount ),
+				DrawElementsType.UnsignedInt, startIndex );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
 			EndVertexDeclaration ( vertexDeclaration );
 		}
