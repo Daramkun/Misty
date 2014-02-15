@@ -144,9 +144,8 @@ namespace Daramkun.Misty.Contents.Tables
 			filename = key;
 			key = MakeKey ( filename, args );
 
-			if ( loadedContent.ContainsKey ( filename ) )
+			if ( loadedContent.ContainsKey ( key ) )
 			{
-				key = filename;
 				return ( T ) loadedContent [ key ];
 			}
 			else
