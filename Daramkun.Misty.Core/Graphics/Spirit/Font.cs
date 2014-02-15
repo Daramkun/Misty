@@ -69,8 +69,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 			if ( IsPrerenderMode && cachedRenderBuffer.ContainsKey ( text ) )
 			{
-				spriteEngine.OverlayColor = color;
 				spriteEngine.Reset ( cachedRenderBuffer [ text ] );
+				spriteEngine.OverlayColor = color;
 				fontWorld.Translate = position;
 				spriteEngine.Draw ( fontWorld );
 			}
@@ -117,10 +117,10 @@ namespace Daramkun.Misty.Graphics.Spirit
 						height += image.Height;
 					}
 
+					spriteEngine.Reset ( image );
 					if ( !IsPrerenderMode )
 						spriteEngine.OverlayColor = color;
 					else spriteEngine.OverlayColor = Color.White;
-					spriteEngine.Reset ( image );
 					fontWorld.Translate = renderPos + new Vector2 ( lines [ lines.Count - 1 ].X - image.Width, height - image.Height );
 					spriteEngine.Draw ( fontWorld );
 				}
