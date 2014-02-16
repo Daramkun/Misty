@@ -18,6 +18,9 @@ namespace Daramkun.Misty.Inputs.Devices
 		Daramkun.Misty.Mathematics.Vector2 Position = new Daramkun.Misty.Mathematics.Vector2 ();
 		float Wheel = 0;
 
+		MouseButtonEventArgs buttonEvent;
+		MouseWheelEventArgs wheelEvent;
+
 		public override bool IsSupport { get { return true; } }
 		public override bool IsConnected { get { return true; } }
 		public override bool IsMultiPlayerable { get { return false; } }
@@ -53,24 +56,28 @@ namespace Daramkun.Misty.Inputs.Devices
 
 		void Mouse_ButtonDown ( object sender, OpenTK.Input.MouseButtonEventArgs e )
 		{
-			if ( e.Button == OpenTK.Input.MouseButton.Left )
+			if ( e.Button.HasFlag ( OpenTK.Input.MouseButton.Left ) )
 				MouseButton |= MouseButton.Left;
-			if ( e.Button == OpenTK.Input.MouseButton.Right )
+			if ( e.Button.HasFlag ( OpenTK.Input.MouseButton.Right ) )
 				MouseButton |= MouseButton.Right;
-			if ( e.Button == OpenTK.Input.MouseButton.Middle )
+			if ( e.Button.HasFlag ( OpenTK.Input.MouseButton.Middle ) )
 				MouseButton |= MouseButton.Middle;
 			Position = new Daramkun.Misty.Mathematics.Vector2 ( e.X, e.Y );
+			buttonEvent.MouseState = GetState ();
+			RunMouseDown ( buttonEvent );
 		}
 
 		void Mouse_ButtonUp ( object sender, OpenTK.Input.MouseButtonEventArgs e )
 		{
-			if ( e.Button == OpenTK.Input.MouseButton.Left )
-				MouseButton &= MouseButton.Left;
-			if ( e.Button == OpenTK.Input.MouseButton.Right )
-				MouseButton &= MouseButton.Right;
-			if ( e.Button == OpenTK.Input.MouseButton.Middle )
-				MouseButton &= MouseButton.Middle;
+			if ( e.Button.HasFlag ( OpenTK.Input.MouseButton.Left ) )
+				MouseButton &= ~MouseButton.Left;
+			if ( e.Button.HasFlag ( OpenTK.Input.MouseButton.Right ) )
+				MouseButton &= ~MouseButton.Right;
+			if ( e.Button.HasFlag ( OpenTK.Input.MouseButton.Middle ) )
+				MouseButton &= ~MouseButton.Middle;
 			Position = new Daramkun.Misty.Mathematics.Vector2 ( e.X, e.Y );
+			buttonEvent.MouseState = GetState ();
+			RunMouseUp ( buttonEvent );
 		}
 
 		void Mouse_Move ( object sender, OpenTK.Input.MouseMoveEventArgs e )
@@ -81,12 +88,16 @@ namespace Daramkun.Misty.Inputs.Devices
 				Position -= new Mathematics.Vector2 ( w.Bounds.Left + ( w.Bounds.Width / 2 ), w.Bounds.Top + ( w.Bounds.Height / 2 ) );
 				Cursor.Position = new Point ( w.Bounds.Left + ( w.Bounds.Width / 2 ), w.Bounds.Top + ( w.Bounds.Height / 2 ) );
 			}
+			buttonEvent.MouseState = GetState ();
+			RunMouseMove ( buttonEvent );
 		}
 
 		void Mouse_WheelChanged ( object sender, OpenTK.Input.MouseWheelEventArgs e )
 		{
 			Wheel = e.DeltaPrecise;
 			Position = new Daramkun.Misty.Mathematics.Vector2 ( e.X, e.Y );
+			wheelEvent.Wheel = Wheel;
+			RunMouseWheel ( wheelEvent );
 		}
 
 		public override States.MouseState GetState ( PlayerIndex index = PlayerIndex.Player1 )

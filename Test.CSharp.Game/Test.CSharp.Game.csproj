@@ -49,6 +49,7 @@
     <Compile Include="Dodge\GameScene.cs" />
     <Compile Include="Dodge\MenuScene.cs" />
     <Compile Include="InfoViewer\Container.cs" />
+    <Compile Include="InputTester\Container.cs" />
     <Compile Include="Particle2D\Container.cs" />
     <Compile Include="PerformanceTester\Container.cs" />
     <Compile Include="PerformanceTester\PerformanceSpriteNode.cs" />

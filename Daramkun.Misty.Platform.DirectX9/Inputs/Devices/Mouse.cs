@@ -44,11 +44,11 @@ namespace Daramkun.Misty.Inputs.Devices
 
 		private void ButtonDownEvent ( object sender, MouseEventArgs e )
 		{
-			if ( e.Button == MouseButtons.Left )
+			if ( e.Button.HasFlag ( MouseButtons.Left ) )
 				MouseButton |= MouseButton.Left;
-			if ( e.Button == MouseButtons.Right )
+			if ( e.Button.HasFlag ( MouseButtons.Right ) )
 				MouseButton |= MouseButton.Right;
-			if ( e.Button == MouseButtons.Middle )
+			if ( e.Button.HasFlag ( MouseButtons.Middle ) )
 				MouseButton |= MouseButton.Middle;
 			Position = new Daramkun.Misty.Mathematics.Vector2 ( e.X, e.Y );
 			buttonEvent.MouseState = GetState ();
@@ -57,12 +57,12 @@ namespace Daramkun.Misty.Inputs.Devices
 
 		private void ButtonUpEvent ( object sender, MouseEventArgs e )
 		{
-			if ( e.Button == MouseButtons.Left )
-				MouseButton &= MouseButton.Left;
-			if ( e.Button == MouseButtons.Right )
-				MouseButton &= MouseButton.Right;
-			if ( e.Button == MouseButtons.Middle )
-				MouseButton &= MouseButton.Middle;
+			if ( e.Button.HasFlag ( MouseButtons.Left ) )
+				MouseButton &= ~MouseButton.Left;
+			if ( e.Button.HasFlag ( MouseButtons.Right ) )
+				MouseButton &= ~MouseButton.Right;
+			if ( e.Button.HasFlag ( MouseButtons.Middle ) )
+				MouseButton &= ~MouseButton.Middle;
 			Position = new Daramkun.Misty.Mathematics.Vector2 ( e.X, e.Y );
 			buttonEvent.MouseState = GetState ();
 			RunMouseUp ( buttonEvent );
@@ -71,6 +71,12 @@ namespace Daramkun.Misty.Inputs.Devices
 		private void MoveEvent ( object sender, MouseEventArgs e )
 		{
 			Position = new Daramkun.Misty.Mathematics.Vector2 ( e.X, e.Y );
+			if ( IsCursorBlocked )
+			{
+				Form w = window.Handle as Form;
+				Position -= new Mathematics.Vector2 ( w.Bounds.Left + ( w.Bounds.Width / 2 ), w.Bounds.Top + ( w.Bounds.Height / 2 ) );
+				Cursor.Position = new System.Drawing.Point ( w.Bounds.Left + ( w.Bounds.Width / 2 ), w.Bounds.Top + ( w.Bounds.Height / 2 ) );
+			}
 			buttonEvent.MouseState = GetState ();
 			RunMouseMove ( buttonEvent );
 		}
