@@ -15,6 +15,9 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 		public bool IsPrerenderMode { get; set; }
 
+		public int SpacingOfChars { get; set; }
+		public int SpacingOfLines { get; set; }
+
 		Sprite spriteEngine;
 		World2 fontWorld;
 
@@ -26,6 +29,9 @@ namespace Daramkun.Misty.Graphics.Spirit
 		{
 			spriteEngine = new Sprite ( null );
 			fontWorld = new World2 ();
+
+			SpacingOfChars = 2;
+			SpacingOfLines = 4;
 
 			IsPrerenderMode = false;
 			cachedRenderBuffer = new Dictionary<string, IRenderBuffer> ();
@@ -110,10 +116,10 @@ namespace Daramkun.Misty.Graphics.Spirit
 						if ( height + image.Height > area.Y ) return;
 						else lines.Add ( new Vector2 () );
 
-					lines [ lines.Count - 1 ] += new Vector2 ( image.Width, 0 );
+					lines [ lines.Count - 1 ] += new Vector2 ( image.Width + SpacingOfChars, 0 );
 					if ( lines [ lines.Count - 1 ].Y == 0 )
 					{
-						lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height );
+						lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height + SpacingOfLines );
 						height += image.Height;
 					}
 
@@ -156,9 +162,9 @@ namespace Daramkun.Misty.Graphics.Spirit
 				if ( lines.Count == 0 )
 					lines.Add ( new Vector2 () );
 
-				lines [ lines.Count - 1 ] += new Vector2 ( image.Width, 0 );
+				lines [ lines.Count - 1 ] += new Vector2 ( image.Width + SpacingOfChars, 0 );
 				if ( lines [ lines.Count - 1 ].Y == 0 )
-					lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height );
+					lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height + SpacingOfLines );
 			}
 
 			Vector2 measure = new Vector2 ( 0, 0 );
@@ -168,7 +174,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 				measure.Y += lines [ lines.Count - 1 ].Y;
 			}
 
-			return measure;
+			return measure - new Vector2 ( SpacingOfChars, SpacingOfLines );
 		}
 
 		public int MeasureString ( string text, Vector2 area, int startIndex = 0, int length = -1 )
@@ -191,14 +197,14 @@ namespace Daramkun.Misty.Graphics.Spirit
 				if ( image == null ) image = this [ '?' ];
 
 				if ( lines.Count == 0 || lines [ lines.Count - 1 ].X + image.Width > area.X )
-					if ( height + image.Height > area.Y ) return i;
+					if ( height + image.Height + SpacingOfLines > area.Y ) return i;
 					else lines.Add ( new Vector2 () );
 
-				lines [ lines.Count - 1 ] += new Vector2 ( image.Width, 0 );
+				lines [ lines.Count - 1 ] += new Vector2 ( image.Width + SpacingOfChars, 0 );
 				if ( lines [ lines.Count - 1 ].Y == 0 )
 				{
-					lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height );
-					height += image.Height;
+					lines [ lines.Count - 1 ] += new Vector2 ( 0, image.Height + SpacingOfLines );
+					height += image.Height + SpacingOfLines;
 				}
 			}
 
