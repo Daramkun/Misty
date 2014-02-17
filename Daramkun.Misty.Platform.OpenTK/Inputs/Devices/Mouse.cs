@@ -40,6 +40,9 @@ namespace Daramkun.Misty.Inputs.Devices
 			w.Mouse.ButtonUp += Mouse_ButtonUp;
 			w.Mouse.Move += Mouse_Move;
 			w.Mouse.WheelChanged += Mouse_WheelChanged;
+
+			buttonEvent = new MouseButtonEventArgs ( GetState () );
+			wheelEvent = new MouseWheelEventArgs ( 0 );
 		}
 
 		protected override void Dispose ( bool isDisposing )

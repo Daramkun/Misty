@@ -14,6 +14,7 @@ namespace Daramkun.Misty.Graphics
 {
 	public partial class GraphicsDevice : StandardDispose, IGraphicsDevice
 	{
+		IWindow window;
 		SharpDX.Direct3D9.Direct3D d3d;
 		SharpDX.Direct3D9.Device d3dDevice;
 		internal SharpDX.Direct3D9.PresentParameters d3dpp;
@@ -152,6 +153,7 @@ namespace Daramkun.Misty.Graphics
 			d3d = new SharpDX.Direct3D9.Direct3D ();
 
 			IntPtr handle = ( window.Handle as System.Windows.Forms.Form ).Handle;
+			this.window = window;
 
 			d3dpp = new SharpDX.Direct3D9.PresentParameters ( 800, 600, SharpDX.Direct3D9.Format.A8R8G8B8,
 					1, SharpDX.Direct3D9.MultisampleType.None, 0, SharpDX.Direct3D9.SwapEffect.Discard,
@@ -176,7 +178,7 @@ namespace Daramkun.Misty.Graphics
 
 			CullMode = CullingMode.ClockWise;
 
-			window.Resize += ( object sender, EventArgs e ) => { ResizeBackBuffer ( ( int ) window.ClientSize.X, ( int ) window.ClientSize.Y ); };
+			//window.Resize += ( object sender, EventArgs e ) => { ResizeBackBuffer ( ( int ) window.ClientSize.X, ( int ) window.ClientSize.Y ); };
 		}
 
 		protected override void Dispose ( bool isDisposing )
@@ -264,6 +266,11 @@ namespace Daramkun.Misty.Graphics
 			d3dpp.BackBufferWidth = width;
 			d3dpp.BackBufferHeight = height;
 			d3dDevice.Reset ( d3dpp );
+
+			( window.Handle as System.Windows.Forms.Form ).ClientSize = new System.Drawing.Size ( width, height );
+			( window.Handle as System.Windows.Forms.Form ).Left = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width / 2 - ( window.Handle as System.Windows.Forms.Form ).Width / 2;
+			( window.Handle as System.Windows.Forms.Form ).Top = System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height / 2 - ( window.Handle as System.Windows.Forms.Form ).Height / 2;
+			
 			if ( BackbufferResized != null )
 				BackbufferResized ( this, null );
 		}
