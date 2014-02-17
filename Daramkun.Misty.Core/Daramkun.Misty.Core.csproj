@@ -175,6 +175,7 @@
     <Compile Include="Contents\Loaders\EffectContentLoader.cs" />
     <Compile Include="Contents\Loaders\JsonContentLoader.cs" />
     <Compile Include="Contents\Loaders\LsfFontContentLoader.cs" />
+    <Compile Include="Contents\Loaders\SpriteContentLoader.cs" />
     <Compile Include="Contents\Loaders\StringTableContentLoader.cs" />
     <Compile Include="Contents\Loaders\Texture2DContentLoader.cs" />
     <Compile Include="Contents\Loaders\TrueTypeFontContentLoader.cs" />
