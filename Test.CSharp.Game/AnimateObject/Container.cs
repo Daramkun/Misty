@@ -36,7 +36,7 @@ namespace Test.Game.CSharp.AnimateObject
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
 			Texture2DContentLoader.AddDefaultDecoders ();
-			sprite = new Sprite ( contentManager.Load<ITexture2D> ( "Resources/logo.png", Color.Magenta ) );
+			sprite = contentManager.Load<Sprite> ( "Resources/logo.png", Color.Magenta );
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			
 			animate = new Animate ( TimeSpan.FromSeconds ( 4 ), 400 );
@@ -49,7 +49,6 @@ namespace Test.Game.CSharp.AnimateObject
 
 		public override void Outro ()
 		{
-			sprite.Dispose ();
 			contentManager.Dispose ();
 			base.Outro ();
 		}
