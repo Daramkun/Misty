@@ -30,8 +30,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 			spriteEngine = new Sprite ( null );
 			fontWorld = new World2 ();
 
-			SpacingOfChars = 2;
-			SpacingOfLines = 4;
+			SpacingOfChars = 1;
+			SpacingOfLines = 2;
 
 			IsPrerenderMode = false;
 			cachedRenderBuffer = new Dictionary<string, IRenderBuffer> ();
@@ -174,7 +174,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 				measure.Y += lines [ lines.Count - 1 ].Y;
 			}
 
-			return measure - new Vector2 ( SpacingOfChars, SpacingOfLines );
+			return measure;
 		}
 
 		public int MeasureString ( string text, Vector2 area, int startIndex = 0, int length = -1 )
