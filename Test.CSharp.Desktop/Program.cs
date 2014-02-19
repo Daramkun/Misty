@@ -9,6 +9,7 @@ using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents;
 using Daramkun.Misty.Contents.Decoders.Audios;
 using Daramkun.Misty.Contents.Decoders.Images;
+using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Graphics.Spirit.Fonts;
@@ -29,6 +30,7 @@ namespace Test.Desktop
 			Logger.AddDefaultLogWriter ();
 			Core.FixedUpdateTimeStep = new TimeSpan ();
 			Core.FixedDrawTimeStep = new TimeSpan ();
+			FileSystemManager.AddFileSystem ( "LocalFileSystem", typeof ( LocalFileSystem ) );
 			ChooseWindow chooseWindow = new ChooseWindow ( "Tester via C#",
 				new Assembly []
 				{

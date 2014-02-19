@@ -42,14 +42,13 @@ namespace Daramkun.Misty.Contents.Tables
 		{
 			if ( stream == null || stream.Length == 0 )
 				return false;
-
-			BinaryReader reader = new BinaryReader ( stream );
-
-			if ( Encoding.UTF8.GetString ( reader.ReadBytes ( 4 ), 0, 4 ) != "LQSV" )
+			byte [] sig = new byte [ 4 ];
+			stream.Read ( sig, 0, 4 );
+			if ( Encoding.UTF8.GetString ( sig, 0, 4 ) != "LQSV" )
 				throw new ArgumentException ( "File format is not matched." );
 
 			DeflateStream df = new DeflateStream ( stream, CompressionMode.Decompress );
-			reader = new BinaryReader ( df );
+			BinaryReader reader = new BinaryReader ( df );
 			while ( true )
 			{
 				Guid guid = new Guid ( reader.ReadBytes ( 16 ) );
@@ -66,13 +65,13 @@ namespace Daramkun.Misty.Contents.Tables
 					switch ( type )
 					{
 						case VariableType.Boolean: data = reader.ReadBoolean (); break;
-						case VariableType.Integer: data = reader.ReadInt32 (); break;
-						case VariableType.FloatingPoint: data = reader.ReadSingle (); break;
+						case VariableType.Integer: data = reader.ReadInt64 (); break;
+						case VariableType.FloatingPoint: data = reader.ReadDouble (); break;
 						case VariableType.String: data = reader.ReadString (); break;
 						case VariableType.TimeSpan: data = new TimeSpan ( reader.ReadInt32 (), reader.ReadByte (), reader.ReadByte (), reader.ReadByte (), reader.ReadInt16 () ); break;
 						case VariableType.DateTime: data = new DateTime ( reader.ReadByte (), reader.ReadByte (), reader.ReadByte (), reader.ReadByte (),
 							reader.ReadByte (), reader.ReadByte (), reader.ReadInt16 () ); break;
-						case VariableType.JsonEntry: data = JsonParser.Parse ( reader.ReadString () ); break;
+						case VariableType.JsonEntry: int len = reader.ReadInt32 (); data = JsonParser.Parse ( new MemoryStream ( reader.ReadBytes ( len ) ) ); break;
 
 						default: data = null; break;
 					}
@@ -85,11 +84,10 @@ namespace Daramkun.Misty.Contents.Tables
 
 		public bool Save ( Stream stream )
 		{
-			BinaryWriter writer = new BinaryWriter ( stream );
-			writer.Write ( Encoding.UTF8.GetBytes ( "LQSV" ) );
+			stream.Write ( Encoding.UTF8.GetBytes ( "LQSV" ), 0, 4 );
 
 			DeflateStream df = new DeflateStream ( stream, CompressionMode.Compress );
-			writer = new BinaryWriter ( df );
+			BinaryWriter writer = new BinaryWriter ( df );
 			foreach ( KeyValuePair<Guid, object []> pair in variableTable )
 			{
 				writer.Write ( pair.Key.ToByteArray () );
@@ -99,7 +97,7 @@ namespace Daramkun.Misty.Contents.Tables
 					if ( data.GetType () == typeof ( bool ) )
 					{
 						writer.Write ( ( byte ) VariableType.Boolean );
-						writer.Write ( ( bool ) data );
+						writer.Write ( Convert.ToBoolean ( data ) );
 					}
 					else if ( data.GetType () == typeof ( int ) || data.GetType () == typeof ( uint ) ||
 							 data.GetType () == typeof ( short ) || data.GetType () == typeof ( ushort ) ||
@@ -107,17 +105,17 @@ namespace Daramkun.Misty.Contents.Tables
 							 data.GetType () == typeof ( sbyte ) || data.GetType () == typeof ( byte ) )
 					{
 						writer.Write ( ( byte ) VariableType.Integer );
-						writer.Write ( ( int ) data );
+						writer.Write ( Convert.ToInt64 ( data ) );
 					}
 					else if ( data.GetType () == typeof ( float ) || data.GetType () == typeof ( double ) )
 					{
 						writer.Write ( ( byte ) VariableType.FloatingPoint );
-						writer.Write ( ( float ) data );
+						writer.Write ( Convert.ToDouble ( data ) );
 					}
 					else if ( data.GetType () == typeof ( string ) )
 					{
 						writer.Write ( ( byte ) VariableType.String );
-						writer.Write ( ( string ) data );
+						writer.Write ( data as string );
 					}
 					else if ( data.GetType () == typeof ( TimeSpan ) )
 					{
@@ -144,11 +142,16 @@ namespace Daramkun.Misty.Contents.Tables
 					else if ( data.GetType () == typeof ( JsonContainer ) )
 					{
 						writer.Write ( ( byte ) VariableType.JsonEntry );
-						writer.Write ( ( string ) data.ToString () );
+						byte [] bin = ( data as JsonContainer ).ToBinary ();
+						writer.Write ( bin.Length );
+						writer.Write ( bin );
 					}
 				}
 			}
 			writer.Write ( Guid.Empty.ToByteArray () );
+			writer.Flush ();
+
+			df.Dispose ();
 
 			return true;
 		}

@@ -27,7 +27,7 @@ namespace Daramkun.Misty.Contents.FileSystems
 		
 		public string [] Files { get { return Directory.GetFiles ( basePath, "*", SearchOption.AllDirectories ); } }
 
-		public void CreateFile ( string filename ) { File.Create ( basePath + filename ); }
+		public void CreateFile ( string filename ) { File.Create ( basePath + filename ).Dispose (); }
 		public void DeleteFile ( string filename ) { File.Delete ( basePath + filename ); }
 
 		public bool IsDirectoryExist ( string directoryname ) { return Directory.Exists ( basePath + directoryname ); }
