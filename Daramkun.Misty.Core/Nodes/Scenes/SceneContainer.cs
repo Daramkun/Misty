@@ -130,6 +130,7 @@ namespace Daramkun.Misty.Nodes.Scenes
 							}
 							break;
 					}
+					gameTime.Reset ();
 				}
 				else if ( TransitionState == Scenes.TransitionState.End )
 				{

@@ -20,15 +20,17 @@ namespace Daramkun.Misty.Nodes.Scenes.Transitors
 		public Color FadeColor { get; set; }
 		public float FadeUnit { get; set; }
 
-		public FadeTransitor ()
+		public FadeTransitor () : this ( Color.Black, 500 ) { }
+
+		public FadeTransitor ( Color fadeColor, float fadeUnit )
 		{
-			FadeColor = Color.Black;
+			FadeColor = fadeColor;
+			FadeUnit = fadeUnit;
 			fadeTexture = Core.GraphicsDevice.CreateTexture2D ( 1, 1 );
 			fadeTexture.Buffer = new Color [ 1 ] { Color.White };
 			fadeSprite = new Sprite ( fadeTexture );
 			fadeSpriteWorld = new World2 ();
 			fadeSpriteWorld.Scale = Core.GraphicsDevice.BackBuffer.Size;
-			FadeUnit = 500;
 		}
 
 		public TransitionState Transitioning ( TransitionState currentState, Node scene, GameTime gameTime )
