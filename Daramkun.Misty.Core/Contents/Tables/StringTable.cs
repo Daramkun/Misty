@@ -40,6 +40,11 @@ namespace Daramkun.Misty.Contents.Tables
 						if ( innerEntry.Contains ( key ) ) return innerEntry [ key ] as string;
 					}
 				}
+				else
+				{
+					JsonContainer innerEntry = stringTable [ "unknown" ] as JsonContainer;
+					if ( innerEntry.Contains ( key ) ) return innerEntry [ key ] as string;
+				}
 				if ( !stringTable.Contains ( key ) ) return null;
 				return stringTable [ key ] as string;
 			}
@@ -50,10 +55,8 @@ namespace Daramkun.Misty.Contents.Tables
 			if ( IsCultureMode )
 			{
 				if ( stringTable.Contains ( CultureInfo.CurrentCulture.Name ) )
-				{
-					bool result = ( stringTable [ Core.CurrentCulture.Name ] as JsonContainer ).Contains ( key );
-					if ( result ) return result;
-				}
+				{ if ( ( stringTable [ Core.CurrentCulture.Name ] as JsonContainer ).Contains ( key ) ) return true; }
+				else { if ( ( stringTable [ "unknown" ] as JsonContainer ).Contains ( key ) ) return true; }
 			}
 			return stringTable.Contains ( key );
 		}

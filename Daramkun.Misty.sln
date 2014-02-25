@@ -46,6 +46,10 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Test.VB.Desktop", "Test.VB.
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Test.VB.Game", "Test.VB.Game\Test.VB.Game.vbproj", "{6FED8530-845D-4AF9-81D0-9165D959F799}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utilities", "Utilities", "{6C3D11F6-8A66-41D5-959A-DD5B1FE0C1DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Daramkun.Misty.Utils.StringTableEditor", "Daramkun.Misty.Utils.StringTableEditor\Daramkun.Misty.Utils.StringTableEditor.csproj", "{383B2099-6048-40FA-843A-AF3670225EF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -152,6 +156,14 @@ Global
 		{6FED8530-845D-4AF9-81D0-9165D959F799}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6FED8530-845D-4AF9-81D0-9165D959F799}.Release|ARM.ActiveCfg = Release|Any CPU
 		{6FED8530-845D-4AF9-81D0-9165D959F799}.Release|x86.ActiveCfg = Release|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Release|ARM.ActiveCfg = Release|Any CPU
+		{383B2099-6048-40FA-843A-AF3670225EF8}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +183,7 @@ Global
 		{7E019A0D-2125-4491-B02A-4A7427C3647B} = {F6B9FD51-3F60-4F5F-ACFC-5B725CCD7090}
 		{A1CD96DC-33CC-40B0-ADE5-0A2C21CADD8E} = {C00B8F0E-2120-451F-A587-A5C658C4F90B}
 		{6FED8530-845D-4AF9-81D0-9165D959F799} = {C00B8F0E-2120-451F-A587-A5C658C4F90B}
+		{383B2099-6048-40FA-843A-AF3670225EF8} = {6C3D11F6-8A66-41D5-959A-DD5B1FE0C1DB}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Test.Desktop\Test.Desktop.csproj

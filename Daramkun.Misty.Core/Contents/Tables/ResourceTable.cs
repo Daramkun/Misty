@@ -116,20 +116,28 @@ namespace Daramkun.Misty.Contents.Tables
 			{
 				if ( FileSystem.IsFileExist ( PathCombine ( Core.CurrentCulture.Name, filename ) ) )
 					key = PathCombine ( Core.CurrentCulture.Name, filename );
+				if ( FileSystem.IsFileExist ( PathCombine ( "unknown", filename ) ) )
+					key = PathCombine ( "unknown", filename );
 				else
 				{
 					bool exist = false;
 					foreach ( string ext in loader.FileExtensions )
 					{
-						if ( FileSystem.IsFileExist ( string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) )
+						if ( FileSystem.IsFileExist ( PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
 						{
-							key = string.Format ( "{0}.{1}", filename, ext.ToLower () );
+							key = PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) );
 							exist = true;
 							break;
 						}
-						else if ( FileSystem.IsFileExist ( PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
+						else if ( FileSystem.IsFileExist ( PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
 						{
-							key = PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) );
+							key = PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) );
+							exist = true;
+							break;
+						}
+						else if ( FileSystem.IsFileExist ( string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) )
+						{
+							key = string.Format ( "{0}.{1}", filename, ext.ToLower () );
 							exist = true;
 							break;
 						}

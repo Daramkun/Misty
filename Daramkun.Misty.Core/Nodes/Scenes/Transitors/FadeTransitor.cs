@@ -33,24 +33,30 @@ namespace Daramkun.Misty.Nodes.Scenes.Transitors
 			fadeSpriteWorld.Scale = Core.GraphicsDevice.BackBuffer.Size;
 		}
 
-		public TransitionState Transitioning ( TransitionState currentState, Node scene, GameTime gameTime )
+		private void DrawFade ()
 		{
-			if ( fadeAlpha != 0 )
+			if ( fadeAlpha > 0 )
 			{
 				fadeSpriteWorld.Scale = Core.GraphicsDevice.CurrentRenderBuffer.Size;
 				fadeSprite.OverlayColor = new Color ( FadeColor, fadeAlpha / 255 );
 				fadeSprite.Draw ( fadeSpriteWorld );
 			}
+		}
 
+		public TransitionState Transitioning ( TransitionState currentState, Node scene, GameTime gameTime )
+		{
 			switch ( currentState )
 			{
 				case TransitionState.Begin:
 					fadeAlpha += ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f * FadeUnit;
-					if ( fadeAlpha >= 255 ) { fadeAlpha = 255; return TransitionState.PretransitionEnd; }
+					if ( fadeAlpha >= 255 ) fadeAlpha = 255;
+					DrawFade ();
+					if ( fadeAlpha >= 255 ) return TransitionState.PretransitionEnd;
 					return TransitionState.Begin;
 				case TransitionState.Posttransition:
 				case TransitionState.PretransitionEnd:
 					fadeAlpha -= ( float ) gameTime.ElapsedGameTime.TotalMilliseconds / 1000.0f * FadeUnit;
+					DrawFade ();
 					if ( fadeAlpha <= 0 ) { fadeAlpha = 0; return TransitionState.End; }
 					return TransitionState.Posttransition;
 				default:
