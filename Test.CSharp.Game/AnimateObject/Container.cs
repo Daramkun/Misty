@@ -40,7 +40,7 @@ namespace Test.Game.CSharp.AnimateObject
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			
 			animate = new Animate ( TimeSpan.FromSeconds ( 4 ), 400 );
-			Add ( InputHelper.CreateInstance () );
+			Add ( InputHelper.Instance );
 			
 			world = new World2 ();
 			

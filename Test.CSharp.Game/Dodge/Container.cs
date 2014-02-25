@@ -40,7 +40,7 @@ namespace Test.Game.Dodge
 			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
-			Add ( InputHelper.CreateInstance () );
+			Add ( InputHelper.Instance );
 			InputHelper.IsKeyboardEnabled = true;
 			Add ( SceneContainer = new SceneContainer ( new MenuScene () ) );
 			SceneContainer.SceneTransitor = new FadeTransitor ();

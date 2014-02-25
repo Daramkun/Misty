@@ -30,7 +30,7 @@ namespace Test.Game.PerformanceTester
 			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
-			Add ( InputHelper.CreateInstance () );
+			Add ( InputHelper.Instance );
 			Add ( calc = new FpsCalculator () );
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );

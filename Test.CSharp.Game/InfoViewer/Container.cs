@@ -40,7 +40,7 @@ namespace Test.Game.InfoViewer
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			font.IsPrerenderMode = true;
 
-			Add ( InputHelper.CreateInstance () );
+			Add ( InputHelper.Instance );
 
 			infoText = string.Format (
 @"Platform Type: {0}

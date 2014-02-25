@@ -28,7 +28,7 @@ namespace Test.CSharp.Game.InputTester
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( FileSystemManager.ManifestFileSystem ) );
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf",  32 );
-			Add ( InputHelper.CreateInstance () );
+			Add ( InputHelper.Instance );
 			base.Intro ( args );
 		}
 

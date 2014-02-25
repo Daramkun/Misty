@@ -35,7 +35,7 @@ Namespace Test.VB.Game.AnimateObject
 			font = contentManager.Load(Of TrueTypeFont)("Resources/test.ttf", 24)
 
 			animate = New Animate(TimeSpan.FromSeconds(4), 400)
-			Add(InputHelper.CreateInstance())
+			Add(InputHelper.Instance)
 
 			world = New World2()
 

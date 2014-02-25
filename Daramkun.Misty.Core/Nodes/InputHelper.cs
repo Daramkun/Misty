@@ -10,7 +10,33 @@ namespace Daramkun.Misty.Nodes
 {
 	public class InputHelper : Node
 	{
-		public static InputHelper Instance { get; private set; }
+		static InputHelper instance;
+		public static InputHelper Instance
+		{
+			get
+			{
+				if ( instance == null )
+				{
+					instance = new InputHelper ();
+
+					if ( Core.Inputs.GetDevice<KeyboardState> ().IsConnected ) IsKeyboardEnabled = true;
+					else IsKeyboardEnabled = false;
+
+					if ( Core.Inputs.GetDevice<MouseState> ().IsConnected ) IsMouseEnabled = true;
+					else IsMouseEnabled = false;
+
+					if ( Core.Inputs.GetDevice<GamePadState> ().IsConnected ) IsGamePadEnabled = true;
+					else IsGamePadEnabled = false;
+
+					if ( Core.Inputs.GetDevice<TouchState> ().IsConnected ) IsTouchEnabled = true;
+					else IsTouchEnabled = false;
+
+					if ( Core.Inputs.GetDevice<AccelerometerState> ().IsConnected ) IsAccelerometerEnabled = true;
+					else IsAccelerometerEnabled = false;
+				}
+				return Instance;
+			}
+		}
 
 		public static KeyboardState LastKeyboardState { get; private set; }
 		public static KeyboardState CurrentKeyboardState { get; private set; }
@@ -75,29 +101,8 @@ namespace Daramkun.Misty.Nodes
 			CurrentGamePadState = new GamePadState [ 4 ];
 		}
 
-		public static InputHelper CreateInstance ()
-		{
-			if ( Instance == null )
-			{
-				Instance = new InputHelper ();
-
-				if ( Core.Inputs.GetDevice<KeyboardState> ().IsConnected ) IsKeyboardEnabled = true;
-				else IsKeyboardEnabled = false;
-
-				if ( Core.Inputs.GetDevice<MouseState> ().IsConnected ) IsMouseEnabled = true;
-				else IsMouseEnabled = false;
-
-				if ( Core.Inputs.GetDevice<GamePadState> ().IsConnected ) IsGamePadEnabled = true;
-				else IsGamePadEnabled = false;
-
-				if ( Core.Inputs.GetDevice<TouchState> ().IsConnected ) IsTouchEnabled = true;
-				else IsTouchEnabled = false;
-
-				if ( Core.Inputs.GetDevice<AccelerometerState> ().IsConnected ) IsAccelerometerEnabled = true;
-				else IsAccelerometerEnabled = false;
-			}
-			return Instance;
-		}
+		[Obsolete("Please use the Instance property.", false)]
+		public static InputHelper CreateInstance () { return Instance; }
 
 		private InputHelper ()
 		{

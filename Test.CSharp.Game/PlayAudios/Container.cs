@@ -40,7 +40,7 @@ namespace Test.Game.PlayAudios
 			audio2 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio2.ogg" );
 			audio3 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio3.ogg" );
 
-			Add ( InputHelper.CreateInstance () );
+			Add ( InputHelper.Instance );
 
 			base.Intro ( args );
 		}
