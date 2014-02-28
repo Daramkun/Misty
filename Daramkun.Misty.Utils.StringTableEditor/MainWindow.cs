@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,16 +17,70 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 		JsonContainer opened = null;
 		string editKey;
 
+		string savePath = null;
+		bool saved = true;
+
+		private bool CheckSave ()
+		{
+			if ( saved ) return true;
+			else
+			{
+				DialogResult mb = MessageBox.Show ( "Are you want to save this?", "String Table Editor", MessageBoxButtons.YesNoCancel );
+				switch ( mb )
+				{
+					case DialogResult.Yes:
+						return SaveFile ();
+					case DialogResult.No:
+						return true;
+					default:
+						return false;
+				}
+			}
+		}
+
 		private void NewFile ()
 		{
+			saved = true;
+			savePath = null;
+
 			data = new JsonContainer ( ContainType.Object );
 			data.Add ( new JsonContainer ( ContainType.Object ), "unknown" );
 			listViewLanguages.Items.Add ( "unknown" );
 		}
 
+		private void OpenFile ()
+		{
+		
+		}
+
+		private bool SaveFile ()
+		{
+			if ( savePath == null ) return SaveAsFile ();
+
+			using ( Stream stream = new FileStream ( savePath, FileMode.Create, FileAccess.Write ) )
+			{
+				byte [] data;
+				if ( Path.GetExtension ( saveFileDialog1.FileName ) == "bson" )
+					data = this.data.ToBinary ();
+				else data = Encoding.UTF8.GetBytes ( this.data.ToString () );
+				stream.Write ( data, 0, data.Length );
+			}
+			saved = true;
+			return true;
+		}
+
+		private bool SaveAsFile ()
+		{
+			if ( saveFileDialog1.ShowDialog () == DialogResult.Cancel ) return false;
+			savePath = saveFileDialog1.FileName;
+			SaveFile ();
+			return true;
+		}
+
 		public MainWindow ()
 		{
 			InitializeComponent ();
+
 			NewFile ();
 		}
 
@@ -130,6 +185,26 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 			string data = opened [ editKey ] as string;
 			opened.Remove ( editKey );
 			opened.Add ( data, e.Label );
+		}
+
+		private void listViewEditor_DoubleClick ( object sender, EventArgs e )
+		{
+			if ( listViewEditor.SelectedItems.Count > 0 )
+			{
+				EditItem editItem = new EditItem ();
+				editItem.textBox1.Text = opened [ listViewEditor.SelectedItems [ 0 ].Text ] as string;
+				if ( editItem.ShowDialog () == DialogResult.Cancel ) return;
+				opened [ listViewEditor.SelectedItems [ 0 ].Text ] = editItem.textBox1.Text;
+				if ( listViewEditor.SelectedItems [ 0 ].SubItems.Count != 2 )
+					listViewEditor.SelectedItems [ 0 ].SubItems.Add ( editItem.textBox1.Text );
+				else
+					listViewEditor.SelectedItems [ 0 ].SubItems [ 1 ].Text = editItem.textBox1.Text;
+			}
+		}
+
+		private void exitToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			Close ();
 		}
 	}
 }

@@ -10,7 +10,7 @@ namespace Daramkun.Misty.Contents.Loaders
 	public class StringTableContentLoader : IContentLoader
 	{
 		public Type ContentType { get { return typeof ( StringTable ); } }
-		public IEnumerable<string> FileExtensions { get { yield return "jst"; } }
+		public IEnumerable<string> FileExtensions { get { yield return "jst"; yield return "json"; yield return "bson"; } }
 		public bool IsSelfStreamDispose { get { return true; } }
 
 		public object Load ( Stream stream, params object [] args )
