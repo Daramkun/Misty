@@ -1,20 +1,135 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Daramkun.Blockar.Json;
 
 namespace Daramkun.Misty.Utils.StringTableEditor
 {
 	public partial class MainWindow : Form
 	{
+		JsonContainer data;
+		JsonContainer opened = null;
+		string editKey;
+
+		private void NewFile ()
+		{
+			data = new JsonContainer ( ContainType.Object );
+			data.Add ( new JsonContainer ( ContainType.Object ), "unknown" );
+			listViewLanguages.Items.Add ( "unknown" );
+		}
+
 		public MainWindow ()
 		{
 			InitializeComponent ();
+			NewFile ();
+		}
+
+		private void addLanguageToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			AddLanguage window = new AddLanguage ();
+			if ( window.ShowDialog () != DialogResult.OK ) return;
+			if ( !data.Contains ( window.comboBox1.SelectedItem as string ) )
+			{
+				data.Add ( new JsonContainer ( ContainType.Object ), window.comboBox1.SelectedItem as string );
+				listViewLanguages.Items.Add ( window.comboBox1.SelectedItem as string );
+			}
+		}
+
+		private void removeLanguageToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			if ( listViewLanguages.SelectedIndices.Count == 0 )
+			{
+				MessageBox.Show ( "Please select a language in Language Listview.", "String Table Editor" );
+				return;
+			}
+
+			if ( listViewLanguages.SelectedItems [ 0 ].Text == "unknown" )
+			{
+				MessageBox.Show ( "Cannot remove the 'unknown' Language.", "String Table Editor" );
+				return;
+			}
+
+			if ( MessageBox.Show ( "Are you really remove this language?", "String Table Editor", MessageBoxButtons.YesNo ) == DialogResult.No )
+				return;
+
+			string key = listViewLanguages.SelectedItems [ 0 ].Text;
+			listViewLanguages.Items.Remove ( listViewLanguages.SelectedItems [ 0 ] );
+			if ( data [ key ] == opened )
+			{
+				listViewEditor.Items.Clear ();
+				listViewEditor.Enabled = false;
+			}
+			data.Remove ( key );
+		}
+
+		private int GetLastestNoNamedNumber ()
+		{
+			if ( opened == null ) return -1;
+			int i = 0;
+			foreach(KeyValuePair<object,object> o in opened.GetDictionaryEnumerable())
+				if ( ( o.Key as string ).Substring ( 0, 7 ) == "nonamed" )
+				{
+					int temp;
+					if ( !int.TryParse ( ( o.Key as string ).Substring ( 7, ( o.Key as string ).Length - 7 ), out temp ) )
+						continue;
+					if ( i < temp )
+						i = temp;
+				}
+			return ++i;
+		}
+
+		private void addItemToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			if ( opened == null ) return;
+
+			int i = GetLastestNoNamedNumber ();
+			opened.Add ( "", "nonamed" + i );
+			listViewEditor.Items.Add ( "nonamed" + i );
+		}
+
+		private void removeItemToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			if ( opened == null ) return;
+
+			if ( listViewEditor.SelectedItems.Count > 0 )
+			{
+				string key = listViewEditor.SelectedItems [ 0 ].Text;
+				opened.Remove ( key );
+				listViewEditor.Items.Remove ( listViewEditor.SelectedItems [ 0 ] );
+			}
+		}
+
+		private void listViewLanguages_DoubleClick ( object sender, EventArgs e )
+		{
+			if ( listViewLanguages.SelectedItems.Count > 0 )
+			{
+				listViewEditor.Items.Clear ();
+				string key = listViewLanguages.SelectedItems [ 0 ].Text;
+				opened = data [ key ] as JsonContainer;
+				listViewEditor.Enabled = true;
+				foreach ( KeyValuePair<object, object> s in opened.GetDictionaryEnumerable () )
+				{
+					listViewEditor.Items.Add ( s.Key as string ).SubItems.Add ( s.Value as string );
+				}
+			}
+		}
+
+		private void listViewEditor_BeforeLabelEdit ( object sender, LabelEditEventArgs e )
+		{
+			editKey = listViewEditor.Items [ e.Item ].Text;
+		}
+
+		private void listViewEditor_AfterLabelEdit ( object sender, LabelEditEventArgs e )
+		{
+			if ( opened.Contains ( e.Label ) ) { e.CancelEdit = true; return; }
+			string data = opened [ editKey ] as string;
+			opened.Remove ( editKey );
+			opened.Add ( data, e.Label );
 		}
 	}
 }

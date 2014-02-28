@@ -219,7 +219,6 @@
     <Compile Include="Inputs\Devices\BaseTouchPanel.cs" />
     <Compile Include="Inputs\GamePadButton.cs" />
     <Compile Include="Inputs\InputCollection.cs" />
-    <Compile Include="Inputs\InputSensitivity.cs" />
     <Compile Include="Inputs\Key.cs" />
     <Compile Include="Inputs\MouseButton.cs" />
     <Compile Include="Inputs\PointerMode.cs" />
