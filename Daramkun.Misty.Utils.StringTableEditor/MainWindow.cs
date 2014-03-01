@@ -20,6 +20,8 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 		string savePath = null;
 		bool saved = true;
 
+		private void SetTitle () { Text = ( savePath != null ? Path.GetFileName ( savePath ) : "Untitled.json" ) + " - Misty Framework String Table Editor"; }
+
 		private bool CheckSave ()
 		{
 			if ( saved ) return true;
@@ -40,17 +42,39 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 
 		private void NewFile ()
 		{
+			if ( !CheckSave () ) return;
+
 			saved = true;
 			savePath = null;
 
 			data = new JsonContainer ( ContainType.Object );
 			data.Add ( new JsonContainer ( ContainType.Object ), "unknown" );
 			listViewLanguages.Items.Add ( "unknown" );
+
+			SetTitle ();
 		}
 
 		private void OpenFile ()
 		{
-		
+			if ( !CheckSave () ) return;
+
+			if ( openFileDialog1.ShowDialog () == DialogResult.Cancel ) return;
+
+			using ( Stream stream = new FileStream ( openFileDialog1.FileName, FileMode.Open, FileAccess.Read ) )
+			{
+				data = JsonParser.Parse ( stream );
+				listViewLanguages.Items.Clear ();
+				listViewEditor.Items.Clear ();
+				listViewEditor.Enabled = false;
+				opened = null;
+				foreach ( KeyValuePair<object, object> i in data.GetDictionaryEnumerable () )
+					listViewLanguages.Items.Add ( i.Key as string );
+			}
+
+			saved = true;
+			savePath = openFileDialog1.FileName;
+
+			SetTitle ();
 		}
 
 		private bool SaveFile ()
@@ -74,17 +98,11 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 			if ( saveFileDialog1.ShowDialog () == DialogResult.Cancel ) return false;
 			savePath = saveFileDialog1.FileName;
 			SaveFile ();
+			SetTitle ();
 			return true;
 		}
 
-		public MainWindow ()
-		{
-			InitializeComponent ();
-
-			NewFile ();
-		}
-
-		private void addLanguageToolStripMenuItem_Click ( object sender, EventArgs e )
+		private void AddLanguageFunc ()
 		{
 			AddLanguage window = new AddLanguage ();
 			if ( window.ShowDialog () != DialogResult.OK ) return;
@@ -95,7 +113,7 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 			}
 		}
 
-		private void removeLanguageToolStripMenuItem_Click ( object sender, EventArgs e )
+		private void RemoveLanguage ()
 		{
 			if ( listViewLanguages.SelectedIndices.Count == 0 )
 			{
@@ -122,6 +140,44 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 			data.Remove ( key );
 		}
 
+		private void AddItem ()
+		{
+			if ( opened == null ) return;
+
+			int i = GetLastestNoNamedNumber ();
+			opened.Add ( "", "nonamed" + i );
+			listViewEditor.Items.Add ( "nonamed" + i );
+		}
+
+		private void RemoveItem ()
+		{
+			if ( opened == null ) return;
+
+			if ( listViewEditor.SelectedItems.Count > 0 )
+			{
+				string key = listViewEditor.SelectedItems [ 0 ].Text;
+				opened.Remove ( key );
+				listViewEditor.Items.Remove ( listViewEditor.SelectedItems [ 0 ] );
+			}
+		}
+
+		public MainWindow ()
+		{
+			InitializeComponent ();
+
+			NewFile ();
+		}
+
+		private void addLanguageToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			AddLanguageFunc ();
+		}
+
+		private void removeLanguageToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			RemoveLanguage ();
+		}
+
 		private int GetLastestNoNamedNumber ()
 		{
 			if ( opened == null ) return -1;
@@ -140,23 +196,12 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 
 		private void addItemToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
-			if ( opened == null ) return;
-
-			int i = GetLastestNoNamedNumber ();
-			opened.Add ( "", "nonamed" + i );
-			listViewEditor.Items.Add ( "nonamed" + i );
+			AddItem ();
 		}
 
 		private void removeItemToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
-			if ( opened == null ) return;
-
-			if ( listViewEditor.SelectedItems.Count > 0 )
-			{
-				string key = listViewEditor.SelectedItems [ 0 ].Text;
-				opened.Remove ( key );
-				listViewEditor.Items.Remove ( listViewEditor.SelectedItems [ 0 ] );
-			}
+			RemoveItem ();
 		}
 
 		private void listViewLanguages_DoubleClick ( object sender, EventArgs e )
@@ -205,6 +250,71 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 		private void exitToolStripMenuItem_Click ( object sender, EventArgs e )
 		{
 			Close ();
+		}
+
+		private void newToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			NewFile ();
+		}
+
+		private void openToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			OpenFile ();
+		}
+
+		private void saveToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			SaveFile ();
+		}
+
+		private void saveasToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			SaveAsFile ();
+		}
+
+		private void toolStripButton1_Click ( object sender, EventArgs e )
+		{
+			NewFile ();
+		}
+
+		private void toolStripButton2_Click ( object sender, EventArgs e )
+		{
+			OpenFile ();
+		}
+
+		private void toolStripButton3_Click ( object sender, EventArgs e )
+		{
+			SaveFile ();
+		}
+
+		private void toolStripButton9_Click ( object sender, EventArgs e )
+		{
+			AddLanguageFunc ();
+		}
+
+		private void toolStripButton10_Click ( object sender, EventArgs e )
+		{
+			RemoveLanguage ();
+		}
+
+		private void toolStripButton11_Click ( object sender, EventArgs e )
+		{
+			AddItem ();
+		}
+
+		private void toolStripButton12_Click ( object sender, EventArgs e )
+		{
+			RemoveItem ();
+		}
+
+		private void aboutToolStripMenuItem_Click ( object sender, EventArgs e )
+		{
+			new AboutWindow ().ShowDialog ();
+		}
+
+		private void toolStripButton13_Click ( object sender, EventArgs e )
+		{
+			new AboutWindow ().ShowDialog ();
 		}
 	}
 }

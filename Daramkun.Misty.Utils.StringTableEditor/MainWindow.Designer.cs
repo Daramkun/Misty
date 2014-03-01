@@ -107,44 +107,54 @@
 			// 
 			this.newToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.page;
 			this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-			this.newToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+			this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+			this.newToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
 			this.newToolStripMenuItem.Text = "&New...";
+			this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.folder;
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+			this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
 			this.openToolStripMenuItem.Text = "&Open...";
+			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(111, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
 			// 
 			// saveToolStripMenuItem
 			// 
 			this.saveToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.disk;
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-			this.saveToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+			this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
 			this.saveToolStripMenuItem.Text = "&Save";
+			this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
 			// 
 			// saveasToolStripMenuItem
 			// 
 			this.saveasToolStripMenuItem.Name = "saveasToolStripMenuItem";
-			this.saveasToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+			this.saveasToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+			this.saveasToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
 			this.saveasToolStripMenuItem.Text = "Save &as";
+			this.saveasToolStripMenuItem.Click += new System.EventHandler(this.saveasToolStripMenuItem_Click);
 			// 
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-			this.toolStripMenuItem2.Size = new System.Drawing.Size(111, 6);
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
 			// 
 			// exitToolStripMenuItem
 			// 
 			this.exitToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.door_open;
 			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-			this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+			this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
 			this.exitToolStripMenuItem.Text = "E&xit";
 			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
 			// 
@@ -161,7 +171,8 @@
 			// 
 			this.addLanguageToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.world_add;
 			this.addLanguageToolStripMenuItem.Name = "addLanguageToolStripMenuItem";
-			this.addLanguageToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+			this.addLanguageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
+			this.addLanguageToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
 			this.addLanguageToolStripMenuItem.Text = "&Add Language";
 			this.addLanguageToolStripMenuItem.Click += new System.EventHandler(this.addLanguageToolStripMenuItem_Click);
 			// 
@@ -169,7 +180,8 @@
 			// 
 			this.removeLanguageToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.world_delete;
 			this.removeLanguageToolStripMenuItem.Name = "removeLanguageToolStripMenuItem";
-			this.removeLanguageToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+			this.removeLanguageToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+			this.removeLanguageToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
 			this.removeLanguageToolStripMenuItem.Text = "&Remove Language";
 			this.removeLanguageToolStripMenuItem.Click += new System.EventHandler(this.removeLanguageToolStripMenuItem_Click);
 			// 
@@ -186,7 +198,8 @@
 			// 
 			this.addItemToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.pencil_add;
 			this.addItemToolStripMenuItem.Name = "addItemToolStripMenuItem";
-			this.addItemToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+			this.addItemToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
+			this.addItemToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
 			this.addItemToolStripMenuItem.Text = "&Add Item";
 			this.addItemToolStripMenuItem.Click += new System.EventHandler(this.addItemToolStripMenuItem_Click);
 			// 
@@ -194,7 +207,9 @@
 			// 
 			this.removeItemToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.pencil_delete;
 			this.removeItemToolStripMenuItem.Name = "removeItemToolStripMenuItem";
-			this.removeItemToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+			this.removeItemToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.D)));
+			this.removeItemToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
 			this.removeItemToolStripMenuItem.Text = "&Remove Item";
 			this.removeItemToolStripMenuItem.Click += new System.EventHandler(this.removeItemToolStripMenuItem_Click);
 			// 
@@ -210,8 +225,9 @@
 			// 
 			this.aboutToolStripMenuItem.Image = global::Daramkun.Misty.Utils.StringTableEditor.Properties.Resources.information;
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
 			this.aboutToolStripMenuItem.Text = "&About...";
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// toolStrip1
 			// 
@@ -242,6 +258,7 @@
 			this.toolStripButton1.Name = "toolStripButton1";
 			this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton1.Text = "New...";
+			this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
 			// 
 			// toolStripButton2
 			// 
@@ -251,6 +268,7 @@
 			this.toolStripButton2.Name = "toolStripButton2";
 			this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton2.Text = "Open...";
+			this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
 			// 
 			// toolStripButton3
 			// 
@@ -260,6 +278,7 @@
 			this.toolStripButton3.Name = "toolStripButton3";
 			this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton3.Text = "Save...";
+			this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -274,6 +293,7 @@
 			this.toolStripButton9.Name = "toolStripButton9";
 			this.toolStripButton9.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton9.Text = "Add Language";
+			this.toolStripButton9.Click += new System.EventHandler(this.toolStripButton9_Click);
 			// 
 			// toolStripButton10
 			// 
@@ -283,6 +303,7 @@
 			this.toolStripButton10.Name = "toolStripButton10";
 			this.toolStripButton10.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton10.Text = "Remove Language";
+			this.toolStripButton10.Click += new System.EventHandler(this.toolStripButton10_Click);
 			// 
 			// toolStripSeparator4
 			// 
@@ -297,6 +318,7 @@
 			this.toolStripButton11.Name = "toolStripButton11";
 			this.toolStripButton11.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton11.Text = "Add Item";
+			this.toolStripButton11.Click += new System.EventHandler(this.toolStripButton11_Click);
 			// 
 			// toolStripButton12
 			// 
@@ -306,6 +328,7 @@
 			this.toolStripButton12.Name = "toolStripButton12";
 			this.toolStripButton12.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton12.Text = "Remove Item";
+			this.toolStripButton12.Click += new System.EventHandler(this.toolStripButton12_Click);
 			// 
 			// toolStripSeparator5
 			// 
@@ -320,6 +343,7 @@
 			this.toolStripButton13.Name = "toolStripButton13";
 			this.toolStripButton13.Size = new System.Drawing.Size(23, 22);
 			this.toolStripButton13.Text = "About...";
+			this.toolStripButton13.Click += new System.EventHandler(this.toolStripButton13_Click);
 			// 
 			// statusStrip1
 			// 
