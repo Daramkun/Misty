@@ -33,10 +33,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\MainIcon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Daramkun.Blockar, Version=1.0.1.2, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Daramkun.Blockar, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Daramkun.Blockar.1.0.1.2\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
+      <HintPath>..\packages\Daramkun.Blockar.1.0.2\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -136,6 +139,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\door_open.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MainIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

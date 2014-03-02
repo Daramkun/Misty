@@ -111,6 +111,7 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 				data.Add ( new JsonContainer ( ContainType.Object ), window.comboBox1.SelectedItem as string );
 				listViewLanguages.Items.Add ( window.comboBox1.SelectedItem as string );
 			}
+			saved = false;
 		}
 
 		private void RemoveLanguage ()
@@ -138,6 +139,7 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 				listViewEditor.Enabled = false;
 			}
 			data.Remove ( key );
+			saved = false;
 		}
 
 		private void AddItem ()
@@ -147,6 +149,7 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 			int i = GetLastestNoNamedNumber ();
 			opened.Add ( "", "nonamed" + i );
 			listViewEditor.Items.Add ( "nonamed" + i );
+			saved = false;
 		}
 
 		private void RemoveItem ()
@@ -159,6 +162,7 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 				opened.Remove ( key );
 				listViewEditor.Items.Remove ( listViewEditor.SelectedItems [ 0 ] );
 			}
+			saved = false;
 		}
 
 		public MainWindow ()
@@ -315,6 +319,11 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 		private void toolStripButton13_Click ( object sender, EventArgs e )
 		{
 			new AboutWindow ().ShowDialog ();
+		}
+
+		private void MainWindow_FormClosing ( object sender, FormClosingEventArgs e )
+		{
+			e.Cancel = !CheckSave ();
 		}
 	}
 }
