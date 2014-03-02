@@ -34,7 +34,7 @@ namespace Daramkun.Misty.Nodes
 					if ( Core.Inputs.GetDevice<AccelerometerState> ().IsConnected ) IsAccelerometerEnabled = true;
 					else IsAccelerometerEnabled = false;
 				}
-				return Instance;
+				return instance;
 			}
 		}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Contents;
 using Daramkun.Misty.Inputs.Devices;
 using Daramkun.Misty.Inputs.States;
 
@@ -28,6 +29,7 @@ namespace Daramkun.Misty.Inputs
 			Add<GamePadState> ( new BaseGamePad () );
 			Add<TouchState> ( new BaseTouchPanel () );
 			Add<AccelerometerState> ( new BaseAccelerometer () );
+			Add<AudioInfo> ( new BaseMicrophone () );
 		}
 
 		public void Dispose ()

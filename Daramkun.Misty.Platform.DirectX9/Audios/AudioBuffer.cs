@@ -27,8 +27,14 @@ namespace Daramkun.Misty.Audios
 
 		public float Volume
 		{
-			get { return soundBuffer.Volume / 10000.0f; }
-			set { soundBuffer.Volume = ( int ) ( value * 10000.0f ); }
+			get { return ( 10000 + soundBuffer.Volume ) / 10000.0f; }
+			set
+			{
+				int v = ( ( int ) ( ( value - 1 ) * 10000.0f ) );
+				if ( v > 0 ) v = 0;
+				else if ( v < -10000 ) v = -10000;
+				soundBuffer.Volume = v;
+			}
 		}
 
 		public float Balance
@@ -60,7 +66,7 @@ namespace Daramkun.Misty.Audios
 				Flags = SharpDX.DirectSound.BufferFlags.ControlVolume | SharpDX.DirectSound.BufferFlags.ControlPan |
 				SharpDX.DirectSound.BufferFlags.ControlPositionNotify | SharpDX.DirectSound.BufferFlags.StickyFocus |
 				SharpDX.DirectSound.BufferFlags.Software | SharpDX.DirectSound.BufferFlags.GetCurrentPosition2 |
-				SharpDX.DirectSound.BufferFlags.ControlFrequency,
+				SharpDX.DirectSound.BufferFlags.ControlFrequency | SharpDX.DirectSound.BufferFlags.GlobalFocus,
 				Format = new SharpDX.Multimedia.WaveFormat ( audioInfo.SampleRate, audioInfo.BitPerSamples * 8, audioInfo.AudioChannel ),
 				BufferBytes = totalLength = ( int ) ( audioInfo.Duration.TotalSeconds * audioInfo.ByteRate ),
 			};

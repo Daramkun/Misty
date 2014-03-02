@@ -5,6 +5,7 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using Daramkun.Misty.Audios;
+using Daramkun.Misty.Contents;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Inputs.Devices;
 using Daramkun.Misty.Inputs.States;
@@ -45,7 +46,6 @@ namespace Daramkun.Misty.Platforms
 			Core.Inputs.Add<MouseState> ( new Mouse ( Core.Window ) );
 			Core.Inputs.Add<GamePadState> ( new GamePad ( Core.Window ) );
 
-			//CommonTransform.HandDirection = HandDirection.LeftHand;
 			return true;
 		}
 

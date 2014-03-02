@@ -13,6 +13,7 @@ namespace Daramkun.Misty.Audios
 	{
 		SharpDX.DirectSound.DirectSound dSound;
 		SharpDX.DirectSound.PrimarySoundBuffer soundBuffer;
+		internal SharpDX.DirectSound.DirectSoundCapture dCapture;
 		List<IAudioBuffer> audioList;
 
 		public object Handle { get { return dSound; } }
@@ -29,6 +30,8 @@ namespace Daramkun.Misty.Audios
 
 			soundBuffer.Play ( 0, SharpDX.DirectSound.PlayFlags.Looping );
 
+			dCapture = new SharpDX.DirectSound.DirectSoundCapture ();
+
 			audioList = new List<IAudioBuffer> ();
 		}
 
@@ -36,6 +39,7 @@ namespace Daramkun.Misty.Audios
 		{
 			if ( isDisposing )
 			{
+				dCapture.Dispose ();
 				soundBuffer.Dispose ();
 				dSound.Dispose ();
 			}

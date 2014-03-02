@@ -60,6 +60,14 @@ namespace Test.Game.PlayAudios
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D3 ) )
 			{ if ( !audio3.IsPlaying ) audio3.Play (); else audio3.Pause (); }
 
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.Q ) ) audio1.Volume += 0.1f;
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.W ) ) audio1.Volume += 0.1f;
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.E ) ) audio1.Volume += 0.1f;
+
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.A ) ) audio1.Volume -= 0.1f;
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.S ) ) audio1.Volume -= 0.1f;
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D ) ) audio1.Volume -= 0.1f;
+
 			base.Update ( gameTime );
 		}
 
@@ -68,11 +76,11 @@ namespace Test.Game.PlayAudios
 			Core.GraphicsDevice.BeginScene ();
 			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
-			font.DrawFont ( string.Format ( "Audio1: {0}/{1}, Is Playing? {2}", audio1.Position, audio1.Duration, audio1.IsPlaying ),
+			font.DrawFont ( string.Format ( "Audio1: {0}/{1}, Is Playing? {2}, Volume: {3}", audio1.Position, audio1.Duration, audio1.IsPlaying, audio1.Volume ),
 				Color.White, new Vector2 ( 0, 0 ) );
-			font.DrawFont ( string.Format ( "Audio2: {0}/{1}, Is Playing? {2}", audio2.Position, audio2.Duration, audio2.IsPlaying ),
+			font.DrawFont ( string.Format ( "Audio2: {0}/{1}, Is Playing? {2}, Volume: {3}", audio2.Position, audio2.Duration, audio2.IsPlaying, audio2.Volume ),
 				Color.White, new Vector2 ( 0, 30 ) );
-			font.DrawFont ( string.Format ( "Audio3: {0}/{1}, Is Playing? {2}", audio3.Position, audio3.Duration, audio3.IsPlaying ),
+			font.DrawFont ( string.Format ( "Audio3: {0}/{1}, Is Playing? {2}, Volume: {3}", audio3.Position, audio3.Duration, audio3.IsPlaying, audio3.Volume ),
 				Color.White, new Vector2 ( 0, 60 ) );
 
 			base.Draw ( gameTime );
