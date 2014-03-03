@@ -78,15 +78,15 @@
       <Name>Daramkun.Misty.Platform.Desktop</Name>
     </ProjectReference>
     <ProjectReference Include="..\Daramkun.Misty.Platform.DirectX9\Daramkun.Misty.Platform.DirectX9.csproj">
-      <Project>{ed437759-72e7-47d0-ae51-32eb7acddcd5}</Project>
+      <Project>{ED437759-72E7-47D0-AE51-32EB7ACDDCD5}</Project>
       <Name>Daramkun.Misty.Platform.DirectX9</Name>
     </ProjectReference>
     <ProjectReference Include="..\Daramkun.Misty.Platform.OpenTK\Daramkun.Misty.Platform.OpenTK.csproj">
-      <Project>{b35d83a5-2e08-4fc8-8d7f-4d6264414e12}</Project>
+      <Project>{B35D83A5-2E08-4FC8-8D7F-4D6264414E12}</Project>
       <Name>Daramkun.Misty.Platform.OpenTK</Name>
     </ProjectReference>
     <ProjectReference Include="..\Test.CSharp.Game\Test.CSharp.Game.csproj">
-      <Project>{b9bda2ea-2804-4532-abc5-b1011cc09a22}</Project>
+      <Project>{B9BDA2EA-2804-4532-ABC5-B1011CC09A22}</Project>
       <Name>Test.CSharp.Game</Name>
     </ProjectReference>
   </ItemGroup>
