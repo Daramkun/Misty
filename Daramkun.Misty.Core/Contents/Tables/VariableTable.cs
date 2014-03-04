@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Daramkun.Blockar.Json;
+using Daramkun.Misty.IO;
 using Daramkun.Misty.IO.Compression;
 
 namespace Daramkun.Misty.Contents.Tables
@@ -42,10 +43,11 @@ namespace Daramkun.Misty.Contents.Tables
 		{
 			if ( stream == null || stream.Length == 0 )
 				return false;
-			byte [] sig = new byte [ 4 ];
-			stream.Read ( sig, 0, 4 );
-			if ( Encoding.UTF8.GetString ( sig, 0, 4 ) != "LQSV" )
-				throw new ArgumentException ( "File format is not matched." );
+			//byte [] sig = new byte [ 4 ];
+			//stream.Read ( sig, 0, 4 );
+			//if ( Encoding.UTF8.GetString ( sig, 0, 4 ) != "LQSV" )
+			//	throw new ArgumentException ( "File format is not matched." );
+			stream = new SignatureStream ( "LQSV", stream );
 
 			DeflateStream df = new DeflateStream ( stream, CompressionMode.Decompress );
 			BinaryReader reader = new BinaryReader ( df );

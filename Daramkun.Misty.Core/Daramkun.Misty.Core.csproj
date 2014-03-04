@@ -239,6 +239,7 @@
     <Compile Include="IO\Compression\Utilities\Zlib.cs" />
     <Compile Include="IO\Compression\Utilities\ZlibContants.cs" />
     <Compile Include="IO\Compression\ZlibBaseStream.cs" />
+    <Compile Include="IO\SignatureStream.cs" />
     <Compile Include="IO\SubStream.cs" />
     <Compile Include="Log\ILogWriter.cs" />
     <Compile Include="Log\Logger.cs" />
