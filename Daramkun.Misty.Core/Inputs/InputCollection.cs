@@ -29,7 +29,6 @@ namespace Daramkun.Misty.Inputs
 			Add<GamePadState> ( new BaseGamePad () );
 			Add<TouchState> ( new BaseTouchPanel () );
 			Add<AccelerometerState> ( new BaseAccelerometer () );
-			Add<AudioInfo> ( new BaseMicrophone () );
 		}
 
 		public void Dispose ()

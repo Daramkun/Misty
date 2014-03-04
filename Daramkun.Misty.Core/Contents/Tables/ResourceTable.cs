@@ -205,11 +205,13 @@ namespace Daramkun.Misty.Contents.Tables
 			contentLoaders = null;
 		}
 
+		[Obsolete ( "Not implemented method of ITable interface", true )]
 		public bool Load ( Stream stream )
 		{
 			throw new NotImplementedException ();
 		}
 
+		[Obsolete ( "Not implemented method of ITable interface", true )]
 		public bool Save ( Stream stream )
 		{
 			throw new NotImplementedException ();

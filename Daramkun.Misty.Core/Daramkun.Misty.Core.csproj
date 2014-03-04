@@ -215,7 +215,6 @@
     <Compile Include="Inputs\Devices\BaseAccelerometer.cs" />
     <Compile Include="Inputs\Devices\BaseGamePad.cs" />
     <Compile Include="Inputs\Devices\BaseKeyboard.cs" />
-    <Compile Include="Inputs\Devices\BaseMicrophone.cs" />
     <Compile Include="Inputs\Devices\BaseMouse.cs" />
     <Compile Include="Inputs\Devices\BaseTouchPanel.cs" />
     <Compile Include="Inputs\GamePadButton.cs" />
