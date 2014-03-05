@@ -48,6 +48,8 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 			savePath = null;
 
 			data = new JsonContainer ( ContainType.Object );
+			data.Add ( "1.0", "tableversion" );
+			data.Add ( "Misty String Table Editor", "generator" );
 			data.Add ( new JsonContainer ( ContainType.Object ), "unknown" );
 			listViewLanguages.Items.Add ( "unknown" );
 
@@ -68,7 +70,8 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 				listViewEditor.Enabled = false;
 				opened = null;
 				foreach ( KeyValuePair<object, object> i in data.GetDictionaryEnumerable () )
-					listViewLanguages.Items.Add ( i.Key as string );
+					if ( !( i.Key as string == "tableversion" || i.Key as string == "generator" ) )
+						listViewLanguages.Items.Add ( i.Key as string );
 			}
 
 			saved = true;
