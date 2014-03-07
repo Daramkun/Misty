@@ -58,17 +58,17 @@ namespace Daramkun.Misty.Contents.Tables
 			}
 		}
 
-		public void AddContent ( string filename, object obj )
+		public void AddContent ( string key, object obj )
 		{
-			loadedContent.Add ( filename, obj );
+			loadedContent.Add ( key, obj );
 		}
 
-		public void RemoveContent ( string filename )
+		public void RemoveContent ( string key )
 		{
-			if ( !loadedContent.ContainsKey ( filename ) ) return;
-			if ( loadedContent [ filename ] is IDisposable )
-				( loadedContent [ filename ] as IDisposable ).Dispose ();
-			loadedContent.Remove ( filename );
+			if ( !loadedContent.ContainsKey ( key ) ) return;
+			if ( loadedContent [ key ] is IDisposable )
+				( loadedContent [ key ] as IDisposable ).Dispose ();
+			loadedContent.Remove ( key );
 		}
 
 		private string PathCombine ( string path, string filename )
@@ -112,7 +112,14 @@ namespace Daramkun.Misty.Contents.Tables
 			key = null;
 
 			if ( loader == null )
+			{
+				if ( FileSystem.IsFileExist ( filename ) )
+				{
+					key = filename;
+					return ( T ) loadedContent [ filename ];
+				}
 				throw new ArgumentException ();
+			}
 
 			if ( !FileSystem.IsFileExist ( filename ) )
 			{
