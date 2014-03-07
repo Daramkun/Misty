@@ -25,7 +25,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		{
 			try
 			{
-				return new Sprite ( textureContentLoader.Load ( stream, args ) as ITexture2D );
+				return new Sprite ( textureContentLoader.Load ( stream, resourceTable, args ) as ITexture2D );
 			}
 			catch
 			{
@@ -36,10 +36,12 @@ namespace Daramkun.Misty.Contents.Loaders
 				{
 					JsonContainer colorKey = data [ "colorkey" ] as JsonContainer;
 					sprite.Texture = textureContentLoader.Load ( new MemoryStream ( Convert.FromBase64String ( data [ "image" ] as string ) ),
+						resourceTable,
 						new Color ( ( byte ) colorKey [ 0 ], ( byte ) colorKey [ 1 ], ( byte ) colorKey [ 2 ], ( byte ) colorKey [ 3 ] ) ) as ITexture2D;
 				}
 				else
-					sprite.Texture = textureContentLoader.Load ( new MemoryStream ( Convert.FromBase64String ( data [ "image" ] as string ) ) ) as ITexture2D;
+					sprite.Texture = textureContentLoader.Load ( new MemoryStream ( Convert.FromBase64String ( data [ "image" ] as string ) ),
+						resourceTable ) as ITexture2D;
 
 				if ( data.Contains ( "cliparea" ) )
 				{

@@ -86,7 +86,7 @@ namespace Daramkun.Misty.Graphics.Spirit.Fonts
 						return null;
 					}
 
-					ITexture2D fontImage = imageContentLoader.Load ( fileSystem.OpenFile ( filename ), Color.Magenta ) as ITexture2D;
+					ITexture2D fontImage = imageContentLoader.Load ( fileSystem.OpenFile ( filename ), null, Color.Magenta ) as ITexture2D;
 					readedImage.Add ( ch, fontImage );
 					return fontImage;
 				}
