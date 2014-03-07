@@ -11,34 +11,40 @@ namespace Daramkun.Misty.Contents.Tables
 	public sealed class StringTable : ITable
 	{
 		JsonContainer stringTable;
-
-		public bool IsCultureMode { get; set; }
+		Version tableVersion;
 
 		public StringTable ( Stream stream )
-		{
-			stringTable = JsonParser.Parse ( stream );
-			if ( stringTable [ "tableversion" ] as string != "1.0" )
-				throw new ArgumentException ( "Table version is not 1.0 or lesser" );
-		}
+			: this ( new JsonContainer ( stream ) )
+		{ }
 
 		public StringTable ( JsonContainer jsonEntry )
 		{
 			stringTable = jsonEntry;
-			if ( stringTable [ "tableversion" ] as string != "1.0" )
-				throw new ArgumentException ( "Table version is not 1.0 or lesser" );
+			tableVersion = new Version ( stringTable [ "tableversion" ] as string );
+			if ( tableVersion.Major == 1 )
+			{
+				if ( tableVersion.Minor <= 1 )
+				{
+					if ( tableVersion.Minor >= 1 )
+					{
+						foreach ( KeyValuePair<object, object> locale in stringTable.GetDictionaryEnumerable () )
+							if ( locale.Value is string )
+								stringTable [ locale.Key ] = stringTable [ locale.Value ];
+					}
+					return;
+				}
+			}
+			throw new ArgumentException ( "Table version is not 1.1 or higher" );
 		}
 
 		public string this [ string key ]
 		{
 			get
 			{
-				if ( IsCultureMode )
+				if ( stringTable.Contains ( Core.CurrentCulture.Name ) )
 				{
-					if ( stringTable.Contains ( Core.CurrentCulture.Name ) )
-					{
-						JsonContainer innerEntry = stringTable [ Core.CurrentCulture.Name ] as JsonContainer;
-						if ( innerEntry.Contains ( key ) ) return innerEntry [ key ] as string;
-					}
+					JsonContainer innerEntry = stringTable [ Core.CurrentCulture.Name ] as JsonContainer;
+					if ( innerEntry.Contains ( key ) ) return innerEntry [ key ] as string;
 				}
 				else
 				{
@@ -52,13 +58,26 @@ namespace Daramkun.Misty.Contents.Tables
 
 		public bool Contains ( string key )
 		{
-			if ( IsCultureMode )
+			if ( stringTable.Contains ( CultureInfo.CurrentCulture.Name ) )
 			{
-				if ( stringTable.Contains ( CultureInfo.CurrentCulture.Name ) )
-				{ if ( ( stringTable [ Core.CurrentCulture.Name ] as JsonContainer ).Contains ( key ) ) return true; }
-				else { if ( ( stringTable [ "unknown" ] as JsonContainer ).Contains ( key ) ) return true; }
+				if ( ( stringTable [ Core.CurrentCulture.Name ] as JsonContainer ).Contains ( key ) )
+					return true;
 			}
+			else if ( ( stringTable [ "unknown" ] as JsonContainer ).Contains ( key ) ) return true;
 			return stringTable.Contains ( key );
+		}
+
+		public void AddLocale ( CultureInfo cultureInfo, JsonContainer localeStringTable )
+		{
+			if ( stringTable.Contains ( cultureInfo.Name ) )
+				stringTable [ cultureInfo.Name ] = localeStringTable;
+			else stringTable.Add ( localeStringTable, cultureInfo.Name );
+		}
+
+		public void RemoveLocale ( CultureInfo cultureInfo )
+		{
+			if ( stringTable.Contains ( cultureInfo.Name ) )
+				stringTable.Remove ( cultureInfo.Name );
 		}
 
 		public bool Load ( Stream stream )
