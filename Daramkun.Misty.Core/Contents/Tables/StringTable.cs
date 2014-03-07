@@ -67,14 +67,14 @@ namespace Daramkun.Misty.Contents.Tables
 			return stringTable.Contains ( key );
 		}
 
-		public void AddLocale ( CultureInfo cultureInfo, JsonContainer localeStringTable )
+		public void AddCulture ( CultureInfo cultureInfo, JsonContainer localeStringTable )
 		{
 			if ( stringTable.Contains ( cultureInfo.Name ) )
 				stringTable [ cultureInfo.Name ] = localeStringTable;
 			else stringTable.Add ( localeStringTable, cultureInfo.Name );
 		}
 
-		public void RemoveLocale ( CultureInfo cultureInfo )
+		public void RemoveCulture ( CultureInfo cultureInfo )
 		{
 			if ( stringTable.Contains ( cultureInfo.Name ) )
 				stringTable.Remove ( cultureInfo.Name );

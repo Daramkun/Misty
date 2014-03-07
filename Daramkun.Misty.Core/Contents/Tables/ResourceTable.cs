@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -16,6 +17,7 @@ namespace Daramkun.Misty.Contents.Tables
 		Dictionary<string, object> loadedContent = new Dictionary<string, object> ();
 
 		public IFileSystem FileSystem { get; set; }
+		Dictionary<CultureInfo, IFileSystem> localeFileSystems;
 
 		static ResourceTable ()
 		{
@@ -24,14 +26,14 @@ namespace Daramkun.Misty.Contents.Tables
 		}
 
 		public ResourceTable ()
-		{
-			FileSystem = null;
-		}
+			: this ( null, false )
+		{ }
 
 		public ResourceTable ( IFileSystem fileSystem, bool addDefaultLoaders = true )
 		{
 			FileSystem = fileSystem;
 			if ( addDefaultLoaders ) AddDefaultContentLoader ();
+			localeFileSystems = new Dictionary<CultureInfo, IFileSystem> ();
 		}
 
 		public void AddContentLoader ( IContentLoader contentLoader )
@@ -97,15 +99,13 @@ namespace Daramkun.Misty.Contents.Tables
 
 		public T Load<T> ( string filename, out string key, params object [] args )
 		{
+			if ( FileSystem == null ) throw new ArgumentNullException ();
+
 			Type type = typeof ( T );
-
-			if ( FileSystem == null )
-				throw new ArgumentNullException ();
-
 			IContentLoader loader = null;
 			foreach ( IContentLoader contentLoader in contentLoaders )
 			{
-				if ( Utilities.IsSubtypeOf ( typeof ( T ), contentLoader.ContentType ) )
+				if ( Utilities.IsSubtypeOf ( type, contentLoader.ContentType ) )
 					loader = contentLoader;
 			}
 
@@ -125,35 +125,26 @@ namespace Daramkun.Misty.Contents.Tables
 			{
 				if ( FileSystem.IsFileExist ( PathCombine ( Core.CurrentCulture.Name, filename ) ) )
 					key = PathCombine ( Core.CurrentCulture.Name, filename );
-				if ( FileSystem.IsFileExist ( PathCombine ( "unknown", filename ) ) )
+				else if ( localeFileSystems [ Core.CurrentCulture ].IsFileExist ( filename ) )
+					key = filename;
+				else if ( FileSystem.IsFileExist ( PathCombine ( "unknown", filename ) ) )
 					key = PathCombine ( "unknown", filename );
 				else
 				{
 					bool exist = false;
 					foreach ( string ext in loader.FileExtensions )
 					{
-						if ( FileSystem.IsFileExist ( PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
-						{
-							key = PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) );
-							exist = true;
+						if ( exist = FileSystem.IsFileExist ( key = PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
 							break;
-						}
-						else if ( FileSystem.IsFileExist ( PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
-						{
-							key = PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) );
-							exist = true;
+						else if ( exist = localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) )
 							break;
-						}
-						else if ( FileSystem.IsFileExist ( string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) )
-						{
-							key = string.Format ( "{0}.{1}", filename, ext.ToLower () );
-							exist = true;
+						else if ( exist = FileSystem.IsFileExist ( key = PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
 							break;
-						}
+						else if ( exist = FileSystem.IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) )
+							break;
 					}
 
-					if ( !exist )
-						throw new FileNotFoundException ();
+					if ( !exist ) { key = null; throw new FileNotFoundException (); }
 				}
 			}
 			else key = filename;
@@ -213,6 +204,19 @@ namespace Daramkun.Misty.Contents.Tables
 			loadedContent = null;
 			contentLoaders.Clear ();
 			contentLoaders = null;
+		}
+
+		public void AddCulture ( CultureInfo cultureInfo, IFileSystem fileSystem )
+		{
+			if ( localeFileSystems.ContainsKey ( cultureInfo ) )
+				localeFileSystems [ cultureInfo ] = fileSystem;
+			else localeFileSystems.Add ( cultureInfo, fileSystem );
+		}
+
+		public void RemoveCulture ( CultureInfo cultureInfo )
+		{
+			if ( localeFileSystems.ContainsKey ( cultureInfo ) )
+				localeFileSystems.Remove ( cultureInfo );
 		}
 
 		[Obsolete ( "Not implemented method of ITable interface", true )]
