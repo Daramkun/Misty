@@ -178,9 +178,10 @@ namespace Daramkun.Misty.Contents.Tables
 
 		private string MakeKey ( string filename, Type type, params object [] args )
 		{
+			StringBuilder sb = new StringBuilder ( filename );
 			foreach ( object o in args )
-				filename += "." + o.ToString ();
-			return filename + type.ToString ();
+				sb.AppendFormat ( ".{0}", o );
+			return sb.Append ( type ).ToString ();
 		}
 
 		public void Reset ()
