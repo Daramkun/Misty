@@ -183,6 +183,7 @@
     <Compile Include="Contents\Loaders\ZipContentLoader.cs" />
     <Compile Include="Contents\ModelInfo.cs" />
     <Compile Include="Contents\PackageInfo.cs" />
+    <Compile Include="Contents\Tables\ISubCulture.cs" />
     <Compile Include="Contents\Tables\ITable.cs" />
     <Compile Include="Contents\Tables\ResourceTable.cs" />
     <Compile Include="Contents\Tables\StringTable.cs" />

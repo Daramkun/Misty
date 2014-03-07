@@ -9,7 +9,7 @@ using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Contents.Tables
 {
-	public sealed class ResourceTable : ITable, IDisposable
+	public sealed class ResourceTable : ITable, ISubCulture<IFileSystem>, IDisposable
 	{
 		public static List<Assembly> ContentLoaderAssemblies { get; private set; }
 

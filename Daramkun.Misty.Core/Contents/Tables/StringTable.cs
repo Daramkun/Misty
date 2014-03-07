@@ -8,7 +8,7 @@ using Daramkun.Blockar.Json;
 
 namespace Daramkun.Misty.Contents.Tables
 {
-	public sealed class StringTable : ITable
+	public sealed class StringTable : ITable, ISubCulture<JsonContainer>
 	{
 		JsonContainer stringTable;
 		Version tableVersion;
