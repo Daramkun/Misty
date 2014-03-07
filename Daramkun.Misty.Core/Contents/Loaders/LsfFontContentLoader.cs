@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics.Spirit.Fonts;
 
 namespace Daramkun.Misty.Contents.Loaders
@@ -15,7 +16,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public bool IsSelfStreamDispose { get { return false; } }
 
-		public object Load ( Stream stream, params object [] args )
+		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			return new LsfFont ( stream );
 		}

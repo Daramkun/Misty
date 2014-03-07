@@ -6,6 +6,7 @@ using System.Text;
 using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents.Decoders;
 using Daramkun.Misty.Contents.Decoders.Images;
+using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics;
 
 namespace Daramkun.Misty.Contents.Loaders
@@ -38,7 +39,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		}
 		public bool IsSelfStreamDispose { get { return true; } }
 
-		public object Load ( Stream stream, params object [] args )
+		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			bool isLoadComplete = false;
 			ImageInfo imageInfo = null;

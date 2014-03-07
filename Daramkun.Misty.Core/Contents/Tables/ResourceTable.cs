@@ -159,7 +159,7 @@ namespace Daramkun.Misty.Contents.Tables
 			else
 			{
 				Stream stream = FileSystem.OpenFile ( filename );
-				object data = loader.Load ( stream, args );
+				object data = loader.Load ( stream, this, args );
 				loadedContent.Add ( key, data );
 				if ( !loader.IsSelfStreamDispose )
 					stream.Dispose ();

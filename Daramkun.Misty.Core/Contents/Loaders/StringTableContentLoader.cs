@@ -13,7 +13,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		public IEnumerable<string> FileExtensions { get { yield return "jst"; yield return "json"; yield return "bson"; } }
 		public bool IsSelfStreamDispose { get { return true; } }
 
-		public object Load ( Stream stream, params object [] args )
+		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			return new StringTable ( stream );
 		}

@@ -7,6 +7,7 @@ using Daramkun.Misty.Audios;
 using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents.Decoders;
 using Daramkun.Misty.Contents.Decoders.Audios;
+using Daramkun.Misty.Contents.Tables;
 
 namespace Daramkun.Misty.Contents.Loaders
 {
@@ -39,7 +40,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public bool IsSelfStreamDispose { get { return true; } }
 
-		public object Load ( Stream stream, params object [] args )
+		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			bool isLoadComplete = false;
 			AudioInfo audioInfo = null;

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Daramkun.Misty.Contents.FileSystems;
+using Daramkun.Misty.Contents.Tables;
 
 namespace Daramkun.Misty.Contents.Loaders
 {
@@ -13,7 +14,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		public IEnumerable<string> FileExtensions { get { yield return "zip"; } }
 		public bool IsSelfStreamDispose { get { return false; } }
 
-		public object Load ( Stream stream, params object [] args )
+		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			return new ZipFileSystem ( stream );
 		}

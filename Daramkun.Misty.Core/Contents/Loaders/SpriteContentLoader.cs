@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Daramkun.Blockar.Json;
+using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Mathematics.Geometries;
@@ -20,7 +21,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public bool IsSelfStreamDispose { get { return true; } }
 
-		public object Load ( Stream stream, params object [] args )
+		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			try
 			{
