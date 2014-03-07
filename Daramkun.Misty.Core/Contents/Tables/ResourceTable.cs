@@ -104,58 +104,42 @@ namespace Daramkun.Misty.Contents.Tables
 			Type type = typeof ( T );
 			IContentLoader loader = null;
 			foreach ( IContentLoader contentLoader in contentLoaders )
-			{
 				if ( Utilities.IsSubtypeOf ( type, contentLoader.ContentType ) )
 					loader = contentLoader;
-			}
-
-			key = null;
 
 			if ( loader == null )
 			{
 				if ( FileSystem.IsFileExist ( filename ) )
-				{
-					key = filename;
-					return ( T ) loadedContent [ filename ];
-				}
+					return ( T ) loadedContent [ key = filename ];
 				throw new ArgumentException ();
 			}
 
 			if ( !FileSystem.IsFileExist ( filename ) )
 			{
-				if ( FileSystem.IsFileExist ( PathCombine ( Core.CurrentCulture.Name, filename ) ) )
-					key = PathCombine ( Core.CurrentCulture.Name, filename );
-				else if ( localeFileSystems [ Core.CurrentCulture ].IsFileExist ( filename ) )
-					key = filename;
-				else if ( FileSystem.IsFileExist ( PathCombine ( "unknown", filename ) ) )
-					key = PathCombine ( "unknown", filename );
+				bool exist = false;
+
+				if ( FileSystem.IsFileExist ( key = PathCombine ( Core.CurrentCulture.Name, filename ) ) ) exist = true;
+				else if ( localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = filename ) ) exist = true;
+				else if ( FileSystem.IsFileExist ( key = PathCombine ( "unknown", filename ) ) ) exist = true;
 				else
 				{
-					bool exist = false;
 					foreach ( string ext in loader.FileExtensions )
 					{
-						if ( exist = FileSystem.IsFileExist ( key = PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
-							break;
-						else if ( exist = localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) )
-							break;
-						else if ( exist = FileSystem.IsFileExist ( key = PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) )
-							break;
-						else if ( exist = FileSystem.IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) )
-							break;
+						if ( exist = FileSystem.IsFileExist ( key = PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) ) break;
+						else if ( exist = localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) break;
+						else if ( exist = FileSystem.IsFileExist ( key = PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) ) break;
+						else if ( exist = FileSystem.IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) break;
 					}
-
-					if ( !exist ) { key = null; throw new FileNotFoundException (); }
 				}
+
+				if ( !exist ) { key = null; throw new FileNotFoundException (); }
 			}
 			else key = filename;
 
 			filename = key;
 			key = MakeKey ( filename, type, args );
 
-			if ( loadedContent.ContainsKey ( key ) )
-			{
-				return ( T ) loadedContent [ key ];
-			}
+			if ( loadedContent.ContainsKey ( key ) ) return ( T ) loadedContent [ key ];
 			else
 			{
 				Stream stream = FileSystem.OpenFile ( filename );
