@@ -97,6 +97,8 @@ namespace Daramkun.Misty.Contents.Tables
 
 		public T Load<T> ( string filename, out string key, params object [] args )
 		{
+			Type type = typeof ( T );
+
 			if ( FileSystem == null )
 				throw new ArgumentNullException ();
 
@@ -150,7 +152,7 @@ namespace Daramkun.Misty.Contents.Tables
 			else key = filename;
 
 			filename = key;
-			key = MakeKey ( filename, args );
+			key = MakeKey ( filename, type, args );
 
 			if ( loadedContent.ContainsKey ( key ) )
 			{
@@ -167,11 +169,11 @@ namespace Daramkun.Misty.Contents.Tables
 			}
 		}
 
-		private string MakeKey ( string filename, params object [] args )
+		private string MakeKey ( string filename, Type type, params object [] args )
 		{
 			foreach ( object o in args )
 				filename += "." + o.ToString ();
-			return filename;
+			return filename + type.ToString ();
 		}
 
 		public void Reset ()
