@@ -234,6 +234,7 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 		private void listViewEditor_AfterLabelEdit ( object sender, LabelEditEventArgs e )
 		{
 			if ( opened.Contains ( e.Label ) ) { e.CancelEdit = true; return; }
+			if ( editKey == null ) { e.CancelEdit = true; return; }
 			string data = opened [ editKey ] as string;
 			opened.Remove ( editKey );
 			opened.Add ( data, e.Label );
