@@ -23,12 +23,7 @@ namespace Daramkun.Misty.Graphics
 
 			if ( shaderType == ShaderType.PixelShader )
 			{
-				shaderCode = @"
-vec2 getTexUV(vec2 texcoord) {
-	vec2 st = texcoord.st;
-	st.y = 1.0 - st.y;
-	return st;
-}
+				shaderCode = @"#define getTexUV(texcoord) (vec2(texcoord.st.x, 1.0 - texcoord.st.y))
 " + shaderCode;
 			}
 

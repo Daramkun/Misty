@@ -8,7 +8,7 @@ namespace Daramkun.Misty.Contents.Tables
 {
 	public interface ISubCulture<T>
 	{
-		public void AddCulture ( CultureInfo cultureInfo, T data );
-		public void RemoveCulture ( CultureInfo cultureInfo );
+		void AddCulture ( CultureInfo cultureInfo, T data );
+		void RemoveCulture ( CultureInfo cultureInfo );
 	}
 }
