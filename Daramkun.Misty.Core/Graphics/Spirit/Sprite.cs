@@ -63,8 +63,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 				vertices [ 3 ].Position = new Vector2 ( clippingArea.Size.X, clippingArea.Size.Y );
 				vertices [ 0 ].TexCoord = new Vector2 ( clippingArea.Position.X / Texture.Width, clippingArea.Position.Y / Texture.Height );
 				vertices [ 1 ].TexCoord = new Vector2 ( clippingArea.Position.X / Texture.Width, clippingArea.Size.Y / Texture.Height );
-				vertices [ 2 ].TexCoord = new Vector2 ( clippingArea.Size.X / Texture.Width, clippingArea.Position.Y / Texture.Height );
-				vertices [ 3 ].TexCoord = new Vector2 ( clippingArea.Size.X / Texture.Width, clippingArea.Size.Y / Texture.Height );
+				vertices [ 2 ].TexCoord = new Vector2 ( ( clippingArea.Size.X + clippingArea.Position.X ) / Texture.Width, ( clippingArea.Position.Y + clippingArea.Position.Y ) / Texture.Height );
+				vertices [ 3 ].TexCoord = new Vector2 ( ( clippingArea.Size.X + clippingArea.Position.X ) / Texture.Width, ( clippingArea.Size.Y + clippingArea.Position.Y ) / Texture.Height );
 				vertexBuffer.SetBufferDatas<SpriteVertex> ( vertices );
 			}
 		}
