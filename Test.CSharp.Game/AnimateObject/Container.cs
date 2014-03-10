@@ -27,6 +27,7 @@ namespace Test.Game.CSharp.AnimateObject
 		World2 world;
 
 		Animate animate;
+		Animate loopAnimate;
 
 		public override void Intro ( params object [] args )
 		{
@@ -40,6 +41,8 @@ namespace Test.Game.CSharp.AnimateObject
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			
 			animate = new Animate ( TimeSpan.FromSeconds ( 4 ), 400 );
+			loopAnimate = new Animate ( TimeSpan.FromSeconds ( 4 ), 400 ) { IsLoopingMode = true };
+			loopAnimate.Start ();
 			Add ( InputHelper.Instance );
 			
 			world = new World2 ();
@@ -63,6 +66,7 @@ namespace Test.Game.CSharp.AnimateObject
 				animate.Stop ();
 
 			animate.Update ( gameTime );
+			loopAnimate.Update ( gameTime );
 
 			base.Update ( gameTime );
 		}
@@ -75,10 +79,13 @@ namespace Test.Game.CSharp.AnimateObject
 			font.DrawFont ( string.Format ( "Animate state: {0}, Position: {1}/{2}, Animated: {3:0.000}/{4:0.000}", animate.IsAnimating,
 				animate.Position, animate.Duration, animate.Animated, animate.TotalAnimated ), Color.White,
 				new Vector2 ( ( float ) animate.Animated, 0 ) );
+			font.DrawFont ( string.Format ( "Animate state: {0}, Position: {1}/{2}, Animated: {3:0.000}/{4:0.000}", loopAnimate.IsAnimating,
+				loopAnimate.Position, loopAnimate.Duration, loopAnimate.Animated, loopAnimate.TotalAnimated ), Color.White,
+				new Vector2 ( ( float ) loopAnimate.Animated, 60 ) );
 
 			world.Translate = new Vector2 ( ( float ) animate.TotalAnimated, 100 );
 			sprite.Draw ( world );
-
+			sprite.Draw ( new Vector2 ( ( float ) loopAnimate.TotalAnimated, 300 ), Vector2.One, Vector2.Zero, 0, Vector2.Zero );
 			base.Draw ( gameTime );
 			
 			Core.GraphicsDevice.EndScene ();

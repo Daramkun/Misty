@@ -27,7 +27,6 @@ namespace Daramkun.Misty.Common
 		public void Update ( GameTime gameTime )
 		{
 			if ( !IsAnimating ) return;
-			if ( Position >= Duration ) { if ( IsLoopingMode ) { Position -= Duration; TotalAnimated -= Objective; Animated = 0; } else { IsAnimating = false; return; } }
 
 			Position += gameTime.ElapsedGameTime;
 			double totalAnimated = TotalAnimated;
@@ -36,8 +35,19 @@ namespace Daramkun.Misty.Common
 
 			if ( Objective <= TotalAnimated )
 			{
-				TotalAnimated = Objective;
-				IsAnimating = false;
+				if ( IsLoopingMode )
+				{
+					Position -= Duration;
+					TotalAnimated -= Objective;
+					Animated = TotalAnimated;
+					IsAnimating = true;
+					lastElapsed = gameTime.ElapsedGameTime;
+				}
+				else
+				{
+					TotalAnimated = Objective;
+					IsAnimating = false;
+				}
 			}
 
 			lastElapsed = gameTime.ElapsedGameTime;
