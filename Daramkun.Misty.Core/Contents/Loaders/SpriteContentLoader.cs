@@ -29,7 +29,7 @@ namespace Daramkun.Misty.Contents.Loaders
 			}
 			catch
 			{
-				JsonContainer data = JsonParser.Parse ( stream );
+				JsonContainer data = new JsonContainer ( stream );
 				
 				Sprite sprite = new Sprite ( null );
 				if ( data.Contains ( "colorkey" ) )

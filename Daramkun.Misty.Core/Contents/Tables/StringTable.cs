@@ -82,7 +82,7 @@ namespace Daramkun.Misty.Contents.Tables
 
 		public bool Load ( Stream stream )
 		{
-			stringTable = JsonParser.Parse ( stream );
+			stringTable = new JsonContainer ( stream );
 			return true;
 		}
 

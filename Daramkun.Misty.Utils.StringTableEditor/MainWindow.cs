@@ -64,7 +64,7 @@ namespace Daramkun.Misty.Utils.StringTableEditor
 
 			using ( Stream stream = new FileStream ( openFileDialog1.FileName, FileMode.Open, FileAccess.Read ) )
 			{
-				data = JsonParser.Parse ( stream );
+				data = new JsonContainer ( stream );
 				listViewLanguages.Items.Clear ();
 				listViewEditor.Items.Clear ();
 				listViewEditor.Enabled = false;

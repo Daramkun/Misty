@@ -31,7 +31,7 @@ namespace Daramkun.Misty.Graphics.Spirit.Fonts
 		{
 			fileSystem = new ZipFileSystem ( stream );
 			Stream file = fileSystem.OpenFile ( "info.json" );
-			JsonContainer entry = JsonParser.Parse ( file );
+			JsonContainer entry = new JsonContainer ( file );
 			FontFamily = entry [ "fontfamily" ] as string;
 			FontSize = ( int ) entry [ "fontsize" ];
 

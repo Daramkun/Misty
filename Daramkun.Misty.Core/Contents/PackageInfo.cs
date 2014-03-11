@@ -64,7 +64,7 @@ namespace Daramkun.Misty.Contents
 				throw new ArgumentException ();
 
 			PackageInfo packageInfo = new PackageInfo ();
-			JsonContainer entry = JsonParser.Parse ( fileSystem.OpenFile ( "packageInfo.json" ) );
+			JsonContainer entry = new JsonContainer ( fileSystem.OpenFile ( "packageInfo.json" ) );
 
 			packageInfo.PackageName = entry [ "title" ] as string;
 

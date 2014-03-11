@@ -73,7 +73,7 @@ namespace Daramkun.Misty.Contents.Tables
 						case VariableType.TimeSpan: data = new TimeSpan ( reader.ReadInt32 (), reader.ReadByte (), reader.ReadByte (), reader.ReadByte (), reader.ReadInt16 () ); break;
 						case VariableType.DateTime: data = new DateTime ( reader.ReadByte (), reader.ReadByte (), reader.ReadByte (), reader.ReadByte (),
 							reader.ReadByte (), reader.ReadByte (), reader.ReadInt16 () ); break;
-						case VariableType.JsonEntry: int len = reader.ReadInt32 (); data = JsonParser.Parse ( new MemoryStream ( reader.ReadBytes ( len ) ) ); break;
+						case VariableType.JsonEntry: int len = reader.ReadInt32 (); data = new JsonContainer ( new MemoryStream ( reader.ReadBytes ( len ) ) ); break;
 
 						default: data = null; break;
 					}

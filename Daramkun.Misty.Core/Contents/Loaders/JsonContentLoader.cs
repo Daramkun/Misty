@@ -16,7 +16,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
-			return JsonParser.Parse ( stream );
+			return new JsonContainer ( stream );
 		}
 	}
 }
