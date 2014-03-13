@@ -39,9 +39,9 @@
     <ApplicationIcon>Resources\MainIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Daramkun.Blockar, Version=2.0.5183.25951, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Daramkun.Blockar, Version=2.0.1.36946, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Daramkun.Blockar.2.0.0.0\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
+      <HintPath>..\packages\Daramkun.Blockar.2.0.1.0\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

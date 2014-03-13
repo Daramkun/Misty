@@ -346,7 +346,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Daramkun.Blockar">
-      <HintPath>..\packages\Daramkun.Blockar.2.0.0.0\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
+      <HintPath>..\packages\Daramkun.Blockar.2.0.1.0\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
