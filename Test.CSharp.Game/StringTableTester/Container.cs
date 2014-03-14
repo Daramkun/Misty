@@ -57,6 +57,8 @@ namespace Test.CSharp.Game.StringTableTester
 				Core.CurrentCulture = new CultureInfo ( "ja-JP" );
 			else if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D4 ) )
 				Core.CurrentCulture = new CultureInfo ( "de-DE" );
+			else if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D5 ) )
+				Core.CurrentCulture = new CultureInfo ( "ru-RU" );
 
 			base.Update ( gameTime );
 		}
@@ -69,15 +71,17 @@ namespace Test.CSharp.Game.StringTableTester
 			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			font.DrawFont ( @"Current culture: `
-Korean of Republic of Korea: 1
-English of USA: 2
+Korean: 1
+English: 2
 Japanese: 3
-Deutch of Deutchland: 4", Color.White, new Vector2 () );
-			font2.DrawFont ( string.Format ( @"Culture code: {0}
-string1: {1}
-string2: {2}
-string3: {3}", Core.CurrentCulture, stt [ "string1" ], stt [ "string2" ], stt [ "string3" ] ),
-				Color.White, new Vector2 ( 0, 128 ) );
+Deutchland: 4
+Unknown Culture(Russian): 5", Color.White, new Vector2 () );
+			font2.DrawFont ( string.Format ( @"Culture code: {0}({1})
+string1: {2}
+string2: {3}
+string3: {4}", Core.CurrentCulture, Core.CurrentCulture.NativeName,
+			 stt [ "string1" ], stt [ "string2" ], stt [ "string3" ] ),
+				Color.White, new Vector2 ( 0, 160 ) );
 
 			base.Draw ( gameTime );
 
