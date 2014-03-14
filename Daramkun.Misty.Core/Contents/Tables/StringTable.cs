@@ -27,9 +27,12 @@ namespace Daramkun.Misty.Contents.Tables
 				{
 					if ( tableVersion.Minor >= 1 )
 					{
+						List<string> temp = new List<string> ();
 						foreach ( KeyValuePair<object, object> locale in stringTable.GetDictionaryEnumerable () )
-							if ( locale.Value is string )
-								stringTable [ locale.Key ] = stringTable [ locale.Value ];
+							if ( locale.Value is string && locale.Key as string != "tableversion" )
+								temp.Add ( locale.Key as string );//stringTable [ locale.Key ] = stringTable [ locale.Value ];
+						foreach ( string t in temp )
+							stringTable [ t ] = stringTable [ stringTable [ t ] ];
 					}
 					return;
 				}

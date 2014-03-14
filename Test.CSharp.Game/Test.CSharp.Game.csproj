@@ -57,6 +57,7 @@
     <Compile Include="PerformanceTester\PerformanceSpriteNode.cs" />
     <Compile Include="PlayAudios\Container.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StringTableTester\Container.cs" />
     <Compile Include="Terrain\Container.cs" />
     <Compile Include="VariableTableTest\Container.cs" />
   </ItemGroup>
@@ -120,7 +121,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\logo.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\stringTable.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\segoeui.ttf" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

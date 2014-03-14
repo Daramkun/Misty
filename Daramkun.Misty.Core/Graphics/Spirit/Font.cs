@@ -21,6 +21,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 		Sprite spriteEngine;
 		World2 fontWorld;
 
+		public Font SeconaryFont { get; set; }
+
 		Dictionary<string, IRenderBuffer> cachedRenderBuffer;
 
 		public IEffect Effect { get { return spriteEngine.Effect; } set { spriteEngine.Effect = value; } }
@@ -59,6 +61,16 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public void DrawFont ( string text, Color color, Vector2 position, int startIndex = 0, int length = -1 )
 		{
 			DrawFont ( text, color, position, MeasureString ( text ), startIndex, length );
+		}
+
+		private ITexture2D GetCharTexture ( char ch )
+		{
+			ITexture2D image = this [ ch ];
+			if ( image == null && SeconaryFont != null )
+				image = SeconaryFont [ ch ];
+			if ( image == null ) image = this [ '?' ];
+			if ( image == null ) image = this [ ' ' ];
+			return image;
 		}
 
 		public void DrawFont ( string text, Color color, Vector2 position, Vector2 area, int startIndex = 0, int length = -1 )
@@ -108,10 +120,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 						lines.Add ( new Vector2 () );
 						continue;
 					}
-					ITexture2D image = this [ ch ];
-					if ( image == null ) image = this [ '?' ];
-					if ( image == null ) image = this [ ' ' ];
-
+					else if ( ch == '\r' ) continue;
+					ITexture2D image = GetCharTexture ( ch );
 					if ( lines.Count == 0 || lines [ lines.Count - 1 ].X + image.Width > area.X )
 						if ( height + image.Height > area.Y ) return;
 						else lines.Add ( new Vector2 () );
@@ -156,9 +166,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 					lines.Add ( new Vector2 () );
 					continue;
 				}
-				ITexture2D image = this [ ch ];
-				if ( image == null ) image = this [ '?' ];
-
+				else if ( ch == '\r' ) continue;
+				ITexture2D image = GetCharTexture ( ch );
 				if ( lines.Count == 0 )
 					lines.Add ( new Vector2 () );
 
@@ -193,8 +202,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 					lines.Add ( new Vector2 () );
 					continue;
 				}
-				ITexture2D image = this [ ch ];
-				if ( image == null ) image = this [ '?' ];
+				else if ( ch == '\r' ) continue;
+				ITexture2D image = GetCharTexture ( ch );
 
 				if ( lines.Count == 0 || lines [ lines.Count - 1 ].X + image.Width > area.X )
 					if ( height + image.Height + SpacingOfLines > area.Y ) return i;

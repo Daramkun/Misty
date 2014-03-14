@@ -51,7 +51,8 @@ namespace Daramkun.Misty.Graphics.Spirit.Fonts
 					int width, height, xOffset, yOffset;
 					byte [] data = trueType.GetCodepointBitmap ( ch, fontSize, fontSize, out width, out height, out xOffset, out yOffset );
 
-					if ( data == null ) { noneList.Add ( ch ); return null; }
+					if ( data == null || data.Length == 0 )
+					{ noneList.Add ( ch ); return null; }
 
 					int extendedHeight = Math.Abs ( yOffset ) * ( width );
 					Color [] buffer = new Color [ ( width ) * fontSizeOfPixel ];

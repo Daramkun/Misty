@@ -101,9 +101,6 @@ namespace Daramkun.Misty.Nodes
 			CurrentGamePadState = new GamePadState [ 4 ];
 		}
 
-		[Obsolete("Please use the Instance property.", false)]
-		public static InputHelper CreateInstance () { return Instance; }
-
 		private InputHelper ()
 		{
 			IsVisible = false;

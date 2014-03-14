@@ -1,0 +1,24 @@
+﻿{
+	"tableversion" : "1.1",
+	"ko-KR" : {
+		"string1" : "문자열 테이블",
+		"string2" : "동화",
+		"string3" : "미스티 프레임워크"
+	},
+	"en-US" : {
+		"string1" : "String Table",
+		"string2" : "Fairytale",
+		"string3" : "Misty Framework"
+	},
+	"de-DE" : {
+		"string1" : "String Tabelle",
+		"string2" : "Märchen",
+		"string3" : "Misty Rahmen"
+	},
+	"ja-JP" : {
+		"string1" : "文字列テーブル",
+		"string2" : "童話",
+		"string3" : "ミスティフレームワーク"
+	},
+	"unknown" : "en-US"
+}
