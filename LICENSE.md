@@ -391,3 +391,12 @@ no express warranties, guarantees or conditions. You may have additional consume
 under your local laws which this license cannot change. To the extent permitted under your 
 local laws, the contributors exclude the implied warranties of merchantability, fitness for 
 a particular purpose and non-infringement.
+
+=====
+=====
+
+nFLAC (1.0)
+=====
+https://github.com/schikin/nflac
+
+No Licensed.
