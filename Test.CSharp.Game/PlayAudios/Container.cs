@@ -37,7 +37,7 @@ namespace Test.Game.PlayAudios
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 
 			audio1 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio1.ogg" );
-			audio2 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio2.ogg" );
+			audio2 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio2.flac" );
 			audio3 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio3.ogg" );
 
 			Add ( InputHelper.Instance );

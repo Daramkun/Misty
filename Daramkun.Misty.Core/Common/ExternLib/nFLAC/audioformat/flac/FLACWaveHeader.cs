@@ -28,7 +28,7 @@ namespace org.nflac.audioformat.flac
         {
             get
             {
-                return streamInfo.BitsPerSample;
+				return streamInfo.BitsPerSample;
             }
         }
 

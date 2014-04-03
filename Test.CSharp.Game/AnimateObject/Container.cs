@@ -37,7 +37,7 @@ namespace Test.Game.CSharp.AnimateObject
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
 			Texture2DContentLoader.AddDefaultDecoders ();
-			sprite = contentManager.Load<Sprite> ( "Resources/logo.png", Color.Magenta );
+			sprite = contentManager.Load<Sprite> ( "Resources/test.jpg", Color.Magenta );
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 			
 			animate = new Animate ( TimeSpan.FromSeconds ( 4 ), 400 );
