@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using Daramkun.Misty.IO.Compression;
+using SharpCompress.Compressor.Deflate;
+using SharpCompress.Compressor;
 
 namespace Hjg.Pngcs.Zlib
 {
@@ -56,7 +57,7 @@ namespace Hjg.Pngcs.Zlib
 		private void initStream ()
 		{
 			if ( deflateStream != null ) return;
-			deflateStream = new DeflateStream ( rawStream, CompressionMode.Decompress, true );
+			deflateStream = new DeflateStream ( rawStream, CompressionMode.Decompress, CompressionLevel.Default, true );
 		}
 
 		private void doInit ()

@@ -9,6 +9,7 @@ namespace Daramkun.Misty.Common.Checksums
 	public class Adler32 : IChecksum<uint>
 	{
 		public uint Result { get; private set; }
+		public ulong TotalBytesRead { get; private set; }
 
 		public Adler32 ()
 		{
@@ -20,6 +21,7 @@ namespace Daramkun.Misty.Common.Checksums
 			uint s1 = ( ( Result & 0xffff ) + ( ( uint ) value & 0xff ) ) % 65521;
 			uint s2 = ( s1 + ( Result >> 16 ) ) % 65521;
 			Result = ( s2 << 16 ) + s1;
+			TotalBytesRead += 4;
 		}
 
 		public void Update ( Stream stream )
@@ -60,11 +62,14 @@ namespace Daramkun.Misty.Common.Checksums
 			}
 
 			Result = ( s2 << 16 ) | s1;
+
+			TotalBytesRead += ( ulong ) length;
 		}
 
 		public void Reset ()
 		{
 			Result = 1;
+			TotalBytesRead = 0;
 		}
 	}
 }

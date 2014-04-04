@@ -9,6 +9,7 @@ namespace Daramkun.Misty.Common.Checksums
 	public interface IChecksum<T>
 	{
 		T Result { get; }
+		ulong TotalBytesRead { get; }
 
 		void Update ( int value );
 		void Update ( Stream stream );

@@ -67,7 +67,7 @@ namespace org.nflac.structure.util
             numRead = (numRead + 1) % 8;
 
             result <<= 1;
-            result = result | (long)(stored >> 7);
+            result |= (uint)(stored >> 7);
             stored <<= 1;
         }
 
@@ -119,7 +119,7 @@ namespace org.nflac.structure.util
             numRead = (numRead + 1) % 8;
 
             result <<= 1;
-            result |= (stored >> 7);
+            result |= (uint)(stored >> 7);
             stored <<= 1;
         }
 

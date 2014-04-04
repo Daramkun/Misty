@@ -563,7 +563,7 @@ namespace org.nflac.structure.data
                     return 0;
                 }
                 v <<= 6;
-                v |= (ulong)(x & 0x3F);
+                v |= (uint)(x & 0x3F);
             }
             return v;
         }

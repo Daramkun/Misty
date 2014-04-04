@@ -9,6 +9,7 @@ namespace Daramkun.Misty.Common.Checksums
 	public class CRC32 : IChecksum<uint>
 	{
 		public uint Result { get; private set; }
+		public ulong TotalBytesRead { get; private set; }
 
 		public CRC32 ()
 		{
@@ -20,6 +21,7 @@ namespace Daramkun.Misty.Common.Checksums
 			Result ^= 0xffffffff;
 			Result = crcTable [ ( Result ^ value ) & 0xff ] ^ ( Result >> 8 );
 			Result ^= 0xffffffff;
+			TotalBytesRead += 4;
 		}
 
 		public void Update ( Stream stream )
@@ -45,11 +47,14 @@ namespace Daramkun.Misty.Common.Checksums
 			while ( --length >= 0 )
 				Result = crcTable [ ( Result ^ buffer [ offset++ ] ) & 0xff ] ^ ( Result >> 8 );
 			Result ^= 0xffffffff;
+
+			TotalBytesRead += ( ulong ) length;
 		}
 
 		public void Reset ()
 		{
 			Result = 0;
+			TotalBytesRead = 0;
 		}
 
 		#region CRC Table

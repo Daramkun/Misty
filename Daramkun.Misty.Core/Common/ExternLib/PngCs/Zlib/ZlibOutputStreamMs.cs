@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using Daramkun.Misty.IO.Compression;
+using SharpCompress.Compressor.Deflate;
+using SharpCompress.Compressor;
 
 namespace Hjg.Pngcs.Zlib
 {

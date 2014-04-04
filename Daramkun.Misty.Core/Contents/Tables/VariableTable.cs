@@ -5,7 +5,8 @@ using System.Linq;
 using System.Text;
 using Daramkun.Blockar.Json;
 using Daramkun.Misty.IO;
-using Daramkun.Misty.IO.Compression;
+using SharpCompress.Compressor;
+using SharpCompress.Compressor.Deflate;
 
 namespace Daramkun.Misty.Contents.Tables
 {

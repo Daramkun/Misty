@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using Daramkun.Misty.Common.Checksums;
-using Daramkun.Misty.IO.Compression;
+using SharpCompress.Compressor;
+using SharpCompress.Compressor.Deflate;
 
 namespace Daramkun.Misty.Contents.FileSystems
 {

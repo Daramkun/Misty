@@ -7,7 +7,8 @@ using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents.Decoders.Images;
 using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Contents.Tables;
-using Daramkun.Misty.IO.Compression;
+using SharpCompress.Compressor;
+using SharpCompress.Compressor.Deflate;
 
 namespace Daramkun.Misty.Contents.Decoders.Packs
 {

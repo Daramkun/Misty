@@ -357,17 +357,6 @@
     <Compile Include="Inputs\States\MouseState.cs" />
     <Compile Include="Inputs\States\TouchState.cs" />
     <Compile Include="Inputs\TouchPointer.cs" />
-    <Compile Include="IO\Compression\Algorithms\Deflate.cs" />
-    <Compile Include="IO\Compression\Algorithms\Inflate.cs" />
-    <Compile Include="IO\Compression\Algorithms\ZlibCodec.cs" />
-    <Compile Include="IO\Compression\DeflateStream.cs" />
-    <Compile Include="IO\Compression\Enums.cs" />
-    <Compile Include="IO\Compression\Utilities\InfTree.cs" />
-    <Compile Include="IO\Compression\Utilities\Iso8859Dash1Encoding.cs" />
-    <Compile Include="IO\Compression\Utilities\Tree.cs" />
-    <Compile Include="IO\Compression\Utilities\Zlib.cs" />
-    <Compile Include="IO\Compression\Utilities\ZlibContants.cs" />
-    <Compile Include="IO\Compression\ZlibBaseStream.cs" />
     <Compile Include="IO\SignatureStream.cs" />
     <Compile Include="IO\SubStream.cs" />
     <Compile Include="Log\ILogWriter.cs" />
@@ -475,6 +464,9 @@
   <ItemGroup>
     <Reference Include="Daramkun.Blockar">
       <HintPath>..\packages\Daramkun.Blockar.2.0.1.0\lib\portable-net4+sl5+wp8+win8\Daramkun.Blockar.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress">
+      <HintPath>..\packages\sharpcompress.0.10.3\lib\portable-net4+sl5+wp8+win8\SharpCompress.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
