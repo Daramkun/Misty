@@ -16,7 +16,7 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 			try
 			{
 				VorbisReader reader = new VorbisReader ( stream, false );
-				to = new AudioInfo ( reader.Channels, reader.SampleRate, 2, reader.TotalTime, stream, new object []
+				to = new AudioInfo ( reader.Channels, reader.SampleRate, 16, reader.TotalTime, stream, new object []
 				{
 					reader,
 					reader.TotalTime,

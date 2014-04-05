@@ -13,16 +13,18 @@ namespace Daramkun.Misty.Audios
 	class AudioBuffer : StandardDispose, IAudioBuffer
 	{
 		int sourceId;
-		List<int> bufferIds;
+		int bufferId;
 
-		TimeSpan lastPosition;
+		CancelEventArgs cancelEvent = new CancelEventArgs ();
+
 		bool isPlaying = false;
 
 		AudioInfo audioInfo;
 		ALFormat alFormat;
 
 		public object Handle { get { return sourceId; } }
-		public bool IsPlaying { get { return AL.GetSourceState ( sourceId ) == ALSourceState.Playing; } }
+		internal bool IsInnerPlaying { get { return AL.GetSourceState ( sourceId ) == ALSourceState.Playing; } }
+		public bool IsPlaying { get { return IsInnerPlaying && isPlaying; } }
 		public bool IsPaused { get { return AL.GetSourceState ( sourceId ) == ALSourceState.Paused; } }
 		public float Volume
 		{
@@ -54,30 +56,16 @@ namespace Daramkun.Misty.Audios
 				AL.Source ( sourceId, ALSourcef.Pitch, value );
 			}
 		}
-		public TimeSpan Position
-		{
-			get
-			{
-				float seconds;
-				AL.GetSource ( sourceId, ALSourcef.SecOffset, out seconds );
-				return TimeSpan.FromSeconds ( seconds );
-			}
-			set
-			{
-				if ( value > Duration ) throw new ArgumentException ();
-				AL.Source ( sourceId, ALSourcef.SecOffset, ( float ) value.TotalSeconds );
-			}
-		}
+		public TimeSpan Position { get; set; }
 		public TimeSpan Duration { get { return audioInfo.Duration; } }
 
 		public AudioBuffer ( IAudioDevice audioDevice, AudioInfo audioInfo )
 		{
-			bufferIds = new List<int> ();
 			sourceId = AL.GenSource ();
 			this.audioInfo = audioInfo;
 			alFormat = ( ( audioInfo.AudioChannel == 2 ) ?
-				( ( audioInfo.BitPerSamples == 2 ) ? ALFormat.Stereo16 : ALFormat.Stereo8 ) :
-				( ( audioInfo.BitPerSamples == 2 ) ? ALFormat.Mono16 : ALFormat.Mono8 ) );
+				( ( audioInfo.BitPerSamples == 16 ) ? ALFormat.Stereo16 : ALFormat.Stereo8 ) :
+				( ( audioInfo.BitPerSamples == 16 ) ? ALFormat.Mono16 : ALFormat.Mono8 ) );
 		}
 
 		protected override void Dispose ( bool isDisposing )
@@ -86,10 +74,8 @@ namespace Daramkun.Misty.Audios
 			{
 				AL.DeleteSource ( sourceId );
 				sourceId = 0;
-				foreach ( int bufferId in bufferIds )
-					if ( bufferId != 0 )
-						AL.DeleteBuffer ( bufferId );
-				bufferIds.Clear ();
+				AL.DeleteBuffer ( bufferId );
+				bufferId = 0;
 			}
 			base.Dispose ( isDisposing );
 		}
@@ -103,6 +89,7 @@ namespace Daramkun.Misty.Audios
 		public void Stop ()
 		{
 			isPlaying = false;
+			Position = new TimeSpan ();
 			AL.SourceStop ( sourceId );
 		}
 
@@ -115,40 +102,40 @@ namespace Daramkun.Misty.Audios
 		public bool Update ()
 		{
 			if ( sourceId == 0 ) return true;
-			byte [] data = audioInfo.GetSamples ();
-			if ( data == null )
+
+			if ( isPlaying && !IsInnerPlaying )
 			{
-				if ( isPlaying && !IsPlaying )
+				byte [] data = audioInfo.GetSamples ( Position );
+				if ( data == null )
 				{
 					if ( BufferEnded != null )
 					{
-						CancelEventArgs cancelEvent = new CancelEventArgs ();
 						BufferEnded ( this, cancelEvent );
-						if ( cancelEvent.Cancel ) return true;
-						else return false;
+						if ( cancelEvent.Cancel ) return false;
+						else return true;
 					}
 					else return true;
 				}
-				else return true;
-			}
 
-			BufferData ( data );
+				BufferData ( data );
 
-			if ( isPlaying && !IsPlaying )
-			{
 				Play ();
-				Position = lastPosition;
+				Position += TimeSpan.FromSeconds ( data.Length / ( double ) audioInfo.ByteRate );
+				if ( Position >= Duration )
+				{
+					Position = Duration;
+					return true;
+				}
 			}
-			lastPosition = Position;
 			return false;
 		}
 
 		public void BufferData ( byte [] data )
 		{
-			int bufferId = AL.GenBuffer ();
+			if ( bufferId == 0 ) bufferId = AL.GenBuffer ();
+			else AL.SourceUnqueueBuffer ( sourceId );
 			AL.BufferData ( bufferId, alFormat, data, data.Length, audioInfo.SampleRate );
 			AL.SourceQueueBuffer ( sourceId, bufferId );
-			bufferIds.Add ( bufferId );
 		}
 
 		public event EventHandler<CancelEventArgs> BufferEnded;

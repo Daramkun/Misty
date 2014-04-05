@@ -15,8 +15,7 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 			public int StartPoint { get; set; }
 			public int DataSize { get; set; }
 			public int Offset { get; set; }
-			public int ByteRate { get; set; }
-			public BinaryReader Reader { get; set; }
+			//public BinaryReader Reader { get; set; }
 		}
 
 		public bool Decode ( Stream stream, out AudioInfo to, params object [] args )
@@ -29,22 +28,22 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 			if ( !ReadfmtHeader ( br, out channel, out sampleRate, out bitPerSamples, out byteRate ) ) { to = null; return false; }
 			if ( !ReadWaveChunk ( br, out s, out dataSize ) ) { to = null; return false; }
 
-			s.ByteRate = byteRate;
-
 			to = new AudioInfo ( channel, sampleRate, bitPerSamples, TimeSpan.FromSeconds ( dataSize / ( float ) byteRate ), stream,
 				s, ( AudioInfo audioInfo, object sample, TimeSpan? timeSpan ) =>
 				{
 					SampleInfo sampleInfo = sample as SampleInfo;
 
 					if ( timeSpan != null )
-						audioInfo.AudioStream.Position = sampleInfo.StartPoint + ( int ) ( timeSpan.Value.TotalSeconds * sampleInfo.ByteRate );
+					{
+						audioInfo.AudioStream.Position = sampleInfo.StartPoint + ( int ) ( timeSpan.Value.TotalSeconds * audioInfo.ByteRate );
+						sampleInfo.Offset = ( int ) ( audioInfo.AudioStream.Position - sampleInfo.StartPoint );
+					}
 
 					if ( ( int ) sampleInfo.DataSize <= ( int ) sampleInfo.Offset )
-					{
 						return null;
-					}
-					byte [] data = sampleInfo.Reader.ReadBytes ( audioInfo.SampleRate );
-					sampleInfo.Offset += audioInfo.SampleRate;
+
+					byte [] data = new byte [ audioInfo.SampleRate ];
+					sampleInfo.Offset += audioInfo.AudioStream.Read ( data, 0, audioInfo.SampleRate );
 					return data;
 				} );
 
@@ -78,7 +77,7 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 			byteRate = br.ReadInt32 ();
 
 			int blockAlign = br.ReadInt16 ();
-			bitPerSamples = br.ReadInt16 () / 8;
+			bitPerSamples = br.ReadInt16 ();
 
 			if ( chunkSize != 16 )
 			{
@@ -113,7 +112,7 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 			{
 				DataSize = dataSize,
 				Offset = 0,
-				Reader = br,
+				//Reader = br,
 				StartPoint = ( int ) br.BaseStream.Position
 			};
 

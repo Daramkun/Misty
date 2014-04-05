@@ -6,14 +6,14 @@ using System.Text;
 
 namespace Daramkun.Misty.Contents
 {
-	public class AudioInfo
+	public sealed class AudioInfo : IDisposable
 	{
 		public int AudioChannel { get; private set; }
 		public int SampleRate { get; private set; }
 		public int BitPerSamples { get; private set; }
 		public TimeSpan Duration { get; private set; }
 		public Stream AudioStream { get; private set; }
-		public int ByteRate { get { return AudioChannel * SampleRate * BitPerSamples; } }
+		public int ByteRate { get { return AudioChannel * SampleRate * ( BitPerSamples / 8 ); } }
 
 		object RawSamples;
 		Func<AudioInfo, object, TimeSpan?, byte []> GetSampleFunc;
@@ -28,6 +28,12 @@ namespace Daramkun.Misty.Contents
 			AudioStream = audioStream;
 			RawSamples = rawSamples;
 			GetSampleFunc = func;
+		}
+
+		public void Dispose ()
+		{
+			try { if ( AudioStream != null ) AudioStream.Dispose (); }
+			catch { }
 		}
 
 		public byte [] GetSamples ( TimeSpan? timeSpan = null )

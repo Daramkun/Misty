@@ -50,7 +50,8 @@ namespace Daramkun.Misty.Audios
 		{
 			if ( audioList.Count > 0 )
 				foreach ( IAudioBuffer audio in audioList.ToArray () )
-					audio.Update ();
+					if(audio.Update ())
+						audio.Stop ();
 		}
 
 		public IAudioBuffer CreateAudioBuffer ( Contents.AudioInfo audioInfo )
