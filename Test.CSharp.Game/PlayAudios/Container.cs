@@ -27,7 +27,6 @@ namespace Test.Game.PlayAudios
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );

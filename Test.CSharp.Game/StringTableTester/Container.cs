@@ -26,7 +26,6 @@ namespace Test.CSharp.Game.StringTableTester
 		{
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( FileSystemManager.ManifestFileSystem ) );
 
-			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 			Add ( InputHelper.Instance );
 

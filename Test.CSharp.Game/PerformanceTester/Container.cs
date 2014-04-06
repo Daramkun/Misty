@@ -27,7 +27,6 @@ namespace Test.Game.PerformanceTester
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
 			Add ( InputHelper.Instance );

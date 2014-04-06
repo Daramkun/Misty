@@ -29,8 +29,13 @@ namespace Daramkun.Misty.Graphics
 		DecreaseWrap,
 	}
 
-	public struct StencilOperation
+	public class StencilOperation
 	{
+		private StencilFunction stencilFunction1;
+		private StencilFunction stencilFunction2;
+		private StencilFunction stencilFunction3;
+		private StencilFunction stencilFunction4;
+
 		public StencilFunction Function { get; set; }
 		public int Reference { get; set; }
 		public int Mask { get; set; }
@@ -39,7 +44,6 @@ namespace Daramkun.Misty.Graphics
 		public StencilOperator Pass { get; set; }
 
 		public StencilOperation ( StencilFunction func, int reference, int mask, StencilOperator zfail, StencilOperator fail, StencilOperator pass )
-			: this ()
 		{
 			Function = func;
 			Reference = reference;

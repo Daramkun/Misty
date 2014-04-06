@@ -78,7 +78,18 @@ namespace Daramkun.Misty.Graphics
 			get { return d3dContext.OutputMerger.BlendState != null; }
 			set
 			{
-				throw new NotImplementedException ();
+				if ( value == false )
+				{
+					if ( BlendState )
+					{
+						d3dContext.OutputMerger.BlendState.Dispose ();
+						d3dContext.OutputMerger.BlendState = null;
+					}
+				}
+				else
+				{
+					BlendOperation = BlendOperation;
+				}
 			}
 		}
 
@@ -87,13 +98,24 @@ namespace Daramkun.Misty.Graphics
 			get { return d3dContext.OutputMerger.DepthStencilState.Description.IsStencilEnabled; }
 			set
 			{
-				throw new NotImplementedException ();
+				if ( value == false )
+				{
+					if ( StencilState )
+					{
+						d3dContext.OutputMerger.DepthStencilState.Dispose ();
+						d3dContext.OutputMerger.DepthStencilState = null;
+					}
+				}
+				else
+				{
+					StencilOperation = StencilOperation;
+				}
 			}
 		}
 
 		public bool IsMultisampleRendering
 		{
-			get { throw new NotImplementedException (); }
+			get { return false; }
 			set { throw new NotImplementedException (); }
 		}
 
@@ -128,6 +150,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
+
 				throw new NotImplementedException ();
 			}
 			set

@@ -74,18 +74,6 @@ namespace Daramkun.Misty.Graphics
 			set { if ( value ) GL.Enable ( EnableCap.Multisample ); else GL.Disable ( EnableCap.Multisample ); }
 		}
 
-		public bool BlendState
-		{
-			get { return GL.IsEnabled ( EnableCap.Blend ); }
-			set { if ( value ) GL.Enable ( EnableCap.Blend ); else GL.Disable ( EnableCap.Blend ); }
-		}
-
-		public bool StencilState
-		{
-			get { return GL.IsEnabled ( EnableCap.StencilTest ); }
-			set { if ( value ) GL.Enable ( EnableCap.StencilTest ); else GL.Disable ( EnableCap.StencilTest ); }
-		}
-
 		public bool IsFullscreen
 		{
 			get { return window.WindowState == OpenTK.WindowState.Fullscreen; }
@@ -115,16 +103,22 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				int op, dest, src;
-				GL.GetInteger ( GetPName.Blend, out op ); GL.GetInteger ( GetPName.BlendDst, out dest ); GL.GetInteger ( GetPName.BlendSrc, out src );
-				return new Graphics.BlendOperation (
-					OriginalToMistyValue ( ( BlendEquationMode ) op ),
-					OriginalToMistyValue ( ( BlendingFactorSrc ) src ),
-					OriginalToMistyValue ( ( BlendingFactorDest ) dest )
-				);
+				if ( GL.IsEnabled ( EnableCap.Blend ) )
+				{
+					int op, dest, src;
+					GL.GetInteger ( GetPName.Blend, out op ); GL.GetInteger ( GetPName.BlendDst, out dest ); GL.GetInteger ( GetPName.BlendSrc, out src );
+					return new Graphics.BlendOperation (
+						OriginalToMistyValue ( ( BlendEquationMode ) op ),
+						OriginalToMistyValue ( ( BlendingFactorSrc ) src ),
+						OriginalToMistyValue ( ( BlendingFactorDest ) dest )
+					);
+				}
+				else { return null; }
 			}
 			set
 			{
+				if ( value != null ) GL.Enable ( EnableCap.Blend ); else GL.Disable ( EnableCap.Blend );
+				if ( value == null ) return;
 				GL.BlendFunc (
 					MistyValueToOriginal ( value.SourceParameter ),
 					( BlendingFactorDest ) MistyValueToOriginal ( value.DestinationParameter )
@@ -137,14 +131,22 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				int func, mask, fail, zfail, pass, reference;
-				GL.GetInteger ( GetPName.StencilFunc, out func ); GL.GetInteger ( GetPName.StencilValueMask, out mask );
-				GL.GetInteger ( GetPName.StencilFail, out fail ); GL.GetInteger ( GetPName.StencilPassDepthFail, out zfail );
-				GL.GetInteger ( GetPName.StencilPassDepthPass, out pass ); GL.GetInteger ( GetPName.StencilRef, out reference );
-				return new StencilOperation ( ( StencilFunction ) func, reference, mask, ( StencilOperator ) zfail, ( StencilOperator ) fail, ( StencilOperator ) pass );
+				if ( GL.IsEnabled ( EnableCap.StencilTest ) )
+				{
+					int func, mask, fail, zfail, pass, reference;
+					GL.GetInteger ( GetPName.StencilFunc, out func ); GL.GetInteger ( GetPName.StencilValueMask, out mask );
+					GL.GetInteger ( GetPName.StencilFail, out fail ); GL.GetInteger ( GetPName.StencilPassDepthFail, out zfail );
+					GL.GetInteger ( GetPName.StencilPassDepthPass, out pass ); GL.GetInteger ( GetPName.StencilRef, out reference );
+					return new StencilOperation ( OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilFunction ) func ), reference, mask,
+						OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilOp ) zfail ), OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilOp ) fail ),
+						OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilOp ) pass ) );
+				}
+				else { return null; }
 			}
 			set
 			{
+				if ( value != null ) GL.Enable ( EnableCap.StencilTest ); else GL.Disable ( EnableCap.StencilTest );
+				if ( value == null ) return;
 				GL.StencilFunc ( MistyValueToOriginal ( value.Function ), value.Reference, value.Mask );
 				GL.StencilOp ( MistyValueToOriginal ( value.Fail ), MistyValueToOriginal ( value.ZFail ),
 					MistyValueToOriginal ( value.Pass ) );

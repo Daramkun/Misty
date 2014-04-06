@@ -179,6 +179,40 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		private StencilFunction OriginalToMistyValue ( OpenTK.Graphics.OpenGL.StencilFunction func )
+		{
+			switch ( func )
+			{
+				case OpenTK.Graphics.OpenGL.StencilFunction.Always: return StencilFunction.Always;
+				case OpenTK.Graphics.OpenGL.StencilFunction.Equal: return StencilFunction.Equal;
+				case OpenTK.Graphics.OpenGL.StencilFunction.Gequal: return StencilFunction.GreaterEqual;
+				case OpenTK.Graphics.OpenGL.StencilFunction.Greater: return StencilFunction.Greater;
+				case OpenTK.Graphics.OpenGL.StencilFunction.Lequal: return StencilFunction.LessEqual;
+				case OpenTK.Graphics.OpenGL.StencilFunction.Less: return StencilFunction.Less;
+				case OpenTK.Graphics.OpenGL.StencilFunction.Never: return StencilFunction.Never;
+				case OpenTK.Graphics.OpenGL.StencilFunction.Notequal: return StencilFunction.NotEqual;
+
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private StencilOperator OriginalToMistyValue ( OpenTK.Graphics.OpenGL.StencilOp op )
+		{
+			switch ( op )
+			{
+				case StencilOp.Zero: return StencilOperator.Zero;
+				case StencilOp.Keep: return StencilOperator.Keep;
+				case StencilOp.Invert: return StencilOperator.Invert;
+				case StencilOp.Replace: return StencilOperator.Replace;
+				case StencilOp.Incr: return StencilOperator.Increase;
+				case StencilOp.IncrWrap: return StencilOperator.IncreaseWrap;
+				case StencilOp.Decr: return StencilOperator.Decrease;
+				case StencilOp.DecrWrap: return StencilOperator.DecreaseWrap;
+
+				default: throw new ArgumentException ();
+			}
+		}
+
 		private OpenTK.Graphics.OpenGL.BlendingFactorSrc MistyValueToOriginal ( BlendParameter param )
 		{
 			switch ( param )
@@ -221,22 +255,6 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		private StencilOperator OriginalToMistyValue ( OpenTK.Graphics.OpenGL.StencilOp op )
-		{
-			switch ( op )
-			{
-				case OpenTK.Graphics.OpenGL.StencilOp.Zero: return StencilOperator.Zero;
-				case OpenTK.Graphics.OpenGL.StencilOp.Keep: return StencilOperator.Keep;
-				case OpenTK.Graphics.OpenGL.StencilOp.Replace: return StencilOperator.Replace;
-				case OpenTK.Graphics.OpenGL.StencilOp.Invert: return StencilOperator.Invert;
-				case OpenTK.Graphics.OpenGL.StencilOp.Incr: return StencilOperator.Increase;
-				case OpenTK.Graphics.OpenGL.StencilOp.Decr: return StencilOperator.Decrease;
-				case OpenTK.Graphics.OpenGL.StencilOp.IncrWrap: return StencilOperator.IncreaseWrap;
-				case OpenTK.Graphics.OpenGL.StencilOp.DecrWrap: return StencilOperator.DecreaseWrap;
-				default: throw new ArgumentException ();
-			}
-		}
-
 		private OpenTK.Graphics.OpenGL.StencilOp MistyValueToOriginal ( StencilOperator op )
 		{
 			switch ( op )
@@ -249,22 +267,6 @@ namespace Daramkun.Misty.Graphics
 				case StencilOperator.Decrease: return OpenTK.Graphics.OpenGL.StencilOp.Decr;
 				case StencilOperator.IncreaseWrap: return OpenTK.Graphics.OpenGL.StencilOp.IncrWrap;
 				case StencilOperator.DecreaseWrap: return OpenTK.Graphics.OpenGL.StencilOp.DecrWrap;
-				default: throw new ArgumentException ();
-			}
-		}
-
-		private StencilFunction OriginalToMistyValue ( OpenTK.Graphics.OpenGL.StencilFunction func )
-		{
-			switch ( func )
-			{
-				case OpenTK.Graphics.OpenGL.StencilFunction.Never: return StencilFunction.Never;
-				case OpenTK.Graphics.OpenGL.StencilFunction.Always: return StencilFunction.Always;
-				case OpenTK.Graphics.OpenGL.StencilFunction.Equal: return StencilFunction.Equal;
-				case OpenTK.Graphics.OpenGL.StencilFunction.Notequal: return StencilFunction.NotEqual;
-				case OpenTK.Graphics.OpenGL.StencilFunction.Greater: return StencilFunction.Greater;
-				case OpenTK.Graphics.OpenGL.StencilFunction.Less: return StencilFunction.Less;
-				case OpenTK.Graphics.OpenGL.StencilFunction.Gequal: return StencilFunction.GreaterEqual;
-				case OpenTK.Graphics.OpenGL.StencilFunction.Lequal: return StencilFunction.LessEqual;
 				default: throw new ArgumentException ();
 			}
 		}

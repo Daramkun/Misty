@@ -31,7 +31,6 @@ namespace Test.Game.InfoViewer
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = true;
 			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
 
 			Core.Window.Title = "Information Viewer";

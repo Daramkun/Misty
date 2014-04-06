@@ -30,7 +30,7 @@ namespace Daramkun.Misty.Graphics
 		Maximum,
 	}
 
-	public struct BlendOperation
+	public class BlendOperation
 	{
 		public static BlendOperation None { get { return new BlendOperation ( BlendOperator.Add, BlendParameter.One, BlendParameter.Zero ); } }
 		public static BlendOperation AlphaBlend { get { return new BlendOperation ( BlendOperator.Add, BlendParameter.SourceAlpha, BlendParameter.InvertSourceAlpha ); } }
@@ -43,7 +43,6 @@ namespace Daramkun.Misty.Graphics
 		public BlendOperator Operator { get; set; }
 
 		public BlendOperation ( BlendOperator op, BlendParameter sourceParam, BlendParameter destParam )
-			: this ()
 		{
 			Operator = op;
 			SourceParameter = sourceParam;

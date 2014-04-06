@@ -79,8 +79,6 @@ namespace Daramkun.Misty.Graphics
 		FillMode FillMode { get; set; }
 
 		bool IsZWriteEnable { get; set; }
-		bool BlendState { get; set; }
-		bool StencilState { get; set; }
 		bool IsMultisampleRendering { get; set; }
 
 		bool IsFullscreen { get; set; }

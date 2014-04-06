@@ -43,18 +43,6 @@ namespace Daramkun.Misty.Graphics
 			set { d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.ZWriteEnable, value ); }
 		}
 
-		public bool BlendState
-		{
-			get { return d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.AlphaBlendEnable ) != 0 ? true : false; }
-			set { d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.AlphaBlendEnable, value ); }
-		}
-
-		public bool StencilState
-		{
-			get { return d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable ) != 0 ? true : false; }
-			set { d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable, value ); }
-		}
-
 		public bool IsMultisampleRendering
 		{
 			get
@@ -91,13 +79,19 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				int op = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.BlendOperation );
-				int sb = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.SourceBlend );
-				int db = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.DestinationBlend );
-				return new BlendOperation ( DeconvertBlendOp ( op ), DeconvertBlendParam ( sb ), DeconvertBlendParam ( db ) );
+				if ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.AlphaBlendEnable ) != 0 )
+				{
+					int op = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.BlendOperation );
+					int sb = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.SourceBlend );
+					int db = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.DestinationBlend );
+					return new BlendOperation ( DeconvertBlendOp ( op ), DeconvertBlendParam ( sb ), DeconvertBlendParam ( db ) );
+				}
+				else { return null; }
 			}
 			set
 			{
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.AlphaBlendEnable, value != null );
+				if ( value == null ) return;
 				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.BlendOperation, ConvertBlendOp ( value.Operator ) );
 				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.SourceBlend, ConvertBlendParam ( value.SourceParameter ) );
 				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.DestinationBlend, ConvertBlendParam ( value.DestinationParameter ) );
@@ -108,17 +102,23 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				return new StencilOperation (
-					DeconvertStencilFunc ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc ) ),
-					d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef ),
-					d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask ),
-					DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilZFail ) ),
-					DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFail ) ),
-					DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilPass ) )
-				);
+				if ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable ) != 0 )
+				{
+					return new StencilOperation (
+						DeconvertStencilFunc ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc ) ),
+						d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef ),
+						d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask ),
+						DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilZFail ) ),
+						DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFail ) ),
+						DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilPass ) )
+					);
+				}
+				else { return null; }
 			}
 			set
 			{
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable, value != null );
+				if ( value == null ) return;
 				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc, ConvertStencilFunc ( value.Function ) );
 				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef, value.Reference );
 				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask, value.Mask );
