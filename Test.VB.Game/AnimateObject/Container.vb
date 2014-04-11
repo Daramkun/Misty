@@ -25,7 +25,7 @@ Namespace Test.VB.Game.AnimateObject
 		Dim animate As Animate
 
 		Public Overrides Sub Intro(ParamArray args() As Object)
-			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend
+			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend
 
 			contentManager = New ResourceTable(FileSystemManager.GetFileSystem("ManifestFileSystem"))
 			contentManager.AddDefaultContentLoader()

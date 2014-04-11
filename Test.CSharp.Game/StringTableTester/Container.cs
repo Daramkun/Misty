@@ -26,7 +26,7 @@ namespace Test.CSharp.Game.StringTableTester
 		{
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( FileSystemManager.ManifestFileSystem ) );
 
-			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
+			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
 			Add ( InputHelper.Instance );
 
 			stt = contentManager.Load<StringTable> ( "Resources/stringTable.json" );

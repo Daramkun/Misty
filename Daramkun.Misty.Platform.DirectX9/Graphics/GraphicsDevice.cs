@@ -37,12 +37,6 @@ namespace Daramkun.Misty.Graphics
 			set { d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.FillMode, ChangeFillMode ( value ) ); }
 		}
 
-		public bool IsZWriteEnable
-		{
-			get { return d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.ZWriteEnable ) != 0 ? true : false; }
-			set { d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.ZWriteEnable, value ); }
-		}
-
 		public bool IsMultisampleRendering
 		{
 			get
@@ -75,7 +69,7 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public BlendOperation BlendOperation
+		public BlendState BlendState
 		{
 			get
 			{
@@ -84,7 +78,7 @@ namespace Daramkun.Misty.Graphics
 					int op = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.BlendOperation );
 					int sb = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.SourceBlend );
 					int db = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.DestinationBlend );
-					return new BlendOperation ( DeconvertBlendOp ( op ), DeconvertBlendParam ( sb ), DeconvertBlendParam ( db ) );
+					return new BlendState ( DeconvertBlendOp ( op ), DeconvertBlendParam ( sb ), DeconvertBlendParam ( db ) );
 				}
 				else { return null; }
 			}
@@ -98,33 +92,34 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public StencilOperation StencilOperation
+		public DepthStencil DepthStencil
 		{
 			get
 			{
-				if ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable ) != 0 )
+				return new DepthStencil ()
 				{
-					return new StencilOperation (
+					StencilState = ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable ) != 0 ) ? new StencilState (
 						DeconvertStencilFunc ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc ) ),
 						d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef ),
 						d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask ),
 						DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilZFail ) ),
 						DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilFail ) ),
 						DeconvertStencilOp ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.StencilPass ) )
-					);
-				}
-				else { return null; }
+						) : null,
+					DepthEnable = d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.ZWriteEnable ) != 0 ? true : false
+				};
 			}
 			set
 			{
-				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable, value != null );
-				if ( value == null ) return;
-				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc, ConvertStencilFunc ( value.Function ) );
-				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef, value.Reference );
-				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask, value.Mask );
-				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilZFail, ConvertStencilOp ( value.ZFail ) );
-				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilFail, ConvertStencilOp ( value.Fail ) );
-				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilPass, ConvertStencilOp ( value.Pass ) );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.ZWriteEnable, value.DepthEnable );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilEnable, value.StencilState != null );
+				if ( value.StencilState == null ) return;
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilFunc, ConvertStencilFunc ( value.StencilState.Function ) );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilRef, value.StencilState.Reference );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilMask, value.StencilState.Mask );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilZFail, ConvertStencilOp ( value.StencilState.ZFail ) );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilFail, ConvertStencilOp ( value.StencilState.Fail ) );
+				d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.StencilPass, ConvertStencilOp ( value.StencilState.Pass ) );
 			}
 		}
 
@@ -244,21 +239,6 @@ namespace Daramkun.Misty.Graphics
 			d3dDevice.Indices = indexBuffer.Handle as SharpDX.Direct3D9.IndexBuffer;
 			d3dDevice.DrawIndexedPrimitive ( ConvertPrimitiveType ( primitiveType ), 0, 0, vertexBuffer.Length,
 				startIndex, primitiveCount );
-		}
-
-		public void DrawUP<T> ( PrimitiveType primitiveType, T [] vertices, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount ) where T : struct
-		{
-			d3dDevice.VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
-			d3dDevice.DrawUserPrimitives<T> ( ConvertPrimitiveType ( primitiveType ), startVertex, primitiveCount, vertices );
-		}
-
-		public void DrawUP<T1, T2> ( PrimitiveType primitiveType, T1 [] vertices, IVertexDeclaration vertexDeclaration, T2 [] indices, int startIndex, int primitiveCount )
-			where T1 : struct
-			where T2 : struct
-		{
-			d3dDevice.VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
-			d3dDevice.DrawIndexedUserPrimitives<T2, T1> ( ConvertPrimitiveType ( primitiveType ), startIndex, 0, 0, vertices.Length, 
-				primitiveCount, indices, SharpDX.Direct3D9.Format.Index32, vertices );
 		}
 
 		public void ResizeBackBuffer ( int width, int height )

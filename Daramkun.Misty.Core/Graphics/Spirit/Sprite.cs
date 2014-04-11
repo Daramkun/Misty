@@ -145,13 +145,10 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
-			bool isZWriteMode = Core.GraphicsDevice.IsZWriteEnable;
-			StencilOperation stencilOp = Core.GraphicsDevice.StencilOperation;
-			Core.GraphicsDevice.IsZWriteEnable = false;
-			Core.GraphicsDevice.StencilOperation = null;
+			DepthStencil lastDepthStencil = Core.GraphicsDevice.DepthStencil;
+			Core.GraphicsDevice.DepthStencil = new DepthStencil () { DepthEnable = false, StencilState = null };
 			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration, 0, 2 );
-			Core.GraphicsDevice.IsZWriteEnable = isZWriteMode;
-			Core.GraphicsDevice.StencilOperation = stencilOp;
+			Core.GraphicsDevice.DepthStencil = lastDepthStencil;
 			Effect.End ();
 		}
 

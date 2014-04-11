@@ -5,6 +5,19 @@ using System.Text;
 
 namespace Daramkun.Misty.Graphics
 {
+	public enum ShaderType
+	{
+		VertexShader = 1,
+		PixelShader,
+		GeometryShader,
+	}
+
+	public interface IShader : IDisposable
+	{
+		ShaderType ShaderType { get; }
+		object Handle { get; }
+	}
+
 	public interface IEffect : IDisposable
 	{
 		object Handle { get; }

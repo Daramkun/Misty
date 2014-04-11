@@ -29,13 +29,8 @@ namespace Daramkun.Misty.Graphics
 		DecreaseWrap,
 	}
 
-	public class StencilOperation
+	public class StencilState
 	{
-		private StencilFunction stencilFunction1;
-		private StencilFunction stencilFunction2;
-		private StencilFunction stencilFunction3;
-		private StencilFunction stencilFunction4;
-
 		public StencilFunction Function { get; set; }
 		public int Reference { get; set; }
 		public int Mask { get; set; }
@@ -43,7 +38,7 @@ namespace Daramkun.Misty.Graphics
 		public StencilOperator Fail { get; set; }
 		public StencilOperator Pass { get; set; }
 
-		public StencilOperation ( StencilFunction func, int reference, int mask, StencilOperator zfail, StencilOperator fail, StencilOperator pass )
+		public StencilState ( StencilFunction func, int reference, int mask, StencilOperator zfail, StencilOperator fail, StencilOperator pass )
 		{
 			Function = func;
 			Reference = reference;
@@ -52,5 +47,11 @@ namespace Daramkun.Misty.Graphics
 			Fail = fail;
 			Pass = pass;
 		}
+	}
+
+	public struct DepthStencil
+	{
+		public bool DepthEnable { get; set; }
+		public StencilState StencilState { get; set; }
 	}
 }

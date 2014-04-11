@@ -31,10 +31,7 @@ namespace Daramkun.Misty.Graphics
 			get { throw new NotImplementedException (); }
 		}
 
-		public IRenderBuffer BackBuffer
-		{
-			get { throw new NotImplementedException (); }
-		}
+		public IRenderBuffer BackBuffer { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
 		public CullingMode CullMode
@@ -44,8 +41,9 @@ namespace Daramkun.Misty.Graphics
 			{
 				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
 				desc.CullMode = ConvertToCullMode ( value );
-				d3dContext.Rasterizer.State.Dispose ();
+				SharpDX.Direct3D11.RasterizerState tempState = d3dContext.Rasterizer.State;
 				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
+				tempState.Dispose ();
 			}
 		}
 
@@ -70,46 +68,6 @@ namespace Daramkun.Misty.Graphics
 				desc.IsDepthClipEnabled = value;
 				d3dContext.Rasterizer.State.Dispose ();
 				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
-			}
-		}
-
-		public bool BlendState
-		{
-			get { return d3dContext.OutputMerger.BlendState != null; }
-			set
-			{
-				if ( value == false )
-				{
-					if ( BlendState )
-					{
-						d3dContext.OutputMerger.BlendState.Dispose ();
-						d3dContext.OutputMerger.BlendState = null;
-					}
-				}
-				else
-				{
-					BlendOperation = BlendOperation;
-				}
-			}
-		}
-
-		public bool StencilState
-		{
-			get { return d3dContext.OutputMerger.DepthStencilState.Description.IsStencilEnabled; }
-			set
-			{
-				if ( value == false )
-				{
-					if ( StencilState )
-					{
-						d3dContext.OutputMerger.DepthStencilState.Dispose ();
-						d3dContext.OutputMerger.DepthStencilState = null;
-					}
-				}
-				else
-				{
-					StencilOperation = StencilOperation;
-				}
 			}
 		}
 
@@ -146,7 +104,7 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public BlendOperation BlendOperation
+		public BlendState BlendState
 		{
 			get
 			{
@@ -159,7 +117,7 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public StencilOperation StencilOperation
+		public DepthStencil DepthStencil
 		{
 			get
 			{
@@ -167,7 +125,10 @@ namespace Daramkun.Misty.Graphics
 			}
 			set
 			{
-				throw new NotImplementedException ();
+				d3dContext.OutputMerger.DepthStencilState = new SharpDX.Direct3D11.DepthStencilState ( d3dDevice, new SharpDX.Direct3D11.DepthStencilStateDescription ()
+				{
+					
+				} );
 			}
 		}
 
@@ -297,17 +258,6 @@ namespace Daramkun.Misty.Graphics
 				indexBuffer.Is16bitIndex ? SharpDX.DXGI.Format.R16_SInt : SharpDX.DXGI.Format.R32_SInt, 0 );
 			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
 			d3dContext.DrawIndexed ( GetPrimitiveCount ( primitiveType, primitiveCount ), startIndex, 0 );
-		}
-		public void DrawUP<T> ( PrimitiveType primitiveType, T [] vertices, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount ) where T : struct
-		{
-			throw new NotImplementedException ();
-		}
-
-		public void DrawUP<T1, T2> ( PrimitiveType primitiveType, T1 [] vertices, IVertexDeclaration vertexDeclaration, T2 [] indices, int startIndex, int primitiveCount )
-			where T1 : struct
-			where T2 : struct
-		{
-			throw new NotImplementedException ();
 		}
 
 		public void ResizeBackBuffer ( int width, int height )

@@ -37,7 +37,7 @@ namespace Test.Game.Dodge
 		public override void Intro ( params object [] args )
 		{
 			Core.Window.Title = "Simple Dodge";
-			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
+			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
 			Add ( InputHelper.Instance );
 			InputHelper.IsKeyboardEnabled = true;

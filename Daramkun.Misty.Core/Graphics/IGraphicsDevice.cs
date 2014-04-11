@@ -67,6 +67,29 @@ namespace Daramkun.Misty.Graphics
 		AllBuffer = ColorBuffer | DepthBuffer | StencilBuffer,
 	}
 
+	public struct ScreenResolution
+	{
+		public Vector2 ScreenSize;
+		public float RefreshRate;
+
+		public ScreenResolution ( Vector2 s, float r ) { ScreenSize = s; RefreshRate = r; }
+
+		public override string ToString () { return string.Format ( "Screen Size: {0}, Refresh Rate: {1}", ScreenSize, RefreshRate ); }
+	}
+
+	public struct Viewport
+	{
+		public int X { get; set; }
+		public int Y { get; set; }
+		public int Width { get; set; }
+		public int Height { get; set; }
+
+		public Viewport ( int x, int y, int width, int height ) : this () { X = x; Y = y; Width = width; Height = height; }
+		public Viewport ( int [] viewport ) : this ( viewport [ 0 ], viewport [ 1 ], viewport [ 2 ], viewport [ 3 ] ) { }
+
+		public override string ToString () { return string.Format ( "{{X:{0}, Y:{1}, Width:{2}, Height:{3}}}", X, Y, Width, Height ); }
+	}
+
 	public interface IGraphicsDevice : IDisposable
 	{
 		object Handle { get; }
@@ -78,14 +101,13 @@ namespace Daramkun.Misty.Graphics
 		CullingMode CullMode { get; set; }
 		FillMode FillMode { get; set; }
 
-		bool IsZWriteEnable { get; set; }
 		bool IsMultisampleRendering { get; set; }
 
 		bool IsFullscreen { get; set; }
 		ScreenResolution FullscreenResolution { get; set; }
 
-		BlendOperation BlendOperation { get; set; }
-		StencilOperation StencilOperation { get; set; }
+		BlendState BlendState { get; set; }
+		DepthStencil DepthStencil { get; set; }
 
 		Viewport Viewport { get; set; }
 		bool VerticalSyncMode { get; set; }
@@ -98,10 +120,6 @@ namespace Daramkun.Misty.Graphics
 
 		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount );
 		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount );
-		void DrawUP<T> ( PrimitiveType primitiveType, T [] vertices, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount ) where T : struct;
-		void DrawUP<T1, T2> ( PrimitiveType primitiveType, T1 [] vertices, IVertexDeclaration vertexDeclaration, T2 [] indices, int startIndex, int primitiveCount )
-			where T1 : struct
-			where T2 : struct;
 
 		void ResizeBackBuffer ( int width, int height );
 

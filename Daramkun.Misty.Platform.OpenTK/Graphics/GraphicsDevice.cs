@@ -99,7 +99,7 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public BlendOperation BlendOperation
+		public BlendState BlendState
 		{
 			get
 			{
@@ -107,7 +107,7 @@ namespace Daramkun.Misty.Graphics
 				{
 					int op, dest, src;
 					GL.GetInteger ( GetPName.Blend, out op ); GL.GetInteger ( GetPName.BlendDst, out dest ); GL.GetInteger ( GetPName.BlendSrc, out src );
-					return new Graphics.BlendOperation (
+					return new Graphics.BlendState (
 						OriginalToMistyValue ( ( BlendEquationMode ) op ),
 						OriginalToMistyValue ( ( BlendingFactorSrc ) src ),
 						OriginalToMistyValue ( ( BlendingFactorDest ) dest )
@@ -127,29 +127,35 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public StencilOperation StencilOperation
+		public DepthStencil DepthStencil
 		{
 			get
 			{
+				DepthStencil ds = new DepthStencil ();
+				ds.DepthEnable = GL.IsEnabled ( EnableCap.DepthTest );
 				if ( GL.IsEnabled ( EnableCap.StencilTest ) )
 				{
 					int func, mask, fail, zfail, pass, reference;
 					GL.GetInteger ( GetPName.StencilFunc, out func ); GL.GetInteger ( GetPName.StencilValueMask, out mask );
 					GL.GetInteger ( GetPName.StencilFail, out fail ); GL.GetInteger ( GetPName.StencilPassDepthFail, out zfail );
 					GL.GetInteger ( GetPName.StencilPassDepthPass, out pass ); GL.GetInteger ( GetPName.StencilRef, out reference );
-					return new StencilOperation ( OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilFunction ) func ), reference, mask,
+					ds.StencilState = new StencilState ( OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilFunction ) func ), reference, mask,
 						OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilOp ) zfail ), OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilOp ) fail ),
 						OriginalToMistyValue ( ( OpenTK.Graphics.OpenGL.StencilOp ) pass ) );
 				}
-				else { return null; }
+				else { ds.StencilState = null; }
+				return ds;
 			}
 			set
 			{
-				if ( value != null ) GL.Enable ( EnableCap.StencilTest ); else GL.Disable ( EnableCap.StencilTest );
-				if ( value == null ) return;
-				GL.StencilFunc ( MistyValueToOriginal ( value.Function ), value.Reference, value.Mask );
-				GL.StencilOp ( MistyValueToOriginal ( value.Fail ), MistyValueToOriginal ( value.ZFail ),
-					MistyValueToOriginal ( value.Pass ) );
+				if ( value.DepthEnable ) GL.Enable ( EnableCap.DepthTest ); else GL.Disable ( EnableCap.DepthTest );
+				if ( value.StencilState != null ) GL.Enable ( EnableCap.StencilTest ); else GL.Disable ( EnableCap.StencilTest );
+				if ( value.StencilState != null )
+				{
+					GL.StencilFunc ( MistyValueToOriginal ( value.StencilState.Function ), value.StencilState.Reference, value.StencilState.Mask );
+					GL.StencilOp ( MistyValueToOriginal ( value.StencilState.Fail ), MistyValueToOriginal ( value.StencilState.ZFail ),
+						MistyValueToOriginal ( value.StencilState.Pass ) );
+				}
 			}
 		}
 
@@ -236,25 +242,6 @@ namespace Daramkun.Misty.Graphics
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
 			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), GetCountFromPrimitiveType ( primitiveType, primitiveCount ),
 				( !indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedInt : DrawElementsType.UnsignedShort ), startIndex );
-			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
-			EndVertexDeclaration ( vertexDeclaration );
-		}
-
-		public void DrawUP<T> ( PrimitiveType primitiveType, T [] vertices, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount ) where T : struct
-		{
-			BeginVertexDeclaration ( vertices, vertexDeclaration );
-			GL.DrawArrays ( MistyValueToOriginal ( primitiveType ), startVertex, primitiveCount * GetCountFromPrimitiveType ( primitiveType, primitiveCount ) );
-			EndVertexDeclaration ( vertexDeclaration );
-		}
-
-		public void DrawUP<T1, T2> ( PrimitiveType primitiveType, T1 [] vertices, IVertexDeclaration vertexDeclaration, T2 [] indices, int startIndex, int primitiveCount )
-			where T1 : struct
-			where T2 : struct
-		{
-			BeginVertexDeclaration ( vertices, vertexDeclaration );
-			GL.IndexPointer<T2> ( IndexPointerType.Int, Marshal.SizeOf ( typeof ( T2 ) ), indices );
-			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), GetCountFromPrimitiveType ( primitiveType, primitiveCount ),
-				DrawElementsType.UnsignedInt, startIndex );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
 			EndVertexDeclaration ( vertexDeclaration );
 		}

@@ -27,7 +27,7 @@ namespace Test.Game.PlayAudios
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
+			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			Texture2DContentLoader.AddDefaultDecoders ();

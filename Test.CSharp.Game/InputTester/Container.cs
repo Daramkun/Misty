@@ -24,7 +24,7 @@ namespace Test.CSharp.Game.InputTester
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
+			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( FileSystemManager.ManifestFileSystem ) );
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf",  32 );
 			Add ( InputHelper.Instance );

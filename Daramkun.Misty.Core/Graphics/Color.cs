@@ -2,14 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Blockar.Common;
 
 namespace Daramkun.Misty.Graphics
 {
 	public struct Color
 	{
+		[Record ( Name = "r" )]
 		public float RedScalar { get; set; }
+		[Record ( Name = "g" )]
 		public float GreenScalar { get; set; }
+		[Record ( Name = "b" )]
 		public float BlueScalar { get; set; }
+		[Record ( Name = "a" )]
 		public float AlphaScalar { get; set; }
 
 		public byte AlphaValue { get { return ( byte ) ( AlphaScalar * 255 ); } set { AlphaScalar = value / 255.0f; } }
@@ -20,13 +25,8 @@ namespace Daramkun.Misty.Graphics
 		public int ColorValue { get { return ( ( ( int ) RedValue ) << 24 ) + ( ( ( int ) GreenValue ) << 16 ) + ( ( ( int ) BlueValue ) << 8 ) + AlphaValue; } }
 		public int ARGBValue { get { return ( ( ( int ) AlphaValue ) << 24 ) + ( ( ( int ) RedValue ) << 16 ) + ( ( ( int ) GreenValue ) << 8 ) + BlueValue; } }
 
-		public Color ( byte red, byte green, byte blue )
-			: this ( red, green, blue, 255 )
-		{ }
-
-		public Color ( float red, float green, float blue )
-			: this ( red, green, blue, 1 )
-		{ }
+		public Color ( byte red, byte green, byte blue ) : this ( red, green, blue, 255 ) { }
+		public Color ( float red, float green, float blue ) : this ( red, green, blue, 1 ) { }
 
 		public Color ( Color sourceColor, byte alpha )
 			: this ( sourceColor.RedScalar, sourceColor.GreenScalar, sourceColor.BlueScalar, alpha / 255.0f )

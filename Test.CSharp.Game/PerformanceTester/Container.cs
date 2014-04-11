@@ -27,7 +27,7 @@ namespace Test.Game.PerformanceTester
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendOperation = BlendOperation.AlphaBlend;
+			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
 
 			Add ( InputHelper.Instance );
 			Add ( calc = new FpsCalculator () );
