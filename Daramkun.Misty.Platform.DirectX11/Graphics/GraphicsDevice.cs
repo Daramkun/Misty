@@ -184,17 +184,7 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public bool VerticalSyncMode
-		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
-			set
-			{
-				throw new NotImplementedException ();
-			}
-		}
+		public bool VerticalSyncMode { get; set; }
 
 		public GraphicsDevice ( IWindow window )
 		{
@@ -215,17 +205,31 @@ namespace Daramkun.Misty.Graphics
 
 			var backBuffer = dxgiSwapChain.GetBackBuffer<SharpDX.Direct3D11.Resource> ( 0 );
 			renderTarget = new SharpDX.Direct3D11.RenderTargetView ( d3dDevice, backBuffer );
-			depthStencilBuffer = new SharpDX.Direct3D11.Texture2D ( d3dDevice, new SharpDX.Direct3D11.Texture2DDescription ()
+			MakeDepthStencil ( 800, 600 );
+		}
+
+		private void MakeDepthStencil ( int width, int height )
+		{
+			SharpDX.Direct3D11.Texture2D tempDsBuffer = this.depthStencilBuffer;
+			SharpDX.Direct3D11.DepthStencilView tempDs = this.depthStencil;
+
+			SharpDX.Direct3D11.Texture2D depthStencilBuffer = new SharpDX.Direct3D11.Texture2D ( d3dDevice, new SharpDX.Direct3D11.Texture2DDescription ()
 			{
-				Width = 800,
-				Height = 600,
+				Width = width,
+				Height = height,
 				MipLevels = 1,
 				ArraySize = 1,
-				Format = SharpDX.DXGI.Format.D24_UNorm_S8_UInt
+				Format = SharpDX.DXGI.Format.D24_UNorm_S8_UInt,
+				BindFlags = SharpDX.Direct3D11.BindFlags.DepthStencil,
+				SampleDescription = new SharpDX.DXGI.SampleDescription ( 1, 0 ),
+				Usage = SharpDX.Direct3D11.ResourceUsage.Default,
 			} );
-			depthStencil = new SharpDX.Direct3D11.DepthStencilView ( d3dDevice, depthStencilBuffer );
+			SharpDX.Direct3D11.DepthStencilView depthStencil = new SharpDX.Direct3D11.DepthStencilView ( d3dDevice, depthStencilBuffer );
 
 			d3dContext.OutputMerger.SetRenderTargets ( depthStencil, renderTarget );
+
+			tempDs.Dispose ();
+			tempDsBuffer.Dispose ();
 		}
 
 		protected override void Dispose ( bool isDisposing )
@@ -243,24 +247,32 @@ namespace Daramkun.Misty.Graphics
 
 		public void BeginScene ( IRenderBuffer renderBuffer = null )
 		{
-			throw new NotImplementedException ();
+			if ( renderBuffer == null || renderBuffer == BackBuffer )
+			{
+				
+			}
+			else
+			{
+				
+			}
 		}
 
 		public void EndScene ()
 		{
-			throw new NotImplementedException ();
+
 		}
 
 		public void Clear ( ClearBuffer clearBuffer, Color color, float depth = 0, int stencil = 0 )
 		{
-			if(clearBuffer.HasFlag(ClearBuffer.ColorBuffer))
-			d3dContext.ClearRenderTargetView ( renderTarget, ConvertColor ( color ) );
-			d3dContext.ClearDepthStencilView ( depthStencil, ConvertDepthStencilClearMethod ( clearBuffer ), depth, ( byte ) stencil );
+			if ( clearBuffer.HasFlag ( ClearBuffer.ColorBuffer ) )
+				d3dContext.ClearRenderTargetView ( renderTarget, ConvertColor ( color ) );
+			if ( clearBuffer.HasFlag ( ClearBuffer.DepthBuffer ) || clearBuffer.HasFlag ( ClearBuffer.StencilBuffer ) )
+				d3dContext.ClearDepthStencilView ( depthStencil, ConvertDepthStencilClearMethod ( clearBuffer ), depth, ( byte ) stencil );
 		}
 
 		public void SwapBuffer ()
 		{
-			dxgiSwapChain.Present ( 1, SharpDX.DXGI.PresentFlags.None );
+			dxgiSwapChain.Present ( VerticalSyncMode ? 1 : 0, SharpDX.DXGI.PresentFlags.None );
 		}
 
 		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
@@ -301,6 +313,7 @@ namespace Daramkun.Misty.Graphics
 		public void ResizeBackBuffer ( int width, int height )
 		{
 			dxgiSwapChain.ResizeBuffers ( 1, width, height, SharpDX.DXGI.Format.R8G8B8A8_UNorm, SharpDX.DXGI.SwapChainFlags.None );
+			MakeDepthStencil ( width, height );
 			if ( BackbufferResized != null )
 				BackbufferResized ( this, null );
 		}
