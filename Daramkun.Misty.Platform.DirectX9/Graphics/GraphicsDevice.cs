@@ -25,7 +25,7 @@ namespace Daramkun.Misty.Graphics
 		public IRenderBuffer BackBuffer { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
-		public CullingMode CullMode
+		public CullMode CullMode
 		{
 			get { return ConvertCullMode ( d3dDevice.GetRenderState ( SharpDX.Direct3D9.RenderState.CullMode ) ); }
 			set { d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.CullMode, ChangeCullMode ( value ) ); }
@@ -37,7 +37,7 @@ namespace Daramkun.Misty.Graphics
 			set { d3dDevice.SetRenderState ( SharpDX.Direct3D9.RenderState.FillMode, ChangeFillMode ( value ) ); }
 		}
 
-		public bool IsMultisampleRendering
+		public bool IsMultisampleEnabled
 		{
 			get
 			{
@@ -59,7 +59,7 @@ namespace Daramkun.Misty.Graphics
 
 		public ScreenResolution FullscreenResolution
 		{
-			get { return new ScreenResolution ( new Vector2 ( d3dpp.BackBufferWidth, d3dpp.BackBufferHeight ), d3dpp.FullScreenRefreshRateInHz ); }
+			get { return new ScreenResolution () { ScreenSize = new Vector2 ( d3dpp.BackBufferWidth, d3dpp.BackBufferHeight ), RefreshRate = d3dpp.FullScreenRefreshRateInHz }; }
 			set
 			{
 				d3dpp.BackBufferWidth = ( int ) value.ScreenSize.X;
@@ -171,7 +171,7 @@ namespace Daramkun.Misty.Graphics
 			Information = new GraphicsDeviceInformation ( d3d );
 			BackBuffer = new BackBuffer ( this );
 
-			CullMode = CullingMode.ClockWise;
+			CullMode = CullMode.ClockWise;
 
 			//window.Resize += ( object sender, EventArgs e ) => { ResizeBackBuffer ( ( int ) window.ClientSize.X, ( int ) window.ClientSize.Y ); };
 		}

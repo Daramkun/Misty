@@ -29,29 +29,29 @@ namespace Daramkun.Misty.Graphics
 		public IRenderBuffer BackBuffer { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
-		public CullingMode CullMode
+		public CullMode CullMode
 		{
 			get
 			{
 				bool cullFace;
 				GL.GetBoolean ( GetPName.CullFace, out cullFace );
-				if ( !cullFace ) return CullingMode.None;
+				if ( !cullFace ) return CullMode.None;
 				int frontFace;
 				GL.GetInteger ( GetPName.FrontFace, out frontFace );
 				switch ( ( FrontFaceDirection ) frontFace )
 				{
-					case FrontFaceDirection.Ccw: return CullingMode.ClockWise;
-					case FrontFaceDirection.Cw: return CullingMode.CounterClockWise;
+					case FrontFaceDirection.Ccw: return CullMode.ClockWise;
+					case FrontFaceDirection.Cw: return CullMode.CounterClockWise;
 					default: throw new ArgumentException ();
 				}
 			}
 			set
 			{
-				if ( value == CullingMode.None ) GL.Disable ( EnableCap.CullFace );
+				if ( value == CullMode.None ) GL.Disable ( EnableCap.CullFace );
 				else
 				{
 					GL.Enable ( EnableCap.CullFace );
-					GL.FrontFace ( ( value == CullingMode.ClockWise ) ? FrontFaceDirection.Ccw : FrontFaceDirection.Cw );
+					GL.FrontFace ( ( value == CullMode.ClockWise ) ? FrontFaceDirection.Ccw : FrontFaceDirection.Cw );
 				}
 			}
 		}
@@ -68,7 +68,7 @@ namespace Daramkun.Misty.Graphics
 			set { if ( value ) GL.Enable ( EnableCap.DepthTest ); else GL.Disable ( EnableCap.DepthTest ); }
 		}
 
-		public bool IsMultisampleRendering
+		public bool IsMultisampleEnabled
 		{
 			get { return GL.IsEnabled ( EnableCap.Multisample ); }
 			set { if ( value ) GL.Enable ( EnableCap.Multisample ); else GL.Disable ( EnableCap.Multisample ); }
@@ -90,7 +90,7 @@ namespace Daramkun.Misty.Graphics
 			get
 			{
 				OpenTK.DisplayDevice device = OpenTK.DisplayDevice.Default;
-				return new ScreenResolution ( new Vector2 ( device.Width, device.Height ), device.RefreshRate );
+				return new ScreenResolution () { ScreenSize = new Vector2 ( device.Width, device.Height ), RefreshRate = device.RefreshRate };
 			}
 			set
 			{
@@ -178,7 +178,7 @@ namespace Daramkun.Misty.Graphics
 			deviceInfo = new GraphicsDeviceInformation ();
 			BackBuffer = new BackBuffer ( this.window );
 
-			CullMode = CullingMode.ClockWise;
+			CullMode = CullMode.ClockWise;
 
 			if ( deviceInfo.RendererVersion.Major < 2 )
 				throw new PlatformNotSupportedException ();

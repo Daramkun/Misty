@@ -16,7 +16,7 @@ namespace Daramkun.Misty.Graphics
 		public Version RendererVersion { get { return new Version ( 9, 0 ); } }
 		public Version ShaderVersion { get { return new Version ( 3, 0 ); } }
 
-		public ScreenResolution [] AvailableScreenResolution
+		public ScreenResolution [] AvailableScreenResolutions
 		{
 			get
 			{
@@ -25,7 +25,7 @@ namespace Daramkun.Misty.Graphics
 				for ( int i = 0; i < count; i++ )
 				{
 					SharpDX.Direct3D9.DisplayMode mode = d3d.EnumAdapterModes ( 0, SharpDX.Direct3D9.Format.X8R8G8B8, i );
-					sizes.Add ( new ScreenResolution ( new Vector2 ( mode.Width, mode.Height ), mode.RefreshRate ) );
+					sizes.Add ( new ScreenResolution () { ScreenSize = new Vector2 ( mode.Width, mode.Height ), RefreshRate = mode.RefreshRate } );
 				}
 				return sizes.ToArray ();
 			}

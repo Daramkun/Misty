@@ -34,7 +34,7 @@ namespace Daramkun.Misty.Graphics
 		public IRenderBuffer BackBuffer { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
-		public CullingMode CullMode
+		public CullMode CullMode
 		{
 			get { return ConvertFromCullMode ( d3dContext.Rasterizer.State.Description.CullMode ); }
 			set
@@ -71,7 +71,7 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public bool IsMultisampleRendering
+		public bool IsMultisampleEnabled
 		{
 			get { return false; }
 			set { throw new NotImplementedException (); }
@@ -87,10 +87,10 @@ namespace Daramkun.Misty.Graphics
 		{
 			get
 			{
-				return new ScreenResolution (
-					new Vector2 ( dxgiSwapChain.Description.ModeDescription.Width, dxgiSwapChain.Description.ModeDescription.Height ),
-					dxgiSwapChain.Description.ModeDescription.RefreshRate.Numerator
-				);
+				return new ScreenResolution () {
+					ScreenSize = new Vector2 ( dxgiSwapChain.Description.ModeDescription.Width, dxgiSwapChain.Description.ModeDescription.Height ),
+					RefreshRate = dxgiSwapChain.Description.ModeDescription.RefreshRate.Numerator
+				};
 			}
 			set
 			{

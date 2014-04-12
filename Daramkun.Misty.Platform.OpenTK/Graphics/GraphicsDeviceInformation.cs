@@ -26,13 +26,13 @@ namespace Daramkun.Misty.Graphics
 				return rendererVersion = new Version ( int.Parse ( v [ 0 ] ), int.Parse ( v [ 1 ] ) );
 			}
 		}
-		public ScreenResolution [] AvailableScreenResolution
+		public ScreenResolution [] AvailableScreenResolutions
 		{
 			get
 			{
 				List<ScreenResolution> screenSizes = new List<ScreenResolution> ();
 				foreach ( OpenTK.DisplayResolution resolution in OpenTK.DisplayDevice.Default.AvailableResolutions )
-					screenSizes.Add ( new ScreenResolution ( new Vector2 ( resolution.Width, resolution.Height ), resolution.RefreshRate ) );
+					screenSizes.Add ( new ScreenResolution () { ScreenSize = new Vector2 ( resolution.Width, resolution.Height ), RefreshRate = resolution.RefreshRate } );
 				return screenSizes.ToArray ();
 			}
 		}

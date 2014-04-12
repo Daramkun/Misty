@@ -8,15 +8,26 @@ using Daramkun.Misty.Mathematics;
 
 namespace Daramkun.Misty.Graphics
 {
-	public enum BaseRenderer
-	{
-		Unknown,
+	public enum BaseRenderer : byte { Unknown, DirectX, MonoGame, OpenGL, OpenGLES, }
 
-		DirectX,
-		XNA,
-		MonoGame = XNA,
-		OpenGL,
-		OpenGLES,
+	public enum CullMode : byte { None, ClockWise, CounterClockWise, }
+	public enum FillMode : byte { Wireframe, Solid, }
+	public enum PrimitiveType : byte { PointList, LineList, LineStrip, TriangleList, TriangleStrip, TriangleFan, }
+	[Flags] public enum ClearBuffer : byte { ColorBuffer = 1 << 0, DepthBuffer = 1 << 1, StencilBuffer = 1 << 2, AllBuffer = ColorBuffer | DepthBuffer | StencilBuffer, }
+
+	public struct ScreenResolution
+	{
+		public Vector2 ScreenSize;
+		public float RefreshRate;
+		public override string ToString () { return string.Format ( "Screen Size: {0}, Refresh Rate: {1}", ScreenSize, RefreshRate ); }
+	}
+
+	public struct Viewport
+	{
+		public int X, Y, Width, Height;
+		public Viewport ( int x, int y, int width, int height ) : this () { X = x; Y = y; Width = width; Height = height; }
+		public Viewport ( int [] viewport ) : this () { X = viewport [ 0 ]; Y = viewport [ 1 ]; Width = viewport [ 2 ]; Height = viewport [ 3 ]; }
+		public override string ToString () { return string.Format ( "{{X:{0}, Y:{1}, Width:{2}, Height:{3}}}", X, Y, Width, Height ); }
 	}
 
 	public interface IGraphicsDeviceInformation
@@ -26,68 +37,12 @@ namespace Daramkun.Misty.Graphics
 		Version ShaderVersion { get; }
 		string DeviceVendor { get; }
 
-		ScreenResolution [] AvailableScreenResolution { get; }
+		ScreenResolution [] AvailableScreenResolutions { get; }
 		int MaximumAnisotropicLevel { get; }
 
 		bool IsSupportTexture1D { get; }
 		bool IsSupportTexture3D { get; }
 		bool IsSupportGeometryShader { get; }
-	}
-
-	public enum CullingMode
-	{
-		None,
-		ClockWise,
-		CounterClockWise,
-	}
-
-	public enum FillMode
-	{
-		Point,
-		Wireframe,
-		Solid,
-	}
-
-	public enum PrimitiveType
-	{
-		PointList,
-		LineList,
-		LineStrip,
-		TriangleList,
-		TriangleStrip,
-		TriangleFan,
-	}
-
-	[Flags]
-	public enum ClearBuffer
-	{
-		ColorBuffer = 1 << 0,
-		DepthBuffer = 1 << 1,
-		StencilBuffer = 1 << 2,
-		AllBuffer = ColorBuffer | DepthBuffer | StencilBuffer,
-	}
-
-	public struct ScreenResolution
-	{
-		public Vector2 ScreenSize;
-		public float RefreshRate;
-
-		public ScreenResolution ( Vector2 s, float r ) { ScreenSize = s; RefreshRate = r; }
-
-		public override string ToString () { return string.Format ( "Screen Size: {0}, Refresh Rate: {1}", ScreenSize, RefreshRate ); }
-	}
-
-	public struct Viewport
-	{
-		public int X { get; set; }
-		public int Y { get; set; }
-		public int Width { get; set; }
-		public int Height { get; set; }
-
-		public Viewport ( int x, int y, int width, int height ) : this () { X = x; Y = y; Width = width; Height = height; }
-		public Viewport ( int [] viewport ) : this ( viewport [ 0 ], viewport [ 1 ], viewport [ 2 ], viewport [ 3 ] ) { }
-
-		public override string ToString () { return string.Format ( "{{X:{0}, Y:{1}, Width:{2}, Height:{3}}}", X, Y, Width, Height ); }
 	}
 
 	public interface IGraphicsDevice : IDisposable
@@ -98,11 +53,10 @@ namespace Daramkun.Misty.Graphics
 		IRenderBuffer BackBuffer { get; }
 		IRenderBuffer CurrentRenderBuffer { get; }
 
-		CullingMode CullMode { get; set; }
+		CullMode CullMode { get; set; }
 		FillMode FillMode { get; set; }
 
-		bool IsMultisampleRendering { get; set; }
-
+		bool IsMultisampleEnabled { get; set; }
 		bool IsFullscreen { get; set; }
 		ScreenResolution FullscreenResolution { get; set; }
 

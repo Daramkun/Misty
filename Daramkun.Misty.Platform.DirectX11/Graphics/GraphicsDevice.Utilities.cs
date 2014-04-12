@@ -8,24 +8,24 @@ namespace Daramkun.Misty.Graphics
 {
 	public partial class GraphicsDevice
 	{
-		private CullingMode ConvertFromCullMode ( SharpDX.Direct3D11.CullMode cullMode )
+		private CullMode ConvertFromCullMode ( SharpDX.Direct3D11.CullMode cullMode )
 		{
 			switch ( cullMode )
 			{
-				case SharpDX.Direct3D11.CullMode.Back: return CullingMode.CounterClockWise;
-				case SharpDX.Direct3D11.CullMode.Front: return CullingMode.ClockWise;
-				case SharpDX.Direct3D11.CullMode.None: return CullingMode.None;
+				case SharpDX.Direct3D11.CullMode.Back: return CullMode.CounterClockWise;
+				case SharpDX.Direct3D11.CullMode.Front: return CullMode.ClockWise;
+				case SharpDX.Direct3D11.CullMode.None: return CullMode.None;
 				default: throw new ArgumentException ();
 			}
 		}
 
-		private SharpDX.Direct3D11.CullMode ConvertToCullMode ( CullingMode value )
+		private SharpDX.Direct3D11.CullMode ConvertToCullMode ( CullMode value )
 		{
 			switch ( value )
 			{
-				case CullingMode.None: return SharpDX.Direct3D11.CullMode.None;
-				case CullingMode.ClockWise: return SharpDX.Direct3D11.CullMode.Front;
-				case CullingMode.CounterClockWise: return SharpDX.Direct3D11.CullMode.Back;
+				case CullMode.None: return SharpDX.Direct3D11.CullMode.None;
+				case CullMode.ClockWise: return SharpDX.Direct3D11.CullMode.Front;
+				case CullMode.CounterClockWise: return SharpDX.Direct3D11.CullMode.Back;
 				default: throw new ArgumentException ();
 			}
 		}

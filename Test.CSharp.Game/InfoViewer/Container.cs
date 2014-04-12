@@ -68,7 +68,7 @@ Is Support Geometry Shader: {9}
 				Core.GraphicsDevice.Information.MaximumAnisotropicLevel,
 				Core.GraphicsDevice.Information.IsSupportGeometryShader,
 
-				ConvertToString ( Core.GraphicsDevice.Information.AvailableScreenResolution )
+				ConvertToString ( Core.GraphicsDevice.Information.AvailableScreenResolutions )
 			);
 
 			base.Intro ( args );

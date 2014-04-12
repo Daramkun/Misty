@@ -38,7 +38,7 @@ namespace Test.Game.Terrain
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.CullMode = CullingMode.ClockWise;
+			Core.GraphicsDevice.CullMode = CullMode.ClockWise;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();

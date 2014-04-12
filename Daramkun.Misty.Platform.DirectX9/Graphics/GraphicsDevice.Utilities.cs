@@ -9,24 +9,24 @@ namespace Daramkun.Misty.Graphics
 {
 	public partial class GraphicsDevice : StandardDispose, IGraphicsDevice
 	{
-		private int ChangeCullMode ( Graphics.CullingMode value )
+		private int ChangeCullMode ( Graphics.CullMode value )
 		{
 			switch ( value )
 			{
-				case Graphics.CullingMode.None: return ( int ) SharpDX.Direct3D9.Cull.None;
-				case Graphics.CullingMode.ClockWise: return ( int ) SharpDX.Direct3D9.Cull.Clockwise;
-				case Graphics.CullingMode.CounterClockWise: return ( int ) SharpDX.Direct3D9.Cull.Counterclockwise;
+				case Graphics.CullMode.None: return ( int ) SharpDX.Direct3D9.Cull.None;
+				case Graphics.CullMode.ClockWise: return ( int ) SharpDX.Direct3D9.Cull.Clockwise;
+				case Graphics.CullMode.CounterClockWise: return ( int ) SharpDX.Direct3D9.Cull.Counterclockwise;
 				default: throw new ArgumentException ();
 			}
 		}
 
-		private Graphics.CullingMode ConvertCullMode ( int p )
+		private Graphics.CullMode ConvertCullMode ( int p )
 		{
 			switch ( ( SharpDX.Direct3D9.Cull ) p )
 			{
-				case SharpDX.Direct3D9.Cull.None: return Graphics.CullingMode.None;
-				case SharpDX.Direct3D9.Cull.Clockwise: return Graphics.CullingMode.ClockWise;
-				case SharpDX.Direct3D9.Cull.Counterclockwise: return Graphics.CullingMode.CounterClockWise;
+				case SharpDX.Direct3D9.Cull.None: return Graphics.CullMode.None;
+				case SharpDX.Direct3D9.Cull.Clockwise: return Graphics.CullMode.ClockWise;
+				case SharpDX.Direct3D9.Cull.Counterclockwise: return Graphics.CullMode.CounterClockWise;
 				default: throw new ArgumentException ();
 			}
 		}
@@ -35,7 +35,6 @@ namespace Daramkun.Misty.Graphics
 		{
 			switch ( value )
 			{
-				case Graphics.FillMode.Point: return ( int ) SharpDX.Direct3D9.FillMode.Point;
 				case Graphics.FillMode.Wireframe: return ( int ) SharpDX.Direct3D9.FillMode.Wireframe;
 				case Graphics.FillMode.Solid: return ( int ) SharpDX.Direct3D9.FillMode.Solid;
 				default: throw new ArgumentException ();
@@ -48,7 +47,6 @@ namespace Daramkun.Misty.Graphics
 			{
 				case SharpDX.Direct3D9.FillMode.Solid: return Graphics.FillMode.Solid;
 				case SharpDX.Direct3D9.FillMode.Wireframe: return Graphics.FillMode.Wireframe;
-				case SharpDX.Direct3D9.FillMode.Point: return Graphics.FillMode.Point;
 				default: throw new ArgumentException ();
 			}
 		}

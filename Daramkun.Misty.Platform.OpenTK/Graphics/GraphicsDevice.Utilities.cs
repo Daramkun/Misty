@@ -129,7 +129,6 @@ namespace Daramkun.Misty.Graphics
 		{
 			switch ( mode )
 			{
-				case OpenTK.Graphics.OpenGL.PolygonMode.Point: return FillMode.Point;
 				case OpenTK.Graphics.OpenGL.PolygonMode.Line: return FillMode.Wireframe;
 				case OpenTK.Graphics.OpenGL.PolygonMode.Fill: return FillMode.Solid;
 				default: throw new ArgumentException ();
@@ -140,7 +139,6 @@ namespace Daramkun.Misty.Graphics
 		{
 			switch ( mode )
 			{
-				case Graphics.FillMode.Point: return OpenTK.Graphics.OpenGL.PolygonMode.Point;
 				case Graphics.FillMode.Wireframe: return OpenTK.Graphics.OpenGL.PolygonMode.Line;
 				case Graphics.FillMode.Solid: return OpenTK.Graphics.OpenGL.PolygonMode.Fill;
 				default: throw new ArgumentException ();
