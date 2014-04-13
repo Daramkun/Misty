@@ -27,7 +27,7 @@ namespace Test.Game.PerformanceTester
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend;
 
 			Add ( InputHelper.Instance );
 			Add ( calc = new FpsCalculator () );
@@ -102,8 +102,8 @@ namespace Test.Game.PerformanceTester
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			base.Draw ( gameTime );
 
@@ -113,7 +113,7 @@ namespace Test.Game.PerformanceTester
 			Core.Window.Title = string.Format ( "Update FPS: {0}, Draw FPS: {1}, Children count: {2}, Game Looper: {3}",
 				calc.UpdateFPS, calc.DrawFPS, childrenCount, Core.GameLooper.ToString () );
 
-			Core.GraphicsDevice.EndScene ();
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

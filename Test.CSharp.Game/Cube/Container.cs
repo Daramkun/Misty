@@ -111,8 +111,8 @@ namespace Test.Game.CSharp.Cube
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			Matrix4x4 projMatrix, lookAtMatrix, worldMatrix;
 			proj.GetMatrix ( out projMatrix );
@@ -123,12 +123,12 @@ namespace Test.Game.CSharp.Cube
 			cubeEffect.SetUniform ( "projMatrix", ref projMatrix );
 			cubeEffect.SetUniform ( "viewMatrix", ref lookAtMatrix );
 			cubeEffect.SetUniform ( "worldMatrix", ref worldMatrix );
-			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, cubeVertices, vertexDeclarataion, cubeIndices, 0, 12 );
+			Core.GraphicsDevice.ImmediateContext.Draw ( PrimitiveType.TriangleList, cubeVertices, vertexDeclarataion, cubeIndices, 0, 12 );
 			cubeEffect.End ();
 
 			base.Draw ( gameTime );
-			
-			Core.GraphicsDevice.EndScene ();
+
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

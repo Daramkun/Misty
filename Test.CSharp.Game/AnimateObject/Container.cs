@@ -31,7 +31,7 @@ namespace Test.Game.CSharp.AnimateObject
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
@@ -72,8 +72,8 @@ namespace Test.Game.CSharp.AnimateObject
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			font.DrawFont ( string.Format ( "Animate state: {0}, Position: {1}/{2}, Animated: {3:0.000}/{4:0.000}", animate.IsAnimating,
 				animate.Position, animate.Duration, animate.Animated, animate.TotalAnimated ), Color.White,
@@ -86,8 +86,8 @@ namespace Test.Game.CSharp.AnimateObject
 			sprite.Draw ( world );
 			sprite.Draw ( new Vector2 ( ( float ) loopAnimate.TotalAnimated, 300 ), Vector2.One, Vector2.Zero, 0, Vector2.Zero );
 			base.Draw ( gameTime );
-			
-			Core.GraphicsDevice.EndScene ();
+
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

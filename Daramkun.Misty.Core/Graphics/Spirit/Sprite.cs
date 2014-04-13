@@ -140,15 +140,15 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Matrix4x4 matrix;
 			Effect.Begin ();
 			Effect.SetTextures ( textureArgument );
-			projectionMatrix.OffCenterSize = Core.GraphicsDevice.CurrentRenderBuffer.Size;
+			projectionMatrix.OffCenterSize = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size;
 			projectionMatrix.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
-			DepthStencil lastDepthStencil = Core.GraphicsDevice.DepthStencil;
-			Core.GraphicsDevice.DepthStencil = new DepthStencil () { DepthEnable = false, StencilState = null };
-			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration, 0, 2 );
-			Core.GraphicsDevice.DepthStencil = lastDepthStencil;
+			DepthStencil lastDepthStencil = Core.GraphicsDevice.ImmediateContext.DepthStencil;
+			Core.GraphicsDevice.ImmediateContext.DepthStencil = new DepthStencil () { DepthEnable = false, StencilState = null };
+			Core.GraphicsDevice.ImmediateContext.Draw ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration, 0, 2 );
+			Core.GraphicsDevice.ImmediateContext.DepthStencil = lastDepthStencil;
 			Effect.End ();
 		}
 

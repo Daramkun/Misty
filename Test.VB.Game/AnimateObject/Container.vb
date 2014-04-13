@@ -25,7 +25,7 @@ Namespace Test.VB.Game.AnimateObject
 		Dim animate As Animate
 
 		Public Overrides Sub Intro(ParamArray args() As Object)
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend
 
 			contentManager = New ResourceTable(FileSystemManager.GetFileSystem("ManifestFileSystem"))
 			contentManager.AddDefaultContentLoader()
@@ -64,8 +64,8 @@ Namespace Test.VB.Game.AnimateObject
 		End Sub
 
 		Public Overrides Sub Draw(gameTime As GameTime)
-			Core.GraphicsDevice.BeginScene()
-			Core.GraphicsDevice.Clear(ClearBuffer.AllBuffer, Color.Black)
+			Core.GraphicsDevice.ImmediateContext.BeginScene()
+			Core.GraphicsDevice.ImmediateContext.Clear(ClearBuffer.AllBuffer, Color.Black)
 
 			font.DrawFont(String.Format("Animate state: {0}, Position: {1}/{2}, Animated: {3:0.000}/{4:0.000}", animate.IsAnimating,
 				animate.Position, animate.Duration, animate.Animated, animate.TotalAnimated), Color.White,
@@ -76,7 +76,7 @@ Namespace Test.VB.Game.AnimateObject
 
 			MyBase.Draw(gameTime)
 
-			Core.GraphicsDevice.EndScene()
+			Core.GraphicsDevice.ImmediateContext.EndScene()
 			Core.GraphicsDevice.SwapBuffer()
 		End Sub
 

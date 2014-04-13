@@ -318,6 +318,7 @@
     <Compile Include="Contents\Tables\VariableTable.cs" />
     <Compile Include="Core.cs" />
     <Compile Include="Graphics\IEffect.cs" />
+    <Compile Include="Graphics\IGraphicsContext.cs" />
     <Compile Include="Graphics\IIndexBuffer.cs" />
     <Compile Include="Graphics\ITexture.cs" />
     <Compile Include="Graphics\IVertexBuffer.cs" />

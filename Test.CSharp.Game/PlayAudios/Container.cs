@@ -27,7 +27,7 @@ namespace Test.Game.PlayAudios
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			Texture2DContentLoader.AddDefaultDecoders ();
@@ -72,8 +72,8 @@ namespace Test.Game.PlayAudios
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			font.DrawFont ( string.Format ( "Audio1: {0}/{1}, Is Playing? {2}, Volume: {3}", audio1.Position, audio1.Duration, audio1.IsPlaying, audio1.Volume ),
 				Color.White, new Vector2 ( 0, 0 ) );
@@ -84,7 +84,7 @@ namespace Test.Game.PlayAudios
 
 			base.Draw ( gameTime );
 
-			Core.GraphicsDevice.EndScene ();
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

@@ -24,7 +24,7 @@ namespace Test.CSharp.Game.InputTester
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend;
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( FileSystemManager.ManifestFileSystem ) );
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf",  32 );
 			Add ( InputHelper.Instance );
@@ -59,14 +59,14 @@ namespace Test.CSharp.Game.InputTester
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			font.DrawFont ( inputInfo, Color.White, new Vector2 ( 0, 0 ) );
 			
 			base.Draw ( gameTime );
 
-			Core.GraphicsDevice.EndScene ();
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

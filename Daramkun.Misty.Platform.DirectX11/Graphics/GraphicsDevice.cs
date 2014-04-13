@@ -33,6 +33,7 @@ namespace Daramkun.Misty.Graphics
 
 		public IRenderBuffer BackBuffer { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
+		public IGraphicsContext ImmediateContext { get; private set; }
 
 		public CullMode CullMode
 		{
@@ -54,18 +55,6 @@ namespace Daramkun.Misty.Graphics
 			{
 				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
 				desc.FillMode = ConvertToFillMode ( value );
-				d3dContext.Rasterizer.State.Dispose ();
-				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
-			}
-		}
-
-		public bool IsZWriteEnable
-		{
-			get { return d3dContext.Rasterizer.State.Description.IsDepthClipEnabled; }
-			set
-			{
-				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
-				desc.IsDepthClipEnabled = value;
 				d3dContext.Rasterizer.State.Dispose ();
 				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
 			}

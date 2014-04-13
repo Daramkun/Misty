@@ -37,7 +37,7 @@ namespace Test.Game.Dodge
 		public override void Intro ( params object [] args )
 		{
 			Core.Window.Title = "Simple Dodge";
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend;
 
 			Add ( InputHelper.Instance );
 			InputHelper.IsKeyboardEnabled = true;
@@ -65,16 +65,16 @@ namespace Test.Game.Dodge
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 			
 			base.Draw ( gameTime );
 			
 			string fpsString = string.Format ( "Update FPS:{0:0.00}\nRender FPS:{1:0.00}", calc.UpdateFPS, calc.DrawFPS );
 			fpsFont.DrawFont ( fpsString, Color.White,
-				Core.GraphicsDevice.CurrentRenderBuffer.Size - fpsFont.MeasureString ( fpsString ) - new Vector2 ( 10, 10 ) );
+				Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size - fpsFont.MeasureString ( fpsString ) - new Vector2 ( 10, 10 ) );
 
-			Core.GraphicsDevice.EndScene ();
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

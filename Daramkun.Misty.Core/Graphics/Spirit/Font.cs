@@ -105,11 +105,11 @@ namespace Daramkun.Misty.Graphics.Spirit
 				if ( IsPrerenderMode )
 				{
 					renderBuffer = Core.GraphicsDevice.CreateRenderBuffer ( ( int ) area.X, ( int ) area.Y );
-					lastRenderBuffer = Core.GraphicsDevice.CurrentRenderBuffer;
+					lastRenderBuffer = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer;
 
-					Core.GraphicsDevice.EndScene ();
-					Core.GraphicsDevice.BeginScene ( renderBuffer );
-					Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, new Color ( 1.0f, 1, 1, 0 ) );
+					Core.GraphicsDevice.ImmediateContext.EndScene ();
+					Core.GraphicsDevice.ImmediateContext.BeginScene ( renderBuffer );
+					Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, new Color ( 1.0f, 1, 1, 0 ) );
 				}
 
 				for ( i = startIndex; i < startIndex + length; i++ )
@@ -143,8 +143,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 				if ( IsPrerenderMode )
 				{
-					Core.GraphicsDevice.EndScene ();
-					Core.GraphicsDevice.BeginScene ( lastRenderBuffer );
+					Core.GraphicsDevice.ImmediateContext.EndScene ();
+					Core.GraphicsDevice.ImmediateContext.BeginScene ( lastRenderBuffer );
 					cachedRenderBuffer.Add ( text, renderBuffer );
 					DrawFont ( text, color, position, area, startIndex, length );
 				}

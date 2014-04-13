@@ -51,31 +51,17 @@ namespace Daramkun.Misty.Graphics
 		IGraphicsDeviceInformation Information { get; }
 
 		IRenderBuffer BackBuffer { get; }
-		IRenderBuffer CurrentRenderBuffer { get; }
-
-		CullMode CullMode { get; set; }
-		FillMode FillMode { get; set; }
 
 		bool IsMultisampleEnabled { get; set; }
 		bool IsFullscreen { get; set; }
 		ScreenResolution FullscreenResolution { get; set; }
+		void ResizeBackBuffer ( int width, int height );
 
-		BlendState BlendState { get; set; }
-		DepthStencil DepthStencil { get; set; }
-
-		Viewport Viewport { get; set; }
-		bool VerticalSyncMode { get; set; }
-
-		void BeginScene ( IRenderBuffer renderBuffer = null );
-		void EndScene ();
-
-		void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 );
 		void SwapBuffer ();
 
-		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount );
-		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount );
+		bool VerticalSyncMode { get; set; }
 
-		void ResizeBackBuffer ( int width, int height );
+		IGraphicsContext ImmediateContext { get; }
 
 		IRenderBuffer CreateRenderBuffer ( int width, int height );
 		ITexture1D CreateTexture1D ( int width, int mipmapLevel = 1 );

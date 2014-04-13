@@ -37,7 +37,7 @@ namespace Daramkun.Misty.Nodes.Scenes.Transitors
 		{
 			if ( fadeAlpha > 0 )
 			{
-				fadeSpriteWorld.Scale = Core.GraphicsDevice.CurrentRenderBuffer.Size;
+				fadeSpriteWorld.Scale = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size;
 				fadeSprite.OverlayColor = new Color ( FadeColor, fadeAlpha / 255 );
 				fadeSprite.Draw ( fadeSpriteWorld );
 			}

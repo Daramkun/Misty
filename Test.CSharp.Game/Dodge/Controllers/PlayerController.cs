@@ -18,11 +18,11 @@ namespace Test.Game.Dodge.Controllers
 		{
 			SpriteNode chr = new SpriteNode ( ( Parent as GameScene ).Contents.Load<ITexture2D> ( "Resources/Dodge/daram.png", Color.Magenta ) );
 			chr.Alignment = SpriteAlignment.CenterMiddle;
-			chr.World.Translate = Core.GraphicsDevice.CurrentRenderBuffer.Size / 2;
+			chr.World.Translate = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size / 2;
 			Add ( chr );
 			SpriteNode collaps = new SpriteNode ( ( Parent as GameScene ).Contents.Load<ITexture2D> ( "Resources/Dodge/target.png", Color.Magenta ) );
 			collaps.Alignment = SpriteAlignment.CenterMiddle;
-			collaps.World.Translate = Core.GraphicsDevice.CurrentRenderBuffer.Size / 2;
+			collaps.World.Translate = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size / 2;
 			collaps.OverlayColor = new Color ( 255, 255, 255, 120 );
 			Add ( collaps );
 			base.Intro ( args );

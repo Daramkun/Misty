@@ -82,9 +82,9 @@ namespace Test.Game.Dodge
 			if ( isGameOver )
 			{
 				gameOverFont.DrawFont ( "GAME OVER", Color.White,
-					Core.GraphicsDevice.CurrentRenderBuffer.Size / 2 - gameOverFont.MeasureString ( "GAME OVER" ) / 2 );
+					Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size / 2 - gameOverFont.MeasureString ( "GAME OVER" ) / 2 );
 				string noticeString = "PRESS SPACEBAR TO MENU";
-				timeStampFont.DrawFont ( noticeString, Color.White, ( Core.GraphicsDevice.CurrentRenderBuffer.Size / 2 -
+				timeStampFont.DrawFont ( noticeString, Color.White, ( Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size / 2 -
 					timeStampFont.MeasureString ( noticeString ) / 2 ) + new Vector2 ( 0, 48 ) );
 			}
 		}

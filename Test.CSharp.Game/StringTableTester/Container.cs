@@ -26,7 +26,7 @@ namespace Test.CSharp.Game.StringTableTester
 		{
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( FileSystemManager.ManifestFileSystem ) );
 
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend;
 			Add ( InputHelper.Instance );
 
 			stt = contentManager.Load<StringTable> ( "Resources/stringTable.json" );
@@ -66,8 +66,8 @@ namespace Test.CSharp.Game.StringTableTester
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			font.DrawFont ( @"Current culture: `
 Korean: 1
@@ -84,7 +84,7 @@ string3: {4}", Core.CurrentCulture, Core.CurrentCulture.NativeName,
 
 			base.Draw ( gameTime );
 
-			Core.GraphicsDevice.EndScene ();
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

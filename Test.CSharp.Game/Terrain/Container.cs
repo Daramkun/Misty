@@ -38,7 +38,7 @@ namespace Test.Game.Terrain
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.CullMode = CullMode.ClockWise;
+			Core.GraphicsDevice.ImmediateContext.CullMode = CullMode.ClockWise;
 
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			contentManager.AddDefaultContentLoader ();
@@ -127,8 +127,8 @@ namespace Test.Game.Terrain
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 
 			base.Draw ( gameTime );
 
@@ -137,22 +137,22 @@ namespace Test.Game.Terrain
 			effect.SetUniform<Matrix4x4> ( "viewMatrix", look.Matrix );
 			effect.SetUniform<Matrix4x4> ( "projMatrix", proj.Matrix );
 			effect.SetTextures ( textureArgs );
-			Core.GraphicsDevice.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, numOfIndices );
+			Core.GraphicsDevice.ImmediateContext.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, numOfIndices );
 			effect.End ();
 
-			spriteWorld.Translate = new Vector2 ( 0, Core.GraphicsDevice.CurrentRenderBuffer.Height - texture1.Height );
+			spriteWorld.Translate = new Vector2 ( 0, Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Height - texture1.Height );
 			sprite.Reset ( texture1 );
 			sprite.Draw ( spriteWorld );
 
-			spriteWorld.Translate = new Vector2 ( Core.GraphicsDevice.CurrentRenderBuffer.Width - texture2.Width,
-				Core.GraphicsDevice.CurrentRenderBuffer.Height - texture1.Height );
+			spriteWorld.Translate = new Vector2 ( Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Width - texture2.Width,
+				Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Height - texture1.Height );
 			sprite.Reset ( texture2 );
 			sprite.Draw ( spriteWorld );
 
 			FpsCalculator calc = Children.First () as FpsCalculator;
 			Core.Window.Title = string.Format ( "Terrain {{ Update FPS: {0}, Draw FPS: {1} }}", calc.UpdateFPS, calc.DrawFPS );
 
-			Core.GraphicsDevice.EndScene ();
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 

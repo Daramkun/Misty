@@ -31,7 +31,7 @@ namespace Test.Game.InfoViewer
 
 		public override void Intro ( params object [] args )
 		{
-			Core.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+			Core.GraphicsDevice.ImmediateContext.BlendState = BlendState.AlphaBlend;
 
 			Core.Window.Title = "Information Viewer";
 
@@ -103,11 +103,11 @@ Is Support Geometry Shader: {9}
 
 		public override void Draw ( GameTime gameTime )
 		{
-			Core.GraphicsDevice.BeginScene ();
-			Core.GraphicsDevice.Clear ( ClearBuffer.AllBuffer, Color.Black );
+			Core.GraphicsDevice.ImmediateContext.BeginScene ();
+			Core.GraphicsDevice.ImmediateContext.Clear ( ClearBuffer.AllBuffer, Color.Black );
 			font.DrawFont ( infoText, Color.White, new Vector2 ( 10, 10 + offset ) );
 			base.Draw ( gameTime );
-			Core.GraphicsDevice.EndScene ();
+			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();
 		}
 
