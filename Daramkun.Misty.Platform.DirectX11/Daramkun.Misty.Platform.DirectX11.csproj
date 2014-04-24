@@ -60,6 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Graphics\Effect.cs" />
+    <Compile Include="Graphics\GraphicsContext.cs" />
+    <Compile Include="Graphics\GraphicsContext.Utilities.cs">
+      <DependentUpon>GraphicsContext.cs</DependentUpon>
+    </Compile>
     <Compile Include="Graphics\GraphicsDevice.cs" />
     <Compile Include="Graphics\GraphicsDevice.Utilities.cs">
       <DependentUpon>GraphicsDevice.cs</DependentUpon>

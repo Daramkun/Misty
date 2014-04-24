@@ -16,13 +16,10 @@ namespace Daramkun.Misty.Graphics
 	{
 		SharpDX.DXGI.SwapChain dxgiSwapChain;
 		SharpDX.Direct3D11.Device d3dDevice;
-		SharpDX.Direct3D11.DeviceContext d3dContext;
 
 		SharpDX.Direct3D11.RenderTargetView renderTarget;
 		SharpDX.Direct3D11.DepthStencilView depthStencil;
 		SharpDX.Direct3D11.Texture2D depthStencilBuffer;
-
-		internal Shader currentVertexShader;
 
 		public object Handle { get { return d3dDevice; } }
 
@@ -34,31 +31,6 @@ namespace Daramkun.Misty.Graphics
 		public IRenderBuffer BackBuffer { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 		public IGraphicsContext ImmediateContext { get; private set; }
-
-		public CullMode CullMode
-		{
-			get { return ConvertFromCullMode ( d3dContext.Rasterizer.State.Description.CullMode ); }
-			set
-			{
-				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
-				desc.CullMode = ConvertToCullMode ( value );
-				SharpDX.Direct3D11.RasterizerState tempState = d3dContext.Rasterizer.State;
-				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
-				tempState.Dispose ();
-			}
-		}
-
-		public FillMode FillMode
-		{
-			get { return ConvertFromFillMode ( d3dContext.Rasterizer.State.Description.FillMode ); }
-			set
-			{
-				SharpDX.Direct3D11.RasterizerStateDescription desc = d3dContext.Rasterizer.State.Description;
-				desc.FillMode = ConvertToFillMode ( value );
-				d3dContext.Rasterizer.State.Dispose ();
-				d3dContext.Rasterizer.State = new SharpDX.Direct3D11.RasterizerState ( d3dDevice, desc );
-			}
-		}
 
 		public bool IsMultisampleEnabled
 		{
@@ -90,47 +62,6 @@ namespace Daramkun.Misty.Graphics
 				dxgiSwapChain.ResizeTarget (
 					ref mode
 				);
-			}
-		}
-
-		public BlendState BlendState
-		{
-			get
-			{
-
-				throw new NotImplementedException ();
-			}
-			set
-			{
-				throw new NotImplementedException ();
-			}
-		}
-
-		public DepthStencil DepthStencil
-		{
-			get
-			{
-				throw new NotImplementedException ();
-			}
-			set
-			{
-				d3dContext.OutputMerger.DepthStencilState = new SharpDX.Direct3D11.DepthStencilState ( d3dDevice, new SharpDX.Direct3D11.DepthStencilStateDescription ()
-				{
-					
-				} );
-			}
-		}
-
-		public Viewport Viewport
-		{
-			get
-			{
-				SharpDX.ViewportF viewport = d3dContext.Rasterizer.GetViewports () [ 0 ];
-				return new Viewport ( ( int ) viewport.X, ( int ) viewport.Y, ( int ) viewport.Width, ( int ) viewport.Height );
-			}
-			set
-			{
-				d3dContext.Rasterizer.SetViewport ( new SharpDX.ViewportF ( value.X, value.Y, value.Width, value.Height ) );
 			}
 		}
 
@@ -195,58 +126,9 @@ namespace Daramkun.Misty.Graphics
 			base.Dispose ( isDisposing );
 		}
 
-		public void BeginScene ( IRenderBuffer renderBuffer = null )
-		{
-			if ( renderBuffer == null || renderBuffer == BackBuffer )
-			{
-				
-			}
-			else
-			{
-				
-			}
-		}
-
-		public void EndScene ()
-		{
-
-		}
-
-		public void Clear ( ClearBuffer clearBuffer, Color color, float depth = 0, int stencil = 0 )
-		{
-			if ( clearBuffer.HasFlag ( ClearBuffer.ColorBuffer ) )
-				d3dContext.ClearRenderTargetView ( renderTarget, ConvertColor ( color ) );
-			if ( clearBuffer.HasFlag ( ClearBuffer.DepthBuffer ) || clearBuffer.HasFlag ( ClearBuffer.StencilBuffer ) )
-				d3dContext.ClearDepthStencilView ( depthStencil, ConvertDepthStencilClearMethod ( clearBuffer ), depth, ( byte ) stencil );
-		}
-
 		public void SwapBuffer ()
 		{
 			dxgiSwapChain.Present ( VerticalSyncMode ? 1 : 0, SharpDX.DXGI.PresentFlags.None );
-		}
-
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
-		{
-			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( this, currentVertexShader );
-			d3dContext.InputAssembler.InputLayout = vertexDeclaration.Handle as SharpDX.Direct3D11.InputLayout;
-			d3dContext.InputAssembler.SetVertexBuffers ( 0, 
-				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.VertexTypeSize, 0 )
-			);
-			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
-			d3dContext.Draw ( GetPrimitiveCount ( primitiveType, primitiveCount ), startVertex );
-		}
-
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount )
-		{
-			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( this, currentVertexShader );
-			d3dContext.InputAssembler.InputLayout = vertexDeclaration.Handle as SharpDX.Direct3D11.InputLayout;
-			d3dContext.InputAssembler.SetVertexBuffers ( 0,
-				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.VertexTypeSize, 0 )
-			);
-			d3dContext.InputAssembler.SetIndexBuffer ( indexBuffer.Handle as SharpDX.Direct3D11.Buffer,
-				indexBuffer.Is16bitIndex ? SharpDX.DXGI.Format.R16_SInt : SharpDX.DXGI.Format.R32_SInt, 0 );
-			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
-			d3dContext.DrawIndexed ( GetPrimitiveCount ( primitiveType, primitiveCount ), startIndex, 0 );
 		}
 
 		public void ResizeBackBuffer ( int width, int height )
