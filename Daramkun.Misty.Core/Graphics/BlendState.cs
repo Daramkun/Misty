@@ -38,9 +38,9 @@ namespace Daramkun.Misty.Graphics
 		public static BlendState SubtractBlend { get { return new BlendState ( BlendOperator.ReverseSubtract, BlendParameter.SourceAlpha, BlendParameter.One ); } }
 		public static BlendState MultiplyBlend { get { return new BlendState ( BlendOperator.Add, BlendParameter.DestinationColor, BlendParameter.Zero ); } }
 
-		public BlendParameter SourceParameter { get; set; }
-		public BlendParameter DestinationParameter { get; set; }
-		public BlendOperator Operator { get; set; }
+		public BlendParameter SourceParameter { get; private set; }
+		public BlendParameter DestinationParameter { get; private set; }
+		public BlendOperator Operator { get; private set; }
 
 		public BlendState ( BlendOperator op, BlendParameter sourceParam, BlendParameter destParam )
 		{

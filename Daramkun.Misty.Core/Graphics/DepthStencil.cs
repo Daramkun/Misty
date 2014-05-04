@@ -31,12 +31,12 @@ namespace Daramkun.Misty.Graphics
 
 	public class StencilState
 	{
-		public StencilFunction Function { get; set; }
-		public int Reference { get; set; }
-		public int Mask { get; set; }
-		public StencilOperator ZFail { get; set; }
-		public StencilOperator Fail { get; set; }
-		public StencilOperator Pass { get; set; }
+		public StencilFunction Function { get; private set; }
+		public int Reference { get; private set; }
+		public int Mask { get; private set; }
+		public StencilOperator ZFail { get; private set; }
+		public StencilOperator Fail { get; private set; }
+		public StencilOperator Pass { get; private set; }
 
 		public StencilState ( StencilFunction func, int reference, int mask, StencilOperator zfail, StencilOperator fail, StencilOperator pass )
 		{
