@@ -39,7 +39,7 @@ namespace Daramkun.Misty.Contents.Loaders
 			}
 		}
 
-		public bool IsSelfStreamDispose { get { return true; } }
+		public bool AutoStreamDispose { get { return true; } }
 
 		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{

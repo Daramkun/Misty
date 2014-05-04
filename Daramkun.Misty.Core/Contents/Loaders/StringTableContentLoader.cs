@@ -11,7 +11,7 @@ namespace Daramkun.Misty.Contents.Loaders
 	{
 		public Type ContentType { get { return typeof ( StringTable ); } }
 		public IEnumerable<string> FileExtensions { get { yield return "jst"; yield return "json"; yield return "bson"; } }
-		public bool IsSelfStreamDispose { get { return true; } }
+		public bool AutoStreamDispose { get { return true; } }
 
 		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{

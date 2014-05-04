@@ -19,7 +19,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public IEnumerable<string> FileExtensions { get { foreach ( string s in textureContentLoader.FileExtensions ) yield return s; yield return "spr"; yield return "json"; } }
 
-		public bool IsSelfStreamDispose { get { return true; } }
+		public bool AutoStreamDispose { get { return true; } }
 
 		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{

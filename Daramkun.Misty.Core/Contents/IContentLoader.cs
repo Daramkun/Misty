@@ -11,7 +11,7 @@ namespace Daramkun.Misty.Contents
 	{
 		Type ContentType { get; }
 		IEnumerable<string> FileExtensions { get; }
-		bool IsSelfStreamDispose { get; }
+		bool AutoStreamDispose { get; }
 		object Load ( Stream stream, ResourceTable resourceTable, params object [] args );
 	}
 }

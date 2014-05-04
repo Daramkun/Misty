@@ -82,7 +82,8 @@ namespace Daramkun.Misty.Graphics
 					Usage = SharpDX.DXGI.Usage.RenderTargetOutput
 				},
 				out d3dDevice, out dxgiSwapChain );
-			d3dContext = d3dDevice.ImmediateContext;
+			//d3dContext = d3dDevice.ImmediateContext;
+			ImmediateContext = new GraphicsContext ();
 
 			var backBuffer = dxgiSwapChain.GetBackBuffer<SharpDX.Direct3D11.Resource> ( 0 );
 			renderTarget = new SharpDX.Direct3D11.RenderTargetView ( d3dDevice, backBuffer );

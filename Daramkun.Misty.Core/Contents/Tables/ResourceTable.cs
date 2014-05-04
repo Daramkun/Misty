@@ -145,7 +145,7 @@ namespace Daramkun.Misty.Contents.Tables
 				Stream stream = FileSystem.OpenFile ( filename );
 				object data = loader.Load ( stream, this, args );
 				loadedContent.Add ( key, data );
-				if ( !loader.IsSelfStreamDispose )
+				if ( !loader.AutoStreamDispose )
 					stream.Dispose ();
 				return ( T ) data;
 			}

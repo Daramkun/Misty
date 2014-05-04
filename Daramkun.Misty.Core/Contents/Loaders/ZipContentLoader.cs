@@ -12,7 +12,7 @@ namespace Daramkun.Misty.Contents.Loaders
 	{
 		public Type ContentType { get { return typeof ( ZipFileSystem ); } }
 		public IEnumerable<string> FileExtensions { get { yield return "zip"; } }
-		public bool IsSelfStreamDispose { get { return false; } }
+		public bool AutoStreamDispose { get { return false; } }
 
 		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{

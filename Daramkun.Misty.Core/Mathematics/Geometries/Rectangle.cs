@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Mathematics.Geometries
 {
-	public struct Rectangle
+	public struct Rectangle : ICollision<Rectangle>, ICollision<Circle>, ICollision<Vector2>
 	{
 		public Vector2 Position;
 		public Vector2 Size;
@@ -24,8 +25,26 @@ namespace Daramkun.Misty.Mathematics.Geometries
 
 		public override string ToString ()
 		{
-			return string.Format ( "{{X:{0}, Y:{1}, Width:{2}, Height:{3}}}",
+			return String.Format ( "{{X:{0}, Y:{1}, Width:{2}, Height:{3}}}",
 				Position.X, Position.Y, Size.X, Size.Y );
+		}
+
+		public bool IsCollisionTo ( Rectangle obj )
+		{
+			return ( Position.X - Size.X / 2 <= obj.Position.X + obj.Size.X / 2 &&
+				obj.Position.X - Size.X / 2 <= Position.X + Size.X / 2 &&
+				Position.Y - Size.Y / 2 <= obj.Position.Y + obj.Size.Y / 2 &&
+				obj.Position.Y - Size.Y / 2 <= Position.Y + Size.Y / 2 );
+		}
+
+		public bool IsCollisionTo ( Circle obj )
+		{
+			return obj.IsCollisionTo ( this );
+		}
+
+		public bool IsCollisionTo ( Vector2 obj )
+		{
+			return IsCollisionTo ( new Rectangle ( obj, new Vector2 () ) );
 		}
 	}
 }

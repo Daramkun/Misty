@@ -14,7 +14,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public IEnumerable<string> FileExtensions { get { yield return "sxml"; yield return "lfx"; yield return "xml"; } }
 
-		public bool IsSelfStreamDispose { get { return false; } }
+		public bool AutoStreamDispose { get { return false; } }
 
 		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{

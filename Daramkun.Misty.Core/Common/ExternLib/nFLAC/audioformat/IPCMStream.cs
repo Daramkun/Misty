@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace org.nflac.audioformat
+namespace Org.Nflac.Audioformat
 {
     /// <summary>
     /// Interface for any format (up to 32-bit signed samples)
     /// </summary>
-    internal interface IPCMStream
+    interface IPCMStream
     {
         void ReadSample(int[] buffer);
 

@@ -12,7 +12,7 @@ namespace Daramkun.Misty.Contents.Loaders
 	{
 		public Type ContentType { get { return typeof ( PackageInfo ); } }
 		public IEnumerable<string> FileExtensions { get { yield return "wlnt"; } }
-		public bool IsSelfStreamDispose { get { return true; } }
+		public bool AutoStreamDispose { get { return true; } }
 
 		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
