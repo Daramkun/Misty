@@ -24,7 +24,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		{
 			Decoders.Add ( new WaveDecoder () );
 			Decoders.Add ( new OggVorbisDecoder () );
-			Decoders.Add ( new FlacDecoder () );
+			//Decoders.Add ( new FlacDecoder () );
 		}
 
 		public Type ContentType { get { return typeof ( IAudioBuffer ); } }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Daramkun.Misty.Common;
 using OpenTK.Graphics.OpenGL;
 
@@ -9,6 +10,7 @@ namespace Daramkun.Misty.Graphics
 {
 	partial class GraphicsContext : StandardDispose, IGraphicsContext
 	{
+		public Thread Owner { get; private set; }
 		public IGraphicsDevice GraphicsDevice { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
@@ -119,6 +121,7 @@ namespace Daramkun.Misty.Graphics
 
 		public void BeginScene ( IRenderBuffer renderBuffer = null )
 		{
+			Owner = Thread.CurrentThread;
 			if ( renderBuffer != null && renderBuffer != GraphicsDevice.BackBuffer )
 			{
 				GL.BindTexture ( TextureTarget.Texture2D, 0 );
@@ -137,6 +140,7 @@ namespace Daramkun.Misty.Graphics
 
 		public void EndScene ()
 		{
+			Owner = null;
 			GL.BindFramebuffer ( FramebufferTarget.Framebuffer, 0 );
 			CurrentRenderBuffer = GraphicsDevice.BackBuffer;
 		}

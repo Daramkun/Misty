@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Daramkun.Misty.Graphics
 {
 	public interface IGraphicsContext : IDisposable
 	{
+		Thread Owner { get; }
+
 		IGraphicsDevice GraphicsDevice { get; }
 		IRenderBuffer CurrentRenderBuffer { get; }
 
@@ -23,7 +26,9 @@ namespace Daramkun.Misty.Graphics
 
 		void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 );
 
-		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount );
-		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount );
+		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration,
+			int startVertex, int primitiveCount );
+		void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration,
+			IIndexBuffer indexBuffer, int startIndex, int primitiveCount );
 	}
 }

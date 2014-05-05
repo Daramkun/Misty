@@ -22,7 +22,7 @@ namespace Test.Game.PlayAudios
 	public class Container : Node
 	{
 		Font font;
-		IAudioBuffer audio1, audio2, audio3;
+		IAudioBuffer audio1, /*audio2, */audio3;
 		ResourceTable contentManager;
 
 		public override void Intro ( params object [] args )
@@ -36,7 +36,7 @@ namespace Test.Game.PlayAudios
 			font = contentManager.Load<TrueTypeFont> ( "Resources/test.ttf", 24 );
 
 			audio1 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio1.ogg" );
-			audio2 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio2.flac" );
+			//audio2 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio2.flac" );
 			audio3 = contentManager.Load<IAudioBuffer> ( "Resources/Audio/audio3.ogg" );
 
 			Add ( InputHelper.Instance );
@@ -54,18 +54,18 @@ namespace Test.Game.PlayAudios
 		{
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D1 ) )
 			{ if ( !audio1.IsPlaying ) audio1.Play (); else audio1.Pause (); }
-			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D2 ) )
-			{ if ( !audio2.IsPlaying ) audio2.Play (); else audio2.Pause (); }
+			//if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D2 ) )
+			//{ if ( !audio2.IsPlaying ) audio2.Play (); else audio2.Pause (); }
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D3 ) )
 			{ if ( !audio3.IsPlaying ) audio3.Play (); else audio3.Pause (); }
 
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.Q ) ) audio1.Volume += 0.1f;
-			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.W ) ) audio1.Volume += 0.1f;
-			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.E ) ) audio1.Volume += 0.1f;
+			//if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.W ) ) audio2.Volume += 0.1f;
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.E ) ) audio3.Volume += 0.1f;
 
 			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.A ) ) audio1.Volume -= 0.1f;
-			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.S ) ) audio1.Volume -= 0.1f;
-			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D ) ) audio1.Volume -= 0.1f;
+			//if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.S ) ) audio2.Volume -= 0.1f;
+			if ( InputHelper.IsKeyboardKeyUpRightNow ( Key.D ) ) audio3.Volume -= 0.1f;
 
 			base.Update ( gameTime );
 		}
@@ -77,8 +77,8 @@ namespace Test.Game.PlayAudios
 
 			font.DrawFont ( string.Format ( "Audio1: {0}/{1}, Is Playing? {2}, Volume: {3}", audio1.Position, audio1.Duration, audio1.IsPlaying, audio1.Volume ),
 				Color.White, new Vector2 ( 0, 0 ) );
-			font.DrawFont ( string.Format ( "Audio2: {0}/{1}, Is Playing? {2}, Volume: {3}", audio2.Position, audio2.Duration, audio2.IsPlaying, audio2.Volume ),
-				Color.White, new Vector2 ( 0, 30 ) );
+			//font.DrawFont ( string.Format ( "Audio2: {0}/{1}, Is Playing? {2}, Volume: {3}", audio2.Position, audio2.Duration, audio2.IsPlaying, audio2.Volume ),
+			//	Color.White, new Vector2 ( 0, 30 ) );
 			font.DrawFont ( string.Format ( "Audio3: {0}/{1}, Is Playing? {2}, Volume: {3}", audio3.Position, audio3.Duration, audio3.IsPlaying, audio3.Volume ),
 				Color.White, new Vector2 ( 0, 60 ) );
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Graphics
@@ -10,6 +11,7 @@ namespace Daramkun.Misty.Graphics
 	{
 		WeakReference d3dDevice;
 
+		public Thread Owner { get; private set; }
 		public IGraphicsDevice GraphicsDevice { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
 
@@ -98,6 +100,7 @@ namespace Daramkun.Misty.Graphics
 
 		public void BeginScene ( IRenderBuffer renderBuffer = null )
 		{
+			Owner = Thread.CurrentThread;
 			if ( d3dDevice == null ) return;
 			CurrentRenderBuffer = renderBuffer;
 			if ( renderBuffer == null || renderBuffer == GraphicsDevice.BackBuffer )
@@ -114,6 +117,7 @@ namespace Daramkun.Misty.Graphics
 
 		public void EndScene ()
 		{
+			Owner = null;
 			if ( d3dDevice == null ) return;
 			if ( CurrentRenderBuffer != GraphicsDevice.BackBuffer )
 				( CurrentRenderBuffer as RenderBuffer ).rts.EndScene ( SharpDX.Direct3D9.Filter.Default );
