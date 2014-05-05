@@ -9,7 +9,7 @@ namespace Daramkun.Misty.Graphics
 {
 	partial class GraphicsContext
 	{
-		private void BeginVertexDeclaration ( IVertexBuffer buffer, IVertexDeclaration decl )
+		private void BeginVertexDeclaration ( IBuffer buffer, IVertexDeclaration decl )
 		{
 			GL.BindBuffer ( BufferTarget.ArrayBuffer, ( int ) buffer.Handle );
 
@@ -19,25 +19,9 @@ namespace Daramkun.Misty.Graphics
 				int size = ElementSizeToRealSize ( element.Size );
 				GL.EnableVertexAttribArray ( i );
 				GL.VertexAttribPointer ( i, size / 4, ElementSizeToRealType ( element.Size ),
-					false, buffer.VertexTypeSize, offset );
+					false, buffer.RecordTypeSize, offset );
 				++i;
 				offset += size;
-			}
-		}
-
-		private void BeginVertexDeclaration<T> ( T [] vertices, IVertexDeclaration decl ) where T : struct
-		{
-			int stride = Marshal.SizeOf ( typeof ( T ) );
-			GL.VertexPointer<T> ( vertices.Length, VertexPointerType.Float, stride, vertices );
-
-			int i = 0;
-			foreach ( VertexElement element in decl )
-			{
-				int size = ElementSizeToRealSize ( element.Size );
-				GL.EnableVertexAttribArray ( i );
-				GL.VertexAttribPointer ( i, size / 4, ElementSizeToRealType ( element.Size ),
-					false, stride, vertices );
-				++i;
 			}
 		}
 

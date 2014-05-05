@@ -32,8 +32,8 @@ namespace Test.Game.CSharp.Cube
 			public int I0, I1, I2;
 		}
 
-		IVertexBuffer cubeVertices;
-		IIndexBuffer cubeIndices;
+		IBuffer cubeVertices;
+		IBuffer cubeIndices;
 		IVertexDeclaration vertexDeclarataion;
 		IEffect cubeEffect;
 
@@ -50,7 +50,7 @@ namespace Test.Game.CSharp.Cube
 			contentManager = new ResourceTable ( FileSystemManager.GetFileSystem ( "ManifestFileSystem" ) );
 			cubeEffect = contentManager.Load<IEffect> ( "Resources/Cube/CubeShader.xml", "i_pos", "i_col" );
 
-			cubeVertices = Core.GraphicsDevice.CreateVertexBuffer<CubeVertex>( new CubeVertex []
+			cubeVertices = Core.GraphicsDevice.CreateBuffer<CubeVertex>( BufferType.VertexBuffer, new CubeVertex []
 			{
 				new CubeVertex () { Position = new Vector3 ( -1, -1, -1 ), Diffuse = Color.Red },
 				new CubeVertex () { Position = new Vector3 ( +1, -1, -1 ), Diffuse = Color.Blue },
@@ -62,7 +62,7 @@ namespace Test.Game.CSharp.Cube
 				new CubeVertex () { Position = new Vector3 ( +1, +1, -1 ), Diffuse = Color.Yellow },
 				new CubeVertex () { Position = new Vector3 ( +1, +1, +1 ), Diffuse = Color.White },
 			} );
-			cubeIndices = Core.GraphicsDevice.CreateIndexBuffer<CubeIndex> ( new CubeIndex []
+			cubeIndices = Core.GraphicsDevice.CreateBuffer<CubeIndex> ( BufferType.IndexBuffer, new CubeIndex []
 			{
 				// TOP
 				new CubeIndex () { I0 = 0, I1 = 1, I2 = 2 },

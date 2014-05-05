@@ -21,9 +21,9 @@ namespace Test.Game.Terrain
 	{
 		ResourceTable contentManager;
 		ITexture2D texture1, texture2;
-		IVertexBuffer vertexBuffer;
+		IBuffer vertexBuffer;
 		IVertexDeclaration vertexDeclaration;
-		IIndexBuffer indexBuffer;
+		IBuffer indexBuffer;
 		IEffect effect;
 
 		Sprite sprite;
@@ -51,10 +51,10 @@ namespace Test.Game.Terrain
 			textureArgs = new TextureArgument ( "texture0", texture1, TextureFilter.Anisotropic, TextureAddressing.Clamp,
 				Core.GraphicsDevice.Information.MaximumAnisotropicLevel );
 
-			vertexBuffer = Core.GraphicsDevice.CreateVertexBuffer ( typeof ( TerrainVertex ), texture2.Width * texture2.Height );
+			vertexBuffer = Core.GraphicsDevice.CreateBuffer ( BufferType.VertexBuffer, typeof ( TerrainVertex ), texture2.Width * texture2.Height );
 			vertexDeclaration = Core.GraphicsDevice.CreateVertexDeclaration ( Utilities.CreateVertexElementArray<TerrainVertex> () );
 			numOfIndices = ( texture2.Width - 1 ) * ( texture2.Height - 1 ) * 2;
-			indexBuffer = Core.GraphicsDevice.CreateIndexBuffer ( typeof ( TerrainIndex ), numOfIndices );
+			indexBuffer = Core.GraphicsDevice.CreateBuffer ( BufferType.IndexBuffer, typeof ( TerrainIndex ), numOfIndices );
 
 			TerrainVertex [] vertices = new TerrainVertex [ texture2.Width * texture2.Height ];
 			int index = 0;

@@ -9,7 +9,7 @@ using Daramkun.Misty.Contents.Tables;
 
 namespace Daramkun.Misty.Contents
 {
-	public class PackageInfo
+	public sealed class PackageInfo
 	{
 		public bool IsSettingCompleted { get; private set; }
 

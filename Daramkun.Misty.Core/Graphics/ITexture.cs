@@ -34,4 +34,9 @@ namespace Daramkun.Misty.Graphics
 		int Height { get; }
 		int Depth { get; }
 	}
+
+	public interface IRenderBuffer : ITexture2D
+	{
+
+	}
 }

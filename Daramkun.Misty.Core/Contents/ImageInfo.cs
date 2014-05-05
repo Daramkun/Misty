@@ -7,7 +7,7 @@ using Daramkun.Misty.Graphics;
 
 namespace Daramkun.Misty.Contents
 {
-	public class ImageInfo
+	public sealed class ImageInfo
 	{
 		public int Width { get; private set; }
 		public int Height { get; private set; }

@@ -131,18 +131,18 @@ namespace Daramkun.Misty.Graphics
 			( d3dDevice.Target as SharpDX.Direct3D9.Device ).Clear ( ChangeClearBuffer ( clearBuffer ), ChangeColor ( color ), depth, stencil );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
+		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
 			( d3dDevice.Target as SharpDX.Direct3D9.Device ).VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.VertexTypeSize );
+			( d3dDevice.Target as SharpDX.Direct3D9.Device ).SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.RecordTypeSize );
 			( d3dDevice.Target as SharpDX.Direct3D9.Device ).DrawPrimitives ( ConvertPrimitiveType ( primitiveType ), startVertex, primitiveCount );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer,
+		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IBuffer indexBuffer,
 			int startIndex, int primitiveCount )
 		{
 			( d3dDevice.Target as SharpDX.Direct3D9.Device ).VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.VertexTypeSize );
+			( d3dDevice.Target as SharpDX.Direct3D9.Device ).SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.RecordTypeSize );
 			( d3dDevice.Target as SharpDX.Direct3D9.Device ).Indices = indexBuffer.Handle as SharpDX.Direct3D9.IndexBuffer;
 			( d3dDevice.Target as SharpDX.Direct3D9.Device ).DrawIndexedPrimitive ( ConvertPrimitiveType ( primitiveType ), 0, 0, vertexBuffer.Length,
 				startIndex, primitiveCount );

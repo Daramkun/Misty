@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using Daramkun.Misty.Common;
 
 namespace Daramkun.Misty.Graphics
@@ -12,6 +13,7 @@ namespace Daramkun.Misty.Graphics
 
 		internal Shader currentVertexShader;
 
+		public Thread Owner { get; private set; }
 		public IGraphicsDevice GraphicsDevice { get; private set; }
 
 		public IRenderBuffer CurrentRenderBuffer
@@ -110,26 +112,26 @@ namespace Daramkun.Misty.Graphics
 				d3dContext.ClearDepthStencilView ( depthStencil, ConvertDepthStencilClearMethod ( clearBuffer ), depth, ( byte ) stencil );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
+		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
 			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( GraphicsDevice, currentVertexShader );
 			d3dContext.InputAssembler.InputLayout = vertexDeclaration.Handle as SharpDX.Direct3D11.InputLayout;
 			d3dContext.InputAssembler.SetVertexBuffers ( 0,
-				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.VertexTypeSize, 0 )
+				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.RecordTypeSize, 0 )
 			);
 			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
 			d3dContext.Draw ( GetPrimitiveCount ( primitiveType, primitiveCount ), startVertex );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount )
+		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IBuffer indexBuffer, int startIndex, int primitiveCount )
 		{
 			( vertexDeclaration as VertexDeclaration ).GenerateInputLayout ( GraphicsDevice, currentVertexShader );
 			d3dContext.InputAssembler.InputLayout = vertexDeclaration.Handle as SharpDX.Direct3D11.InputLayout;
 			d3dContext.InputAssembler.SetVertexBuffers ( 0,
-				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.VertexTypeSize, 0 )
+				new SharpDX.Direct3D11.VertexBufferBinding ( vertexBuffer.Handle as SharpDX.Direct3D11.Buffer, vertexBuffer.RecordTypeSize, 0 )
 			);
 			d3dContext.InputAssembler.SetIndexBuffer ( indexBuffer.Handle as SharpDX.Direct3D11.Buffer,
-				indexBuffer.Is16bitIndex ? SharpDX.DXGI.Format.R16_SInt : SharpDX.DXGI.Format.R32_SInt, 0 );
+				indexBuffer.BufferType.HasFlag ( BufferType.Index16 ) ? SharpDX.DXGI.Format.R16_SInt : SharpDX.DXGI.Format.R32_SInt, 0 );
 			d3dContext.InputAssembler.PrimitiveTopology = ConvertToPrimitiveTopology ( primitiveType );
 			d3dContext.DrawIndexed ( GetPrimitiveCount ( primitiveType, primitiveCount ), startIndex, 0 );
 		}

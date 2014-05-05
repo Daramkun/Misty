@@ -71,10 +71,8 @@ namespace Daramkun.Misty.Graphics
 		ITexture3D CreateTexture3D ( int width, int height, int depth, int mipmapLevel = 1 );
 		ITexture3D CreateTexture3D ( ImageInfo [] imageInfo, Color? colorKey = null, int mipmapLevel = 1 );
 		IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements );
-		IVertexBuffer CreateVertexBuffer ( Type vertexType, int length );
-		IVertexBuffer CreateVertexBuffer<T> ( T [] vertices ) where T : struct;
-		IIndexBuffer CreateIndexBuffer ( Type indexType, int length, bool is16bit = false );
-		IIndexBuffer CreateIndexBuffer<T> ( T [] indices, bool is16bit = false ) where T : struct;
+		IBuffer CreateBuffer ( BufferType bufferType, Type vertexType, int length );
+		IBuffer CreateBuffer<T> ( BufferType bufferType, T [] vertices ) where T : struct;
 		IShader CreateShader ( ShaderType shaderType, string shader );
 		IEffect CreateEffect ( IShader vertexShader, IShader pixelShader, IShader geometryShader = null, params string [] attribName );
 		IEffect CreateEffect ( Stream stream );

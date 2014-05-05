@@ -37,7 +37,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 		static OrthographicOffCenterProjection projectionMatrix;
 
 		SpriteVertex [] vertices = new SpriteVertex [ 4 ];
-		IVertexBuffer vertexBuffer;
+		IBuffer vertexBuffer;
 		Rectangle clippingArea;
 		Color overlayColor = Color.White;
 		TextureArgument textureArgument;
@@ -106,7 +106,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			}
 			indexReference++;
 
-			vertexBuffer = Core.GraphicsDevice.CreateVertexBuffer ( typeof ( SpriteVertex ), 4 );
+			vertexBuffer = Core.GraphicsDevice.CreateBuffer ( BufferType.VertexBuffer, typeof ( SpriteVertex ), 4 );
 
 			textureArgument = new TextureArgument ( "texture0", texture, Graphics.TextureFilter.Nearest, TextureAddressing.Clamp, 0 );
 			Reset ( texture );

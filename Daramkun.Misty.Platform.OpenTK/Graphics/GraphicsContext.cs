@@ -153,19 +153,19 @@ namespace Daramkun.Misty.Graphics
 			GL.Clear ( MistyValueToOriginal ( clearBuffer ) );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
+		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
 		{
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
 			GL.DrawArrays ( MistyValueToOriginal ( primitiveType ), startVertex, primitiveCount * GetCountFromPrimitiveType ( primitiveType, primitiveCount ) );
 			EndVertexDeclaration ( vertexDeclaration );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IVertexBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IIndexBuffer indexBuffer, int startIndex, int primitiveCount )
+		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IBuffer indexBuffer, int startIndex, int primitiveCount )
 		{
 			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
 			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), GetCountFromPrimitiveType ( primitiveType, primitiveCount ),
-				( !indexBuffer.Is16bitIndex ? DrawElementsType.UnsignedInt : DrawElementsType.UnsignedShort ), startIndex );
+				( indexBuffer.BufferType.HasFlag ( BufferType.Index16 ) ? DrawElementsType.UnsignedShort : DrawElementsType.UnsignedInt ), startIndex );
 			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
 			EndVertexDeclaration ( vertexDeclaration );
 		}

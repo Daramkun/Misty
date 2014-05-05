@@ -157,19 +157,11 @@ namespace Daramkun.Misty.Graphics
 
 		public IVertexDeclaration CreateVertexDeclaration ( params VertexElement [] elements ) { return new VertexDeclaration ( this, elements ); }
 
-		public IVertexBuffer CreateVertexBuffer ( Type vertexType, int length ) { return new VertexBuffer ( this, vertexType, length ); }
-		public IVertexBuffer CreateVertexBuffer<T> ( T [] vertices ) where T : struct
+		public IBuffer CreateBuffer ( BufferType bufferType, Type vertexType, int length ) { return new Buffer ( this, vertexType, length, bufferType ); }
+		public IBuffer CreateBuffer<T> ( BufferType bufferType, T [] vertices ) where T : struct
 		{
-			IVertexBuffer buffer = new VertexBuffer ( this, typeof ( T ), vertices.Length );
+			IBuffer buffer = new Buffer ( this, typeof ( T ), vertices.Length, bufferType );
 			buffer.SetBufferDatas<T> ( vertices );
-			return buffer;
-		}
-
-		public IIndexBuffer CreateIndexBuffer ( Type indexType, int length, bool is16bit = false ) { return new IndexBuffer ( this, indexType, length, is16bit ); }
-		public IIndexBuffer CreateIndexBuffer<T> ( T [] indices, bool is16bit = false ) where T : struct
-		{
-			IIndexBuffer buffer = new IndexBuffer ( this, typeof ( T ), indices.Length, is16bit );
-			buffer.SetBufferDatas<T> ( indices );
 			return buffer;
 		}
 

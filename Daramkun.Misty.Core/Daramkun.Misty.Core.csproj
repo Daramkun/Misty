@@ -37,6 +37,7 @@
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
     <Folder Include="Contents\Encoders\Packages\" />
+    <Folder Include="Contents\Writers\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audios\IAudioBuffer.cs" />
@@ -258,7 +259,6 @@
     <Compile Include="Contents\Readers\TrueTypeFontContentLoader.cs" />
     <Compile Include="Contents\Readers\WalnutPackageContentLoader.cs" />
     <Compile Include="Contents\Readers\ZipContentLoader.cs" />
-    <Compile Include="Contents\ModelInfo.cs" />
     <Compile Include="Contents\PackageInfo.cs" />
     <Compile Include="Contents\Tables\ISubCulture.cs" />
     <Compile Include="Contents\Tables\ITable.cs" />
@@ -268,15 +268,12 @@
     <Compile Include="Core.cs" />
     <Compile Include="Graphics\IEffect.cs" />
     <Compile Include="Graphics\IGraphicsContext.cs" />
-    <Compile Include="Graphics\IIndexBuffer.cs" />
     <Compile Include="Graphics\ITexture.cs" />
-    <Compile Include="Graphics\IVertexBuffer.cs" />
+    <Compile Include="Graphics\IBuffer.cs" />
     <Compile Include="Graphics\IVertexDeclaration.cs" />
     <Compile Include="Graphics\BlendState.cs" />
     <Compile Include="Graphics\Color.cs" />
     <Compile Include="Graphics\IGraphicsDevice.cs" />
-    <Compile Include="Graphics\IRenderBuffer.cs" />
-    <Compile Include="Graphics\ScreenResolution.cs" />
     <Compile Include="Graphics\Spirit\Font.cs" />
     <Compile Include="Graphics\Spirit\Fonts\LsfFont.cs" />
     <Compile Include="Graphics\Spirit\Fonts\TrueTypeFont.cs" />
