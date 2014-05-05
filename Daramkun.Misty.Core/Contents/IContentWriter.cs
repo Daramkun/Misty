@@ -7,11 +7,10 @@ using Daramkun.Misty.Contents.Tables;
 
 namespace Daramkun.Misty.Contents
 {
-	public interface IContentLoader
+	public interface IContentWriter
 	{
 		Type ContentType { get; }
 		IEnumerable<string> FileExtensions { get; }
-		bool AutoStreamDispose { get; }
-		object Load ( Stream stream, ResourceTable resourceTable, params object [] args );
+		bool Write ( Stream stream, ResourceTable resourceTable, object data, params object [] args );
 	}
 }

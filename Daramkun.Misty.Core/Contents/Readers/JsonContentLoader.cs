@@ -6,15 +6,15 @@ using System.Text;
 using Daramkun.Blockar.Json;
 using Daramkun.Misty.Contents.Tables;
 
-namespace Daramkun.Misty.Contents.Loaders
+namespace Daramkun.Misty.Contents.Readers
 {
-	public class JsonContentLoader : IContentLoader
+	public class JsonContentLoader : IContentReader
 	{
 		public Type ContentType { get { return typeof ( JsonContainer ); } }
 		public bool AutoStreamDispose { get { return false; } }
 		public IEnumerable<string> FileExtensions { get { yield return "json"; } }
 
-		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
+		public object Read ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			return new JsonContainer ( stream );
 		}

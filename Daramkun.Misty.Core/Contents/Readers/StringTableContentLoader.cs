@@ -5,15 +5,15 @@ using System.Linq;
 using System.Text;
 using Daramkun.Misty.Contents.Tables;
 
-namespace Daramkun.Misty.Contents.Loaders
+namespace Daramkun.Misty.Contents.Readers
 {
-	public class StringTableContentLoader : IContentLoader
+	public class StringTableContentLoader : IContentReader
 	{
 		public Type ContentType { get { return typeof ( StringTable ); } }
 		public IEnumerable<string> FileExtensions { get { yield return "jst"; yield return "json"; yield return "bson"; } }
 		public bool AutoStreamDispose { get { return true; } }
 
-		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
+		public object Read ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			return new StringTable ( stream );
 		}

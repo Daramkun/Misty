@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using Daramkun.Blockar.Json;
 using Daramkun.Misty.Contents.FileSystems;
-using Daramkun.Misty.Contents.Loaders;
+using Daramkun.Misty.Contents.Readers;
 
 namespace Daramkun.Misty.Graphics.Spirit.Fonts
 {
-
 	public class LsfFont : Font
 	{
 		Dictionary<char, ITexture2D> readedImage = new Dictionary<char, ITexture2D> ();
@@ -86,7 +85,7 @@ namespace Daramkun.Misty.Graphics.Spirit.Fonts
 						return null;
 					}
 
-					ITexture2D fontImage = imageContentLoader.Load ( fileSystem.OpenFile ( filename ), null, Color.Magenta ) as ITexture2D;
+					ITexture2D fontImage = imageContentLoader.Read ( fileSystem.OpenFile ( filename ), null, Color.Magenta ) as ITexture2D;
 					readedImage.Add ( ch, fontImage );
 					return fontImage;
 				}

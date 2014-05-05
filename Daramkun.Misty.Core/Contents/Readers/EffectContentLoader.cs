@@ -6,9 +6,9 @@ using System.Text;
 using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics;
 
-namespace Daramkun.Misty.Contents.Loaders
+namespace Daramkun.Misty.Contents.Readers
 {
-	public class EffectContentLoader : IContentLoader
+	public class EffectContentLoader : IContentReader
 	{
 		public Type ContentType { get { return typeof ( IEffect ); } }
 
@@ -16,7 +16,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public bool AutoStreamDispose { get { return false; } }
 
-		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
+		public object Read ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			return Core.GraphicsDevice.CreateEffect ( stream );
 		}

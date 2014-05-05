@@ -13,7 +13,7 @@ namespace Daramkun.Misty.Contents.Tables
 	{
 		public static List<Assembly> ContentLoaderAssemblies { get; private set; }
 
-		List<IContentLoader> contentLoaders = new List<IContentLoader> ();
+		List<IContentReader> contentLoaders = new List<IContentReader> ();
 		Dictionary<string, object> loadedContent = new Dictionary<string, object> ();
 
 		public IFileSystem FileSystem { get; set; }
@@ -36,13 +36,13 @@ namespace Daramkun.Misty.Contents.Tables
 			localeFileSystems = new Dictionary<CultureInfo, IFileSystem> ();
 		}
 
-		public void AddContentLoader ( IContentLoader contentLoader )
+		public void AddContentLoader ( IContentReader contentLoader )
 		{
 			if ( contentLoaders.Contains ( contentLoader ) ) return;
 			contentLoaders.Add ( contentLoader );
 		}
 
-		public void RemoveContentLoader ( IContentLoader contentLoader )
+		public void RemoveContentLoader ( IContentReader contentLoader )
 		{
 			contentLoaders.Remove ( contentLoader );
 		}
@@ -53,9 +53,9 @@ namespace Daramkun.Misty.Contents.Tables
 			{
 				foreach ( Type type in assembly.GetTypes () )
 				{
-					if ( Utilities.IsSubtypeOf ( type, typeof ( IContentLoader ) ) && type != typeof ( IContentLoader )
+					if ( Utilities.IsSubtypeOf ( type, typeof ( IContentReader ) ) && type != typeof ( IContentReader )
 						&& !type.IsAbstract && !type.IsInterface && type.IsPublic )
-						AddContentLoader ( Activator.CreateInstance ( type ) as IContentLoader );
+						AddContentLoader ( Activator.CreateInstance ( type ) as IContentReader );
 				}
 			}
 		}
@@ -102,8 +102,8 @@ namespace Daramkun.Misty.Contents.Tables
 			if ( FileSystem == null ) throw new ArgumentNullException ();
 
 			Type type = typeof ( T );
-			IContentLoader loader = null;
-			foreach ( IContentLoader contentLoader in contentLoaders )
+			IContentReader loader = null;
+			foreach ( IContentReader contentLoader in contentLoaders )
 				if ( Utilities.IsSubtypeOf ( type, contentLoader.ContentType ) )
 					loader = contentLoader;
 
@@ -143,7 +143,7 @@ namespace Daramkun.Misty.Contents.Tables
 			else
 			{
 				Stream stream = FileSystem.OpenFile ( filename );
-				object data = loader.Load ( stream, this, args );
+				object data = loader.Read ( stream, this, args );
 				loadedContent.Add ( key, data );
 				if ( !loader.AutoStreamDispose )
 					stream.Dispose ();

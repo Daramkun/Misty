@@ -9,9 +9,9 @@ using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Graphics.Spirit;
 using Daramkun.Misty.Mathematics.Geometries;
 
-namespace Daramkun.Misty.Contents.Loaders
+namespace Daramkun.Misty.Contents.Readers
 {
-	public class SpriteContentLoader : IContentLoader
+	public class SpriteContentLoader : IContentReader
 	{
 		Texture2DContentLoader textureContentLoader = new Texture2DContentLoader ();
 
@@ -21,11 +21,11 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public bool AutoStreamDispose { get { return true; } }
 
-		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
+		public object Read ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			try
 			{
-				return new Sprite ( textureContentLoader.Load ( stream, resourceTable, args ) as ITexture2D );
+				return new Sprite ( textureContentLoader.Read ( stream, resourceTable, args ) as ITexture2D );
 			}
 			catch
 			{
@@ -35,12 +35,12 @@ namespace Daramkun.Misty.Contents.Loaders
 				if ( data.Contains ( "colorkey" ) )
 				{
 					JsonContainer colorKey = data [ "colorkey" ] as JsonContainer;
-					sprite.Texture = textureContentLoader.Load ( new MemoryStream ( Convert.FromBase64String ( data [ "image" ] as string ) ),
+					sprite.Texture = textureContentLoader.Read ( new MemoryStream ( Convert.FromBase64String ( data [ "image" ] as string ) ),
 						resourceTable,
 						new Color ( ( byte ) colorKey [ 0 ], ( byte ) colorKey [ 1 ], ( byte ) colorKey [ 2 ], ( byte ) colorKey [ 3 ] ) ) as ITexture2D;
 				}
 				else
-					sprite.Texture = textureContentLoader.Load ( new MemoryStream ( Convert.FromBase64String ( data [ "image" ] as string ) ),
+					sprite.Texture = textureContentLoader.Read ( new MemoryStream ( Convert.FromBase64String ( data [ "image" ] as string ) ),
 						resourceTable ) as ITexture2D;
 
 				if ( data.Contains ( "cliparea" ) )

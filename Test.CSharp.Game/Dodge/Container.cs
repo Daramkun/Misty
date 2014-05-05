@@ -7,7 +7,7 @@ using Daramkun.Misty;
 using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents;
 using Daramkun.Misty.Contents.FileSystems;
-using Daramkun.Misty.Contents.Loaders;
+using Daramkun.Misty.Contents.Readers;
 using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics;
 using Daramkun.Misty.Graphics.Spirit;

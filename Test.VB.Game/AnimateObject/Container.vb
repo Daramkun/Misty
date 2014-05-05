@@ -7,7 +7,7 @@ Imports Daramkun.Misty.Mathematics.Transforms
 Imports Daramkun.Misty
 Imports Daramkun.Misty.Graphics
 Imports Daramkun.Misty.Contents.FileSystems
-Imports Daramkun.Misty.Contents.Loaders
+Imports Daramkun.Misty.Contents.Readers
 Imports Daramkun.Misty.Graphics.Spirit.Fonts
 Imports Daramkun.Misty.Inputs
 

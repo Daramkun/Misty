@@ -6,9 +6,9 @@ using System.Text;
 using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics.Spirit.Fonts;
 
-namespace Daramkun.Misty.Contents.Loaders
+namespace Daramkun.Misty.Contents.Readers
 {
-	public class TrueTypeFontContentLoader : IContentLoader
+	public class TrueTypeFontContentLoader : IContentReader
 	{
 		public Type ContentType { get { return typeof ( TrueTypeFont ); } }
 
@@ -16,7 +16,7 @@ namespace Daramkun.Misty.Contents.Loaders
 
 		public bool AutoStreamDispose { get { return false; } }
 
-		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
+		public object Read ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			return new TrueTypeFont ( stream, ( int ) args [ 0 ] );
 		}

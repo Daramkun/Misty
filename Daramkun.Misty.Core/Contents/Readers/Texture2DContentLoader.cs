@@ -9,9 +9,9 @@ using Daramkun.Misty.Contents.Decoders.Images;
 using Daramkun.Misty.Contents.Tables;
 using Daramkun.Misty.Graphics;
 
-namespace Daramkun.Misty.Contents.Loaders
+namespace Daramkun.Misty.Contents.Readers
 {
-	public class Texture2DContentLoader : IContentLoader
+	public class Texture2DContentLoader : IContentReader
 	{
 		public static List<IDecoder<ImageInfo>> Decoders { get; private set; }
 		
@@ -40,7 +40,7 @@ namespace Daramkun.Misty.Contents.Loaders
 		}
 		public bool AutoStreamDispose { get { return true; } }
 
-		public object Load ( Stream stream, ResourceTable resourceTable, params object [] args )
+		public object Read ( Stream stream, ResourceTable resourceTable, params object [] args )
 		{
 			bool isLoadComplete = false;
 			ImageInfo imageInfo = null;
