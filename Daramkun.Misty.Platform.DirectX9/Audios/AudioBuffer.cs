@@ -67,7 +67,7 @@ namespace Daramkun.Misty.Audios
 				SharpDX.DirectSound.BufferFlags.ControlPositionNotify | SharpDX.DirectSound.BufferFlags.StickyFocus |
 				SharpDX.DirectSound.BufferFlags.Software | SharpDX.DirectSound.BufferFlags.GetCurrentPosition2 |
 				SharpDX.DirectSound.BufferFlags.ControlFrequency | SharpDX.DirectSound.BufferFlags.GlobalFocus,
-				Format = new SharpDX.Multimedia.WaveFormat ( audioInfo.SampleRate, audioInfo.BitPerSamples, audioInfo.AudioChannel ),
+				Format = new SharpDX.Multimedia.WaveFormat ( audioInfo.SampleRate, audioInfo.BitsPerSample, audioInfo.AudioChannel ),
 				BufferBytes = audioInfo.SampleRate
 			};
 			soundBuffer = new SharpDX.DirectSound.SecondarySoundBuffer ( audioDevice.Handle as SharpDX.DirectSound.DirectSound,

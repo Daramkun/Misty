@@ -64,8 +64,8 @@ namespace Daramkun.Misty.Audios
 			sourceId = AL.GenSource ();
 			this.audioInfo = audioInfo;
 			alFormat = ( ( audioInfo.AudioChannel == 2 ) ?
-				( ( audioInfo.BitPerSamples == 16 ) ? ALFormat.Stereo16 : ALFormat.Stereo8 ) :
-				( ( audioInfo.BitPerSamples == 16 ) ? ALFormat.Mono16 : ALFormat.Mono8 ) );
+				( ( audioInfo.BitsPerSample == 16 ) ? ALFormat.Stereo16 : ALFormat.Stereo8 ) :
+				( ( audioInfo.BitsPerSample == 16 ) ? ALFormat.Mono16 : ALFormat.Mono8 ) );
 		}
 
 		protected override void Dispose ( bool isDisposing )

@@ -23,19 +23,18 @@ namespace Daramkun.Misty.Contents.Encoders.Audios
 			}
 
 			BinaryWriter writer = new BinaryWriter ( stream );
-			writer.Write ( Encoding.UTF8.GetBytes ( "RIFF" ) );
+			writer.Write ( Encoding.UTF8.GetBytes ( "RIFF" ), 0, 4 );
 			writer.Write ( totalLength + 36 );
-			writer.Write ( Encoding.UTF8.GetBytes ( "WAVE" ) );
+			writer.Write ( Encoding.UTF8.GetBytes ( "WAVE" ), 0, 4 );
 			
-			writer.Write ( Encoding.UTF8.GetBytes ( "fmt" ) );
-			writer.Write ( new byte [] { 0 } );
+			writer.Write ( Encoding.UTF8.GetBytes ( "fmt " ), 0, 4 );
 			writer.Write ( 16 );
 			writer.Write ( ( short ) 0 );
 			writer.Write ( ( short ) data.AudioChannel );
 			writer.Write ( data.SampleRate );
-			writer.Write ( data.SampleRate * data.AudioChannel * data.BitPerSamples );
+			writer.Write ( data.SampleRate * data.AudioChannel * data.BitsPerSample );
 			writer.Write ( ( short ) 0 );
-			writer.Write ( ( short ) data.BitPerSamples * 8 );
+			writer.Write ( ( short ) data.BitsPerSample );
 
 			writer.Write ( Encoding.UTF8.GetBytes ( "data" ) );
 			writer.Write ( totalLength );
