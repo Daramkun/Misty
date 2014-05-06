@@ -23,9 +23,10 @@ namespace Daramkun.Misty.Graphics
 
 			if ( shaderType == ShaderType.PixelShader )
 			{
-				shaderCode = @"#define getTexUV(texcoord) (vec2(texcoord.st.x, 1.0 - texcoord.st.y))
-" + shaderCode;
+				shaderCode = "#define getTexUV(texcoord) (vec2(texcoord.st.x, 1.0 - texcoord.st.y))\r\n" + shaderCode;
 			}
+
+			shaderCode = string.Format ( "#version {0}{1}0\r\n", graphicsDevice.Information.ShaderVersion.Major, graphicsDevice.Information.ShaderVersion.Minor ) + shaderCode;
 
 			GL.ShaderSource ( shaderId, shaderCode );
 			GL.CompileShader ( shaderId );
