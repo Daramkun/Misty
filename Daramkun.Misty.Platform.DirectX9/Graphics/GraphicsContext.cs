@@ -10,6 +10,8 @@ namespace Daramkun.Misty.Graphics
 	partial class GraphicsContext : StandardDispose, IGraphicsContext
 	{
 		WeakReference d3dDevice;
+		InputAssembler inputAssembler;
+		SharpDX.Direct3D9.PrimitiveType currentPrimitiveType;
 
 		public Thread Owner { get; private set; }
 		public IGraphicsDevice GraphicsDevice { get; private set; }
@@ -81,6 +83,21 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		public InputAssembler InputAssembler
+		{
+			get { return inputAssembler; }
+			set
+			{
+				inputAssembler = value;
+				currentPrimitiveType = ConvertPrimitiveType ( inputAssembler.PrimitiveType );
+				( d3dDevice.Target as SharpDX.Direct3D9.Device ).VertexDeclaration = inputAssembler.VertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
+				( d3dDevice.Target as SharpDX.Direct3D9.Device ).SetStreamSource ( 0, inputAssembler.VertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0,
+					inputAssembler.VertexBuffer.RecordTypeSize );
+				if ( inputAssembler.IndexBuffer != null )
+					( d3dDevice.Target as SharpDX.Direct3D9.Device ).Indices = inputAssembler.IndexBuffer.Handle as SharpDX.Direct3D9.IndexBuffer;
+			}
+		}
+
 		public Viewport Viewport
 		{
 			get
@@ -131,21 +148,13 @@ namespace Daramkun.Misty.Graphics
 			( d3dDevice.Target as SharpDX.Direct3D9.Device ).Clear ( ChangeClearBuffer ( clearBuffer ), ChangeColor ( color ), depth, stencil );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
+		public void Draw ( int startIndex, int primitiveCount )
 		{
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.RecordTypeSize );
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).DrawPrimitives ( ConvertPrimitiveType ( primitiveType ), startVertex, primitiveCount );
-		}
-
-		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IBuffer indexBuffer,
-			int startIndex, int primitiveCount )
-		{
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).VertexDeclaration = vertexDeclaration.Handle as SharpDX.Direct3D9.VertexDeclaration;
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).SetStreamSource ( 0, vertexBuffer.Handle as SharpDX.Direct3D9.VertexBuffer, 0, vertexBuffer.RecordTypeSize );
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).Indices = indexBuffer.Handle as SharpDX.Direct3D9.IndexBuffer;
-			( d3dDevice.Target as SharpDX.Direct3D9.Device ).DrawIndexedPrimitive ( ConvertPrimitiveType ( primitiveType ), 0, 0, vertexBuffer.Length,
-				startIndex, primitiveCount );
+			if ( InputAssembler.IndexBuffer == null )
+				( d3dDevice.Target as SharpDX.Direct3D9.Device ).DrawPrimitives ( currentPrimitiveType, startIndex, primitiveCount );
+			else
+				( d3dDevice.Target as SharpDX.Direct3D9.Device ).DrawIndexedPrimitive ( currentPrimitiveType, 0, 0, InputAssembler.VertexBuffer.Length,
+				 startIndex, primitiveCount );
 		}
 	}
 }

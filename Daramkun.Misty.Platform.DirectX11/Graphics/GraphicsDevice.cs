@@ -12,14 +12,54 @@ using Daramkun.Misty.Platforms;
 
 namespace Daramkun.Misty.Graphics
 {
+	sealed class BackBuffer : IRenderBuffer, IDisposable
+	{
+		SharpDX.Direct3D11.Device d3dDevice;
+
+		internal SharpDX.Direct3D11.RenderTargetView renderTarget;
+		internal SharpDX.Direct3D11.DepthStencilView depthStencil;
+		SharpDX.Direct3D11.Texture2D depthStencilBuffer;
+
+		internal BackBuffer ( SharpDX.Direct3D11.Resource backBuffer )
+		{
+			renderTarget = new SharpDX.Direct3D11.RenderTargetView ( d3dDevice, backBuffer );
+			MakeDepthStencil ( 800, 600 );
+		}
+
+		public void Dispose ()
+		{
+			depthStencil.Dispose ();
+			depthStencilBuffer.Dispose ();
+			renderTarget.Dispose ();
+		}
+
+		internal void MakeDepthStencil ( int width, int height )
+		{
+			SharpDX.Direct3D11.Texture2D tempDsBuffer = this.depthStencilBuffer;
+			SharpDX.Direct3D11.DepthStencilView tempDs = this.depthStencil;
+
+			SharpDX.Direct3D11.Texture2D depthStencilBuffer = new SharpDX.Direct3D11.Texture2D ( d3dDevice, new SharpDX.Direct3D11.Texture2DDescription ()
+			{
+				Width = width,
+				Height = height,
+				MipLevels = 1,
+				ArraySize = 1,
+				Format = SharpDX.DXGI.Format.D24_UNorm_S8_UInt,
+				BindFlags = SharpDX.Direct3D11.BindFlags.DepthStencil,
+				SampleDescription = new SharpDX.DXGI.SampleDescription ( 1, 0 ),
+				Usage = SharpDX.Direct3D11.ResourceUsage.Default,
+			} );
+			SharpDX.Direct3D11.DepthStencilView depthStencil = new SharpDX.Direct3D11.DepthStencilView ( d3dDevice, depthStencilBuffer );
+
+			tempDs.Dispose ();
+			tempDsBuffer.Dispose ();
+		}
+	}
+
 	public partial class GraphicsDevice : StandardDispose, IGraphicsDevice
 	{
 		SharpDX.DXGI.SwapChain dxgiSwapChain;
 		SharpDX.Direct3D11.Device d3dDevice;
-
-		SharpDX.Direct3D11.RenderTargetView renderTarget;
-		SharpDX.Direct3D11.DepthStencilView depthStencil;
-		SharpDX.Direct3D11.Texture2D depthStencilBuffer;
 
 		public object Handle { get { return d3dDevice; } }
 
@@ -83,44 +123,16 @@ namespace Daramkun.Misty.Graphics
 				},
 				out d3dDevice, out dxgiSwapChain );
 			//d3dContext = d3dDevice.ImmediateContext;
-			ImmediateContext = new GraphicsContext ();
+			ImmediateContext = new GraphicsContext ( this, true );
 
-			var backBuffer = dxgiSwapChain.GetBackBuffer<SharpDX.Direct3D11.Resource> ( 0 );
-			renderTarget = new SharpDX.Direct3D11.RenderTargetView ( d3dDevice, backBuffer );
-			MakeDepthStencil ( 800, 600 );
-		}
-
-		private void MakeDepthStencil ( int width, int height )
-		{
-			SharpDX.Direct3D11.Texture2D tempDsBuffer = this.depthStencilBuffer;
-			SharpDX.Direct3D11.DepthStencilView tempDs = this.depthStencil;
-
-			SharpDX.Direct3D11.Texture2D depthStencilBuffer = new SharpDX.Direct3D11.Texture2D ( d3dDevice, new SharpDX.Direct3D11.Texture2DDescription ()
-			{
-				Width = width,
-				Height = height,
-				MipLevels = 1,
-				ArraySize = 1,
-				Format = SharpDX.DXGI.Format.D24_UNorm_S8_UInt,
-				BindFlags = SharpDX.Direct3D11.BindFlags.DepthStencil,
-				SampleDescription = new SharpDX.DXGI.SampleDescription ( 1, 0 ),
-				Usage = SharpDX.Direct3D11.ResourceUsage.Default,
-			} );
-			SharpDX.Direct3D11.DepthStencilView depthStencil = new SharpDX.Direct3D11.DepthStencilView ( d3dDevice, depthStencilBuffer );
-
-			d3dContext.OutputMerger.SetRenderTargets ( depthStencil, renderTarget );
-
-			tempDs.Dispose ();
-			tempDsBuffer.Dispose ();
+			BackBuffer = new BackBuffer ( dxgiSwapChain.GetBackBuffer<SharpDX.Direct3D11.Resource> ( 0 ) );
 		}
 
 		protected override void Dispose ( bool isDisposing )
 		{
 			if ( isDisposing )
 			{
-				depthStencil.Dispose ();
-				depthStencilBuffer.Dispose ();
-				renderTarget.Dispose ();
+				BackBuffer.Dispose ();
 				d3dDevice.Dispose ();
 				dxgiSwapChain.Dispose ();
 			}
@@ -135,7 +147,7 @@ namespace Daramkun.Misty.Graphics
 		public void ResizeBackBuffer ( int width, int height )
 		{
 			dxgiSwapChain.ResizeBuffers ( 1, width, height, SharpDX.DXGI.Format.R8G8B8A8_UNorm, SharpDX.DXGI.SwapChainFlags.None );
-			MakeDepthStencil ( width, height );
+			( BackBuffer as BackBuffer ).MakeDepthStencil ( width, height );
 			if ( BackbufferResized != null )
 				BackbufferResized ( this, null );
 		}

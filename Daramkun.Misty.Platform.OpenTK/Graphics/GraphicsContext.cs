@@ -10,6 +10,10 @@ namespace Daramkun.Misty.Graphics
 {
 	partial class GraphicsContext : StandardDispose, IGraphicsContext
 	{
+		InputAssembler inputAssembler;
+		OpenTK.Graphics.OpenGL.PrimitiveType currentPrimitiveType;
+		OpenTK.Graphics.OpenGL.DrawElementsType elementsType;
+
 		public Thread Owner { get; private set; }
 		public IGraphicsDevice GraphicsDevice { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
@@ -107,6 +111,26 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		public InputAssembler InputAssembler
+		{
+			get { return inputAssembler; }
+			set
+			{
+				if ( inputAssembler.VertexDeclaration != null )
+					EndVertexDeclaration ( inputAssembler.VertexDeclaration );
+				inputAssembler = value;
+				currentPrimitiveType = MistyValueToOriginal ( inputAssembler.PrimitiveType );
+				BeginVertexDeclaration ( inputAssembler.VertexBuffer, inputAssembler.VertexDeclaration );
+				if ( inputAssembler.IndexBuffer != null )
+				{
+					GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) inputAssembler.IndexBuffer.Handle );
+					elementsType = ( inputAssembler.IndexBuffer.BufferType.HasFlag ( BufferType.Index16 ) ? DrawElementsType.UnsignedShort : DrawElementsType.UnsignedInt );
+				}
+				else
+					GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
+			}
+		}
+
 		public Viewport Viewport
 		{
 			get { int [] viewport = new int [ 4 ]; GL.GetInteger ( GetPName.Viewport, viewport ); return new Viewport ( viewport ); }
@@ -153,21 +177,13 @@ namespace Daramkun.Misty.Graphics
 			GL.Clear ( MistyValueToOriginal ( clearBuffer ) );
 		}
 
-		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )
+		public void Draw ( int startIndex, int primitiveCount )
 		{
-			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
-			GL.DrawArrays ( MistyValueToOriginal ( primitiveType ), startVertex, primitiveCount * GetCountFromPrimitiveType ( primitiveType, primitiveCount ) );
-			EndVertexDeclaration ( vertexDeclaration );
-		}
-
-		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IBuffer indexBuffer, int startIndex, int primitiveCount )
-		{
-			BeginVertexDeclaration ( vertexBuffer, vertexDeclaration );
-			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, ( int ) indexBuffer.Handle );
-			GL.DrawElements ( MistyValueToOriginal ( primitiveType ), GetCountFromPrimitiveType ( primitiveType, primitiveCount ),
-				( indexBuffer.BufferType.HasFlag ( BufferType.Index16 ) ? DrawElementsType.UnsignedShort : DrawElementsType.UnsignedInt ), startIndex );
-			GL.BindBuffer ( BufferTarget.ElementArrayBuffer, 0 );
-			EndVertexDeclaration ( vertexDeclaration );
+			if ( InputAssembler.IndexBuffer == null )
+				GL.DrawArrays ( currentPrimitiveType, startIndex, primitiveCount * GetCountFromPrimitiveType ( inputAssembler.PrimitiveType, primitiveCount ) );
+			else
+				GL.DrawElements ( currentPrimitiveType, GetCountFromPrimitiveType ( inputAssembler.PrimitiveType, primitiveCount ),
+					elementsType, startIndex );
 		}
 	}
 }

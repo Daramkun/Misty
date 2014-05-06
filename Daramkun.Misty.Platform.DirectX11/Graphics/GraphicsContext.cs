@@ -87,6 +87,12 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		internal GraphicsContext ( IGraphicsDevice graphicsDevice, bool isImmediate )
+		{
+			GraphicsDevice = graphicsDevice;
+
+		}
+
 		public void BeginScene ( IRenderBuffer renderBuffer = null )
 		{
 			if ( renderBuffer == null || renderBuffer == GraphicsDevice.BackBuffer )
@@ -107,9 +113,9 @@ namespace Daramkun.Misty.Graphics
 		public void Clear ( ClearBuffer clearBuffer, Color color, float depth = 0, int stencil = 0 )
 		{
 			if ( clearBuffer.HasFlag ( ClearBuffer.ColorBuffer ) )
-				d3dContext.ClearRenderTargetView ( renderTarget, ConvertColor ( color ) );
+				d3dContext.ClearRenderTargetView ( ( GraphicsDevice.BackBuffer as BackBuffer ).renderTarget, ConvertColor ( color ) );
 			if ( clearBuffer.HasFlag ( ClearBuffer.DepthBuffer ) || clearBuffer.HasFlag ( ClearBuffer.StencilBuffer ) )
-				d3dContext.ClearDepthStencilView ( depthStencil, ConvertDepthStencilClearMethod ( clearBuffer ), depth, ( byte ) stencil );
+				d3dContext.ClearDepthStencilView ( ( GraphicsDevice.BackBuffer as BackBuffer ).depthStencil, ConvertDepthStencilClearMethod ( clearBuffer ), depth, ( byte ) stencil );
 		}
 
 		public void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, int startVertex, int primitiveCount )

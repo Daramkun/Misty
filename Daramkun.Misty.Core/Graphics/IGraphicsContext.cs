@@ -18,6 +18,7 @@ namespace Daramkun.Misty.Graphics
 
 		BlendState BlendState { get; set; }
 		DepthStencil DepthStencil { get; set; }
+		InputAssembler InputAssembler { get; set; }
 
 		Viewport Viewport { get; set; }
 
@@ -26,9 +27,6 @@ namespace Daramkun.Misty.Graphics
 
 		void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 );
 
-		void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration,
-			int startVertex, int primitiveCount );
-		void Draw ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration,
-			IBuffer indexBuffer, int startIndex, int primitiveCount );
+		void Draw ( int startVertex, int primitiveCount );
 	}
 }

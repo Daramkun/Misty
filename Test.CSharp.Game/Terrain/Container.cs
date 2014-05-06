@@ -137,7 +137,8 @@ namespace Test.Game.Terrain
 			effect.SetUniform<Matrix4x4> ( "viewMatrix", look.Matrix );
 			effect.SetUniform<Matrix4x4> ( "projMatrix", proj.Matrix );
 			effect.SetTextures ( textureArgs );
-			Core.GraphicsDevice.ImmediateContext.Draw ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer, 0, numOfIndices );
+			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer );
+			Core.GraphicsDevice.ImmediateContext.Draw ( 0, numOfIndices );
 			effect.End ();
 
 			spriteWorld.Translate = new Vector2 ( 0, Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Height - texture1.Height );
