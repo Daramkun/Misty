@@ -43,6 +43,7 @@ namespace Daramkun.Misty.Graphics
 		bool IsSupportTexture1D { get; }
 		bool IsSupportTexture3D { get; }
 		bool IsSupportGeometryShader { get; }
+		bool IsSupportMultiContext { get; }
 	}
 
 	public interface IGraphicsDevice : IDisposable

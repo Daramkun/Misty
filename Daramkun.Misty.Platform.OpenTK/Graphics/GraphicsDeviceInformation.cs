@@ -48,6 +48,8 @@ namespace Daramkun.Misty.Graphics
 		public bool IsSupportTexture1D { get { return true; } }
 		public bool IsSupportTexture3D { get { return true; } }
 		public bool IsSupportGeometryShader { get { return RendererVersion >= new Version ( 3, 2 ); } }
+		public bool IsSupportMultiContext { get { return false; } }
+
 		public Version ShaderVersion
 		{
 			get

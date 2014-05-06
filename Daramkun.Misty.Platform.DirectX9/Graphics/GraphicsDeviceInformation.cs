@@ -36,6 +36,8 @@ namespace Daramkun.Misty.Graphics
 		public bool IsSupportTexture1D { get { return false; } }
 		public bool IsSupportTexture3D { get { return false; } }
 		public bool IsSupportGeometryShader { get { return false; } }
+		public bool IsSupportMultiContext { get { return false; } }
+		
 		public string DeviceVendor
 		{
 			get
