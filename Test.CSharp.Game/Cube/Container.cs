@@ -123,7 +123,7 @@ namespace Test.Game.CSharp.Cube
 			cubeEffect.SetUniform ( "projMatrix", ref projMatrix );
 			cubeEffect.SetUniform ( "viewMatrix", ref lookAtMatrix );
 			cubeEffect.SetUniform ( "worldMatrix", ref worldMatrix );
-			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( PrimitiveType.TriangleList, cubeVertices, vertexDeclarataion, cubeIndices );
+			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( cubeVertices, vertexDeclarataion, PrimitiveType.TriangleList, cubeIndices );
 			Core.GraphicsDevice.ImmediateContext.Draw ( 0, 12 );
 			cubeEffect.End ();
 

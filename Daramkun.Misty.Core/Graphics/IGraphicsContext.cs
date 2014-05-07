@@ -12,6 +12,7 @@ namespace Daramkun.Misty.Graphics
 
 		IGraphicsDevice GraphicsDevice { get; }
 		IRenderBuffer CurrentRenderBuffer { get; }
+		object Handle { get; }
 
 		CullMode CullMode { get; set; }
 		FillMode FillMode { get; set; }

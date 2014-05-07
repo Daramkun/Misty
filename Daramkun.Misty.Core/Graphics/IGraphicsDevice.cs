@@ -64,6 +64,7 @@ namespace Daramkun.Misty.Graphics
 
 		IGraphicsContext ImmediateContext { get; }
 
+		IGraphicsContext CreateDeferredContext ();
 		IRenderBuffer CreateRenderBuffer ( int width, int height );
 		ITexture1D CreateTexture1D ( int width, int mipmapLevel = 1 );
 		ITexture1D CreateTexture1D ( ImageInfo imageInfo, Color? colorKey = null, int mipmapLevel = 1 );

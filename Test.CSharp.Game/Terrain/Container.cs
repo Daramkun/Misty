@@ -137,7 +137,7 @@ namespace Test.Game.Terrain
 			effect.SetUniform<Matrix4x4> ( "viewMatrix", look.Matrix );
 			effect.SetUniform<Matrix4x4> ( "projMatrix", proj.Matrix );
 			effect.SetTextures ( textureArgs );
-			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( PrimitiveType.TriangleList, vertexBuffer, vertexDeclaration, indexBuffer );
+			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( vertexBuffer, vertexDeclaration, PrimitiveType.TriangleList, indexBuffer );
 			Core.GraphicsDevice.ImmediateContext.Draw ( 0, numOfIndices );
 			effect.End ();
 

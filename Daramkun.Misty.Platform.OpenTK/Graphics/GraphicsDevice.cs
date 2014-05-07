@@ -23,7 +23,7 @@ namespace Daramkun.Misty.Graphics
 
 		IGraphicsDeviceInformation deviceInfo;
 
-		public object Handle { get { return window.Context; } }
+		public object Handle { get { return window; } }
 		public IGraphicsDeviceInformation Information { get { return deviceInfo; } }
 
 		public IRenderBuffer BackBuffer { get; private set; }
@@ -77,9 +77,9 @@ namespace Daramkun.Misty.Graphics
 			if ( deviceInfo.RendererVersion.Major < 2 )
 				throw new PlatformNotSupportedException ();
 
-			OpenTK.Graphics.GraphicsContext.ShareContexts = true;
+			//OpenTK.Graphics.GraphicsContext.ShareContexts = true;
 
-			ImmediateContext = new GraphicsContext ( this );
+			ImmediateContext = new GraphicsContext ( this, true );
 		}
 
 		protected override void Dispose ( bool isDisposing )
@@ -101,6 +101,8 @@ namespace Daramkun.Misty.Graphics
 			if ( BackbufferResized != null )
 				BackbufferResized ( this, null );
 		}
+
+		public IGraphicsContext CreateDeferredContext () { return new GraphicsContext ( this, false ); }
 
 		public IRenderBuffer CreateRenderBuffer ( int width, int height ) { return new RenderBuffer ( this, width, height ); }
 

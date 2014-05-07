@@ -12,7 +12,7 @@ namespace Daramkun.Misty.Graphics
 		public IVertexDeclaration VertexDeclaration { get; private set; }
 		public IBuffer IndexBuffer { get; private set; }
 
-		public InputAssembler ( PrimitiveType primitiveType, IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, IBuffer indexBuffer = null )
+		public InputAssembler ( IBuffer vertexBuffer, IVertexDeclaration vertexDeclaration, PrimitiveType primitiveType = PrimitiveType.TriangleList, IBuffer indexBuffer = null )
 			: this ()
 		{
 			PrimitiveType = primitiveType;

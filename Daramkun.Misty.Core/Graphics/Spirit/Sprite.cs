@@ -147,7 +147,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
 			DepthStencil lastDepthStencil = Core.GraphicsDevice.ImmediateContext.DepthStencil;
 			Core.GraphicsDevice.ImmediateContext.DepthStencil = new DepthStencil () { DepthEnable = false, StencilState = null };
-			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( PrimitiveType.TriangleStrip, vertexBuffer, vertexDeclaration );
+			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( vertexBuffer, vertexDeclaration, PrimitiveType.TriangleStrip );
 			Core.GraphicsDevice.ImmediateContext.Draw ( 0, 2 );
 			Core.GraphicsDevice.ImmediateContext.DepthStencil = lastDepthStencil;
 			Effect.End ();

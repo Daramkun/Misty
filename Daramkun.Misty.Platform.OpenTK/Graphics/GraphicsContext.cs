@@ -13,10 +13,12 @@ namespace Daramkun.Misty.Graphics
 		InputAssembler inputAssembler;
 		OpenTK.Graphics.OpenGL.PrimitiveType currentPrimitiveType;
 		OpenTK.Graphics.OpenGL.DrawElementsType elementsType;
+		OpenTK.Graphics.GraphicsContext graphicsContext;
 
 		public Thread Owner { get; private set; }
 		public IGraphicsDevice GraphicsDevice { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
+		public object Handle { get { return graphicsContext; } }
 
 		public CullMode CullMode
 		{
@@ -137,15 +139,22 @@ namespace Daramkun.Misty.Graphics
 			set { GL.Viewport ( value.X, value.Y, value.Width, value.Height ); }
 		}
 
-		public GraphicsContext ( IGraphicsDevice graphicsDevice )
+		public GraphicsContext ( IGraphicsDevice graphicsDevice, bool isImmediate )
 		{
 			GraphicsDevice = graphicsDevice;
 			CullMode = CullMode.ClockWise;
+
+			if ( isImmediate )
+				graphicsContext = OpenTK.Graphics.GraphicsContext.CurrentContext as OpenTK.Graphics.GraphicsContext;
+			else
+				graphicsContext = new OpenTK.Graphics.GraphicsContext ( new OpenTK.Graphics.GraphicsMode ( new OpenTK.Graphics.ColorFormat ( 8, 8, 8, 8 ), 24, 8 ),
+					( graphicsDevice.Handle as OpenTK.GameWindow ).WindowInfo );
 		}
 
 		public void BeginScene ( IRenderBuffer renderBuffer = null )
 		{
 			Owner = Thread.CurrentThread;
+			graphicsContext.MakeCurrent ( ( GraphicsDevice.Handle as OpenTK.GameWindow ).WindowInfo );
 			if ( renderBuffer != null && renderBuffer != GraphicsDevice.BackBuffer )
 			{
 				GL.BindTexture ( TextureTarget.Texture2D, 0 );

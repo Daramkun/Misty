@@ -16,6 +16,7 @@ namespace Daramkun.Misty.Graphics
 		public Thread Owner { get; private set; }
 		public IGraphicsDevice GraphicsDevice { get; private set; }
 		public IRenderBuffer CurrentRenderBuffer { get; private set; }
+		public object Handle { get { return d3dDevice; } }
 
 		public CullMode CullMode
 		{

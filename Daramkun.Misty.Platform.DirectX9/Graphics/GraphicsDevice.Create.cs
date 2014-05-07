@@ -11,6 +11,8 @@ namespace Daramkun.Misty.Graphics
 {
 	public partial class GraphicsDevice : StandardDispose, IGraphicsDevice
 	{
+		public IGraphicsContext CreateDeferredContext () { throw new NotImplementedException (); }
+
 		public IRenderBuffer CreateRenderBuffer ( int width, int height )
 		{
 			return new RenderBuffer ( this, width, height );
