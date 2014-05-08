@@ -7,7 +7,7 @@ namespace Daramkun.Misty.Common
 {
 	public class Animate
 	{
-		TimeSpan lastElapsed;
+		//TimeSpan lastElapsed;
 
 		public TimeSpan Position { get; private set; }
 		public TimeSpan Duration { get; set; }
@@ -41,7 +41,7 @@ namespace Daramkun.Misty.Common
 					TotalAnimated -= Objective;
 					Animated = TotalAnimated;
 					IsAnimating = true;
-					lastElapsed = gameTime.ElapsedGameTime;
+					//lastElapsed = gameTime.ElapsedGameTime;
 				}
 				else
 				{
@@ -50,7 +50,7 @@ namespace Daramkun.Misty.Common
 				}
 			}
 
-			lastElapsed = gameTime.ElapsedGameTime;
+			//lastElapsed = gameTime.ElapsedGameTime;
 		}
 	}
 }

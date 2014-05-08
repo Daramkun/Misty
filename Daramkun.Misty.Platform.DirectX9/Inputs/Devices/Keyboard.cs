@@ -32,6 +32,17 @@ namespace Daramkun.Misty.Inputs.Devices
 			w.KeyUp += KeyUpEvent;
 		}
 
+		protected override void Dispose (bool isDisposing)
+		{
+			if ( isDisposing )
+			{
+				Form w = window.Handle as Form;
+				w.KeyDown -= KeyDownEvent;
+				w.KeyUp -= KeyUpEvent;
+			}
+			base.Dispose (isDisposing);
+		}
+
 		private void KeyDownEvent ( object sender, KeyEventArgs e )
 		{
 			Key key = ConvertKeys ( e.KeyCode );

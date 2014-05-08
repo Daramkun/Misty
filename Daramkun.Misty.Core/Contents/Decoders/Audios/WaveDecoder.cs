@@ -76,7 +76,7 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 			sampleRate = br.ReadInt32 ();
 			byteRate = br.ReadInt32 ();
 
-			int blockAlign = br.ReadInt16 ();
+			/*int blockAlign = */br.ReadInt16 ();
 			bitPerSamples = br.ReadInt16 ();
 
 			if ( chunkSize != 16 )

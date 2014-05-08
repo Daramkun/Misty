@@ -368,9 +368,7 @@ namespace Daramkun.Misty.Contents.FileSystems
 
 		private bool ReadLocalHeader ( ref XUnzipFileInfo pFileInfo, BinaryReader br )
 		{
-			SIGNATURE sig;
-
-			if ( ( sig = ( SIGNATURE ) br.ReadUInt32 () ) != SIGNATURE.LOCAL_FILE_HEADER )
+			if ( ( ( SIGNATURE ) br.ReadUInt32 () ) != SIGNATURE.LOCAL_FILE_HEADER )
 				return false;
 
 			SLocalFileHeader head = new SLocalFileHeader ();
