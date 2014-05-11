@@ -13,8 +13,7 @@ namespace Daramkun.Misty.Graphics
 	{
 		int texture;
 
-		public int Width { get { return ( int ) Size; } }
-		public float Size { get; private set; }
+		public int Width { get; private set; }
 
 		public Color [] Buffer
 		{
@@ -71,7 +70,7 @@ namespace Daramkun.Misty.Graphics
 		private void MakeTexture ( int width )
 		{
 			if ( width == 0 ) width = 1;
-			Size = width;
+			Width = width;
 			texture = GL.GenTexture ();
 			GL.BindTexture ( TextureTarget.Texture1D, texture );
 			GL.TexImage1D ( TextureTarget.Texture1D, 0, PixelInternalFormat.Rgba8, width, 0, PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero );

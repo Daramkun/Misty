@@ -14,12 +14,10 @@ namespace Daramkun.Misty.Graphics
 	{
 		int texture;
 
-		public int Width { get { return ( int ) Size.X; } }
-		public int Height { get { return ( int ) Size.Y; } }
+		public int Width { get; private set; }
+		public int Height { get; private set; }
 
 		public object Handle { get { return texture; } }
-
-		public Vector2 Size { get; private set; }
 
 		public Color [] Buffer
 		{
@@ -81,7 +79,8 @@ namespace Daramkun.Misty.Graphics
 		{
 			if ( width == 0 ) width = 1;
 			if ( height == 0 ) height = 1;
-			Size = new Vector2 ( width, height );
+			Width = width;
+			Height = height;
 			texture = GL.GenTexture ();
 			GL.BindTexture ( TextureTarget.Texture2D, texture );
 			GL.TexImage2D ( TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba8, width, height, 0, PixelFormat.Bgra, PixelType.UnsignedByte, IntPtr.Zero );

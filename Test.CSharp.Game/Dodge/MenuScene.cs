@@ -69,7 +69,7 @@ namespace Test.Game.Dodge
 			menuFont.DrawFont ( "A. START", Color.White, new Vector2 ( 24, 256 ) );
 			menuFont.DrawFont ( "B. EXIT", Color.White, new Vector2 ( 24, 304 ) );
 
-			logoWorld.Translate = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size / 2 - logo.Texture.Size / 2;
+			logoWorld.Translate = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size () / 2 - logo.Texture.Size () / 2;
 			logo.Draw ( logoWorld );
 
 			base.Draw ( gameTime );

@@ -19,7 +19,7 @@ namespace Test.Game.PerformanceTester
 			: base ( texture )
 		{
 			rotateUnit = ( ( float ) ( random.NextDouble () - random.NextDouble () ) ) * 10.0f;
-			World.RotationCenter = texture.Size / 2;
+			World.RotationCenter = texture.Size () / 2;
 			World.Translate = new Vector2 ( random.Next ( 800 ), random.Next ( 600 ) );
 		}
 

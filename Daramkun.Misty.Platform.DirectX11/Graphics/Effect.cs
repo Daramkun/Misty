@@ -70,7 +70,6 @@ namespace Daramkun.Misty.Graphics
 
 		public void Begin ()
 		{
-			( graphicsDevice as GraphicsDevice ).currentVertexShader = VertexShader as Shader;
 			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.VertexShader.Set ( VertexShader.Handle as SharpDX.Direct3D11.VertexShader );
 			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.PixelShader.Set ( PixelShader.Handle as SharpDX.Direct3D11.PixelShader );
 			if ( GeometryShader != null )
@@ -80,7 +79,6 @@ namespace Daramkun.Misty.Graphics
 
 		public void End ()
 		{
-			( graphicsDevice as GraphicsDevice ).currentVertexShader = null;
 			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.VertexShader.Set ( null );
 			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.PixelShader.Set ( null );
 			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.GeometryShader.Set ( null );

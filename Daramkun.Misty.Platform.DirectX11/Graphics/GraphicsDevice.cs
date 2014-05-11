@@ -20,6 +20,8 @@ namespace Daramkun.Misty.Graphics
 		internal SharpDX.Direct3D11.DepthStencilView depthStencil;
 		SharpDX.Direct3D11.Texture2D depthStencilBuffer;
 
+		public object Handle { get { return renderTarget.Resource; } }
+
 		internal BackBuffer ( SharpDX.Direct3D11.Resource backBuffer )
 		{
 			renderTarget = new SharpDX.Direct3D11.RenderTargetView ( d3dDevice, backBuffer );
@@ -53,6 +55,26 @@ namespace Daramkun.Misty.Graphics
 
 			tempDs.Dispose ();
 			tempDsBuffer.Dispose ();
+		}
+
+		public int Width { get { throw new NotImplementedException (); } }
+		public int Height { get { throw new NotImplementedException (); } }
+
+		public Vector2 Size
+		{
+			get { throw new NotImplementedException (); }
+		}
+
+		public Color [] Buffer
+		{
+			get
+			{
+				throw new NotImplementedException ();
+			}
+			set
+			{
+				throw new NotImplementedException ();
+			}
 		}
 	}
 

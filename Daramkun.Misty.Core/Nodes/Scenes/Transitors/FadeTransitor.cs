@@ -30,14 +30,14 @@ namespace Daramkun.Misty.Nodes.Scenes.Transitors
 			fadeTexture.Buffer = new Color [ 1 ] { Color.White };
 			fadeSprite = new Sprite ( fadeTexture );
 			fadeSpriteWorld = new World2 ();
-			fadeSpriteWorld.Scale = Core.GraphicsDevice.BackBuffer.Size;
+			fadeSpriteWorld.Scale = Core.GraphicsDevice.BackBuffer.Size ();
 		}
 
 		private void DrawFade ()
 		{
 			if ( fadeAlpha > 0 )
 			{
-				fadeSpriteWorld.Scale = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size;
+				fadeSpriteWorld.Scale = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size ();
 				fadeSprite.OverlayColor = new Color ( FadeColor, fadeAlpha / 255 );
 				fadeSprite.Draw ( fadeSpriteWorld );
 			}

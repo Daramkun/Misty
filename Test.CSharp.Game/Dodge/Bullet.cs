@@ -18,7 +18,7 @@ namespace Test.Game.Dodge
 			: base ( texture )
 		{
 			Alignment = SpriteAlignment.CenterMiddle;
-			World.RotationCenter = texture.Size / 2;
+			World.RotationCenter = texture.Size () / 2;
 		}
 
 		private void InitializeBullet()

@@ -13,12 +13,10 @@ namespace Daramkun.Misty.Graphics
 	{
 		SharpDX.Direct3D9.Texture texture;
 
-		public int Width { get { return ( int ) Size.X; } }
-		public int Height { get { return ( int ) Size.Y; } }
+		public int Width { get; private set; }
+		public int Height { get; private set; }
 
 		public object Handle { get { return texture; } }
-
-		public Vector2 Size { get; private set; }
 
 		public Color [] Buffer
 		{
@@ -60,7 +58,8 @@ namespace Daramkun.Misty.Graphics
 				mipmapLevel, usage, SharpDX.Direct3D9.Format.A8R8G8B8,
 				usage.HasFlag ( SharpDX.Direct3D9.Usage.RenderTarget ) ? SharpDX.Direct3D9.Pool.Default : SharpDX.Direct3D9.Pool.Managed );
 			texture.FilterTexture ( 0, SharpDX.Direct3D9.Filter.Point );
-			Size = new Vector2 ( width, height );
+			Width = width;
+			Height = height;
 		}
 
 		public Texture2D ( IGraphicsDevice graphicsDevice, int width, int height, int mipmapLevel = 1 )

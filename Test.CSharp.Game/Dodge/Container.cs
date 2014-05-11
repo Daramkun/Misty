@@ -72,7 +72,7 @@ namespace Test.Game.Dodge
 			
 			string fpsString = string.Format ( "Update FPS:{0:0.00}\nRender FPS:{1:0.00}", calc.UpdateFPS, calc.DrawFPS );
 			fpsFont.DrawFont ( fpsString, Color.White,
-				Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size - fpsFont.MeasureString ( fpsString ) - new Vector2 ( 10, 10 ) );
+				Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size () - fpsFont.MeasureString ( fpsString ) - new Vector2 ( 10, 10 ) );
 
 			Core.GraphicsDevice.ImmediateContext.EndScene ();
 			Core.GraphicsDevice.SwapBuffer ();

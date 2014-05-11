@@ -31,7 +31,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 		public Particle2D ( ITexture2D texture, Vector2 position, Vector2 velocity, float angle, float angularVelocity, Color overlayColor, float size, TimeSpan ttl )
 		{
 			sprite = new Sprite ( texture );
-			world = new World2 ( position, new Vector2 ( size ), texture.Size / 2, angle, texture.Size / 2 );
+			world = new World2 ( position, new Vector2 ( size ), texture.Size () / 2, angle, texture.Size () / 2 );
 			sprite.OverlayColor = overlayColor;
 			Velocity = velocity;
 			AngularVelocity = angularVelocity;
