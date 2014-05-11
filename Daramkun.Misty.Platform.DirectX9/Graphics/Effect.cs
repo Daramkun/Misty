@@ -41,7 +41,7 @@ namespace Daramkun.Misty.Graphics
 				}
 			}
 
-			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader, attribName != null ? attribName.Split ( ',' ) : new string [ 0 ] );
+			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader );
 		}
 
 		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader VertexShader, IShader PixelShader, IShader GeometryShader, params string [] attribName )

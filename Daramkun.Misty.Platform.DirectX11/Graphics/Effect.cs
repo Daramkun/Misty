@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,36 +25,17 @@ namespace Daramkun.Misty.Graphics
 			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader );
 		}
 
-		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc )
+		public Effect ( IGraphicsDevice graphicsDevice, Stream stream )
 		{
-			foreach ( XmlNode lang in xmlDoc.ChildNodes [ 1 ].ChildNodes )
+			string attribName;
+			foreach ( var v in ShaderXmlParser.Parse ( stream, out attribName ) )
 			{
-				if ( lang.Name != "language" ) throw new ArgumentException ();
-				if ( lang.Attributes [ "type" ].Value != "hlsl" ) continue;
-				if ( ( lang.Attributes [ "version" ] != null && new Version ( lang.Attributes [ "version" ].Value ) <= Core.GraphicsDevice.Information.ShaderVersion )
-					|| lang.Attributes [ "version" ] == null )
+				IShader shader = new Shader ( graphicsDevice, v.Key, v.Value );
+				switch ( v.Key )
 				{
-					foreach ( XmlNode node in lang.ChildNodes )
-					{
-						if ( node.Name == "shader" )
-						{
-							switch ( node.Attributes [ "type" ].Value )
-							{
-								case "vertex":
-									if ( VertexShader != null ) break;
-									VertexShader = new Shader ( graphicsDevice, ShaderType.VertexShader, node.ChildNodes [ 0 ].Value );
-									break;
-								case "pixel":
-									if ( PixelShader != null ) break;
-									PixelShader = new Shader ( graphicsDevice, ShaderType.PixelShader, node.ChildNodes [ 0 ].Value );
-									break;
-								case "geometry":
-									if ( GeometryShader != null ) break;
-									GeometryShader = new Shader ( graphicsDevice, ShaderType.GeometryShader, node.ChildNodes [ 0 ].Value );
-									break;
-							}
-						}
-					}
+					case ShaderType.VertexShader: VertexShader = shader; break;
+					case ShaderType.PixelShader: PixelShader = shader; break;
+					case ShaderType.GeometryShader: GeometryShader = shader; break;
 				}
 			}
 
@@ -74,6 +56,8 @@ namespace Daramkun.Misty.Graphics
 			if ( graphicsContext.Owner != Thread.CurrentThread ) throw new Exception ( "This thread is not owner of Context." );
 
 			var context = graphicsContext.Handle as SharpDX.Direct3D11.DeviceContext;
+
+			( graphicsContext as GraphicsContext ).currentVertexShader = VertexShader as Shader;
 
 			context.VertexShader.Set ( VertexShader.Handle as SharpDX.Direct3D11.VertexShader );
 			context.PixelShader.Set ( PixelShader.Handle as SharpDX.Direct3D11.PixelShader );

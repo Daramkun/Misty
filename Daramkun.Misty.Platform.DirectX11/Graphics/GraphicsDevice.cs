@@ -22,8 +22,9 @@ namespace Daramkun.Misty.Graphics
 
 		public object Handle { get { return renderTarget.Resource; } }
 
-		internal BackBuffer ( SharpDX.Direct3D11.Resource backBuffer )
+		internal BackBuffer ( SharpDX.Direct3D11.Device device, SharpDX.Direct3D11.Resource backBuffer )
 		{
+			d3dDevice = device;
 			renderTarget = new SharpDX.Direct3D11.RenderTargetView ( d3dDevice, backBuffer );
 			MakeDepthStencil ( 800, 600 );
 		}
@@ -144,10 +145,9 @@ namespace Daramkun.Misty.Graphics
 					Usage = SharpDX.DXGI.Usage.RenderTargetOutput
 				},
 				out d3dDevice, out dxgiSwapChain );
-			//d3dContext = d3dDevice.ImmediateContext;
 			ImmediateContext = new GraphicsContext ( this, true );
 
-			BackBuffer = new BackBuffer ( dxgiSwapChain.GetBackBuffer<SharpDX.Direct3D11.Resource> ( 0 ) );
+			BackBuffer = new BackBuffer ( d3dDevice, dxgiSwapChain.GetBackBuffer<SharpDX.Direct3D11.Resource> ( 0 ) );
 		}
 
 		protected override void Dispose ( bool isDisposing )
@@ -207,14 +207,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			return new Effect ( this, vertexShader, pixelShader, geometryShader, attribName );
 		}
-		public IEffect CreateEffect ( Stream xmlStream )
-		{
-			TextReader reader = new StreamReader ( xmlStream );
-			XmlDocument doc = new XmlDocument ();
-			doc.LoadXml ( reader.ReadToEnd () );
-			return CreateEffect ( doc );
-		}
-		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
+		public IEffect CreateEffect ( Stream xmlStream ) { return new Effect ( this, xmlStream ); }
 
 #pragma warning disable
 		public event EventHandler DeviceLost;

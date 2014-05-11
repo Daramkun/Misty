@@ -105,7 +105,8 @@ namespace Daramkun.Misty.Graphics
 		internal GraphicsContext ( IGraphicsDevice graphicsDevice, bool isImmediate )
 		{
 			GraphicsDevice = graphicsDevice;
-
+			d3dContext = isImmediate ? ( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext :
+				new SharpDX.Direct3D11.DeviceContext ( graphicsDevice.Handle as SharpDX.Direct3D11.Device );
 		}
 
 		public void BeginScene ( IRenderBuffer renderBuffer = null )
