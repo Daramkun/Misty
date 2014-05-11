@@ -81,14 +81,6 @@ namespace Daramkun.Misty.Graphics
 			device.PixelShader = pixelShader.Handle as SharpDX.Direct3D9.PixelShader;
 		}
 
-		public void End ()
-		{
-			SharpDX.Direct3D9.Device device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
-
-			device.VertexShader = null;
-			device.PixelShader = null;
-		}
-
 		public void SetUniform<T> ( string name, T value ) where T : struct
 		{
 			SetUniform<T> ( name, ref value );

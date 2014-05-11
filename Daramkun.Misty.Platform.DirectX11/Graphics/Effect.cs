@@ -81,13 +81,6 @@ namespace Daramkun.Misty.Graphics
 				context.GeometryShader.Set ( GeometryShader.Handle as SharpDX.Direct3D11.GeometryShader );
 		}
 
-		public void End ()
-		{
-			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.VertexShader.Set ( null );
-			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.PixelShader.Set ( null );
-			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.GeometryShader.Set ( null );
-		}
-
 		public void SetUniform<T> ( string name, T value ) where T : struct
 		{
 			

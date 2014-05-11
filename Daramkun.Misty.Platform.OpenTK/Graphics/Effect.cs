@@ -93,7 +93,6 @@ namespace Daramkun.Misty.Graphics
 			if ( graphicsContext.Owner != Thread.CurrentThread ) throw new Exception ( "This thread is not owner of Context." );
 			GL.UseProgram ( programId );
 		}
-		public void End () { GL.UseProgram ( 0 ); }
 
 		public void SetUniform<T> ( string name, T value ) where T : struct { SetUniform<T> ( name, ref value ); }
 		public void SetUniform<T> ( string name, ref T value ) where T : struct
