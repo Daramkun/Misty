@@ -135,37 +135,37 @@ namespace Daramkun.Misty.Graphics.Spirit
 			}
 		}
 
-		public void Draw ( World2 transform )
+		public void Draw ( World2 transform, IGraphicsContext graphicsContext = null )
 		{
+			if ( graphicsContext == null )
+				graphicsContext = Core.GraphicsDevice.ImmediateContext;
+
 			Matrix4x4 matrix;
-			Effect.Begin ();
+			Effect.Use ( graphicsContext );
 			Effect.SetTextures ( textureArgument );
-			projectionMatrix.OffCenterSize = Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Size ();
+			projectionMatrix.OffCenterSize = graphicsContext.CurrentRenderBuffer.Size ();
 			projectionMatrix.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
-			DepthStencil lastDepthStencil = Core.GraphicsDevice.ImmediateContext.DepthStencil;
-			Core.GraphicsDevice.ImmediateContext.DepthStencil = new DepthStencil () { DepthEnable = false, StencilState = null };
-			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( vertexBuffer, vertexDeclaration, PrimitiveType.TriangleStrip );
-			Core.GraphicsDevice.ImmediateContext.Draw ( 0, 2 );
-			Core.GraphicsDevice.ImmediateContext.DepthStencil = lastDepthStencil;
-			Effect.End ();
+			graphicsContext.DepthStencil = new DepthStencil () { DepthEnable = false, StencilState = null };
+			graphicsContext.InputAssembler = new InputAssembler ( vertexBuffer, vertexDeclaration, PrimitiveType.TriangleStrip );
+			graphicsContext.Draw ( 0, 2 );
 		}
 
-		public void Draw ( ref Vector2 position, ref Vector2 scale, ref Vector2 scaleCenter, float rotation, ref Vector2 rotationCenter )
+		public void Draw ( ref Vector2 position, ref Vector2 scale, ref Vector2 scaleCenter, float rotation, ref Vector2 rotationCenter, IGraphicsContext graphicsContext = null )
 		{
 			innerWorld.Translate = position;
 			innerWorld.Scale = scale;
 			innerWorld.ScaleCenter = scaleCenter;
 			innerWorld.Rotation = rotation;
 			innerWorld.RotationCenter = rotationCenter;
-			Draw ( innerWorld );
+			Draw ( innerWorld, graphicsContext );
 		}
 
-		public void Draw ( Vector2 position, Vector2 scale, Vector2 scaleCenter, float rotation, Vector2 rotationCenter )
+		public void Draw ( Vector2 position, Vector2 scale, Vector2 scaleCenter, float rotation, Vector2 rotationCenter, IGraphicsContext graphicsContext = null )
 		{
-			Draw ( ref position, ref scale, ref scaleCenter, rotation, ref rotationCenter );
+			Draw ( ref position, ref scale, ref scaleCenter, rotation, ref rotationCenter, graphicsContext );
 		}
 
 		public void Reset ()

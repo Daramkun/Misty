@@ -132,14 +132,13 @@ namespace Test.Game.Terrain
 
 			base.Draw ( gameTime );
 
-			effect.Begin ();
+			effect.Use ( Core.GraphicsDevice.ImmediateContext );
 			effect.SetUniform<Matrix4x4> ( "worldMatrix", world.Matrix );
 			effect.SetUniform<Matrix4x4> ( "viewMatrix", look.Matrix );
 			effect.SetUniform<Matrix4x4> ( "projMatrix", proj.Matrix );
 			effect.SetTextures ( textureArgs );
 			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( vertexBuffer, vertexDeclaration, PrimitiveType.TriangleList, indexBuffer );
 			Core.GraphicsDevice.ImmediateContext.Draw ( 0, numOfIndices );
-			effect.End ();
 
 			spriteWorld.Translate = new Vector2 ( 0, Core.GraphicsDevice.ImmediateContext.CurrentRenderBuffer.Height - texture1.Height );
 			sprite.Reset ( texture1 );

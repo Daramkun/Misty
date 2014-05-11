@@ -33,14 +33,9 @@ namespace Daramkun.Misty.Graphics.Spirit
 			base.Dispose ( isDisposing );
 		}
 
-		public void Begin ()
+		public void Use ( IGraphicsContext graphicsContext )
 		{
-			baseEffect.Begin ();
-		}
-
-		public void End ()
-		{
-			baseEffect.End ();
+			baseEffect.Use ( graphicsContext );
 		}
 
 		public void SetUniform<T> ( string name, T value ) where T : struct

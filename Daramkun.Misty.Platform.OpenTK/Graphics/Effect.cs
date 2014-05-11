@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Daramkun.Misty.Common;
@@ -87,7 +88,11 @@ namespace Daramkun.Misty.Graphics
 			base.Dispose ( isDisposing );
 		}
 
-		public void Begin () { GL.UseProgram ( programId ); }
+		public void Use ( IGraphicsContext graphicsContext )
+		{
+			if ( graphicsContext.Owner != Thread.CurrentThread ) throw new Exception ( "This thread is not owner of Context." );
+			GL.UseProgram ( programId );
+		}
 		public void End () { GL.UseProgram ( 0 ); }
 
 		public void SetUniform<T> ( string name, T value ) where T : struct { SetUniform<T> ( name, ref value ); }

@@ -28,8 +28,7 @@ namespace Daramkun.Misty.Graphics
 		IShader PixelShader { get; }
 		IShader GeometryShader { get; }
 
-		void Begin ();
-		void End ();
+		void Use ( IGraphicsContext graphicsContext );
 
 		void SetUniform<T> ( string name, T value ) where T : struct;
 		void SetUniform<T> ( string name, ref T value ) where T : struct;

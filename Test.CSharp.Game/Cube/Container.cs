@@ -119,13 +119,12 @@ namespace Test.Game.CSharp.Cube
 			lookAt.GetMatrix ( out lookAtMatrix );
 			world.GetMatrix ( out worldMatrix );
 
-			cubeEffect.Begin ();
+			cubeEffect.Use ( Core.GraphicsDevice.ImmediateContext );
 			cubeEffect.SetUniform ( "projMatrix", ref projMatrix );
 			cubeEffect.SetUniform ( "viewMatrix", ref lookAtMatrix );
 			cubeEffect.SetUniform ( "worldMatrix", ref worldMatrix );
 			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( cubeVertices, vertexDeclarataion, PrimitiveType.TriangleList, cubeIndices );
 			Core.GraphicsDevice.ImmediateContext.Draw ( 0, 12 );
-			cubeEffect.End ();
 
 			base.Draw ( gameTime );
 

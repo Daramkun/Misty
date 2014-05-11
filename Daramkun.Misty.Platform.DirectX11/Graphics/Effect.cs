@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Daramkun.Misty.Common;
@@ -68,13 +69,16 @@ namespace Daramkun.Misty.Graphics
 			GeometryShader = geometryShader;
 		}
 
-		public void Begin ()
+		public void Use ( IGraphicsContext graphicsContext )
 		{
-			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.VertexShader.Set ( VertexShader.Handle as SharpDX.Direct3D11.VertexShader );
-			( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.PixelShader.Set ( PixelShader.Handle as SharpDX.Direct3D11.PixelShader );
+			if ( graphicsContext.Owner != Thread.CurrentThread ) throw new Exception ( "This thread is not owner of Context." );
+
+			var context = graphicsContext.Handle as SharpDX.Direct3D11.DeviceContext;
+
+			context.VertexShader.Set ( VertexShader.Handle as SharpDX.Direct3D11.VertexShader );
+			context.PixelShader.Set ( PixelShader.Handle as SharpDX.Direct3D11.PixelShader );
 			if ( GeometryShader != null )
-				( graphicsDevice.Handle as SharpDX.Direct3D11.Device ).ImmediateContext.GeometryShader.
-					Set ( GeometryShader.Handle as SharpDX.Direct3D11.GeometryShader );
+				context.GeometryShader.Set ( GeometryShader.Handle as SharpDX.Direct3D11.GeometryShader );
 		}
 
 		public void End ()

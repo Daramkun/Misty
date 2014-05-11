@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using Daramkun.Misty.Common;
@@ -70,8 +71,10 @@ namespace Daramkun.Misty.Graphics
 			base.Dispose ( isDisposing );
 		}
 
-		public void Begin ()
+		public void Use ( IGraphicsContext graphicsContext )
 		{
+			if ( graphicsContext.Owner != Thread.CurrentThread ) throw new Exception ( "This thread is not owner of Context." );
+
 			SharpDX.Direct3D9.Device device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
 
 			device.VertexShader = vertexShader.Handle as SharpDX.Direct3D9.VertexShader;

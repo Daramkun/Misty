@@ -17,8 +17,7 @@ namespace Daramkun.Misty.Graphics
 		public int Count { get { return effects.Length; } }
 		public IEffect CurrentEffect { get { return effects [ Pass ]; } }
 
-		public void Begin () { effects [ Pass ].Begin (); }
-		public void End () { effects [ Pass ].End (); }
+		public void Use ( IGraphicsContext graphicsContext ) { effects [ Pass ].Use ( graphicsContext ); }
 
 		public void SetUniform<T> ( string name, T value ) where T : struct
 		{
