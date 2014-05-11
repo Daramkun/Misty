@@ -35,6 +35,8 @@ namespace Daramkun.Misty.Log
 		public static MessageFormat MessageFormat { get; set; }
 		public static IEnumerable<ILogWriter> LogWriters { get; private set; }
 
+		public static bool IsParallelLoggingMode { get; set; }
+
 		public static LogLevel LogLevel { get; set; }
 
 		static Logger ()
@@ -76,8 +78,15 @@ namespace Daramkun.Misty.Log
 			builder.Append ( String.Format ( message, args ) );
 
 			string tempString = builder.ToString ();
+			if ( IsParallelLoggingMode )
+				ThreadPool.QueueUserWorkItem ( Logging, tempString );
+			else Logging ( tempString );
+		}
+
+		private static void Logging ( object tempString )
+		{
 			foreach ( ILogWriter logWriter in LogWriters )
-				logWriter.WriteLog ( tempString );
+				logWriter.WriteLog ( tempString as string );
 		}
 	}
 }
