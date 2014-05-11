@@ -13,6 +13,7 @@ namespace Daramkun.Misty.Graphics
 		Version rendererVersion, shaderVersion;
 
 		public BaseRenderer BaseRenderer { get { return Graphics.BaseRenderer.OpenGL; } }
+		public ShaderLanguage ShaderLanguage { get { return ShaderLanguage.GLSL; } }
 		public Version RendererVersion
 		{
 			get

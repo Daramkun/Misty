@@ -13,6 +13,7 @@ namespace Daramkun.Misty.Graphics
 		SharpDX.Direct3D9.Capabilities d3dCaps;
 
 		public BaseRenderer BaseRenderer { get { return BaseRenderer.DirectX; } }
+		public ShaderLanguage ShaderLanguage { get { return ShaderLanguage.HLSL; } }
 		public Version RendererVersion { get { return new Version ( 9, 0 ); } }
 		public Version ShaderVersion { get { return new Version ( 3, 0 ); } }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,38 +27,20 @@ namespace Daramkun.Misty.Graphics
 			InitializeEffect ( graphicsDevice, vertexShader, pixelShader, geometryShader, attribName );
 		}
 
-		public Effect ( IGraphicsDevice graphicsDevice, XmlDocument xmlDoc )
+		public Effect (IGraphicsDevice graphicsDevice, Stream stream)
 		{
-			foreach ( XmlNode lang in xmlDoc.ChildNodes [ 1 ].ChildNodes )
+			string attribName;
+			foreach ( var v in ShaderXmlParser.Parse ( stream, out attribName ) )
 			{
-				if ( lang.Name != "language" ) throw new ArgumentException ();
-				if ( lang.Attributes [ "type" ].Value != "hlsl" ) continue;
-				if ( ( lang.Attributes [ "version" ] != null && new Version ( lang.Attributes [ "version" ].Value ) <= Core.GraphicsDevice.Information.ShaderVersion )
-					|| lang.Attributes [ "version" ] == null )
+				IShader shader = new Shader ( graphicsDevice, v.Key, v.Value );
+				switch ( v.Key )
 				{
-					foreach ( XmlNode node in lang.ChildNodes )
-					{
-						if ( node.Name == "shader" )
-						{
-							switch ( node.Attributes [ "type" ].Value )
-							{
-								case "vertex":
-									if ( VertexShader != null ) break;
-									vertexShader = new Shader ( graphicsDevice, ShaderType.VertexShader, node.ChildNodes [ 0 ].Value );
-									break;
-								case "pixel":
-									if ( PixelShader != null ) break;
-									pixelShader = new Shader ( graphicsDevice, ShaderType.PixelShader, node.ChildNodes [ 0 ].Value );
-									break;
-								case "geometry":
-									throw new PlatformNotSupportedException ();
-							}
-						}
-					}
+					case ShaderType.VertexShader: vertexShader = shader; break;
+					case ShaderType.PixelShader: pixelShader = shader; break;
 				}
 			}
 
-			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader );
+			InitializeEffect ( graphicsDevice, VertexShader, PixelShader, GeometryShader, attribName != null ? attribName.Split ( ',' ) : new string [ 0 ] );
 		}
 
 		private void InitializeEffect ( IGraphicsDevice graphicsDevice, IShader VertexShader, IShader PixelShader, IShader GeometryShader, params string [] attribName )

@@ -9,6 +9,7 @@ using Daramkun.Misty.Mathematics;
 namespace Daramkun.Misty.Graphics
 {
 	public enum BaseRenderer : byte { Unknown, DirectX, MonoGame, OpenGL, OpenGLES, }
+	public enum ShaderLanguage : byte { Unknown, HLSL, GLSL, GLSLES, CgFX, MgFX, PSM, ShaderLab, }
 
 	public enum CullMode : byte { None, ClockWise, CounterClockWise, }
 	public enum FillMode : byte { Wireframe, Solid, }
@@ -33,6 +34,7 @@ namespace Daramkun.Misty.Graphics
 	public interface IGraphicsDeviceInformation
 	{
 		BaseRenderer BaseRenderer { get; }
+		ShaderLanguage ShaderLanguage { get; }
 		Version RendererVersion { get; }
 		Version ShaderVersion { get; }
 		string DeviceVendor { get; }

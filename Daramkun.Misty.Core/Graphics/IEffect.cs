@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Daramkun.Misty.Graphics
 {
-	public enum ShaderType
+	public enum ShaderType : byte
 	{
 		VertexShader = 1,
-		PixelShader,
-		GeometryShader,
+		PixelShader = 2,
+		GeometryShader = 3,
+		
+		MixedShader = 7,
 	}
 
 	public interface IShader : IDisposable

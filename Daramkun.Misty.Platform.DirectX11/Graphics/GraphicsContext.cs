@@ -74,6 +74,12 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		public InputAssembler InputAssembler
+		{
+			get { }
+			set { }
+		}
+
 		public Viewport Viewport
 		{
 			get

@@ -44,13 +44,6 @@ namespace Daramkun.Misty.Graphics
 		{
 			return new Effect ( this, vertexShader, pixelShader, geometryShader, attribName );
 		}
-		public IEffect CreateEffect ( Stream xmlStream )
-		{
-			TextReader reader = new StreamReader ( xmlStream );
-			XmlDocument doc = new XmlDocument ();
-			doc.LoadXml ( reader.ReadToEnd () );
-			return CreateEffect ( doc );
-		}
-		public IEffect CreateEffect ( XmlDocument xmlDoc ) { return new Effect ( this, xmlDoc ); }
+		public IEffect CreateEffect ( Stream xmlStream ) { return new Effect ( this, xmlStream ); }
 	}
 }

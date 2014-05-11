@@ -152,6 +152,8 @@ namespace Daramkun.Misty.Graphics
 				BackbufferResized ( this, null );
 		}
 
+		public IGraphicsContext CreateDeferredContext () { return new GraphicsContext ( this, false ); }
+
 		public IRenderBuffer CreateRenderBuffer ( int width, int height )
 		{
 			return new RenderBuffer ( this, width, height );
