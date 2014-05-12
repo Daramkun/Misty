@@ -112,16 +112,5 @@ namespace Daramkun.Misty.Graphics
 			constantTable.SetValue<float> ( device, handle, value );
 			if ( !handleCache.ContainsKey ( name ) ) handleCache.Add ( name, handle );
 		}
-
-		public void SetTextures ( params TextureArgument [] args )
-		{
-			var device = graphicsDevice.Handle as SharpDX.Direct3D9.Device;
-			var constantTable = ( pixelShader.Handle as SharpDX.Direct3D9.PixelShader ).Function.ConstantTable;
-
-			foreach ( TextureArgument texture in args )
-			{
-
-			}
-		}
 	}
 }

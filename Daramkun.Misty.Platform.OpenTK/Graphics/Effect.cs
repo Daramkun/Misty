@@ -14,6 +14,12 @@ namespace Daramkun.Misty.Graphics
 {
 	class Effect : StandardDispose, IEffect
 	{
+		static readonly Type TypeMatrix4x4 = typeof ( Matrix4x4 );
+		static readonly Type TypeVector2 = typeof ( Vector2 );
+		static readonly Type TypeVector3 = typeof ( Vector3 );
+		static readonly Type TypeVector4 = typeof ( Vector4 );
+		static readonly Type TypeFloat = typeof ( float );
+
 		int programId;
 
 		public object Handle { get { return programId; } }
@@ -97,78 +103,30 @@ namespace Daramkun.Misty.Graphics
 		public void SetUniform<T> ( string name, T value ) where T : struct { SetUniform<T> ( name, ref value ); }
 		public void SetUniform<T> ( string name, ref T value ) where T : struct
 		{
-			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			Type baseType = typeof ( T );
-			if ( baseType == typeof ( int ) ) { GL.Uniform1 ( uniform, ( int ) ( object ) value ); }
-			else if ( baseType == typeof ( float ) ) { GL.Uniform1 ( uniform, ( float ) ( object ) value ); }
-			else if ( baseType == typeof ( Vector2 ) ) { Vector2 v = ( Vector2 ) ( object ) value; GL.Uniform2 ( uniform, v.X, v.Y ); }
-			else if ( baseType == typeof ( Vector3 ) ) { Vector3 v = ( Vector3 ) ( object ) value; GL.Uniform3 ( uniform, v.X, v.Y, v.Z ); }
-			else if ( baseType == typeof ( Vector4 ) ) { Vector4 v = ( Vector4 ) ( object ) value; GL.Uniform4 ( uniform, v.X, v.Y, v.Z, v.W ); }
-			else if ( baseType == typeof ( Matrix4x4 ) )
+			if ( baseType == TypeMatrix4x4 )
 			{
-				 Matrix4x4 v = ( Matrix4x4 ) ( object ) value;
-				 GL.UniformMatrix4 ( uniform, 1, false, v.ToArray () );
+				Matrix4x4 v = ( Matrix4x4 ) ( object ) value;
+				GL.UniformMatrix4 ( uniform, 1, false, v.ToArray () );
 			}
+			else if ( baseType == TypeVector2 ) { Vector2 v = ( Vector2 ) ( object ) value; GL.Uniform2 ( uniform, v.X, v.Y ); }
+			else if ( baseType == TypeVector3 ) { Vector3 v = ( Vector3 ) ( object ) value; GL.Uniform3 ( uniform, v.X, v.Y, v.Z ); }
+			else if ( baseType == TypeVector4 ) { Vector4 v = ( Vector4 ) ( object ) value; GL.Uniform4 ( uniform, v.X, v.Y, v.Z, v.W ); }
+			else if ( baseType == TypeFloat ) { GL.Uniform1 ( uniform, ( float ) ( object ) value ); }
+			else if ( baseType == typeof ( int ) ) { GL.Uniform1 ( uniform, ( int ) ( object ) value ); }
 		}
 
 		public void SetUniform ( string name, params int [] value )
 		{
-			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			GL.Uniform1 ( uniform, value.Length, value );
 		}
 
 		public void SetUniform ( string name, params float [] value )
 		{
-			GL.UseProgram ( programId );
 			int uniform = GL.GetUniformLocation ( programId, name );
 			GL.Uniform1 ( uniform, value.Length, value );
-		}
-
-		public void SetTextures ( params TextureArgument [] args )
-		{
-			for ( int i = 0; i < args.Length; i++ )
-			{
-				if ( args [ i ] == null ) continue;
-
-				GL.ActiveTexture ( TextureUnit.Texture0 + i );
-
-				TextureTarget target = ( args [ i ].Texture is ITexture2D ) ? TextureTarget.Texture2D :
-					( ( args [ i ].Texture is ITexture1D ) ? TextureTarget.Texture1D : ( args [ i ].Texture is ITexture3D ) ? TextureTarget.Texture3D : 0 );
-
-				GL.BindTexture ( target, ( int ) args [ i ].Texture.Handle );
-
-				GL.TexParameter ( target, TextureParameterName.TextureMinFilter, GetFilter ( args [ i ].Filter ) );
-				GL.TexParameter ( target, TextureParameterName.TextureMagFilter, GetFilter ( args [ i ].Filter ) );
-
-				GL.TexParameter ( target, TextureParameterName.TextureWrapS, GetAddressing ( args [ i ].Addressing ) );
-				GL.TexParameter ( target, TextureParameterName.TextureWrapT, GetAddressing ( args [ i ].Addressing ) );
-
-				GL.TexParameter ( target, ( TextureParameterName ) ExtTextureFilterAnisotropic.TextureMaxAnisotropyExt, args [ i ].AnisotropicLevel );
-			}
-		}
-
-		private int GetAddressing ( TextureAddressing textureAddressing )
-		{
-			switch ( textureAddressing )
-			{
-				case TextureAddressing.Wrap: return ( int ) TextureWrapMode.Repeat;
-				case TextureAddressing.Mirror: return ( int ) TextureWrapMode.MirroredRepeat;
-				case TextureAddressing.Clamp: return ( int ) TextureWrapMode.Clamp;
-				default: throw new ArgumentException ();
-			}
-		}
-
-		private int GetFilter ( TextureFilter textureFilter )
-		{
-			switch ( textureFilter )
-			{
-				case TextureFilter.Nearest: return ( int ) TextureMinFilter.Nearest;
-				case TextureFilter.Linear: return ( int ) TextureMinFilter.Linear;
-				case TextureFilter.Anisotropic: return ( int ) TextureMinFilter.LinearMipmapLinear;
-				default: throw new ArgumentException ();
-			}
 		}
 	}
 }
