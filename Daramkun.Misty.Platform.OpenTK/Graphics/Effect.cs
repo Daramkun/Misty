@@ -128,7 +128,6 @@ namespace Daramkun.Misty.Graphics
 
 		public void SetTextures ( params TextureArgument [] args )
 		{
-			GL.UseProgram ( programId );
 			for ( int i = 0; i < args.Length; i++ )
 			{
 				if ( args [ i ] == null ) continue;
@@ -147,9 +146,6 @@ namespace Daramkun.Misty.Graphics
 				GL.TexParameter ( target, TextureParameterName.TextureWrapT, GetAddressing ( args [ i ].Addressing ) );
 
 				GL.TexParameter ( target, ( TextureParameterName ) ExtTextureFilterAnisotropic.TextureMaxAnisotropyExt, args [ i ].AnisotropicLevel );
-
-				int uniform = GL.GetUniformLocation ( programId, args [ i ].Uniform );
-				GL.Uniform1 ( uniform, i );
 			}
 		}
 
