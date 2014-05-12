@@ -34,15 +34,15 @@ namespace Daramkun.Misty.Graphics.Spirit
 		static IVertexDeclaration vertexDeclaration;
 		static int indexReference;
 		static SpriteEffect baseSpriteEffect;
-		static OrthographicOffCenterProjection projectionMatrix;
 
 		SpriteVertex [] vertices = new SpriteVertex [ 4 ];
 		IBuffer vertexBuffer;
 		Rectangle clippingArea;
 		Color overlayColor = Color.White;
-		TextureArgument textureArgument;
+		SamplerState textureArgument;
 
 		World2 innerWorld;
+		OrthographicOffCenterProjection projectionMatrix;
 
 		public IEffect Effect { get; set; }
 		public ITexture2D Texture { get { return textureArgument.Texture as ITexture2D; } set { textureArgument.Texture = value; } }
@@ -94,9 +94,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 			}
 
 			if ( projectionMatrix == null )
-			{
 				projectionMatrix = new OrthographicOffCenterProjection ( 0, 800, 600, 0, 0.001f, 1000.0f );
-			}
 
 			Effect = effect;
 
@@ -108,7 +106,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 			vertexBuffer = Core.GraphicsDevice.CreateBuffer ( BufferType.VertexBuffer, typeof ( SpriteVertex ), 4 );
 
-			textureArgument = new TextureArgument ( texture, Graphics.TextureFilter.Nearest, TextureAddressing.Clamp, 0 );
+			textureArgument = new SamplerState ( texture, Graphics.TextureFilter.Nearest, TextureAddressing.Clamp, 0 );
 			Reset ( texture );
 
 			innerWorld = new World2();
@@ -149,7 +147,6 @@ namespace Daramkun.Misty.Graphics.Spirit
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );
 			transform.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "worldMatrix", ref matrix );
-			graphicsContext.DepthStencil = new DepthStencil () { DepthEnable = false, StencilState = null };
 			graphicsContext.InputAssembler = new InputAssembler ( vertexBuffer, vertexDeclaration, PrimitiveType.TriangleStrip );
 			graphicsContext.Draw ( 0, 2 );
 		}

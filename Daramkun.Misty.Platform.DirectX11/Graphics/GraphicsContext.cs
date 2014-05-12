@@ -102,7 +102,7 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
-		public void SetSampler(int slot, TextureArgument sampler)
+		public void SetSampler(int slot, SamplerState sampler)
 		{
 
 		}

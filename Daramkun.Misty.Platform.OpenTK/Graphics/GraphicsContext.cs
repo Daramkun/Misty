@@ -139,7 +139,7 @@ namespace Daramkun.Misty.Graphics
 			set { GL.Viewport ( value.X, value.Y, value.Width, value.Height ); }
 		}
 
-		public void SetSampler ( int slot, TextureArgument sampler )
+		public void SetSampler ( int slot, SamplerState sampler )
 		{
 			GL.ActiveTexture ( TextureUnit.Texture0 + slot );
 

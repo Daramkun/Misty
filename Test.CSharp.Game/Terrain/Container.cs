@@ -30,7 +30,7 @@ namespace Test.Game.Terrain
 		World2 spriteWorld;
 
 		int numOfIndices;
-		TextureArgument textureArgs;
+		SamplerState textureArgs;
 
 		PerspectiveFieldOfViewProjection proj;
 		LookAt look;
@@ -48,7 +48,7 @@ namespace Test.Game.Terrain
 			Color [] colours = texture2.Buffer;
 			effect = contentManager.Load<IEffect> ( "Resources/Terrain/TerrainShader.xml" );
 
-			textureArgs = new TextureArgument ( texture1, TextureFilter.Anisotropic, TextureAddressing.Clamp,
+			textureArgs = new SamplerState ( texture1, TextureFilter.Anisotropic, TextureAddressing.Clamp,
 				Core.GraphicsDevice.Information.MaximumAnisotropicLevel );
 
 			vertexBuffer = Core.GraphicsDevice.CreateBuffer ( BufferType.VertexBuffer, typeof ( TerrainVertex ), texture2.Width * texture2.Height );

@@ -88,7 +88,7 @@ namespace Daramkun.Misty.Graphics
 			throw new NotImplementedException ();
 		}
 
-		public void SetTextures ( params TextureArgument [] args )
+		public void SetTextures ( params SamplerState [] args )
 		{
 			throw new NotImplementedException ();
 		}

@@ -282,7 +282,7 @@
     <Compile Include="Graphics\Spirit\Sprite.cs" />
     <Compile Include="Graphics\Spirit\SpriteEffect.cs" />
     <Compile Include="Graphics\DepthStencil.cs" />
-    <Compile Include="Graphics\TextureArgument.cs" />
+    <Compile Include="Graphics\SamplerState.cs" />
     <Compile Include="Inputs\Devices\BaseAccelerometer.cs" />
     <Compile Include="Inputs\Devices\BaseGamePad.cs" />
     <Compile Include="Inputs\Devices\BaseKeyboard.cs" />

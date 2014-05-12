@@ -19,14 +19,14 @@ namespace Daramkun.Misty.Graphics
 		Clamp,
 	}
 
-	public class TextureArgument
+	public class SamplerState
 	{
 		public ITexture Texture { get; set; }
 		public TextureFilter Filter { get; set; }
 		public TextureAddressing Addressing { get; set; }
 		public int AnisotropicLevel { get; set; }
 
-		public TextureArgument ( ITexture t, TextureFilter f, TextureAddressing a, int al )
+		public SamplerState ( ITexture t, TextureFilter f, TextureAddressing a, int al )
 		{
 			Texture = t; Filter = f; Addressing = a; AnisotropicLevel = al;
 		}
