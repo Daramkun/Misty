@@ -37,6 +37,9 @@ namespace Daramkun.Misty.Platforms
 			}
 		}
 
+		public bool IsSupportPlatform { get { if ( PlatformInformation.PlatformType != PlatformType.Unknown ) return true; return false; } }
+		public float SupportWeight { get { return (PlatformInformation.PlatformType == PlatformType.WindowsNT) ? 0.5f : ((PlatformInformation.PlatformType == PlatformType.Unknown) ? 0 : 1.0f); } }
+
 		public bool Initialize ( bool audioIncluded = true )
 		{
 			if ( PlatformInformation.PlatformType != PlatformType.WindowsNT &&
