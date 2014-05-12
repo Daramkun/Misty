@@ -269,5 +269,27 @@ namespace Daramkun.Misty.Graphics
 			if ( ( buffer & ClearBuffer.StencilBuffer ) != 0 ) bufferMask |= OpenTK.Graphics.OpenGL.ClearBufferMask.StencilBufferBit;
 			return bufferMask;
 		}
+
+		private int GetAddressing ( TextureAddressing textureAddressing )
+		{
+			switch ( textureAddressing )
+			{
+				case TextureAddressing.Wrap: return ( int ) TextureWrapMode.Repeat;
+				case TextureAddressing.Mirror: return ( int ) TextureWrapMode.MirroredRepeat;
+				case TextureAddressing.Clamp: return ( int ) TextureWrapMode.Clamp;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private int GetFilter ( TextureFilter textureFilter )
+		{
+			switch ( textureFilter )
+			{
+				case TextureFilter.Nearest: return ( int ) TextureMinFilter.Nearest;
+				case TextureFilter.Linear: return ( int ) TextureMinFilter.Linear;
+				case TextureFilter.Anisotropic: return ( int ) TextureMinFilter.LinearMipmapLinear;
+				default: throw new ArgumentException ();
+			}
+		}
 	}
 }

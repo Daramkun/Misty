@@ -63,6 +63,7 @@ namespace Daramkun.Misty.Graphics
 			context.PixelShader.Set ( PixelShader.Handle as SharpDX.Direct3D11.PixelShader );
 			if ( GeometryShader != null )
 				context.GeometryShader.Set ( GeometryShader.Handle as SharpDX.Direct3D11.GeometryShader );
+			
 		}
 
 		public void SetUniform<T> ( string name, T value ) where T : struct

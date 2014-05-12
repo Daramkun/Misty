@@ -102,6 +102,11 @@ namespace Daramkun.Misty.Graphics
 			}
 		}
 
+		public void SetSampler(int slot, TextureArgument sampler)
+		{
+
+		}
+
 		internal GraphicsContext ( IGraphicsDevice graphicsDevice, bool isImmediate )
 		{
 			GraphicsDevice = graphicsDevice;

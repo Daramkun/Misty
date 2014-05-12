@@ -25,6 +25,8 @@ namespace Daramkun.Misty.Graphics
 
 		void BeginScene ( IRenderBuffer renderBuffer = null );
 		void EndScene ();
+		
+		void SetSampler ( int slot, TextureArgument sampler );
 
 		void Clear ( ClearBuffer clearBuffer, Color color, float depth = 1, int stencil = 0 );
 

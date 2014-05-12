@@ -108,7 +108,7 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 			vertexBuffer = Core.GraphicsDevice.CreateBuffer ( BufferType.VertexBuffer, typeof ( SpriteVertex ), 4 );
 
-			textureArgument = new TextureArgument ( "texture0", texture, Graphics.TextureFilter.Nearest, TextureAddressing.Clamp, 0 );
+			textureArgument = new TextureArgument ( texture, Graphics.TextureFilter.Nearest, TextureAddressing.Clamp, 0 );
 			Reset ( texture );
 
 			innerWorld = new World2();
@@ -142,7 +142,8 @@ namespace Daramkun.Misty.Graphics.Spirit
 
 			Matrix4x4 matrix;
 			Effect.Use ( graphicsContext );
-			Effect.SetTextures ( textureArgument );
+			//Effect.SetTextures ( textureArgument );
+			graphicsContext.SetSampler ( 0, textureArgument );
 			projectionMatrix.OffCenterSize = graphicsContext.CurrentRenderBuffer.Size ();
 			projectionMatrix.GetMatrix ( out matrix );
 			Effect.SetUniform<Matrix4x4> ( "projectionMatrix", ref matrix );

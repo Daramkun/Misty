@@ -216,5 +216,27 @@ namespace Daramkun.Misty.Graphics
 				default: throw new ArgumentException ();
 			}
 		}
+
+		private int ChangeFilter ( TextureFilter textureFilter )
+		{
+			switch ( textureFilter )
+			{
+				case TextureFilter.Nearest: return ( int ) SharpDX.Direct3D9.TextureFilter.Point;
+				case TextureFilter.Linear: return ( int ) SharpDX.Direct3D9.TextureFilter.Linear;
+				case TextureFilter.Anisotropic: return ( int ) SharpDX.Direct3D9.TextureFilter.Anisotropic;
+				default: throw new ArgumentException ();
+			}
+		}
+
+		private int ChangeAddress ( TextureAddressing textureAddressing )
+		{
+			switch ( textureAddressing )
+			{
+				case TextureAddressing.Wrap: return ( int ) SharpDX.Direct3D9.TextureAddress.Wrap;
+				case TextureAddressing.Mirror: return ( int ) SharpDX.Direct3D9.TextureAddress.Mirror;
+				case TextureAddressing.Clamp: return ( int ) SharpDX.Direct3D9.TextureAddress.Clamp;
+				default: throw new ArgumentException ();
+			}
+		}
 	}
 }

@@ -35,6 +35,6 @@ namespace Daramkun.Misty.Graphics
 		void SetUniform ( string name, params int [] value );
 		void SetUniform ( string name, params float [] value );
 
-		void SetTextures ( params TextureArgument [] args );
+		//void SetTextures ( params TextureArgument [] args );
 	}
 }

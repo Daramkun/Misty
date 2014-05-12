@@ -48,7 +48,7 @@ namespace Test.Game.Terrain
 			Color [] colours = texture2.Buffer;
 			effect = contentManager.Load<IEffect> ( "Resources/Terrain/TerrainShader.xml" );
 
-			textureArgs = new TextureArgument ( "texture0", texture1, TextureFilter.Anisotropic, TextureAddressing.Clamp,
+			textureArgs = new TextureArgument ( texture1, TextureFilter.Anisotropic, TextureAddressing.Clamp,
 				Core.GraphicsDevice.Information.MaximumAnisotropicLevel );
 
 			vertexBuffer = Core.GraphicsDevice.CreateBuffer ( BufferType.VertexBuffer, typeof ( TerrainVertex ), texture2.Width * texture2.Height );
@@ -136,7 +136,7 @@ namespace Test.Game.Terrain
 			effect.SetUniform<Matrix4x4> ( "worldMatrix", world.Matrix );
 			effect.SetUniform<Matrix4x4> ( "viewMatrix", look.Matrix );
 			effect.SetUniform<Matrix4x4> ( "projMatrix", proj.Matrix );
-			effect.SetTextures ( textureArgs );
+			Core.GraphicsDevice.ImmediateContext.SetSampler ( 0, textureArgs );
 			Core.GraphicsDevice.ImmediateContext.InputAssembler = new InputAssembler ( vertexBuffer, vertexDeclaration, PrimitiveType.TriangleList, indexBuffer );
 			Core.GraphicsDevice.ImmediateContext.Draw ( 0, numOfIndices );
 

@@ -58,9 +58,9 @@ namespace Daramkun.Misty.Graphics.Spirit
 			baseEffect.SetUniform ( name, value );
 		}
 
-		public void SetTextures ( params TextureArgument [] args )
+		/*public void SetTextures ( params TextureArgument [] args )
 		{
 			baseEffect.SetTextures ( args );
-		}
+		}*/
 	}
 }

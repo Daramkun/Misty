@@ -139,6 +139,25 @@ namespace Daramkun.Misty.Graphics
 			set { GL.Viewport ( value.X, value.Y, value.Width, value.Height ); }
 		}
 
+		public void SetSampler ( int slot, TextureArgument sampler )
+		{
+			GL.ActiveTexture ( TextureUnit.Texture0 + slot );
+
+			TextureTarget target = ( sampler.Texture is ITexture2D ) ? TextureTarget.Texture2D :
+					   ( ( sampler.Texture is ITexture1D ) ? TextureTarget.Texture1D : 
+					   ( sampler.Texture is ITexture3D ) ? TextureTarget.Texture3D : 0 );
+
+			GL.BindTexture ( target, ( int ) sampler.Texture.Handle );
+
+			GL.TexParameter ( target, TextureParameterName.TextureMinFilter, GetFilter ( sampler.Filter ) );
+			GL.TexParameter ( target, TextureParameterName.TextureMagFilter, GetFilter ( sampler.Filter ) );
+
+			GL.TexParameter ( target, TextureParameterName.TextureWrapS, GetAddressing ( sampler.Addressing ) );
+			GL.TexParameter ( target, TextureParameterName.TextureWrapT, GetAddressing ( sampler.Addressing ) );
+
+			GL.TexParameter ( target, ( TextureParameterName ) ExtTextureFilterAnisotropic.TextureMaxAnisotropyExt, sampler.AnisotropicLevel );
+		}
+
 		public GraphicsContext ( IGraphicsDevice graphicsDevice, bool isImmediate )
 		{
 			GraphicsDevice = graphicsDevice;

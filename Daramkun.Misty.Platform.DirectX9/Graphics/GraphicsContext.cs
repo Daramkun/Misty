@@ -109,6 +109,21 @@ namespace Daramkun.Misty.Graphics
 			set { ( d3dDevice.Target as SharpDX.Direct3D9.Device ).Viewport = new SharpDX.Viewport ( value.X, value.Y, value.Width, value.Height ); }
 		}
 
+		public void SetSampler(int slot, TextureArgument sampler)
+		{
+			SharpDX.Direct3D9.Device device = GraphicsDevice.Handle as SharpDX.Direct3D9.Device;
+			device.SetSamplerState ( slot, SharpDX.Direct3D9.SamplerState.MinFilter, ChangeFilter ( sampler.Filter ) );
+			device.SetSamplerState ( slot, SharpDX.Direct3D9.SamplerState.MagFilter, ChangeFilter ( sampler.Filter ) );
+
+			device.SetSamplerState ( slot, SharpDX.Direct3D9.SamplerState.AddressU, ChangeAddress ( sampler.Addressing ) );
+			device.SetSamplerState ( slot, SharpDX.Direct3D9.SamplerState.AddressV, ChangeAddress ( sampler.Addressing ) );
+
+			device.SetSamplerState ( slot, SharpDX.Direct3D9.SamplerState.MaxAnisotropy, sampler.AnisotropicLevel );
+
+			device.SetTexture ( slot, sampler.Texture.Handle as SharpDX.Direct3D9.Texture );
+			device.SetTextureStageState ( slot, SharpDX.Direct3D9.TextureStage.TexCoordIndex, slot );
+		}
+
 		public GraphicsContext ( IGraphicsDevice graphicsDevice )
 		{
 			GraphicsDevice = graphicsDevice;

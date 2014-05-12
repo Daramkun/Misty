@@ -39,10 +39,10 @@ namespace Daramkun.Misty.Graphics
 			effects [ Pass ].SetUniform ( name, value );
 		}
 
-		public void SetTextures ( params TextureArgument[] args )
+		/*public void SetTextures ( params TextureArgument[] args )
 		{
 			effects [ Pass ].SetTextures ( args );
-		}
+		}*/
 
 		public PassedEffect ( params IEffect [] args )
 		{
