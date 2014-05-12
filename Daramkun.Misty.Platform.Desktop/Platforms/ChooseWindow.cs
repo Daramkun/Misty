@@ -131,9 +131,14 @@ namespace Daramkun.Misty.Platforms
 				foreach ( Type type in asm.GetTypes () )
 				{
 					if ( Utilities.IsSubtypeOf ( type, typeof ( ILauncher ) ) )
-						launchers.Add ( Activator.CreateInstance ( type ) as ILauncher );
+					{
+						ILauncher launcher = Activator.CreateInstance ( type ) as ILauncher;
+						if ( launcher.IsSupportPlatform )
+							launchers.Add ( launcher );
+					}
 				}
 			}
+			launchers.Sort ( ( ILauncher launcher1, ILauncher launcher2 ) => { return launcher1.SupportWeight > launcher2.SupportWeight ? 1 : 0; } );
 			this.pafs = launchers.ToArray ();
 		}
 

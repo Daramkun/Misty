@@ -31,7 +31,7 @@ namespace Daramkun.Misty.Platforms
 		}
 		
 		public bool IsSupportPlatform { get { if ( PlatformInformation.PlatformType != PlatformType.Unknown ) return true; return false; } }
-		public int SupportWeight { get { return IsSupportPlatform ? 1.0f : 0; } }
+		public float SupportWeight { get { return IsSupportPlatform ? 1.0f : 0; } }
 
 		public bool Initialize ( bool audioIncluded = true )
 		{
