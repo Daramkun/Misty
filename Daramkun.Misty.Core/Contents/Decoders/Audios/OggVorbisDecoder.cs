@@ -28,14 +28,14 @@ namespace Daramkun.Misty.Contents.Decoders.Audios
 					TimeSpan totalTime = ( TimeSpan ) ( object ) ( ( ( object [] ) ( object ) raw ) [ 1 ] );
 	
 					if ( timeSpan != null )
-						reader.DecodedTime = timeSpan.Value;
+						reader2.DecodedTime = timeSpan.Value;
 
-					if ( reader.DecodedTime >= totalTime )
+					if ( reader2.DecodedTime >= totalTime )
 						return null;
 
 					float [] buffer = ( float [] ) ( object ) ( ( ( object [] ) ( object ) raw ) [ 2 ] );
 					byte [] returnBuffer = ( byte [] ) ( object ) ( ( ( object [] ) ( object ) raw ) [ 3 ] );
-					int count = reader.ReadSamples ( buffer, 0, buffer.Length );
+					int count = reader2.ReadSamples ( buffer, 0, buffer.Length );
 
 					CastBuffer ( buffer, returnBuffer, count );
 					return returnBuffer;

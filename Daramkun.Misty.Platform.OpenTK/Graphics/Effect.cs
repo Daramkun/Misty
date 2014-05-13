@@ -105,11 +105,7 @@ namespace Daramkun.Misty.Graphics
 		{
 			int uniform = GL.GetUniformLocation ( programId, name );
 			Type baseType = typeof ( T );
-			if ( baseType == TypeMatrix4x4 )
-			{
-				Matrix4x4 v = ( Matrix4x4 ) ( object ) value;
-				GL.UniformMatrix4 ( uniform, 1, false, v.ToArray () );
-			}
+			if ( baseType == TypeMatrix4x4 ) GL.UniformMatrix4 ( uniform, 1, false, ( ( Matrix4x4 ) ( object ) value ).ToArray () );
 			else if ( baseType == TypeVector2 ) { Vector2 v = ( Vector2 ) ( object ) value; GL.Uniform2 ( uniform, v.X, v.Y ); }
 			else if ( baseType == TypeVector3 ) { Vector3 v = ( Vector3 ) ( object ) value; GL.Uniform3 ( uniform, v.X, v.Y, v.Z ); }
 			else if ( baseType == TypeVector4 ) { Vector4 v = ( Vector4 ) ( object ) value; GL.Uniform4 ( uniform, v.X, v.Y, v.Z, v.W ); }
