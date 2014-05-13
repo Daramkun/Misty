@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Daramkun.Misty.Graphics
 {
-	public enum StencilFunction
+	public enum StencilFunction : byte
 	{
 		Never,
 		Less,
@@ -17,7 +17,7 @@ namespace Daramkun.Misty.Graphics
 		Always,
 	}
 
-	public enum StencilOperator
+	public enum StencilOperator : byte
 	{
 		Keep,
 		Zero,

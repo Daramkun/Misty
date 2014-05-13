@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Daramkun.Misty.Graphics
 {
-	public enum TextureFilter
+	public enum TextureFilter : byte
 	{
 		Nearest,
 		Linear,
 		Anisotropic,
 	}
 
-	public enum TextureAddressing
+	public enum TextureAddressing : byte
 	{
 		Wrap,
 		Mirror,

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Daramkun.Misty.Graphics
 {
-	public enum ElementType
+	public enum ElementType : byte
 	{
 		Position,
 		Diffuse,
@@ -16,7 +16,7 @@ namespace Daramkun.Misty.Graphics
 		TextureCoord,
 	}
 
-	public enum ElementSize { Float1, Float2, Float3, Float4, }
+	public enum ElementSize : byte { Float1, Float2, Float3, Float4, }
 
 	public struct VertexElement
 	{

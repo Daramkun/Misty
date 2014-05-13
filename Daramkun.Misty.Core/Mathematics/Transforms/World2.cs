@@ -49,13 +49,20 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		public void GetMatrix ( out Matrix4x4 result )
 		{
 			result = Matrix4x4.Identity;
-			result *= CommonTransform.Translate ( new Vector3 ( -RotationCenter, 0 ) );
-			result *= CommonTransform.RotationZ ( Rotation );
-			result *= CommonTransform.Translate ( new Vector3 ( RotationCenter, 0 ) );
-			result *= CommonTransform.Translate ( new Vector3 ( -ScaleCenter, 0 ) );
-			result *= CommonTransform.Scale ( new Vector3 ( Scale, 1 ) );
-			result *= CommonTransform.Translate ( new Vector3 ( ScaleCenter, 0 ) );
-			result *= CommonTransform.Translate ( new Vector3 ( Translate, 0 ) );
+			Matrix4x4 temp = CommonTransform.Translate ( new Vector3 ( -RotationCenter, 0 ) );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.RotationZ ( Rotation );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( new Vector3 ( RotationCenter, 0 ) );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( new Vector3 ( -ScaleCenter, 0 ) );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Scale ( new Vector3 ( Scale, 1 ) );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( new Vector3 ( ScaleCenter, 0 ) );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( new Vector3 ( Translate, 0 ) );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
 		}
 	}
 }

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Daramkun.Misty.Graphics
 {
-	public enum BlendParameter
+	public enum BlendParameter : byte
 	{
 		Zero = 0,
 		One,
@@ -21,7 +21,7 @@ namespace Daramkun.Misty.Graphics
 		InvertDestinationColor,
 	}
 
-	public enum BlendOperator
+	public enum BlendOperator : byte
 	{
 		Add,
 		Subtract,

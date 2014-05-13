@@ -55,13 +55,20 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		public void GetMatrix ( out Matrix4x4 result )
 		{
 			result = Matrix4x4.Identity;
-			result *= CommonTransform.Translate ( -RotationCenter );
-			result *= CommonTransform.RotationXYZ ( Rotation );
-			result *= CommonTransform.Translate ( RotationCenter );
-			result *= CommonTransform.Translate ( -ScaleCenter );
-			result *= CommonTransform.Scale ( Scale );
-			result *= CommonTransform.Translate ( ScaleCenter );
-			result *= CommonTransform.Translate ( Translate );
+			Matrix4x4 temp = CommonTransform.Translate ( -RotationCenter );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.RotationXYZ ( Rotation );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( RotationCenter );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( -ScaleCenter );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Scale ( Scale );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( ScaleCenter );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
+			temp = CommonTransform.Translate ( Translate );
+			Matrix4x4.Multiply ( ref result, ref temp, out result );
 		}
 	}
 }
