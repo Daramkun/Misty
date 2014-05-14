@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Daramkun.Misty.Common;
@@ -182,8 +183,13 @@ namespace Daramkun.Misty.Platforms
 
 			if ( isClickedOK )
 			{
-				Core.BaseFileSystem = new LocalFileSystem ();
-				Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
+				Thread thread = new Thread ( () =>
+				{
+					Core.BaseFileSystem = new LocalFileSystem ();
+					Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
+				} );
+				thread.Start ();
+				thread.Join ();
 			}
 		}
 	}
