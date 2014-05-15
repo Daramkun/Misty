@@ -74,7 +74,7 @@ namespace Daramkun.Misty
 			if ( Window != null ) Window.Dispose ();
 		}
 
-		public static void Run ( ILauncher launcher, Node mainNode, bool isInitializeAudio = true, IGameLooper gameLooper = null, Type gameTimeType = null )
+		public static void Run ( ILauncher launcher, Node mainNode, IGameLooper gameLooper = null, Type gameTimeType = null )
 		{
 			Launcher = launcher;
 			MainNode = mainNode;
@@ -93,7 +93,7 @@ namespace Daramkun.Misty
 
 			thisThread = Thread.CurrentThread;
 
-			launcher.Initialize ( isInitializeAudio );
+			launcher.Initialize ();
 			Window.Show ();
 			mainNode.Intro ();
 			isRunningMode = true;

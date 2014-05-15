@@ -49,7 +49,7 @@ namespace Test.Desktop
 					Assembly.Load ( "Daramkun.Misty.Platform.Desktop" )
 				}
 			);
-			chooseWindow.Run ( true );
+			chooseWindow.Run ();
 		}
 	}
 }

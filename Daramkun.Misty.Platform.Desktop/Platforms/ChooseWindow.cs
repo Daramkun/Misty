@@ -17,14 +17,14 @@ namespace Daramkun.Misty.Platforms
 	{
 		Form window;
 
-		ILauncher [] pafs;
-		Node [] mainNodes;
-		IGameLooper [] gameLoopers;
+		protected ILauncher [] pafs;
+		protected Node [] mainNodes;
+		protected IGameLooper [] gameLoopers;
 
-		bool isClickedOK = false;
-		int selectedPaf = 0;
-		int selectedLooper = 0;
-		int selectedNode = 0;
+		protected bool isClickedOK = false;
+		protected int selectedPaf = 0;
+		protected int selectedLooper = 0;
+		protected int selectedNode = 0;
 
 		private class ChooseForm : Form
 		{
@@ -124,7 +124,7 @@ namespace Daramkun.Misty.Platforms
 			window.CancelButton = cancelButton;
 		}
 
-		private void AnalyzePAFs ( Assembly [] pafs )
+		protected void AnalyzePAFs ( Assembly [] pafs )
 		{
 			List<ILauncher> launchers = new List<ILauncher> ();
 			foreach ( Assembly asm in pafs )
@@ -143,7 +143,7 @@ namespace Daramkun.Misty.Platforms
 			this.pafs = launchers.ToArray ();
 		}
 
-		private void AnalyzeGameLoopers ( Assembly [] gameLoopers )
+		protected void AnalyzeGameLoopers ( Assembly [] gameLoopers )
 		{
 			List<IGameLooper> loopers = new List<IGameLooper> ();
 			foreach ( Assembly asm in gameLoopers )
@@ -157,7 +157,7 @@ namespace Daramkun.Misty.Platforms
 			this.gameLoopers = loopers.ToArray ();
 		}
 
-		private void AnalyzeMainNodes ( Assembly [] mainNodes )
+		protected void AnalyzeMainNodes ( Assembly [] mainNodes )
 		{
 			List<Node> nodes = new List<Node> ();
 			foreach ( Assembly asm in mainNodes )
@@ -177,20 +177,25 @@ namespace Daramkun.Misty.Platforms
 			this.mainNodes = nodes.ToArray ();
 		}
 
-		public void Run ( bool isInitializeAudio = true )
+		protected virtual void RunChooseWindow()
 		{
 			Application.Run ( window );
+		}
+
+		public void Run ()
+		{
+			RunChooseWindow ();
 
 			if ( isClickedOK )
 			{
-				Thread thread = new Thread ( () =>
+				Thread gameThread = new Thread ( () =>
 				{
-					Core.BaseFileSystem = new LocalFileSystem ();
-					Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
+					Core.Run ( this.pafs [ selectedPaf ], this.mainNodes [ selectedNode ], 
+						this.gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
 				} );
-				thread.SetApartmentState ( ApartmentState.STA );
-				thread.Start ();
-				thread.Join ();
+				gameThread.SetApartmentState ( ApartmentState.STA );
+				gameThread.Start ();
+				gameThread.Join ();
 			}
 		}
 	}

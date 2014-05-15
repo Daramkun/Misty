@@ -11,6 +11,7 @@ namespace Daramkun.Misty.Platforms
 	public class Window : StandardDispose, IWindow, IWindowDesktop
 	{
 		OpenTK.GameWindow window;
+		OpenTK.Toolkit toolkit;
 
 		public string Title { get { return window.Title; } set { window.Title = value; } }
 		public Vector2 ClientSize
@@ -36,6 +37,8 @@ namespace Daramkun.Misty.Platforms
 
 		public Window ()
 		{
+			toolkit = OpenTK.Toolkit.Init ();
+
 			window = new OpenTK.GameWindow ( 800, 600,
 				new OpenTK.Graphics.GraphicsMode ( new OpenTK.Graphics.ColorFormat ( 32 ), 16, 8 ), "Misty Framework" );
 			window.ClientSize = new System.Drawing.Size ( 800, 600 );
@@ -58,6 +61,8 @@ namespace Daramkun.Misty.Platforms
 			{
 				window.Dispose ();
 				window = null;
+
+				toolkit.Dispose ();
 			}
 			base.Dispose ( isDisposing );
 		}
