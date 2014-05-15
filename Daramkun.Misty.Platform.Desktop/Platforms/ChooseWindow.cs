@@ -188,6 +188,7 @@ namespace Daramkun.Misty.Platforms
 					Core.BaseFileSystem = new LocalFileSystem ();
 					Core.Run ( pafs [ selectedPaf ], mainNodes [ selectedNode ], isInitializeAudio, gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
 				} );
+				thread.SetApartmentState ( ApartmentState.STA );
 				thread.Start ();
 				thread.Join ();
 			}
