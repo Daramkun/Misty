@@ -63,6 +63,7 @@
     <Compile Include="Graphics\Texture3D.cs" />
     <Compile Include="Graphics\Buffer.cs" />
     <Compile Include="Graphics\VertexDeclaration.cs" />
+    <Compile Include="Inputs\Devices\GamePad.cs" />
     <Compile Include="Inputs\Devices\Keyboard.cs" />
     <Compile Include="Inputs\Devices\Mouse.cs" />
     <Compile Include="Platforms\Launcher.cs" />

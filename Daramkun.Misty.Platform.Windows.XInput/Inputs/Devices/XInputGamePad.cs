@@ -66,7 +66,7 @@ namespace Daramkun.Misty.Inputs.Devices
 
 			return new GamePadState (
 				new Vector2 ( gamepad.LeftThumbX / 32767.0f, gamepad.LeftThumbY / 32767.0f ),
-				new Vector2 ( gamepad.LeftThumbX / 32767.0f, gamepad.LeftThumbY / 32767.0f ),
+				new Vector2 ( gamepad.RightThumbX / 32767.0f, gamepad.RightThumbY / 32767.0f ),
 				gamepad.LeftTrigger / 255.0f,
 				gamepad.RightTrigger / 255.0f,
 				gamePadButton
