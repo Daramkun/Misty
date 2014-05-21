@@ -33,7 +33,7 @@ namespace Daramkun.Misty.Platforms
 		public bool IsSupportPlatform { get { if ( PlatformInformation.PlatformType != PlatformType.Unknown ) return true; return false; } }
 		public float SupportWeight { get { return IsSupportPlatform ? 1.0f : 0; } }
 
-		public bool Initialize ( bool audioIncluded = true )
+		public bool Initialize ()
 		{
 			try
 			{
@@ -42,8 +42,7 @@ namespace Daramkun.Misty.Platforms
 			}
 			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); return false; }
 
-			try { if ( audioIncluded ) Core.SetAudioDevice ( new AudioDevice ( Core.Window ) ); }
-			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); }
+			Core.SetAudioDevice ( new AudioDevice ( Core.Window ) );
 
 			Core.Inputs.Add<KeyboardState> ( new Keyboard ( Core.Window ) );
 			Core.Inputs.Add<MouseState> ( new Mouse ( Core.Window ) );

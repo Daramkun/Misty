@@ -11,6 +11,6 @@ namespace Daramkun.Misty.Platforms
 		bool IsSupportPlatform { get; }
 		float SupportWeight { get; }
 
-		bool Initialize ( bool audioIncluded = true );
+		bool Initialize ();
 	}
 }

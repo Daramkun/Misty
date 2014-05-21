@@ -21,7 +21,7 @@ namespace Daramkun.Misty.Audios
 
 		public object Handle { get { return _context; } }
 
-		public AudioDevice ( IWindow window )
+		public AudioDevice ()
 		{
 			try
 			{

@@ -32,7 +32,7 @@ namespace Daramkun.Misty.Platforms
 		public bool IsSupportPlatform { get { if ( PlatformInformation.PlatformType != PlatformType.Unknown ) return true; return false; } }
 		public float SupportWeight { get { return IsSupportPlatform ? 0.75f : 0f; } }
 
-		public bool Initialize ( bool audioIncluded = true )
+		public bool Initialize ()
 		{
 			try
 			{
@@ -41,14 +41,11 @@ namespace Daramkun.Misty.Platforms
 			}
 			catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); return false; }
 
-			//try { if ( audioIncluded ) Core.SetAudioDevice ( new AudioDevice ( Core.Window ) ); }
-			//catch ( Exception e ) { Logger.Write ( LogLevel.Level5, e.Message ); }
+			Core.SetAudioDevice ( new AudioDevice () );
 
 			Core.Inputs.Add<KeyboardState> ( new Keyboard ( Core.Window ) );
 			Core.Inputs.Add<MouseState> ( new Mouse ( Core.Window ) );
 			Core.Inputs.Add<GamePadState> ( new GamePad ( Core.Window ) );
-
-			//CommonTransform.HandDirection = HandDirection.LeftHand;
 			return true;
 		}
 
