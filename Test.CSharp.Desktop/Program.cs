@@ -31,7 +31,7 @@ namespace Test.Desktop
 			Core.FixedUpdateTimeStep = new TimeSpan ();
 			Core.FixedDrawTimeStep = new TimeSpan ();
 			FileSystemManager.AddFileSystem ( "LocalFileSystem", typeof ( LocalFileSystem ) );
-			ChooseWindow chooseWindow = new ChooseWindow ( "Tester via C#",
+			ChooseWindow.Show ( "Tester via C#",
 				new Assembly []
 				{
 					Assembly.Load ( "Daramkun.Misty.Platform.OpenTK" ),
@@ -49,7 +49,6 @@ namespace Test.Desktop
 					Assembly.Load ( "Daramkun.Misty.Platform.Desktop" )
 				}
 			);
-			chooseWindow.Run ();
 		}
 	}
 }

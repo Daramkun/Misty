@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,6 +46,9 @@
     <Compile Include="Platforms\ChooseWindow.cs" />
     <Compile Include="Platforms\GameLoopers\ParallelGameLooper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Platforms\ChooseForm\IChooseForm.cs" />
+    <Compile Include="Platforms\ChooseForm\FormChooseForm.cs" />
+    <Compile Include="Platforms\ChooseForm\CocoaChooseForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Daramkun.Misty.Core\Daramkun.Misty.Core.csproj">
@@ -62,4 +67,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="Platforms\ChooseForm\" />
+  </ItemGroup>
 </Project>

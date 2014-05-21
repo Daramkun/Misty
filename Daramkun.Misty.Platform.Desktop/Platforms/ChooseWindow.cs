@@ -10,121 +10,70 @@ using System.Windows.Forms;
 using Daramkun.Misty.Common;
 using Daramkun.Misty.Contents.FileSystems;
 using Daramkun.Misty.Nodes;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using Daramkun.Misty.Platforms.ChooseForm;
 
 namespace Daramkun.Misty.Platforms
 {
-	public class ChooseWindow
+	public static class ChooseWindow
 	{
-		Form window;
-
-		protected ILauncher [] pafs;
-		protected Node [] mainNodes;
-		protected IGameLooper [] gameLoopers;
-
-		protected bool isClickedOK = false;
-		protected int selectedPaf = 0;
-		protected int selectedLooper = 0;
-		protected int selectedNode = 0;
-
-		private class ChooseForm : Form
+		#region For UNIX Kernel Detect
+		[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+		struct utsname
 		{
-			public ChooseForm ( string gameName, Icon icon )
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+			public string sysname;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+			public string nodename;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+			public string release;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+			public string version;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+			public string machine;
+			[MarshalAs(UnmanagedType.ByValTStr, SizeConst = 1024)]
+			public string extraJustInCase;
+		}
+
+		[DllImport("libc")]
+		private static extern void uname(out utsname uname_struct);
+		#endregion
+
+		static ILauncher [] pafs;
+		static Node [] mainNodes;
+		static IGameLooper [] gameLoopers;
+
+		public static void Show ( string gameName, Assembly [] pa, Assembly [] ma, Icon icon = null, Image coverImage = null, Assembly [] ga = null )
+		{
+			AnalyzePAFs ( pa );
+			if ( ga == null )
+				ga = new Assembly [] { Assembly.Load ( "Daramkun.Misty.Core" ) };
+			AnalyzeGameLoopers ( ga );
+			AnalyzeMainNodes ( ma );
+
+			IChooseForm chooseWindow = null;
+			if ( Environment.OSVersion.Platform != PlatformID.Unix )
 			{
-				Text = gameName;
-				BackColor = Color.White;
-				ClientSize = new Size ( 400, 260 );
-				FormBorderStyle = FormBorderStyle.FixedDialog;
-				StartPosition = FormStartPosition.CenterScreen;
-				MaximizeBox = false;
-				MinimizeBox = true;
-				Icon = icon;
+				utsname un;
+				uname ( out un );
+				if ( un.sysname.ToString () == "Darwin" )
+					chooseWindow = new CocoaChooseForm ();
+			}
+			if ( chooseWindow == null )
+				chooseWindow = new FormChooseForm ();
+
+			chooseWindow.InitializePlatform ();
+			chooseWindow.InitializeWindow ( gameName, coverImage, pafs, gameLoopers, mainNodes );
+
+			if ( chooseWindow.IsClickedOK )
+			{
+				Core.Run ( pafs [ chooseWindow.SelectedPAF ], mainNodes [ chooseWindow.SelectedMainNode ], 
+					gameLoopers [ chooseWindow.SelectedGameLooper ], typeof ( HighResolutionGameTime ) );
 			}
 		}
 
-		public ChooseWindow ( string gameName, Assembly [] pafs, Assembly [] mainNodes, Icon icon = null, Image coverImage = null, Assembly [] gameLoopers = null )
-		{
-			Application.EnableVisualStyles ();
-			Application.SetCompatibleTextRenderingDefault ( false );
-
-			window = new ChooseForm ( gameName, icon );
-			window.FormClosing += ( object sender, FormClosingEventArgs e ) =>
-			{
-				if ( isClickedOK ) return;
-			};
-
-			PictureBox cover = new PictureBox ();
-			cover.Image = coverImage ?? Image.FromStream (
-				Assembly.GetExecutingAssembly ().GetManifestResourceStream ( "Daramkun.Misty.Resources.DefaultCover.png" )
-			);
-			cover.Bounds = new Rectangle ( 0, 0, 400, 100 );
-			window.Controls.Add ( cover );
-
-			AnalyzePAFs ( pafs );
-			if ( gameLoopers == null )
-				gameLoopers = new Assembly [] { Assembly.Load ( "Daramkun.Misty.Core" ) };
-			AnalyzeGameLoopers ( gameLoopers );
-			AnalyzeMainNodes ( mainNodes );
-
-			Label pafLabel = new Label () { Text = "&PAF:", Bounds = new Rectangle ( 10, 120, 60, 24 ) };
-			window.Controls.Add ( pafLabel );
-
-			ComboBox pafComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 116, 310, 24 ) };
-			foreach ( ILauncher launcher in this.pafs ) pafComboBox.Items.Add ( launcher.ToString () );
-			if ( pafComboBox.Items.Count >= 1 )
-				pafComboBox.SelectedIndex = 0;
-			if ( pafComboBox.Items.Count <= 1 )
-				pafComboBox.Enabled = false;
-			window.Controls.Add ( pafComboBox );
-
-			Label glLabel = new Label () { Text = "&Looper:", Bounds = new Rectangle ( 10, 160, 60, 24 ) };
-			window.Controls.Add ( glLabel );
-
-			ComboBox glComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 156, 310, 24 ) };
-			foreach ( IGameLooper gl in this.gameLoopers ) glComboBox.Items.Add ( gl.ToString () );
-			if ( glComboBox.Items.Count >= 1 )
-				glComboBox.SelectedIndex = 0;
-			if ( glComboBox.Items.Count <= 1 )
-				glComboBox.Enabled = false;
-			window.Controls.Add ( glComboBox );
-
-			Label nodeLabel = new Label () { Text = "&Game:", Bounds = new Rectangle ( 10, 200, 60, 24 ) };
-			window.Controls.Add ( nodeLabel );
-
-			ComboBox nodeComboBox = new ComboBox () { DropDownStyle = ComboBoxStyle.DropDownList, Bounds = new Rectangle ( 70, 196, 310, 24 ) };
-			foreach ( Node node in this.mainNodes ) nodeComboBox.Items.Add ( node.ToString () );
-			if ( nodeComboBox.Items.Count >= 1 )
-				nodeComboBox.SelectedIndex = 0;
-			if ( nodeComboBox.Items.Count <= 1 )
-				nodeComboBox.Enabled = false;
-			window.Controls.Add ( nodeComboBox );
-
-			Button acceptButton = new Button () { Text = "&Run", Bounds = new Rectangle ( 120, 226, 80, 24 ) };
-			acceptButton.Click += ( object sender, EventArgs e ) =>
-			{
-				if ( pafComboBox.SelectedIndex < 0 ) { MessageBox.Show ( "Please select a Platform Abstraction Framework." ); return; }
-				if ( nodeComboBox.SelectedIndex < 0 ) { MessageBox.Show ( "Please select a Game." ); return; }
-
-				isClickedOK = true;
-				selectedPaf = pafComboBox.SelectedIndex;
-				selectedLooper = glComboBox.SelectedIndex;
-				selectedNode = nodeComboBox.SelectedIndex;
-				window.Close ();
-			};
-			window.Controls.Add ( acceptButton );
-
-			Button cancelButton = new Button () { Text = "E&xit", Bounds = new Rectangle ( 210, 226, 80, 24 ) };
-			cancelButton.Click += ( object sender, EventArgs e ) =>
-			{
-				isClickedOK = false;
-				window.Close (); 
-			};
-			window.Controls.Add ( cancelButton );
-
-			window.AcceptButton = acceptButton;
-			window.CancelButton = cancelButton;
-		}
-
-		protected void AnalyzePAFs ( Assembly [] pafs )
+		static void AnalyzePAFs ( Assembly [] pafs )
 		{
 			List<ILauncher> launchers = new List<ILauncher> ();
 			foreach ( Assembly asm in pafs )
@@ -140,10 +89,10 @@ namespace Daramkun.Misty.Platforms
 				}
 			}
 			launchers.Sort ( ( ILauncher launcher1, ILauncher launcher2 ) => { return launcher1.SupportWeight > launcher2.SupportWeight ? 1 : 0; } );
-			this.pafs = launchers.ToArray ();
+			ChooseWindow.pafs = launchers.ToArray ();
 		}
 
-		protected void AnalyzeGameLoopers ( Assembly [] gameLoopers )
+		static void AnalyzeGameLoopers ( Assembly [] gameLoopers )
 		{
 			List<IGameLooper> loopers = new List<IGameLooper> ();
 			foreach ( Assembly asm in gameLoopers )
@@ -154,10 +103,10 @@ namespace Daramkun.Misty.Platforms
 						loopers.Add ( Activator.CreateInstance ( type ) as IGameLooper );
 				}
 			}
-			this.gameLoopers = loopers.ToArray ();
+			ChooseWindow.gameLoopers = loopers.ToArray ();
 		}
 
-		protected void AnalyzeMainNodes ( Assembly [] mainNodes )
+		static void AnalyzeMainNodes ( Assembly [] mainNodes )
 		{
 			List<Node> nodes = new List<Node> ();
 			foreach ( Assembly asm in mainNodes )
@@ -174,29 +123,7 @@ namespace Daramkun.Misty.Platforms
 					}
 				}
 			}
-			this.mainNodes = nodes.ToArray ();
-		}
-
-		protected virtual void RunChooseWindow()
-		{
-			Application.Run ( window );
-		}
-
-		public void Run ()
-		{
-			RunChooseWindow ();
-
-			if ( isClickedOK )
-			{
-				Thread gameThread = new Thread ( () =>
-				{
-					Core.Run ( this.pafs [ selectedPaf ], this.mainNodes [ selectedNode ], 
-						this.gameLoopers [ selectedLooper ], typeof ( HighResolutionGameTime ) );
-				} );
-				gameThread.SetApartmentState ( ApartmentState.STA );
-				gameThread.Start ();
-				gameThread.Join ();
-			}
+			ChooseWindow.mainNodes = nodes.ToArray ();
 		}
 	}
 }
