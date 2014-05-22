@@ -36,7 +36,7 @@ namespace Test.Game.PerformanceTester
 			Texture2DContentLoader.AddDefaultDecoders ();
 
 			textures = new ITexture2D [ 6 ];
-			textures [ 0 ] = contentManager.Load<ITexture2D> ( "Resources/PerformanceTest/0096x0096.png" );
+			textures [ 0 ] = contentManager.Load<ITexture2D> ( "Resources/PerformanceTest/0096x0096.tga" );
 			textures [ 1 ] = contentManager.Load<ITexture2D> ( "Resources/PerformanceTest/0128x0128.png" );
 			textures [ 2 ] = contentManager.Load<ITexture2D> ( "Resources/PerformanceTest/0256x0256.png" );
 			textures [ 3 ] = contentManager.Load<ITexture2D> ( "Resources/PerformanceTest/0512x0512.png" );

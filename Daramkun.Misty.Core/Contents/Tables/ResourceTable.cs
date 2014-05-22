@@ -119,14 +119,15 @@ namespace Daramkun.Misty.Contents.Tables
 				bool exist = false;
 
 				if ( FileSystem.IsFileExist ( key = PathCombine ( Core.CurrentCulture.Name, filename ) ) ) exist = true;
-				else if ( localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = filename ) ) exist = true;
+				else if ( localeFileSystems.ContainsKey ( Core.CurrentCulture ) && localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = filename ) ) exist = true;
 				else if ( FileSystem.IsFileExist ( key = PathCombine ( "unknown", filename ) ) ) exist = true;
 				else
 				{
 					foreach ( string ext in loader.FileExtensions )
 					{
 						if ( exist = FileSystem.IsFileExist ( key = PathCombine ( Core.CurrentCulture.Name, string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) ) break;
-						else if ( exist = localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) break;
+						else if ( localeFileSystems.ContainsKey ( Core.CurrentCulture ) &&
+							( exist = localeFileSystems [ Core.CurrentCulture ].IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) ) break;
 						else if ( exist = FileSystem.IsFileExist ( key = PathCombine ( "unknown", string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) ) break;
 						else if ( exist = FileSystem.IsFileExist ( key = string.Format ( "{0}.{1}", filename, ext.ToLower () ) ) ) break;
 					}

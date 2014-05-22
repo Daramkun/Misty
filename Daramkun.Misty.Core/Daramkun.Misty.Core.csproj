@@ -236,7 +236,9 @@
     <Compile Include="Contents\Decoders\IDecoder.cs" />
     <Compile Include="Contents\Decoders\Images\BitmapDecoder.cs" />
     <Compile Include="Contents\Decoders\Images\JpegDecoder.cs" />
+    <Compile Include="Contents\Decoders\Images\PcxDecoder.cs" />
     <Compile Include="Contents\Decoders\Images\PngDecoder.cs" />
+    <Compile Include="Contents\Decoders\Images\TargaDecoder.cs" />
     <Compile Include="Contents\Decoders\Packs\WalnutPackageDecoder.cs" />
     <Compile Include="Contents\Encoders\Audios\WaveEncoder.cs" />
     <Compile Include="Contents\Encoders\IEncoder.cs" />

@@ -53,7 +53,7 @@ namespace Daramkun.Misty.Platforms
 			AnalyzeMainNodes ( ma );
 
 			IChooseForm chooseWindow = null;
-			if ( Environment.OSVersion.Platform != PlatformID.Unix )
+			if ( Environment.OSVersion.Platform != PlatformID.Win32NT )
 			{
 				utsname un;
 				uname ( out un );
@@ -65,6 +65,8 @@ namespace Daramkun.Misty.Platforms
 
 			chooseWindow.InitializePlatform ();
 			chooseWindow.InitializeWindow ( gameName, coverImage, pafs, gameLoopers, mainNodes );
+
+			chooseWindow.RunWindow ();
 
 			if ( chooseWindow.IsClickedOK )
 			{

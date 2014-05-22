@@ -25,6 +25,8 @@ namespace Daramkun.Misty.Contents.Readers
 			Decoders.Add ( new BitmapDecoder () );
 			Decoders.Add ( new PngDecoder () );
 			Decoders.Add ( new JpegDecoder () );
+			Decoders.Add ( new TargaDecoder () );
+			Decoders.Add ( new PcxDecoder () );
 		}
 
 		public Type ContentType { get { return typeof ( ITexture2D ); } }
