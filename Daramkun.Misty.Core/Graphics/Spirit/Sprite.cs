@@ -14,11 +14,11 @@ namespace Daramkun.Misty.Graphics.Spirit
 	[StructLayout ( LayoutKind.Sequential )]
 	struct SpriteVertex
 	{
-		[VertexElementation ( Graphics.ElementType.Position )]
+		[VertexElementation ( ElementType.Position )]
 		public Vector2 Position;
-		[VertexElementation ( Graphics.ElementType.Diffuse )]
+		[VertexElementation ( ElementType.Diffuse )]
 		public Color Diffuse;
-		[VertexElementation ( Graphics.ElementType.TextureCoord )]
+		[VertexElementation ( ElementType.TextureCoord )]
 		public Vector2 TexCoord;
 
 		public SpriteVertex ( Vector2 pos, Color dif, Vector2 tex )
