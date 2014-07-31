@@ -35,6 +35,7 @@
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
     <Folder Include="Contents\Decoders\Models\" />
+    <Folder Include="Contents\Decoders\Videos\" />
     <Folder Include="Contents\Encoders\Packages\" />
     <Folder Include="Contents\Writers\" />
   </ItemGroup>
@@ -251,7 +252,6 @@
     <Compile Include="Contents\IContentWriter.cs" />
     <Compile Include="Contents\IFileSystem.cs" />
     <Compile Include="Contents\ImageInfo.cs" />
-    <Compile Include="Contents\ModelInfo.cs" />
     <Compile Include="Contents\Readers\AudioContentLoader.cs" />
     <Compile Include="Contents\Readers\EffectContentLoader.cs" />
     <Compile Include="Contents\Readers\JsonContentLoader.cs" />

@@ -8,25 +8,6 @@ namespace Daramkun.Misty.Mathematics.Transforms
 	public static partial class CommonTransform
 	{
 		#region Orthographic Projection
-		/*
-		public static Matrix4x4 OrthographicLH ( float w, float h, float zn, float zf )
-		{
-			Matrix4x4 result;
-			OrthographicLH ( w, h, zn, zf, out result );
-			return result;
-		}
-
-		public static void OrthographicLH ( float w, float h, float zn, float zf, out Matrix4x4 result )
-		{
-			result = new Matrix4x4
-			(
-				2 / w, 0, 0, 0,
-				0, 2 / h, 0, 0,
-				0, 0, 1 / ( zf - zn ), 0,
-				0, 0, -zn / ( zf - zn ), 0
-			);
-		}
-		*/
 		public static Matrix4x4 OrthographicRH ( float w, float h, float zn, float zf )
 		{
 			Matrix4x4 result;
@@ -83,26 +64,6 @@ namespace Daramkun.Misty.Mathematics.Transforms
 		#endregion
 
 		#region Perspective Projection
-		/*
-		public static Matrix4x4 PerspectiveFieldOfViewLH ( float fov, float aspect, float zn, float zf )
-		{
-			Matrix4x4 result;
-			PerspectiveFieldOfViewLH ( fov, aspect, zn, zf, out result );
-			return result;
-		}
-
-		public static void PerspectiveFieldOfViewLH ( float fov, float aspect, float zn, float zf, out Matrix4x4 result )
-		{
-			float yScale = ( float ) ( Math.Cos ( fov / 2 ) / Math.Sin ( fov / 2 ) ), xScale = yScale / aspect;
-			result = new Matrix4x4
-			(
-				xScale, 0, 0, 0,
-				0, yScale, 0, 0,
-				0, 0, zf / ( zf - zn ), 1,
-				0, 0, -zn * zf / ( zf - zn ), 0
-			);
-		}
-		*/
 		public static Matrix4x4 PerspectiveFieldOfViewRH ( float fov, float aspect, float zn, float zf )
 		{
 			Matrix4x4 result;
@@ -121,25 +82,6 @@ namespace Daramkun.Misty.Mathematics.Transforms
 				0, 0, zn * zf / ( zn - zf ), 0
 			);
 		}
-		/*
-		public static Matrix4x4 PerspectiveLH ( float w, float h, float zn, float zf )
-		{
-			Matrix4x4 result;
-			PerspectiveLH ( w, h, zn, zf, out result );
-			return result;
-		}
-
-		public static void PerspectiveLH ( float w, float h, float zn, float zf, out Matrix4x4 result )
-		{
-			result = new Matrix4x4
-			(
-				2 * zn / w, 0, 0, 0,
-				0, 2 * zn / h, 0, 0,
-				0, 0, zf / ( zf - zn ), 1,
-				0, 0, zn * zf / ( zn - zf ), 0
-			);
-		}
-		*/
 		public static Matrix4x4 PerspectiveRH ( float w, float h, float zn, float zf )
 		{
 			Matrix4x4 result;
@@ -157,25 +99,6 @@ namespace Daramkun.Misty.Mathematics.Transforms
 				0, 0, zn * zf / ( zn - zf ), 0
 			);
 		}
-		/*
-		public static Matrix4x4 PerspectiveOffCenterLH ( float l, float r, float b, float t, float zn, float zf )
-		{
-			Matrix4x4 result;
-			PerspectiveOffCenterLH ( l, r, b, t, zn, zf, out result );
-			return result;
-		}
-
-		public static void PerspectiveOffCenterLH ( float l, float r, float b, float t, float zn, float zf, out Matrix4x4 result )
-		{
-			result = new Matrix4x4
-			(
-				2 * zn / ( r - l ), 0, 0, 0,
-				0, 2 * zn / ( t - b ), 0, 0,
-				( l + r ) / ( l - r ), ( t + b ) / ( b - t ), zf / ( zf - zn ), 1,
-				0, 0, zn * zf / ( zn - zf ), 0
-			);
-		}
-		*/
 		public static Matrix4x4 PerspectiveOffCenterRH ( float l, float r, float b, float t, float zn, float zf )
 		{
 			Matrix4x4 result;

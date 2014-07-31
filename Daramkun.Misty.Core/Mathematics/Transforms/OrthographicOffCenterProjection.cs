@@ -36,7 +36,7 @@ namespace Daramkun.Misty.Mathematics.Transforms
 			//if ( CommonTransform.HandDirection == HandDirection.RightHand )
 			//	CommonTransform.OrthographicOffCenterRH ( left, right, bottom, top, Near, Far, out result );
 			//else
-				CommonTransform.OrthographicOffCenterLH ( left, right, bottom, top, Near, Far, out result );
+				CommonTransform.OrthographicOffCenterRH ( left, right, bottom, top, Near, Far, out result );
 		}
 	}
 }
